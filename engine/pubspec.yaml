@@ -1,0 +1,27 @@
+name: engine
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ">=2.16.0-134.5.beta <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  uuid: ^3.0.4
+  kt_dart: ^0.10.0
+  json_annotation: ^4.0.1
+  dartz: ^0.10.0-nullsafety.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^1.5.3
+  json_serializable: ^6.1.4
+  freezed: ^1.1.1
+  build_runner: ^2.1.7
+  flutter_lints: ^1.0.0
+
+flutter:
