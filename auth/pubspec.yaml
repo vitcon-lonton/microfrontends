@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   uuid: ^3.0.4
   kt_dart: ^0.10.0
-  json_annotation: ^4.0.1
+  json_annotation: ^4.1.0
   freezed_annotation: ^1.1.0
   dartz: ^0.10.0-nullsafety.2
   engine:
@@ -23,7 +23,10 @@ dependencies:
   google_sign_in: ^5.0.4
   cloud_firestore: ^3.1.6
   # flutter_bloc: ^8.0.1
-  flutter_bloc: ^7.0.1
+  # flutter_bloc: ^7.0.1
+  flutter_bloc: ^8.0.0
+  theme_manager:
+    path: ../theme_manager
 
 dev_dependencies:
   flutter_test:
@@ -33,5 +36,9 @@ dev_dependencies:
   freezed: ^1.1.1
   build_runner: ^2.1.7
   flutter_lints: ^1.0.0
+  mockito: any
+
+# dependency_overrides:
+#   flutter_bloc: ^8.0.0
 
 flutter:

@@ -1,13 +1,13 @@
+// import 'package:auth/auth.dart';
 // import 'package:auto_route/auto_route.dart';
+// import 'package:notes_firebase_ddd_course/application/auth/auth_bloc.dart';
+// import 'package:notes_firebase_ddd_course/application/auth/sign_in_form/sign_in_form_bloc.dart';
+// import 'package:notes_firebase_ddd_course/presentation/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:auth/application/auth_bloc.dart';
 import 'package:auth/application/sign_in_form/sign_in_form_bloc.dart';
-// import 'package:auth/auth.dart';
-// import 'package:notes_firebase_ddd_course/application/auth/auth_bloc.dart';
-// import 'package:notes_firebase_ddd_course/application/auth/sign_in_form/sign_in_form_bloc.dart';
-// import 'package:notes_firebase_ddd_course/presentation/routes/router.gr.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({Key? key}) : super(key: key);
@@ -31,16 +31,21 @@ class SignInForm extends StatelessWidget {
                         'Invalid email and password combination',
                   ),
                 ),
-                action: SnackBarAction(
-                  label: 'Action',
-                  onPressed: () {},
-                ),
+                action: SnackBarAction(label: 'Action', onPressed: () {}),
               );
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
             (_) {
               // AutoRouter.of(context).replace(const NotesOverviewPageRoute());
+              // Navigator.of(context).pushNamed('routeName');
+              final snackBar = SnackBar(
+                  content: const Text('Success'),
+                  behavior: SnackBarBehavior.floating,
+                  action: SnackBarAction(label: 'Action', onPressed: () {}));
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
               context
                   .read<AuthBloc>()
                   .add(const AuthEvent.authCheckRequested());
@@ -108,17 +113,16 @@ class SignInForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock),
                   labelText: 'Password',
                 ),
-                autocorrect: false,
                 obscureText: true,
+                autocorrect: false,
                 onChanged: (value) => context
                     .read<SignInFormBloc>()
                     .add(SignInFormEvent.passwordChanged(value)),
                 validator: (_) =>
                     context.read<SignInFormBloc>().state.password.value.fold(
                           (f) => f.maybeMap(
-                            shortPassword: (_) => 'Short Password',
-                            orElse: () => null,
-                          ),
+                              orElse: () => null,
+                              shortPassword: (_) => 'Short Password'),
                           (_) => null,
                         ),
               ),
