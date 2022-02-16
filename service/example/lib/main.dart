@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:auth/application/forget_password/forget_password_cubit.dart';
-import 'package:auth/application/register/register_cubit.dart';
-import 'package:auth/auth.dart';
-import 'package:auth/presentation/forget_password/forget_password.dart';
-import 'package:auth/presentation/register/register.dart';
+import 'package:service/application/forget_password/forget_password_cubit.dart';
+import 'package:service/application/register/register_cubit.dart';
+import 'package:service/presentation/forget_password/forget_password.dart';
+import 'package:service/presentation/register/register.dart';
+import 'package:service/service.dart';
 
 void main() => runApp(const MyApp());
 
