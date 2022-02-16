@@ -47,9 +47,9 @@ class RegisterState with _$RegisterState {
 
 // @injectable
 class RegisterCubit extends Cubit<RegisterState> {
-  final IAuthFacade authFacade;
+  final IAuthFacade _authFacade;
 
-  RegisterCubit(this.authFacade) : super(RegisterState.init());
+  RegisterCubit(this._authFacade) : super(RegisterState.init());
 
   rememberChanged(bool value) {
     emit(state.copyWith(remember: value));
