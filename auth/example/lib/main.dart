@@ -1,6 +1,9 @@
-import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:auth/application/register/register_cubit.dart';
+import 'package:auth/auth.dart';
+import 'package:auth/presentation/register/register.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,9 +20,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: SignInPage(
-          bloc: SignInFormBloc(facade),
-        ),
+        // home: SignInPage(bloc: SignInFormBloc(facade)),
+        home: RegisterPage(cubit: RegisterCubit(facade)),
         // home: SplashPage(),
         // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
