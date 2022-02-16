@@ -1,0 +1,37 @@
+part of 'widgets.dart';
+
+const kPathAmico = 'assets/images/amico.png';
+const kPathBG = 'assets/images/bg.png';
+const kPathBro = 'assets/images/bro.png';
+const kPathFlashBanner = 'assets/images/flash_banner.png';
+const kPathJoggingBro = 'assets/images/jogging_bro.png';
+const kPathMap1 = 'assets/images/map1.png';
+const kPathMap2 = 'assets/images/map2.png';
+const kPathNew1 = 'assets/images/new1.png';
+const kPathNew2 = 'assets/images/new2.png';
+const kPathTransystemv5 = 'assets/images/transystemv5.png';
+const kPathRedbelly = 'assets/images/redbelly.png';
+const kPathBGGRD = 'assets/images/bg_grd.png';
+const kPathPana = 'assets/images/pana.png';
+const kPathRafiki = 'assets/images/rafiki.png';
+const kPathScanner = 'assets/images/scanner_card.png';
+const kPathUpBG = 'assets/images/up_bg.png';
+const kPathGift = 'assets/images/gift.png';
+const kPath1392 = 'assets/images/group1329.png';
+const kPathSHAPE = 'assets/images/SHAPE.png';
+const kPathEllipse = 'assets/images/ellipse.png';
+
+final kImgAmico = Image.asset(kPathAmico);
+final kImgBG = Image.asset(kPathBG, fit: BoxFit.cover);
+final kImgBro = Image.asset(kPathBro);
+final kImgFlashBanner = Image.asset(kPathFlashBanner, fit: BoxFit.cover);
+final kImgJoggingBro = Image.asset(kPathJoggingBro);
+final kImgTransystemv5 = Image.asset(kPathTransystemv5);
+final kImgRedbelly = Image.asset(kPathRedbelly);
+final kImgBGGRD = Image.asset(kPathBGGRD, fit: BoxFit.cover);
+final kImgPana = Image.asset(kPathPana);
+final kImgRafiki = Image.asset(kPathRafiki);
+final kImgScanner = Image.asset(kPathScanner);
+final kImgUpBG = Image.asset(kPathUpBG);
+final kImgGift = Image.asset(kPathGift);
+final kImg1392 = Image.asset(kPath1392);
