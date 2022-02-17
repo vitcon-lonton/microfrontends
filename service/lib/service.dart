@@ -1,4 +1,4 @@
-library auth;
+library service;
 
 export 'domain/failure.dart';
 export 'domain/i_repository.dart';
