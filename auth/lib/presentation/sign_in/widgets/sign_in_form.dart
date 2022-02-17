@@ -1,13 +1,6 @@
-// import 'package:auth/auth.dart';
-// import 'package:auto_route/auto_route.dart';
-// import 'package:notes_firebase_ddd_course/application/auth/auth_bloc.dart';
-// import 'package:notes_firebase_ddd_course/application/auth/sign_in_form/sign_in_form_bloc.dart';
-// import 'package:notes_firebase_ddd_course/presentation/routes/router.gr.dart';
+import 'package:auth/application/application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:auth/application/auth_bloc.dart';
-import 'package:auth/application/sign_in_form/sign_in_form_bloc.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({Key? key}) : super(key: key);
@@ -15,6 +8,10 @@ class SignInForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInFormBloc, SignInFormState>(
+      listenWhen: (prev, cur) {
+        return prev.authFailureOrSuccessOption !=
+            cur.authFailureOrSuccessOption;
+      },
       listener: (context, state) {
         state.authFailureOrSuccessOption.fold(
           () {},

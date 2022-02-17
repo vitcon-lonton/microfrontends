@@ -1,7 +1,6 @@
 library auth;
 
-export 'application/auth_bloc.dart';
-export 'application/sign_in_form/sign_in_form_bloc.dart';
+export 'application/application.dart';
 export 'domain/auth_failure.dart';
 export 'domain/i_auth_facade.dart';
 export 'domain/user.dart';
