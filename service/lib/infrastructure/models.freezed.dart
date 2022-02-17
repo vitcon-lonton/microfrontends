@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'entities.dart';
+part of 'models.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,137 +14,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-/// @nodoc
-class _$ServiceTearOff {
-  const _$ServiceTearOff();
-
-  _Service call({required String name}) {
-    return _Service(
-      name: name,
-    );
-  }
+CatalogueDto _$CatalogueDtoFromJson(Map<String, dynamic> json) {
+  return _CatalogueDto.fromJson(json);
 }
 
 /// @nodoc
-const $Service = _$ServiceTearOff();
+class _$CatalogueDtoTearOff {
+  const _$CatalogueDtoTearOff();
 
-/// @nodoc
-mixin _$Service {
-  String get name => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ServiceCopyWith<Service> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ServiceCopyWith<$Res> {
-  factory $ServiceCopyWith(Service value, $Res Function(Service) then) =
-      _$ServiceCopyWithImpl<$Res>;
-  $Res call({String name});
-}
-
-/// @nodoc
-class _$ServiceCopyWithImpl<$Res> implements $ServiceCopyWith<$Res> {
-  _$ServiceCopyWithImpl(this._value, this._then);
-
-  final Service _value;
-  // ignore: unused_field
-  final $Res Function(Service) _then;
-
-  @override
-  $Res call({
-    Object? name = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$ServiceCopyWith<$Res> implements $ServiceCopyWith<$Res> {
-  factory _$ServiceCopyWith(_Service value, $Res Function(_Service) then) =
-      __$ServiceCopyWithImpl<$Res>;
-  @override
-  $Res call({String name});
-}
-
-/// @nodoc
-class __$ServiceCopyWithImpl<$Res> extends _$ServiceCopyWithImpl<$Res>
-    implements _$ServiceCopyWith<$Res> {
-  __$ServiceCopyWithImpl(_Service _value, $Res Function(_Service) _then)
-      : super(_value, (v) => _then(v as _Service));
-
-  @override
-  _Service get _value => super._value as _Service;
-
-  @override
-  $Res call({
-    Object? name = freezed,
-  }) {
-    return _then(_Service(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_Service implements _Service {
-  const _$_Service({required this.name});
-
-  @override
-  final String name;
-
-  @override
-  String toString() {
-    return 'Service(name: $name)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Service &&
-            const DeepCollectionEquality().equals(other.name, name));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
-
-  @JsonKey(ignore: true)
-  @override
-  _$ServiceCopyWith<_Service> get copyWith =>
-      __$ServiceCopyWithImpl<_Service>(this, _$identity);
-}
-
-abstract class _Service implements Service {
-  const factory _Service({required String name}) = _$_Service;
-
-  @override
-  String get name;
-  @override
-  @JsonKey(ignore: true)
-  _$ServiceCopyWith<_Service> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Catalogue _$CatalogueFromJson(Map<String, dynamic> json) {
-  return _Catalogue.fromJson(json);
-}
-
-/// @nodoc
-class _$CatalogueTearOff {
-  const _$CatalogueTearOff();
-
-  _Catalogue call(
+  _CatalogueDto call(
       {int? id,
       int? taxon,
       String? name,
@@ -168,7 +46,7 @@ class _$CatalogueTearOff {
       DateTime? createdAt,
       DateTime? updatedAt,
       dynamic isHome}) {
-    return _Catalogue(
+    return _CatalogueDto(
       id: id,
       taxon: taxon,
       name: name,
@@ -195,16 +73,16 @@ class _$CatalogueTearOff {
     );
   }
 
-  Catalogue fromJson(Map<String, Object?> json) {
-    return Catalogue.fromJson(json);
+  CatalogueDto fromJson(Map<String, Object?> json) {
+    return CatalogueDto.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Catalogue = _$CatalogueTearOff();
+const $CatalogueDto = _$CatalogueDtoTearOff();
 
 /// @nodoc
-mixin _$Catalogue {
+mixin _$CatalogueDto {
   int? get id => throw _privateConstructorUsedError;
   int? get taxon => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
@@ -231,14 +109,15 @@ mixin _$Catalogue {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CatalogueCopyWith<Catalogue> get copyWith =>
+  $CatalogueDtoCopyWith<CatalogueDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CatalogueCopyWith<$Res> {
-  factory $CatalogueCopyWith(Catalogue value, $Res Function(Catalogue) then) =
-      _$CatalogueCopyWithImpl<$Res>;
+abstract class $CatalogueDtoCopyWith<$Res> {
+  factory $CatalogueDtoCopyWith(
+          CatalogueDto value, $Res Function(CatalogueDto) then) =
+      _$CatalogueDtoCopyWithImpl<$Res>;
   $Res call(
       {int? id,
       int? taxon,
@@ -266,12 +145,12 @@ abstract class $CatalogueCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CatalogueCopyWithImpl<$Res> implements $CatalogueCopyWith<$Res> {
-  _$CatalogueCopyWithImpl(this._value, this._then);
+class _$CatalogueDtoCopyWithImpl<$Res> implements $CatalogueDtoCopyWith<$Res> {
+  _$CatalogueDtoCopyWithImpl(this._value, this._then);
 
-  final Catalogue _value;
+  final CatalogueDto _value;
   // ignore: unused_field
-  final $Res Function(Catalogue) _then;
+  final $Res Function(CatalogueDto) _then;
 
   @override
   $Res call({
@@ -397,10 +276,11 @@ class _$CatalogueCopyWithImpl<$Res> implements $CatalogueCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CatalogueCopyWith<$Res> implements $CatalogueCopyWith<$Res> {
-  factory _$CatalogueCopyWith(
-          _Catalogue value, $Res Function(_Catalogue) then) =
-      __$CatalogueCopyWithImpl<$Res>;
+abstract class _$CatalogueDtoCopyWith<$Res>
+    implements $CatalogueDtoCopyWith<$Res> {
+  factory _$CatalogueDtoCopyWith(
+          _CatalogueDto value, $Res Function(_CatalogueDto) then) =
+      __$CatalogueDtoCopyWithImpl<$Res>;
   @override
   $Res call(
       {int? id,
@@ -429,13 +309,14 @@ abstract class _$CatalogueCopyWith<$Res> implements $CatalogueCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$CatalogueCopyWithImpl<$Res> extends _$CatalogueCopyWithImpl<$Res>
-    implements _$CatalogueCopyWith<$Res> {
-  __$CatalogueCopyWithImpl(_Catalogue _value, $Res Function(_Catalogue) _then)
-      : super(_value, (v) => _then(v as _Catalogue));
+class __$CatalogueDtoCopyWithImpl<$Res> extends _$CatalogueDtoCopyWithImpl<$Res>
+    implements _$CatalogueDtoCopyWith<$Res> {
+  __$CatalogueDtoCopyWithImpl(
+      _CatalogueDto _value, $Res Function(_CatalogueDto) _then)
+      : super(_value, (v) => _then(v as _CatalogueDto));
 
   @override
-  _Catalogue get _value => super._value as _Catalogue;
+  _CatalogueDto get _value => super._value as _CatalogueDto;
 
   @override
   $Res call({
@@ -463,7 +344,7 @@ class __$CatalogueCopyWithImpl<$Res> extends _$CatalogueCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? isHome = freezed,
   }) {
-    return _then(_Catalogue(
+    return _then(_CatalogueDto(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -562,8 +443,8 @@ class __$CatalogueCopyWithImpl<$Res> extends _$CatalogueCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Catalogue implements _Catalogue {
-  const _$_Catalogue(
+class _$_CatalogueDto implements _CatalogueDto {
+  const _$_CatalogueDto(
       {this.id,
       this.taxon,
       this.name,
@@ -588,8 +469,8 @@ class _$_Catalogue implements _Catalogue {
       this.updatedAt,
       this.isHome});
 
-  factory _$_Catalogue.fromJson(Map<String, dynamic> json) =>
-      _$$_CatalogueFromJson(json);
+  factory _$_CatalogueDto.fromJson(Map<String, dynamic> json) =>
+      _$$_CatalogueDtoFromJson(json);
 
   @override
   final int? id;
@@ -640,14 +521,14 @@ class _$_Catalogue implements _Catalogue {
 
   @override
   String toString() {
-    return 'Catalogue(id: $id, taxon: $taxon, name: $name, fullname: $fullname, customBanner: $customBanner, intro: $intro, image: $image, parent: $parent, order: $order, level: $level, group: $group, lists: $lists, status: $status, slug: $slug, isFeature: $isFeature, collectProduct: $collectProduct, collectBrand: $collectBrand, metaTitle: $metaTitle, metaKeyword: $metaKeyword, metaDescription: $metaDescription, createdAt: $createdAt, updatedAt: $updatedAt, isHome: $isHome)';
+    return 'CatalogueDto(id: $id, taxon: $taxon, name: $name, fullname: $fullname, customBanner: $customBanner, intro: $intro, image: $image, parent: $parent, order: $order, level: $level, group: $group, lists: $lists, status: $status, slug: $slug, isFeature: $isFeature, collectProduct: $collectProduct, collectBrand: $collectBrand, metaTitle: $metaTitle, metaKeyword: $metaKeyword, metaDescription: $metaDescription, createdAt: $createdAt, updatedAt: $updatedAt, isHome: $isHome)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Catalogue &&
+            other is _CatalogueDto &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.taxon, taxon) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -708,17 +589,17 @@ class _$_Catalogue implements _Catalogue {
 
   @JsonKey(ignore: true)
   @override
-  _$CatalogueCopyWith<_Catalogue> get copyWith =>
-      __$CatalogueCopyWithImpl<_Catalogue>(this, _$identity);
+  _$CatalogueDtoCopyWith<_CatalogueDto> get copyWith =>
+      __$CatalogueDtoCopyWithImpl<_CatalogueDto>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CatalogueToJson(this);
+    return _$$_CatalogueDtoToJson(this);
   }
 }
 
-abstract class _Catalogue implements Catalogue {
-  const factory _Catalogue(
+abstract class _CatalogueDto implements CatalogueDto {
+  const factory _CatalogueDto(
       {int? id,
       int? taxon,
       String? name,
@@ -741,10 +622,10 @@ abstract class _Catalogue implements Catalogue {
       String? metaDescription,
       DateTime? createdAt,
       DateTime? updatedAt,
-      dynamic isHome}) = _$_Catalogue;
+      dynamic isHome}) = _$_CatalogueDto;
 
-  factory _Catalogue.fromJson(Map<String, dynamic> json) =
-      _$_Catalogue.fromJson;
+  factory _CatalogueDto.fromJson(Map<String, dynamic> json) =
+      _$_CatalogueDto.fromJson;
 
   @override
   int? get id;
@@ -794,6 +675,6 @@ abstract class _Catalogue implements Catalogue {
   dynamic get isHome;
   @override
   @JsonKey(ignore: true)
-  _$CatalogueCopyWith<_Catalogue> get copyWith =>
+  _$CatalogueDtoCopyWith<_CatalogueDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

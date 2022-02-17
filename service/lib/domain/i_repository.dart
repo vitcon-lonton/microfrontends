@@ -4,9 +4,7 @@ import 'failure.dart';
 import 'entities.dart';
 
 abstract class IServiceRepository {
-  Future<Option<List<Service>>> getServices();
-
-  Future<Option<List<Category>>> getCategories();
-
   Future<Either<ServiceFailure, Unit>> book(Service service);
+  Future<Either<ServiceFailure, List<Service>>> getServices();
+  Future<Either<ServiceFailure, List<Catalogue>>> getCatalogues();
 }

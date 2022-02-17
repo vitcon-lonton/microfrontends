@@ -52,3 +52,6 @@ app.*.map.json
 pubspec.lock
 .metadata
 
+*/example/ios/
+*/example/android/
+*/example/web/
