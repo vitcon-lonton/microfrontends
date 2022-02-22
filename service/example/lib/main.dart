@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:service/category/category_cubit.dart';
-import 'package:service/category/category_page.dart';
 import 'package:service/service.dart';
 
 void main() => runApp(const MyApp());
@@ -20,12 +18,46 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CategoryCubit>(create: (_) => CategoryCubit(repository)),
+        BlocProvider<CategoriesCubit>(create: (_) {
+          return CategoriesCubit(repository);
+        }),
+        BlocProvider<ServiceDetailCubit>(create: (_) {
+          return ServiceDetailCubit(repository);
+        }),
+        BlocProvider<ServiceBookingCubit>(create: (_) {
+          return ServiceBookingCubit(repository);
+        }),
+        BlocProvider<ServicesCubit>(create: (_) => ServicesCubit(repository)),
       ],
       child: MaterialApp(
+        // home: const Home(),
         title: 'Flutter Demo',
-        home: const CategoryPage(),
+        home: const ServiceBooking(),
         theme: ThemeData(primarySwatch: Colors.blue),
+      ),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: ListView(
+          children: [
+            Services(
+              onItemPressed: (service) {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const ServiceDetail()));
+              },
+            ),
+            const Categories(),
+          ],
+        ),
       ),
     );
   }

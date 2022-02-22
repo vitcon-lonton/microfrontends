@@ -7,42 +7,42 @@ import 'package:service/domain/entities.dart';
 import 'package:service/domain/failure.dart';
 import 'package:service/domain/i_repository.dart';
 
-part 'category_cubit.freezed.dart';
+part 'categories_cubit.freezed.dart';
 
 @freezed
-class CategoryState with _$CategoryState {
-  const CategoryState._();
+class CategoriesState with _$CategoriesState {
+  const CategoriesState._();
 
-  factory CategoryState({
+  factory CategoriesState({
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     @Default(<Catalogue>[]) List<Catalogue> catalogues,
     @Default(ProcessingStatus.idle()) ProcessingStatus status,
     required Option<Either<ServiceFailure, List<Catalogue>>>
         getCategoriesFailureOrSuccessOption,
-  }) = _CategoryState;
+  }) = _CategoriesState;
 
-  factory CategoryState.init() {
-    return CategoryState(getCategoriesFailureOrSuccessOption: none());
+  factory CategoriesState.init() {
+    return CategoriesState(getCategoriesFailureOrSuccessOption: none());
   }
 
-  CategoryState busy() => copyWith(status: const ProcessingStatus.busy());
-  CategoryState idle() => copyWith(status: const ProcessingStatus.idle());
-  CategoryState failed() => copyWith(status: const ProcessingStatus.failed());
-  CategoryState complete() {
+  CategoriesState busy() => copyWith(status: const ProcessingStatus.busy());
+  CategoriesState idle() => copyWith(status: const ProcessingStatus.idle());
+  CategoriesState failed() => copyWith(status: const ProcessingStatus.failed());
+  CategoriesState complete() {
     return copyWith(status: const ProcessingStatus.complete());
   }
 }
 
-class CategoryCubit extends Cubit<CategoryState> {
-  final IServiceRepository _serviceRepository;
+class CategoriesCubit extends Cubit<CategoriesState> {
+  final IServiceRepository _repository;
 
-  CategoryCubit(this._serviceRepository) : super(CategoryState.init());
+  CategoriesCubit(this._repository) : super(CategoriesState.init());
 
   getAllCatalogues() async {
     emit(state.busy().copyWith(getCategoriesFailureOrSuccessOption: none()));
 
-    final failureOrSuccess = await _serviceRepository.getCatalogues();
+    final failureOrSuccess = await _repository.getCatalogues();
 
     emit(failureOrSuccess.fold((failure) {
       return state.failed();

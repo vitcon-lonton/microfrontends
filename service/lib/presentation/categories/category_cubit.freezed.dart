@@ -15,17 +15,17 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$CategoryStateTearOff {
-  const _$CategoryStateTearOff();
+class _$CategoriesStateTearOff {
+  const _$CategoriesStateTearOff();
 
-  _CategoryState call(
+  _CategoriesState call(
       {bool isSubmitting = false,
       bool showErrorMessages = true,
       List<Catalogue> catalogues = const <Catalogue>[],
       ProcessingStatus status = const ProcessingStatus.idle(),
       required Option<Either<ServiceFailure, List<Catalogue>>>
           getCategoriesFailureOrSuccessOption}) {
-    return _CategoryState(
+    return _CategoriesState(
       isSubmitting: isSubmitting,
       showErrorMessages: showErrorMessages,
       catalogues: catalogues,
@@ -36,10 +36,10 @@ class _$CategoryStateTearOff {
 }
 
 /// @nodoc
-const $CategoryState = _$CategoryStateTearOff();
+const $CategoriesState = _$CategoriesStateTearOff();
 
 /// @nodoc
-mixin _$CategoryState {
+mixin _$CategoriesState {
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   List<Catalogue> get catalogues => throw _privateConstructorUsedError;
@@ -49,15 +49,15 @@ mixin _$CategoryState {
           throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CategoryStateCopyWith<CategoryState> get copyWith =>
+  $CategoriesStateCopyWith<CategoriesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CategoryStateCopyWith<$Res> {
-  factory $CategoryStateCopyWith(
-          CategoryState value, $Res Function(CategoryState) then) =
-      _$CategoryStateCopyWithImpl<$Res>;
+abstract class $CategoriesStateCopyWith<$Res> {
+  factory $CategoriesStateCopyWith(
+          CategoriesState value, $Res Function(CategoriesState) then) =
+      _$CategoriesStateCopyWithImpl<$Res>;
   $Res call(
       {bool isSubmitting,
       bool showErrorMessages,
@@ -70,13 +70,13 @@ abstract class $CategoryStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CategoryStateCopyWithImpl<$Res>
-    implements $CategoryStateCopyWith<$Res> {
-  _$CategoryStateCopyWithImpl(this._value, this._then);
+class _$CategoriesStateCopyWithImpl<$Res>
+    implements $CategoriesStateCopyWith<$Res> {
+  _$CategoriesStateCopyWithImpl(this._value, this._then);
 
-  final CategoryState _value;
+  final CategoriesState _value;
   // ignore: unused_field
-  final $Res Function(CategoryState) _then;
+  final $Res Function(CategoriesState) _then;
 
   @override
   $Res call({
@@ -120,11 +120,11 @@ class _$CategoryStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$CategoryStateCopyWith<$Res>
-    implements $CategoryStateCopyWith<$Res> {
-  factory _$CategoryStateCopyWith(
-          _CategoryState value, $Res Function(_CategoryState) then) =
-      __$CategoryStateCopyWithImpl<$Res>;
+abstract class _$CategoriesStateCopyWith<$Res>
+    implements $CategoriesStateCopyWith<$Res> {
+  factory _$CategoriesStateCopyWith(
+          _CategoriesState value, $Res Function(_CategoriesState) then) =
+      __$CategoriesStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {bool isSubmitting,
@@ -139,15 +139,15 @@ abstract class _$CategoryStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CategoryStateCopyWithImpl<$Res>
-    extends _$CategoryStateCopyWithImpl<$Res>
-    implements _$CategoryStateCopyWith<$Res> {
-  __$CategoryStateCopyWithImpl(
-      _CategoryState _value, $Res Function(_CategoryState) _then)
-      : super(_value, (v) => _then(v as _CategoryState));
+class __$CategoriesStateCopyWithImpl<$Res>
+    extends _$CategoriesStateCopyWithImpl<$Res>
+    implements _$CategoriesStateCopyWith<$Res> {
+  __$CategoriesStateCopyWithImpl(
+      _CategoriesState _value, $Res Function(_CategoriesState) _then)
+      : super(_value, (v) => _then(v as _CategoriesState));
 
   @override
-  _CategoryState get _value => super._value as _CategoryState;
+  _CategoriesState get _value => super._value as _CategoriesState;
 
   @override
   $Res call({
@@ -157,7 +157,7 @@ class __$CategoryStateCopyWithImpl<$Res>
     Object? status = freezed,
     Object? getCategoriesFailureOrSuccessOption = freezed,
   }) {
-    return _then(_CategoryState(
+    return _then(_CategoriesState(
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -185,8 +185,8 @@ class __$CategoryStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CategoryState extends _CategoryState {
-  _$_CategoryState(
+class _$_CategoriesState extends _CategoriesState {
+  _$_CategoriesState(
       {this.isSubmitting = false,
       this.showErrorMessages = true,
       this.catalogues = const <Catalogue>[],
@@ -212,14 +212,14 @@ class _$_CategoryState extends _CategoryState {
 
   @override
   String toString() {
-    return 'CategoryState(isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, catalogues: $catalogues, status: $status, getCategoriesFailureOrSuccessOption: $getCategoriesFailureOrSuccessOption)';
+    return 'CategoriesState(isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, catalogues: $catalogues, status: $status, getCategoriesFailureOrSuccessOption: $getCategoriesFailureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CategoryState &&
+            other is _CategoriesState &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
@@ -243,19 +243,19 @@ class _$_CategoryState extends _CategoryState {
 
   @JsonKey(ignore: true)
   @override
-  _$CategoryStateCopyWith<_CategoryState> get copyWith =>
-      __$CategoryStateCopyWithImpl<_CategoryState>(this, _$identity);
+  _$CategoriesStateCopyWith<_CategoriesState> get copyWith =>
+      __$CategoriesStateCopyWithImpl<_CategoriesState>(this, _$identity);
 }
 
-abstract class _CategoryState extends CategoryState {
-  factory _CategoryState(
+abstract class _CategoriesState extends CategoriesState {
+  factory _CategoriesState(
       {bool isSubmitting,
       bool showErrorMessages,
       List<Catalogue> catalogues,
       ProcessingStatus status,
       required Option<Either<ServiceFailure, List<Catalogue>>>
-          getCategoriesFailureOrSuccessOption}) = _$_CategoryState;
-  _CategoryState._() : super._();
+          getCategoriesFailureOrSuccessOption}) = _$_CategoriesState;
+  _CategoriesState._() : super._();
 
   @override
   bool get isSubmitting;
@@ -270,6 +270,6 @@ abstract class _CategoryState extends CategoryState {
       get getCategoriesFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$CategoryStateCopyWith<_CategoryState> get copyWith =>
+  _$CategoriesStateCopyWith<_CategoriesState> get copyWith =>
       throw _privateConstructorUsedError;
 }

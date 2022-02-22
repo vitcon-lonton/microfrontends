@@ -18,9 +18,18 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ServiceTearOff {
   const _$ServiceTearOff();
 
-  _Service call({required String name}) {
+  _Service call(
+      {String img = _kImg,
+      double rating = 0.0,
+      String name = _kName,
+      String price = '150\$',
+      String description = _kDescription}) {
     return _Service(
+      img: img,
+      rating: rating,
       name: name,
+      price: price,
+      description: description,
     );
   }
 }
@@ -30,7 +39,11 @@ const $Service = _$ServiceTearOff();
 
 /// @nodoc
 mixin _$Service {
+  String get img => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ServiceCopyWith<Service> get copyWith => throw _privateConstructorUsedError;
@@ -40,7 +53,12 @@ mixin _$Service {
 abstract class $ServiceCopyWith<$Res> {
   factory $ServiceCopyWith(Service value, $Res Function(Service) then) =
       _$ServiceCopyWithImpl<$Res>;
-  $Res call({String name});
+  $Res call(
+      {String img,
+      double rating,
+      String name,
+      String price,
+      String description});
 }
 
 /// @nodoc
@@ -53,12 +71,32 @@ class _$ServiceCopyWithImpl<$Res> implements $ServiceCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? img = freezed,
+    Object? rating = freezed,
     Object? name = freezed,
+    Object? price = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
+      img: img == freezed
+          ? _value.img
+          : img // ignore: cast_nullable_to_non_nullable
+              as String,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: price == freezed
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -69,7 +107,12 @@ abstract class _$ServiceCopyWith<$Res> implements $ServiceCopyWith<$Res> {
   factory _$ServiceCopyWith(_Service value, $Res Function(_Service) then) =
       __$ServiceCopyWithImpl<$Res>;
   @override
-  $Res call({String name});
+  $Res call(
+      {String img,
+      double rating,
+      String name,
+      String price,
+      String description});
 }
 
 /// @nodoc
@@ -83,12 +126,32 @@ class __$ServiceCopyWithImpl<$Res> extends _$ServiceCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? img = freezed,
+    Object? rating = freezed,
     Object? name = freezed,
+    Object? price = freezed,
+    Object? description = freezed,
   }) {
     return _then(_Service(
+      img: img == freezed
+          ? _value.img
+          : img // ignore: cast_nullable_to_non_nullable
+              as String,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: price == freezed
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -97,14 +160,32 @@ class __$ServiceCopyWithImpl<$Res> extends _$ServiceCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Service implements _Service {
-  const _$_Service({required this.name});
+  const _$_Service(
+      {this.img = _kImg,
+      this.rating = 0.0,
+      this.name = _kName,
+      this.price = '150\$',
+      this.description = _kDescription});
 
+  @JsonKey()
+  @override
+  final String img;
+  @JsonKey()
+  @override
+  final double rating;
+  @JsonKey()
   @override
   final String name;
+  @JsonKey()
+  @override
+  final String price;
+  @JsonKey()
+  @override
+  final String description;
 
   @override
   String toString() {
-    return 'Service(name: $name)';
+    return 'Service(img: $img, rating: $rating, name: $name, price: $price, description: $description)';
   }
 
   @override
@@ -112,12 +193,22 @@ class _$_Service implements _Service {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Service &&
-            const DeepCollectionEquality().equals(other.name, name));
+            const DeepCollectionEquality().equals(other.img, img) &&
+            const DeepCollectionEquality().equals(other.rating, rating) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.price, price) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(img),
+      const DeepCollectionEquality().hash(rating),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(price),
+      const DeepCollectionEquality().hash(description));
 
   @JsonKey(ignore: true)
   @override
@@ -126,10 +217,23 @@ class _$_Service implements _Service {
 }
 
 abstract class _Service implements Service {
-  const factory _Service({required String name}) = _$_Service;
+  const factory _Service(
+      {String img,
+      double rating,
+      String name,
+      String price,
+      String description}) = _$_Service;
 
   @override
+  String get img;
+  @override
+  double get rating;
+  @override
   String get name;
+  @override
+  String get price;
+  @override
+  String get description;
   @override
   @JsonKey(ignore: true)
   _$ServiceCopyWith<_Service> get copyWith =>
