@@ -4,6 +4,8 @@ analyzer:
   exclude: 
     - [build/**]
     - lib/**/*.g.dart
+    - lib/**/*.gr.dart
+    - lib/*.config.dart
     - lib/**/*.freezed.dart
     - lib/**/*.reflectable.dart
   errors:
