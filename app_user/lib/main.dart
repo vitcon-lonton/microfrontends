@@ -1,5 +1,4 @@
 import 'package:article/article.dart';
-import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';

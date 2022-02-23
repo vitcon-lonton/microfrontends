@@ -6,15 +6,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:service/domain/entities.dart';
 import 'package:service/domain/failure.dart';
 import 'package:service/domain/i_repository.dart';
-import 'package:service/service.dart';
+import 'package:service/domain/value_objects.dart';
 
-part 'service_booking_cubit.freezed.dart';
+part 'service_booking_form_cubit.freezed.dart';
 
 @freezed
-class ServiceBookingState with _$ServiceBookingState {
-  const ServiceBookingState._();
+class ServiceBookingFormState with _$ServiceBookingFormState {
+  const ServiceBookingFormState._();
 
-  factory ServiceBookingState({
+  factory ServiceBookingFormState({
     Service? service,
     required Note note,
     required Street street,
@@ -24,12 +24,10 @@ class ServiceBookingState with _$ServiceBookingState {
     @Default(true) bool showErrorMessages,
     @Default(ProcessingStatus.idle()) ProcessingStatus status,
     required Option<Either<ServiceFailure, Unit>> bookingFailureOrSuccessOption,
-  }) = _ServiceBookingState;
+  }) = _ServiceBookingFormState;
 
-  //     DateTime date = ;
-  // DateTime time = DateTime(2016, 5, 10, 22, 35);
-  factory ServiceBookingState.init() {
-    return ServiceBookingState(
+  factory ServiceBookingFormState.init() {
+    return ServiceBookingFormState(
       note: Note(''),
       street: Street(''),
       date: DateTime(2016, 10, 26),
@@ -38,18 +36,21 @@ class ServiceBookingState with _$ServiceBookingState {
     );
   }
 
-  ServiceBookingState busy() => copyWith(status: const ProcessingStatus.busy());
-  ServiceBookingState idle() => copyWith(status: const ProcessingStatus.idle());
-  ServiceBookingState failed() =>
+  ServiceBookingFormState busy() =>
+      copyWith(status: const ProcessingStatus.busy());
+  ServiceBookingFormState idle() =>
+      copyWith(status: const ProcessingStatus.idle());
+  ServiceBookingFormState failed() =>
       copyWith(status: const ProcessingStatus.failed());
-  ServiceBookingState complete() =>
+  ServiceBookingFormState complete() =>
       copyWith(status: const ProcessingStatus.complete());
 }
 
-class ServiceBookingCubit extends Cubit<ServiceBookingState> {
+class ServiceBookingFormCubit extends Cubit<ServiceBookingFormState> {
   final IServiceRepository _repository;
 
-  ServiceBookingCubit(this._repository) : super(ServiceBookingState.init());
+  ServiceBookingFormCubit(this._repository)
+      : super(ServiceBookingFormState.init());
 
   dateChanged(DateTime value) => emit(state.copyWith(date: value));
 
@@ -67,5 +68,19 @@ class ServiceBookingCubit extends Cubit<ServiceBookingState> {
     emit(failureOrSuccess.fold((failure) {
       return state.failed();
     }, (service) => state.idle().copyWith(service: service)));
+  }
+
+  submitted() async {
+    emit(state.busy().copyWith(bookingFailureOrSuccessOption: none()));
+
+    final failureOrSuccess = await _repository.book(state.service!);
+
+    emit(failureOrSuccess.fold((failure) {
+      return state.failed();
+    }, (success) => state.idle()));
+
+    emit(state.copyWith(
+      bookingFailureOrSuccessOption: optionOf(failureOrSuccess),
+    ));
   }
 }

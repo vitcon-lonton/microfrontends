@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:auth/application/forget_password/forget_password_cubit.dart';
 import 'package:auth/application/register/register_cubit.dart';
 import 'package:auth/auth.dart';
 import 'package:auth/presentation/forget_password/forget_password.dart';

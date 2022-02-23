@@ -6,7 +6,7 @@ part 'failure.freezed.dart';
 class ServiceFailure with _$ServiceFailure {
   const factory ServiceFailure.serverError() = ServerError;
   const factory ServiceFailure.cancelledByUser() = CancelledByUser;
-  const factory ServiceFailure.emailAlreadyInUse() = EmailAlreadyInUse;
-  const factory ServiceFailure.invalidEmailAndPasswordCombination() =
-      InvalidEmailAndPasswordCombination;
+  // const factory ServiceFailure.emailAlreadyInUse() = EmailAlreadyInUse;
+  // const factory ServiceFailure.invalidEmailAndPasswordCombination() =
+  //     InvalidEmailAndPasswordCombination;
 }

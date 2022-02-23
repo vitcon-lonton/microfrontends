@@ -15,10 +15,10 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$ServiceBookingStateTearOff {
-  const _$ServiceBookingStateTearOff();
+class _$ServiceBookingFormStateTearOff {
+  const _$ServiceBookingFormStateTearOff();
 
-  _ServiceBookingState call(
+  _ServiceBookingFormState call(
       {Service? service,
       required Note note,
       required Street street,
@@ -29,7 +29,7 @@ class _$ServiceBookingStateTearOff {
       ProcessingStatus status = const ProcessingStatus.idle(),
       required Option<Either<ServiceFailure, Unit>>
           bookingFailureOrSuccessOption}) {
-    return _ServiceBookingState(
+    return _ServiceBookingFormState(
       service: service,
       note: note,
       street: street,
@@ -44,10 +44,10 @@ class _$ServiceBookingStateTearOff {
 }
 
 /// @nodoc
-const $ServiceBookingState = _$ServiceBookingStateTearOff();
+const $ServiceBookingFormState = _$ServiceBookingFormStateTearOff();
 
 /// @nodoc
-mixin _$ServiceBookingState {
+mixin _$ServiceBookingFormState {
   Service? get service => throw _privateConstructorUsedError;
   Note get note => throw _privateConstructorUsedError;
   Street get street => throw _privateConstructorUsedError;
@@ -60,15 +60,15 @@ mixin _$ServiceBookingState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ServiceBookingStateCopyWith<ServiceBookingState> get copyWith =>
+  $ServiceBookingFormStateCopyWith<ServiceBookingFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ServiceBookingStateCopyWith<$Res> {
-  factory $ServiceBookingStateCopyWith(
-          ServiceBookingState value, $Res Function(ServiceBookingState) then) =
-      _$ServiceBookingStateCopyWithImpl<$Res>;
+abstract class $ServiceBookingFormStateCopyWith<$Res> {
+  factory $ServiceBookingFormStateCopyWith(ServiceBookingFormState value,
+          $Res Function(ServiceBookingFormState) then) =
+      _$ServiceBookingFormStateCopyWithImpl<$Res>;
   $Res call(
       {Service? service,
       Note note,
@@ -85,13 +85,13 @@ abstract class $ServiceBookingStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ServiceBookingStateCopyWithImpl<$Res>
-    implements $ServiceBookingStateCopyWith<$Res> {
-  _$ServiceBookingStateCopyWithImpl(this._value, this._then);
+class _$ServiceBookingFormStateCopyWithImpl<$Res>
+    implements $ServiceBookingFormStateCopyWith<$Res> {
+  _$ServiceBookingFormStateCopyWithImpl(this._value, this._then);
 
-  final ServiceBookingState _value;
+  final ServiceBookingFormState _value;
   // ignore: unused_field
-  final $Res Function(ServiceBookingState) _then;
+  final $Res Function(ServiceBookingFormState) _then;
 
   @override
   $Res call({
@@ -165,11 +165,11 @@ class _$ServiceBookingStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ServiceBookingStateCopyWith<$Res>
-    implements $ServiceBookingStateCopyWith<$Res> {
-  factory _$ServiceBookingStateCopyWith(_ServiceBookingState value,
-          $Res Function(_ServiceBookingState) then) =
-      __$ServiceBookingStateCopyWithImpl<$Res>;
+abstract class _$ServiceBookingFormStateCopyWith<$Res>
+    implements $ServiceBookingFormStateCopyWith<$Res> {
+  factory _$ServiceBookingFormStateCopyWith(_ServiceBookingFormState value,
+          $Res Function(_ServiceBookingFormState) then) =
+      __$ServiceBookingFormStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {Service? service,
@@ -189,15 +189,16 @@ abstract class _$ServiceBookingStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ServiceBookingStateCopyWithImpl<$Res>
-    extends _$ServiceBookingStateCopyWithImpl<$Res>
-    implements _$ServiceBookingStateCopyWith<$Res> {
-  __$ServiceBookingStateCopyWithImpl(
-      _ServiceBookingState _value, $Res Function(_ServiceBookingState) _then)
-      : super(_value, (v) => _then(v as _ServiceBookingState));
+class __$ServiceBookingFormStateCopyWithImpl<$Res>
+    extends _$ServiceBookingFormStateCopyWithImpl<$Res>
+    implements _$ServiceBookingFormStateCopyWith<$Res> {
+  __$ServiceBookingFormStateCopyWithImpl(_ServiceBookingFormState _value,
+      $Res Function(_ServiceBookingFormState) _then)
+      : super(_value, (v) => _then(v as _ServiceBookingFormState));
 
   @override
-  _ServiceBookingState get _value => super._value as _ServiceBookingState;
+  _ServiceBookingFormState get _value =>
+      super._value as _ServiceBookingFormState;
 
   @override
   $Res call({
@@ -211,7 +212,7 @@ class __$ServiceBookingStateCopyWithImpl<$Res>
     Object? status = freezed,
     Object? bookingFailureOrSuccessOption = freezed,
   }) {
-    return _then(_ServiceBookingState(
+    return _then(_ServiceBookingFormState(
       service: service == freezed
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
@@ -254,8 +255,8 @@ class __$ServiceBookingStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ServiceBookingState extends _ServiceBookingState {
-  _$_ServiceBookingState(
+class _$_ServiceBookingFormState extends _ServiceBookingFormState {
+  _$_ServiceBookingFormState(
       {this.service,
       required this.note,
       required this.street,
@@ -291,14 +292,14 @@ class _$_ServiceBookingState extends _ServiceBookingState {
 
   @override
   String toString() {
-    return 'ServiceBookingState(service: $service, note: $note, street: $street, date: $date, time: $time, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, bookingFailureOrSuccessOption: $bookingFailureOrSuccessOption)';
+    return 'ServiceBookingFormState(service: $service, note: $note, street: $street, date: $date, time: $time, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, bookingFailureOrSuccessOption: $bookingFailureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ServiceBookingState &&
+            other is _ServiceBookingFormState &&
             const DeepCollectionEquality().equals(other.service, service) &&
             const DeepCollectionEquality().equals(other.note, note) &&
             const DeepCollectionEquality().equals(other.street, street) &&
@@ -329,13 +330,13 @@ class _$_ServiceBookingState extends _ServiceBookingState {
 
   @JsonKey(ignore: true)
   @override
-  _$ServiceBookingStateCopyWith<_ServiceBookingState> get copyWith =>
-      __$ServiceBookingStateCopyWithImpl<_ServiceBookingState>(
+  _$ServiceBookingFormStateCopyWith<_ServiceBookingFormState> get copyWith =>
+      __$ServiceBookingFormStateCopyWithImpl<_ServiceBookingFormState>(
           this, _$identity);
 }
 
-abstract class _ServiceBookingState extends ServiceBookingState {
-  factory _ServiceBookingState(
+abstract class _ServiceBookingFormState extends ServiceBookingFormState {
+  factory _ServiceBookingFormState(
       {Service? service,
       required Note note,
       required Street street,
@@ -345,8 +346,8 @@ abstract class _ServiceBookingState extends ServiceBookingState {
       bool showErrorMessages,
       ProcessingStatus status,
       required Option<Either<ServiceFailure, Unit>>
-          bookingFailureOrSuccessOption}) = _$_ServiceBookingState;
-  _ServiceBookingState._() : super._();
+          bookingFailureOrSuccessOption}) = _$_ServiceBookingFormState;
+  _ServiceBookingFormState._() : super._();
 
   @override
   Service? get service;
@@ -368,6 +369,6 @@ abstract class _ServiceBookingState extends ServiceBookingState {
   Option<Either<ServiceFailure, Unit>> get bookingFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$ServiceBookingStateCopyWith<_ServiceBookingState> get copyWith =>
+  _$ServiceBookingFormStateCopyWith<_ServiceBookingFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -47,6 +47,7 @@ class RegisterState with _$RegisterState {
 
 // @injectable
 class RegisterCubit extends Cubit<RegisterState> {
+  // ignore: unused_field
   final IAuthFacade _authFacade;
 
   RegisterCubit(this._authFacade) : super(RegisterState.init());
@@ -73,6 +74,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.complete());
   }
 
+  // ignore: unused_element
   _performActionOnAuthFacadeWithEmailAndPassword(
       Future<Either<AuthFailure, Unit>> Function(
               {required EmailAddress emailAddress, required Password password})

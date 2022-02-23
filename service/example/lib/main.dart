@@ -24,15 +24,15 @@ class MyApp extends StatelessWidget {
         BlocProvider<ServiceDetailCubit>(create: (_) {
           return ServiceDetailCubit(repository);
         }),
-        BlocProvider<ServiceBookingCubit>(create: (_) {
-          return ServiceBookingCubit(repository);
+        BlocProvider<ServiceBookingFormCubit>(create: (_) {
+          return ServiceBookingFormCubit(repository);
         }),
         BlocProvider<ServicesCubit>(create: (_) => ServicesCubit(repository)),
       ],
       child: MaterialApp(
         // home: const Home(),
         title: 'Flutter Demo',
-        home: const ServiceBooking(),
+        home: const ServiceBookingForm(),
         theme: ThemeData(primarySwatch: Colors.blue),
       ),
     );
