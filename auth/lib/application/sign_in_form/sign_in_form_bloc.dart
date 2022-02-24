@@ -23,9 +23,9 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<SignInWithGooglePressed>(_onSignInWithGooglePressed);
-    on<RegisterWithEmailAndPasswordPressed>(
-        _onRegisterWithEmailAndPasswordPressed);
     on<SignInWithEmailAndPasswordPressed>(_onSignInWithEmailAndPasswordPressed);
+    // on<RegisterWithEmailAndPasswordPressed>(
+    //     _onRegisterWithEmailAndPasswordPressed);
   }
 
   void _onEmailChanged(EmailChanged event, Emitter<SignInFormState> emit) {
@@ -43,13 +43,13 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
     ));
   }
 
-  void _onRegisterWithEmailAndPasswordPressed(
-      RegisterWithEmailAndPasswordPressed event,
-      Emitter<SignInFormState> emit) {
-    _performActionOnAuthFacadeWithEmailAndPassword(
-      _authFacade.registerWithEmailAndPassword,
-    );
-  }
+  // void _onRegisterWithEmailAndPasswordPressed(
+  //     RegisterWithEmailAndPasswordPressed event,
+  //     Emitter<SignInFormState> emit) {
+  //   _performActionOnAuthFacadeWithEmailAndPassword(
+  //     _authFacade.registerWithEmailAndPassword,
+  //   );
+  // }
 
   void _onSignInWithEmailAndPasswordPressed(
       SignInWithEmailAndPasswordPressed event, Emitter<SignInFormState> emit) {

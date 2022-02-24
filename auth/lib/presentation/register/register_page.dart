@@ -1,9 +1,7 @@
 part of 'register.dart';
 
 class RegisterPage extends StatelessWidget {
-  final RegisterCubit cubit;
-
-  const RegisterPage({Key? key, required this.cubit}) : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class RegisterPage extends StatelessWidget {
     // final registerTxt = tr(LocaleKeys.register);
 
     return BlocProvider<RegisterCubit>(
-      create: (_) => cubit,
+      create: (_) => context.read<RegisterCubit>(),
       child: BlocListener<RegisterCubit, RegisterState>(
         listenWhen: (prev, cur) => prev.status != cur.status,
         listener: (context, state) {

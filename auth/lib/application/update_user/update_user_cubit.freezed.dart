@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'register_cubit.dart';
+part of 'update_user_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,11 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$RegisterStateTearOff {
-  const _$RegisterStateTearOff();
+class _$UpdateUserStateTearOff {
+  const _$UpdateUserStateTearOff();
 
-  _RegisterState call(
-      {required Name name,
+  _UpdateUserState call(
+      {User? user,
+      required Name name,
       required Phone phone,
       required Street street,
       required Gender gender,
@@ -31,10 +32,12 @@ class _$RegisterStateTearOff {
       bool isSubmitting = false,
       bool displayPassword = false,
       bool showErrorMessages = true,
-      ProcessingStatus status = const ProcessingStatus.idle(),
+      ProcessingStatus status = STATUS_IDLE,
+      required Option<User> userOption,
       required Option<Either<AuthFailure, Unit>>
-          registerFailureOrSuccessOption}) {
-    return _RegisterState(
+          updateFailureOrSuccessOption}) {
+    return _UpdateUserState(
+      user: user,
       name: name,
       phone: phone,
       street: street,
@@ -48,16 +51,18 @@ class _$RegisterStateTearOff {
       displayPassword: displayPassword,
       showErrorMessages: showErrorMessages,
       status: status,
-      registerFailureOrSuccessOption: registerFailureOrSuccessOption,
+      userOption: userOption,
+      updateFailureOrSuccessOption: updateFailureOrSuccessOption,
     );
   }
 }
 
 /// @nodoc
-const $RegisterState = _$RegisterStateTearOff();
+const $UpdateUserState = _$UpdateUserStateTearOff();
 
 /// @nodoc
-mixin _$RegisterState {
+mixin _$UpdateUserState {
+  User? get user => throw _privateConstructorUsedError;
   Name get name => throw _privateConstructorUsedError;
   Phone get phone => throw _privateConstructorUsedError;
   Street get street => throw _privateConstructorUsedError;
@@ -71,21 +76,23 @@ mixin _$RegisterState {
   bool get displayPassword => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   ProcessingStatus get status => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, Unit>> get registerFailureOrSuccessOption =>
+  Option<User> get userOption => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, Unit>> get updateFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $RegisterStateCopyWith<RegisterState> get copyWith =>
+  $UpdateUserStateCopyWith<UpdateUserState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RegisterStateCopyWith<$Res> {
-  factory $RegisterStateCopyWith(
-          RegisterState value, $Res Function(RegisterState) then) =
-      _$RegisterStateCopyWithImpl<$Res>;
+abstract class $UpdateUserStateCopyWith<$Res> {
+  factory $UpdateUserStateCopyWith(
+          UpdateUserState value, $Res Function(UpdateUserState) then) =
+      _$UpdateUserStateCopyWithImpl<$Res>;
   $Res call(
-      {Name name,
+      {User? user,
+      Name name,
       Phone phone,
       Street street,
       Gender gender,
@@ -98,22 +105,25 @@ abstract class $RegisterStateCopyWith<$Res> {
       bool displayPassword,
       bool showErrorMessages,
       ProcessingStatus status,
-      Option<Either<AuthFailure, Unit>> registerFailureOrSuccessOption});
+      Option<User> userOption,
+      Option<Either<AuthFailure, Unit>> updateFailureOrSuccessOption});
 
+  $UserCopyWith<$Res>? get user;
   $ProcessingStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
-class _$RegisterStateCopyWithImpl<$Res>
-    implements $RegisterStateCopyWith<$Res> {
-  _$RegisterStateCopyWithImpl(this._value, this._then);
+class _$UpdateUserStateCopyWithImpl<$Res>
+    implements $UpdateUserStateCopyWith<$Res> {
+  _$UpdateUserStateCopyWithImpl(this._value, this._then);
 
-  final RegisterState _value;
+  final UpdateUserState _value;
   // ignore: unused_field
-  final $Res Function(RegisterState) _then;
+  final $Res Function(UpdateUserState) _then;
 
   @override
   $Res call({
+    Object? user = freezed,
     Object? name = freezed,
     Object? phone = freezed,
     Object? street = freezed,
@@ -127,9 +137,14 @@ class _$RegisterStateCopyWithImpl<$Res>
     Object? displayPassword = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
-    Object? registerFailureOrSuccessOption = freezed,
+    Object? userOption = freezed,
+    Object? updateFailureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -182,11 +197,26 @@ class _$RegisterStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProcessingStatus,
-      registerFailureOrSuccessOption: registerFailureOrSuccessOption == freezed
-          ? _value.registerFailureOrSuccessOption
-          : registerFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      userOption: userOption == freezed
+          ? _value.userOption
+          : userOption // ignore: cast_nullable_to_non_nullable
+              as Option<User>,
+      updateFailureOrSuccessOption: updateFailureOrSuccessOption == freezed
+          ? _value.updateFailureOrSuccessOption
+          : updateFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, Unit>>,
     ));
+  }
+
+  @override
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 
   @override
@@ -198,14 +228,15 @@ class _$RegisterStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$RegisterStateCopyWith<$Res>
-    implements $RegisterStateCopyWith<$Res> {
-  factory _$RegisterStateCopyWith(
-          _RegisterState value, $Res Function(_RegisterState) then) =
-      __$RegisterStateCopyWithImpl<$Res>;
+abstract class _$UpdateUserStateCopyWith<$Res>
+    implements $UpdateUserStateCopyWith<$Res> {
+  factory _$UpdateUserStateCopyWith(
+          _UpdateUserState value, $Res Function(_UpdateUserState) then) =
+      __$UpdateUserStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Name name,
+      {User? user,
+      Name name,
       Phone phone,
       Street street,
       Gender gender,
@@ -218,25 +249,29 @@ abstract class _$RegisterStateCopyWith<$Res>
       bool displayPassword,
       bool showErrorMessages,
       ProcessingStatus status,
-      Option<Either<AuthFailure, Unit>> registerFailureOrSuccessOption});
+      Option<User> userOption,
+      Option<Either<AuthFailure, Unit>> updateFailureOrSuccessOption});
 
+  @override
+  $UserCopyWith<$Res>? get user;
   @override
   $ProcessingStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
-class __$RegisterStateCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res>
-    implements _$RegisterStateCopyWith<$Res> {
-  __$RegisterStateCopyWithImpl(
-      _RegisterState _value, $Res Function(_RegisterState) _then)
-      : super(_value, (v) => _then(v as _RegisterState));
+class __$UpdateUserStateCopyWithImpl<$Res>
+    extends _$UpdateUserStateCopyWithImpl<$Res>
+    implements _$UpdateUserStateCopyWith<$Res> {
+  __$UpdateUserStateCopyWithImpl(
+      _UpdateUserState _value, $Res Function(_UpdateUserState) _then)
+      : super(_value, (v) => _then(v as _UpdateUserState));
 
   @override
-  _RegisterState get _value => super._value as _RegisterState;
+  _UpdateUserState get _value => super._value as _UpdateUserState;
 
   @override
   $Res call({
+    Object? user = freezed,
     Object? name = freezed,
     Object? phone = freezed,
     Object? street = freezed,
@@ -250,9 +285,14 @@ class __$RegisterStateCopyWithImpl<$Res>
     Object? displayPassword = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
-    Object? registerFailureOrSuccessOption = freezed,
+    Object? userOption = freezed,
+    Object? updateFailureOrSuccessOption = freezed,
   }) {
-    return _then(_RegisterState(
+    return _then(_UpdateUserState(
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -305,9 +345,13 @@ class __$RegisterStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProcessingStatus,
-      registerFailureOrSuccessOption: registerFailureOrSuccessOption == freezed
-          ? _value.registerFailureOrSuccessOption
-          : registerFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      userOption: userOption == freezed
+          ? _value.userOption
+          : userOption // ignore: cast_nullable_to_non_nullable
+              as Option<User>,
+      updateFailureOrSuccessOption: updateFailureOrSuccessOption == freezed
+          ? _value.updateFailureOrSuccessOption
+          : updateFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, Unit>>,
     ));
   }
@@ -315,9 +359,10 @@ class __$RegisterStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RegisterState extends _RegisterState {
-  _$_RegisterState(
-      {required this.name,
+class _$_UpdateUserState extends _UpdateUserState {
+  _$_UpdateUserState(
+      {this.user,
+      required this.name,
       required this.phone,
       required this.street,
       required this.gender,
@@ -329,10 +374,13 @@ class _$_RegisterState extends _RegisterState {
       this.isSubmitting = false,
       this.displayPassword = false,
       this.showErrorMessages = true,
-      this.status = const ProcessingStatus.idle(),
-      required this.registerFailureOrSuccessOption})
+      this.status = STATUS_IDLE,
+      required this.userOption,
+      required this.updateFailureOrSuccessOption})
       : super._();
 
+  @override
+  final User? user;
   @override
   final Name name;
   @override
@@ -365,18 +413,21 @@ class _$_RegisterState extends _RegisterState {
   @override
   final ProcessingStatus status;
   @override
-  final Option<Either<AuthFailure, Unit>> registerFailureOrSuccessOption;
+  final Option<User> userOption;
+  @override
+  final Option<Either<AuthFailure, Unit>> updateFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'RegisterState(name: $name, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, password: $password, confirmPassword: $confirmPassword, emailAddress: $emailAddress, remember: $remember, isSubmitting: $isSubmitting, displayPassword: $displayPassword, showErrorMessages: $showErrorMessages, status: $status, registerFailureOrSuccessOption: $registerFailureOrSuccessOption)';
+    return 'UpdateUserState(user: $user, name: $name, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, password: $password, confirmPassword: $confirmPassword, emailAddress: $emailAddress, remember: $remember, isSubmitting: $isSubmitting, displayPassword: $displayPassword, showErrorMessages: $showErrorMessages, status: $status, userOption: $userOption, updateFailureOrSuccessOption: $updateFailureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _RegisterState &&
+            other is _UpdateUserState &&
+            const DeepCollectionEquality().equals(other.user, user) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality().equals(other.street, street) &&
@@ -395,14 +446,17 @@ class _$_RegisterState extends _RegisterState {
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality()
+                .equals(other.userOption, userOption) &&
             const DeepCollectionEquality().equals(
-                other.registerFailureOrSuccessOption,
-                registerFailureOrSuccessOption));
+                other.updateFailureOrSuccessOption,
+                updateFailureOrSuccessOption));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(street),
@@ -416,17 +470,19 @@ class _$_RegisterState extends _RegisterState {
       const DeepCollectionEquality().hash(displayPassword),
       const DeepCollectionEquality().hash(showErrorMessages),
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(registerFailureOrSuccessOption));
+      const DeepCollectionEquality().hash(userOption),
+      const DeepCollectionEquality().hash(updateFailureOrSuccessOption));
 
   @JsonKey(ignore: true)
   @override
-  _$RegisterStateCopyWith<_RegisterState> get copyWith =>
-      __$RegisterStateCopyWithImpl<_RegisterState>(this, _$identity);
+  _$UpdateUserStateCopyWith<_UpdateUserState> get copyWith =>
+      __$UpdateUserStateCopyWithImpl<_UpdateUserState>(this, _$identity);
 }
 
-abstract class _RegisterState extends RegisterState {
-  factory _RegisterState(
-      {required Name name,
+abstract class _UpdateUserState extends UpdateUserState {
+  factory _UpdateUserState(
+      {User? user,
+      required Name name,
       required Phone phone,
       required Street street,
       required Gender gender,
@@ -439,10 +495,13 @@ abstract class _RegisterState extends RegisterState {
       bool displayPassword,
       bool showErrorMessages,
       ProcessingStatus status,
+      required Option<User> userOption,
       required Option<Either<AuthFailure, Unit>>
-          registerFailureOrSuccessOption}) = _$_RegisterState;
-  _RegisterState._() : super._();
+          updateFailureOrSuccessOption}) = _$_UpdateUserState;
+  _UpdateUserState._() : super._();
 
+  @override
+  User? get user;
   @override
   Name get name;
   @override
@@ -470,9 +529,11 @@ abstract class _RegisterState extends RegisterState {
   @override
   ProcessingStatus get status;
   @override
-  Option<Either<AuthFailure, Unit>> get registerFailureOrSuccessOption;
+  Option<User> get userOption;
+  @override
+  Option<Either<AuthFailure, Unit>> get updateFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$RegisterStateCopyWith<_RegisterState> get copyWith =>
+  _$UpdateUserStateCopyWith<_UpdateUserState> get copyWith =>
       throw _privateConstructorUsedError;
 }

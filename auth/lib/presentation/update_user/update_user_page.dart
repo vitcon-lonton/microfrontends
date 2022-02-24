@@ -1,20 +1,20 @@
-part of 'forget_password.dart';
+part of 'update_user.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
-  const ForgetPasswordPage({Key? key}) : super(key: key);
+class UpdateUserPage extends StatelessWidget {
+  const UpdateUserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const registerTxt = 'Forget password';
+    const registerTxt = 'Update Profile';
     // final msgTerm1 = tr(LocaleKeys.msg_term1);
     // final msgTerm2 = tr(LocaleKeys.msg_term2);
     // final msgTerm3 = tr(LocaleKeys.msg_term3);
     // final msgTerm4 = tr(LocaleKeys.msg_term4);
     // final registerTxt = tr(LocaleKeys.register);
 
-    return BlocProvider<ForgetPasswordCubit>(
-      create: (_) => context.read<ForgetPasswordCubit>(),
-      child: BlocListener<ForgetPasswordCubit, ForgetPasswordState>(
+    return BlocProvider<UpdateUserCubit>(
+      create: (_) => context.read<UpdateUserCubit>(),
+      child: BlocListener<UpdateUserCubit, UpdateUserState>(
         listenWhen: (prev, cur) => prev.status != cur.status,
         listener: (context, state) {
           state.status.maybeMap(
@@ -39,7 +39,7 @@ class ForgetPasswordPage extends StatelessWidget {
               children: const [
                 kVSpaceXL,
                 kVSpaceXL,
-                ForgetPasswordForm(),
+                UpdateUserForm(),
                 kVSpaceXL,
                 kVSpaceL,
               ],

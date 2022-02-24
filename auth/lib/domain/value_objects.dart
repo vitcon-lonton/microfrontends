@@ -99,7 +99,7 @@ class FullName extends ValueObject<String> {
 }
 
 class Street extends ValueObject<String> {
-  static const maxLength = 100;
+  static const maxLength = 200;
 
   @override
   final Either<ValueFailure<String>, String> value;
@@ -169,4 +169,19 @@ class CVVNumber extends ValueObject<String> {
   }
 
   const CVVNumber._(this.value);
+}
+
+class BirthDay extends ValueObject<DateTime> {
+  @override
+  final Either<ValueFailure<DateTime>, DateTime> value;
+
+  factory BirthDay(DateTime input) {
+    if (input.isAfter(DateTime.now())) {
+      return BirthDay._(left(ValueFailure<DateTime>.other(failedValue: input)));
+    }
+
+    return BirthDay._(right(input));
+  }
+
+  const BirthDay._(this.value);
 }

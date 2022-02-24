@@ -1,3 +1,4 @@
+import 'package:auth/domain/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:engine/engine.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,9 +15,14 @@ class RegisterState with _$RegisterState {
   const RegisterState._();
 
   factory RegisterState({
-    required EmailAddress emailAddress,
+    required Name name,
+    required Phone phone,
+    required Street street,
+    required Gender gender,
+    required BirthDay birthDay,
     required Password password,
     required Password confirmPassword,
+    required EmailAddress emailAddress,
     @Default(false) bool remember,
     @Default(false) bool isSubmitting,
     @Default(false) bool displayPassword,
@@ -31,9 +37,14 @@ class RegisterState with _$RegisterState {
 
   factory RegisterState.init() {
     return RegisterState(
-        emailAddress: EmailAddress(''),
+        name: Name(''),
+        phone: Phone(''),
+        street: Street(''),
+        gender: Gender.male,
+        birthDay: BirthDay(DateTime.now()),
         password: Password(''),
         confirmPassword: Password(''),
+        emailAddress: EmailAddress(''),
         registerFailureOrSuccessOption: none());
   }
 
@@ -52,6 +63,26 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this._authFacade) : super(RegisterState.init());
 
+  nameChanged(String value) {
+    emit(state.copyWith(name: Name(value)));
+  }
+
+  phoneChanged(String value) {
+    emit(state.copyWith(phone: Phone(value)));
+  }
+
+  streetChanged(String value) {
+    emit(state.copyWith(street: Street(value)));
+  }
+
+  genderChanged(Gender value) {
+    emit(state.copyWith(gender: value));
+  }
+
+  birthDayChanged(DateTime value) {
+    emit(state.copyWith(birthDay: BirthDay(value)));
+  }
+
   rememberChanged(bool value) {
     emit(state.copyWith(remember: value));
   }
@@ -62,6 +93,10 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   passwordChanged(String value) {
     emit(state.copyWith(password: Password(value)));
+  }
+
+  confirmPasswordChanged(String value) {
+    emit(state.copyWith(confirmPassword: Password(value)));
   }
 
   displayPasswordChanged(bool value) {

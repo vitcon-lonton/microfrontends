@@ -1,7 +1,7 @@
-part of 'register.dart';
+part of 'update_user.dart';
 
-class RegisterForm extends StatelessWidget {
-  const RegisterForm({Key? key}) : super(key: key);
+class UpdateUserForm extends StatelessWidget {
+  const UpdateUserForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
