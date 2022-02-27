@@ -1,3 +1,4 @@
+// ignore_for_file: unused_local_variable
 part of 'register.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -5,11 +6,11 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const registerTxt = 'Register';
     const msgTerm1 = 'tr(LocaleKeys.msg_term1)';
     const msgTerm2 = 'tr(LocaleKeys.msg_term2)';
     const msgTerm3 = 'tr(LocaleKeys.msg_term3)';
     const msgTerm4 = 'tr(LocaleKeys.msg_term4)';
-    const registerTxt = 'tr(LocaleKeys.register)';
     // final msgTerm1 = tr(LocaleKeys.msg_term1);
     // final msgTerm2 = tr(LocaleKeys.msg_term2);
     // final msgTerm3 = tr(LocaleKeys.msg_term3);
@@ -19,20 +20,39 @@ class RegisterPage extends StatelessWidget {
     return BlocProvider<RegisterCubit>(
       create: (_) => context.read<RegisterCubit>(),
       child: BlocListener<RegisterCubit, RegisterState>(
-        listenWhen: (prev, cur) => prev.status != cur.status,
+        listenWhen: (prev, cur) =>
+            prev.registerFailureOrSuccessOption !=
+            cur.registerFailureOrSuccessOption,
         listener: (context, state) {
-          state.status.maybeMap(
-            orElse: () => null,
-            // complete: (_) => Navigator.of(context).pushNamed(Routes.home),
-            failed: (_) {
-              final snackBar = SnackBar(
-                behavior: SnackBarBehavior.floating,
-                action: SnackBarAction(label: 'Action', onPressed: () {}),
-                content: const Text('Invalid email and password combination'),
-              );
+          state.registerFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                final snackBar = SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  content: Text(
+                    failure.map(
+                      cancelledByUser: (_) => 'Cancelled',
+                      serverError: (_) => 'Server error',
+                      emailAlreadyInUse: (_) => 'Email already in use',
+                      invalidEmailAndPasswordCombination: (_) =>
+                          'Invalid email and password combination',
+                    ),
+                  ),
+                  action: SnackBarAction(label: 'Action', onPressed: () {}),
+                );
 
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            },
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              (_) {
+                final snackBar = SnackBar(
+                    content: const Text('Success'),
+                    behavior: SnackBarBehavior.floating,
+                    action: SnackBarAction(label: 'Action', onPressed: () {}));
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
           );
         },
         child: WScaffold(
@@ -40,32 +60,11 @@ class RegisterPage extends StatelessWidget {
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(
-              children: [
+              children: const [
                 kVSpaceXL,
                 kVSpaceXL,
-                const RegisterForm(),
+                RegisterForm(),
                 kVSpaceXL,
-                DefaultTextStyle(
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                  child: Wrap(
-                    children: [
-                      const Text('$msgTerm1 '),
-                      Link(
-                        text: msgTerm2,
-                        onTap: () {
-                          // Navigator.pushNamed(context, Routes.register);
-                        },
-                      ),
-                      const Text(' $msgTerm3 '),
-                      Link(
-                        text: msgTerm4,
-                        onTap: () {
-                          // Navigator.pushNamed(context, Routes.register);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
                 kVSpaceL,
               ],
             ),

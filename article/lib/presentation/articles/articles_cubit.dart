@@ -18,11 +18,11 @@ class ArticlesState with _$ArticlesState {
 
   factory ArticlesState.init() => ArticlesState();
 
-  ArticlesState busy() => copyWith(status: const ProcessingStatus.busy());
-  ArticlesState idle() => copyWith(status: const ProcessingStatus.idle());
-  ArticlesState failed() => copyWith(status: const ProcessingStatus.failed());
+  ArticlesState busy() => copyWith(status: STATUS_BUSY);
+  ArticlesState idle() => copyWith(status: STATUS_IDLE);
+  ArticlesState failed() => copyWith(status: STATUS_FAILED);
   ArticlesState complete() {
-    return copyWith(status: const ProcessingStatus.complete());
+    return copyWith(status: STATUS_COMPLETE);
   }
 }
 

@@ -26,11 +26,11 @@ class CategoriesState with _$CategoriesState {
     return CategoriesState(getCategoriesFailureOrSuccessOption: none());
   }
 
-  CategoriesState busy() => copyWith(status: const ProcessingStatus.busy());
-  CategoriesState idle() => copyWith(status: const ProcessingStatus.idle());
-  CategoriesState failed() => copyWith(status: const ProcessingStatus.failed());
+  CategoriesState busy() => copyWith(status: STATUS_BUSY);
+  CategoriesState idle() => copyWith(status: STATUS_IDLE);
+  CategoriesState failed() => copyWith(status: STATUS_FAILED);
   CategoriesState complete() {
-    return copyWith(status: const ProcessingStatus.complete());
+    return copyWith(status: STATUS_COMPLETE);
   }
 }
 

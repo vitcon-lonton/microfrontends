@@ -26,16 +26,16 @@ class ServiceDetailState with _$ServiceDetailState {
     return ServiceDetailState(getDetailFailureOrSuccessOption: none());
   }
 
-  ServiceDetailState busy() => copyWith(status: const ProcessingStatus.busy());
+  ServiceDetailState busy() => copyWith(status: STATUS_BUSY);
 
-  ServiceDetailState idle() => copyWith(status: const ProcessingStatus.idle());
+  ServiceDetailState idle() => copyWith(status: STATUS_IDLE);
 
   ServiceDetailState failed() {
-    return copyWith(status: const ProcessingStatus.failed());
+    return copyWith(status: STATUS_FAILED);
   }
 
   ServiceDetailState complete() {
-    return copyWith(status: const ProcessingStatus.complete());
+    return copyWith(status: STATUS_COMPLETE);
   }
 }
 

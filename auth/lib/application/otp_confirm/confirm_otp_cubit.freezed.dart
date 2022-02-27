@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'forget_password_cubit.dart';
+part of 'confirm_otp_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,72 +15,65 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$ForgetPasswordStateTearOff {
-  const _$ForgetPasswordStateTearOff();
+class _$OtpConfirmStateTearOff {
+  const _$OtpConfirmStateTearOff();
 
-  _ForgetPasswordState call(
+  _OtpConfirmState call(
       {required Phone phone,
       bool isSubmitting = false,
       bool showErrorMessages = true,
-      ProcessingStatus status = const ProcessingStatus.idle(),
       required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) {
-    return _ForgetPasswordState(
+    return _OtpConfirmState(
       phone: phone,
       isSubmitting: isSubmitting,
       showErrorMessages: showErrorMessages,
-      status: status,
       failureOrSuccessOption: failureOrSuccessOption,
     );
   }
 }
 
 /// @nodoc
-const $ForgetPasswordState = _$ForgetPasswordStateTearOff();
+const $OtpConfirmState = _$OtpConfirmStateTearOff();
 
 /// @nodoc
-mixin _$ForgetPasswordState {
+mixin _$OtpConfirmState {
   Phone get phone => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  ProcessingStatus get status => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, Unit>> get failureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ForgetPasswordStateCopyWith<ForgetPasswordState> get copyWith =>
+  $OtpConfirmStateCopyWith<OtpConfirmState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ForgetPasswordStateCopyWith<$Res> {
-  factory $ForgetPasswordStateCopyWith(
-          ForgetPasswordState value, $Res Function(ForgetPasswordState) then) =
-      _$ForgetPasswordStateCopyWithImpl<$Res>;
+abstract class $OtpConfirmStateCopyWith<$Res> {
+  factory $OtpConfirmStateCopyWith(
+          OtpConfirmState value, $Res Function(OtpConfirmState) then) =
+      _$OtpConfirmStateCopyWithImpl<$Res>;
   $Res call(
       {Phone phone,
       bool isSubmitting,
       bool showErrorMessages,
-      ProcessingStatus status,
       Option<Either<AuthFailure, Unit>> failureOrSuccessOption});
-
-  $ProcessingStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
-class _$ForgetPasswordStateCopyWithImpl<$Res>
-    implements $ForgetPasswordStateCopyWith<$Res> {
-  _$ForgetPasswordStateCopyWithImpl(this._value, this._then);
+class _$OtpConfirmStateCopyWithImpl<$Res>
+    implements $OtpConfirmStateCopyWith<$Res> {
+  _$OtpConfirmStateCopyWithImpl(this._value, this._then);
 
-  final ForgetPasswordState _value;
+  final OtpConfirmState _value;
   // ignore: unused_field
-  final $Res Function(ForgetPasswordState) _then;
+  final $Res Function(OtpConfirmState) _then;
 
   @override
   $Res call({
     Object? phone = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? status = freezed,
     Object? failureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
@@ -96,63 +89,47 @@ class _$ForgetPasswordStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProcessingStatus,
       failureOrSuccessOption: failureOrSuccessOption == freezed
           ? _value.failureOrSuccessOption
           : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, Unit>>,
     ));
   }
-
-  @override
-  $ProcessingStatusCopyWith<$Res> get status {
-    return $ProcessingStatusCopyWith<$Res>(_value.status, (value) {
-      return _then(_value.copyWith(status: value));
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$ForgetPasswordStateCopyWith<$Res>
-    implements $ForgetPasswordStateCopyWith<$Res> {
-  factory _$ForgetPasswordStateCopyWith(_ForgetPasswordState value,
-          $Res Function(_ForgetPasswordState) then) =
-      __$ForgetPasswordStateCopyWithImpl<$Res>;
+abstract class _$OtpConfirmStateCopyWith<$Res>
+    implements $OtpConfirmStateCopyWith<$Res> {
+  factory _$OtpConfirmStateCopyWith(
+          _OtpConfirmState value, $Res Function(_OtpConfirmState) then) =
+      __$OtpConfirmStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {Phone phone,
       bool isSubmitting,
       bool showErrorMessages,
-      ProcessingStatus status,
       Option<Either<AuthFailure, Unit>> failureOrSuccessOption});
-
-  @override
-  $ProcessingStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
-class __$ForgetPasswordStateCopyWithImpl<$Res>
-    extends _$ForgetPasswordStateCopyWithImpl<$Res>
-    implements _$ForgetPasswordStateCopyWith<$Res> {
-  __$ForgetPasswordStateCopyWithImpl(
-      _ForgetPasswordState _value, $Res Function(_ForgetPasswordState) _then)
-      : super(_value, (v) => _then(v as _ForgetPasswordState));
+class __$OtpConfirmStateCopyWithImpl<$Res>
+    extends _$OtpConfirmStateCopyWithImpl<$Res>
+    implements _$OtpConfirmStateCopyWith<$Res> {
+  __$OtpConfirmStateCopyWithImpl(
+      _OtpConfirmState _value, $Res Function(_OtpConfirmState) _then)
+      : super(_value, (v) => _then(v as _OtpConfirmState));
 
   @override
-  _ForgetPasswordState get _value => super._value as _ForgetPasswordState;
+  _OtpConfirmState get _value => super._value as _OtpConfirmState;
 
   @override
   $Res call({
     Object? phone = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? status = freezed,
     Object? failureOrSuccessOption = freezed,
   }) {
-    return _then(_ForgetPasswordState(
+    return _then(_OtpConfirmState(
       phone: phone == freezed
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -165,10 +142,6 @@ class __$ForgetPasswordStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProcessingStatus,
       failureOrSuccessOption: failureOrSuccessOption == freezed
           ? _value.failureOrSuccessOption
           : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -179,12 +152,11 @@ class __$ForgetPasswordStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ForgetPasswordState extends _ForgetPasswordState {
-  _$_ForgetPasswordState(
+class _$_OtpConfirmState extends _OtpConfirmState {
+  _$_OtpConfirmState(
       {required this.phone,
       this.isSubmitting = false,
       this.showErrorMessages = true,
-      this.status = const ProcessingStatus.idle(),
       required this.failureOrSuccessOption})
       : super._();
 
@@ -196,28 +168,24 @@ class _$_ForgetPasswordState extends _ForgetPasswordState {
   @JsonKey()
   @override
   final bool showErrorMessages;
-  @JsonKey()
-  @override
-  final ProcessingStatus status;
   @override
   final Option<Either<AuthFailure, Unit>> failureOrSuccessOption;
 
   @override
   String toString() {
-    return 'ForgetPasswordState(phone: $phone, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, failureOrSuccessOption: $failureOrSuccessOption)';
+    return 'OtpConfirmState(phone: $phone, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, failureOrSuccessOption: $failureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ForgetPasswordState &&
+            other is _OtpConfirmState &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other.failureOrSuccessOption, failureOrSuccessOption));
   }
@@ -228,25 +196,22 @@ class _$_ForgetPasswordState extends _ForgetPasswordState {
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(showErrorMessages),
-      const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(failureOrSuccessOption));
 
   @JsonKey(ignore: true)
   @override
-  _$ForgetPasswordStateCopyWith<_ForgetPasswordState> get copyWith =>
-      __$ForgetPasswordStateCopyWithImpl<_ForgetPasswordState>(
-          this, _$identity);
+  _$OtpConfirmStateCopyWith<_OtpConfirmState> get copyWith =>
+      __$OtpConfirmStateCopyWithImpl<_OtpConfirmState>(this, _$identity);
 }
 
-abstract class _ForgetPasswordState extends ForgetPasswordState {
-  factory _ForgetPasswordState(
+abstract class _OtpConfirmState extends OtpConfirmState {
+  factory _OtpConfirmState(
           {required Phone phone,
           bool isSubmitting,
           bool showErrorMessages,
-          ProcessingStatus status,
           required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) =
-      _$_ForgetPasswordState;
-  _ForgetPasswordState._() : super._();
+      _$_OtpConfirmState;
+  _OtpConfirmState._() : super._();
 
   @override
   Phone get phone;
@@ -255,11 +220,9 @@ abstract class _ForgetPasswordState extends ForgetPasswordState {
   @override
   bool get showErrorMessages;
   @override
-  ProcessingStatus get status;
-  @override
   Option<Either<AuthFailure, Unit>> get failureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$ForgetPasswordStateCopyWith<_ForgetPasswordState> get copyWith =>
+  _$OtpConfirmStateCopyWith<_OtpConfirmState> get copyWith =>
       throw _privateConstructorUsedError;
 }

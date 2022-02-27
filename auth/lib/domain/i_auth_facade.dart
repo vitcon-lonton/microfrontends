@@ -8,16 +8,17 @@ abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();
   Future<Either<AuthFailure, Unit>> forgetPassword({required Phone phone});
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
-      {required Name name,
-      required Phone phone,
+      {required Phone phone,
       required Street street,
       required Gender gender,
+      required Name lastName,
+      required Name firstName,
       required BirthDay birthDay,
       required Password password,
       required Password confirmPassword,
       required EmailAddress emailAddress});
-  Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword(
-      {required EmailAddress emailAddress, required Password password});
+  Future<Either<AuthFailure, Unit>> signInWithPhoneAndPassword(
+      {required Phone phone, required Password password});
   Future<Either<AuthFailure, Unit>> signInWithGoogle();
   Future<Either<AuthFailure, Unit>> updatePassword(
       {required Password newPassword,
@@ -31,4 +32,5 @@ abstract class IAuthFacade {
       required BirthDay birthDay,
       required EmailAddress emailAddress});
   Future<void> signOut();
+  // Future<Either<AuthFailure, Unit>> requestOtp({required Phone phone});
 }

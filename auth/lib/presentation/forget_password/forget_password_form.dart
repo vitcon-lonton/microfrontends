@@ -13,37 +13,20 @@ class ForgetPasswordForm extends StatelessWidget {
       child: Column(
         children: [
           BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
-            buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
-            builder: (context, state) {
-              return WTextInput(
-                hintText: 'Email',
-                errorText: context
-                    .read<ForgetPasswordCubit>()
-                    .state
-                    .emailAddress
-                    .value
-                    .fold((failure) {
-                  return failure.maybeMap(
-                      orElse: () => null, invalidEmail: (_) => 'Invalid Email');
-                }, (_) => null),
-                onChanged:
-                    context.read<ForgetPasswordCubit>().emailAddressChanged,
-              );
-            },
+            buildWhen: (prev, cur) => prev.phone != cur.phone,
+            builder: (context, state) => PhoneInput(
+              value: state.phone,
+              onChanged: context.read<ForgetPasswordCubit>().phoneChanged,
+            ),
           ),
-          kVSpaceM,
+          kVSpaceXXL,
           BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
             buildWhen: (prev, cur) => prev.status != cur.status,
-            builder: (context, state) => WSubmitBtn(
-              child: state.status.maybeMap(
-                busy: (_) => const Text('....'),
-                orElse: () => const Text('SUBMIT'),
-              ),
-              onPressed: state.status.maybeMap(
-                busy: (_) => null,
-                orElse: () => context.read<ForgetPasswordCubit>().submitted,
-              ),
-              // onPressed: context.read<ForgetPasswordCubit>().emailSubmitted,
+            builder: (context, state) => FormSubmitBtn(
+              child: const Text('OK'),
+              isSubmitting:
+                  state.status.maybeMap(busy: (_) => true, orElse: () => false),
+              onPressed: context.read<ForgetPasswordCubit>().submitted,
             ),
           ),
         ],

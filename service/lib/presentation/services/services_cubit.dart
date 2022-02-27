@@ -26,11 +26,11 @@ class ServicesState with _$ServicesState {
     return ServicesState(getCategoriesFailureOrSuccessOption: none());
   }
 
-  ServicesState busy() => copyWith(status: const ProcessingStatus.busy());
-  ServicesState idle() => copyWith(status: const ProcessingStatus.idle());
-  ServicesState failed() => copyWith(status: const ProcessingStatus.failed());
+  ServicesState busy() => copyWith(status: STATUS_BUSY);
+  ServicesState idle() => copyWith(status: STATUS_IDLE);
+  ServicesState failed() => copyWith(status: STATUS_FAILED);
   ServicesState complete() {
-    return copyWith(status: const ProcessingStatus.complete());
+    return copyWith(status: STATUS_COMPLETE);
   }
 }
 

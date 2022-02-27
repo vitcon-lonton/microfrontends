@@ -9,12 +9,7 @@ import 'widgets/sign_in_form.dart';
 // import 'package:notes_firebase_ddd_course/presentation/sign_in/widgets/sign_in_form.dart';
 
 class SignInPage extends StatelessWidget {
-  final SignInFormBloc bloc;
-
-  const SignInPage({
-    Key? key,
-    required this.bloc,
-  }) : super(key: key);
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +17,7 @@ class SignInPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Sign In')),
       body: BlocProvider(
         child: const SignInForm(),
-        create: (context) => bloc,
+        create: (context) => context.read<SignInFormBloc>(),
         // create: (context) => getIt<SignInFormBloc>(),
       ),
     );

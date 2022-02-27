@@ -1,11 +1,11 @@
-part of 'forget_password.dart';
+part of 'otp_confirm.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
-  const ForgetPasswordPage({Key? key}) : super(key: key);
+class OtpConfirmPage extends StatelessWidget {
+  const OtpConfirmPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const registerTxt = 'Forget Password';
+    const registerTxt = 'OTP Confirmation';
     // final msgTerm1 = tr(LocaleKeys.msg_term1);
     // final msgTerm2 = tr(LocaleKeys.msg_term2);
     // final msgTerm3 = tr(LocaleKeys.msg_term3);
@@ -52,7 +52,7 @@ class ForgetPasswordPage extends StatelessWidget {
               children: const [
                 kVSpaceXL,
                 kVSpaceXL,
-                ForgetPasswordForm(),
+                OtpConfirmForm(),
                 kVSpaceXL,
                 kVSpaceL,
               ],

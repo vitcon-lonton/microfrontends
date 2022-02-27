@@ -36,14 +36,10 @@ class ServiceBookingFormState with _$ServiceBookingFormState {
     );
   }
 
-  ServiceBookingFormState busy() =>
-      copyWith(status: const ProcessingStatus.busy());
-  ServiceBookingFormState idle() =>
-      copyWith(status: const ProcessingStatus.idle());
-  ServiceBookingFormState failed() =>
-      copyWith(status: const ProcessingStatus.failed());
-  ServiceBookingFormState complete() =>
-      copyWith(status: const ProcessingStatus.complete());
+  ServiceBookingFormState busy() => copyWith(status: STATUS_BUSY);
+  ServiceBookingFormState idle() => copyWith(status: STATUS_IDLE);
+  ServiceBookingFormState failed() => copyWith(status: STATUS_FAILED);
+  ServiceBookingFormState complete() => copyWith(status: STATUS_COMPLETE);
 }
 
 class ServiceBookingFormCubit extends Cubit<ServiceBookingFormState> {

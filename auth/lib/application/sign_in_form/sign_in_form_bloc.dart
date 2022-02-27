@@ -1,5 +1,4 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
-
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
@@ -15,15 +14,16 @@ part 'sign_in_form_bloc.freezed.dart';
 part 'sign_in_form_event.dart';
 part 'sign_in_form_state.dart';
 
-// @injectable
 class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   final IAuthFacade _authFacade;
 
   SignInFormBloc(this._authFacade) : super(SignInFormState.initial()) {
     on<EmailChanged>(_onEmailChanged);
+    on<PhoneChanged>(_onPhoneChanged);
     on<PasswordChanged>(_onPasswordChanged);
+    on<ShowPasswordChanged>(_onShowPasswordChanged);
     on<SignInWithGooglePressed>(_onSignInWithGooglePressed);
-    on<SignInWithEmailAndPasswordPressed>(_onSignInWithEmailAndPasswordPressed);
+    on<SignInWithPhoneAndPasswordPressed>(_onSignInWithPhoneAndPasswordPressed);
     // on<RegisterWithEmailAndPasswordPressed>(
     //     _onRegisterWithEmailAndPasswordPressed);
   }
@@ -31,6 +31,13 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   void _onEmailChanged(EmailChanged event, Emitter<SignInFormState> emit) {
     emit(state.copyWith(
       emailAddress: EmailAddress(event.emailStr),
+      authFailureOrSuccessOption: none(),
+    ));
+  }
+
+  void _onPhoneChanged(PhoneChanged event, Emitter<SignInFormState> emit) {
+    emit(state.copyWith(
+      phone: Phone(event.phoneStr),
       authFailureOrSuccessOption: none(),
     ));
   }
@@ -43,18 +50,15 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
     ));
   }
 
-  // void _onRegisterWithEmailAndPasswordPressed(
-  //     RegisterWithEmailAndPasswordPressed event,
-  //     Emitter<SignInFormState> emit) {
-  //   _performActionOnAuthFacadeWithEmailAndPassword(
-  //     _authFacade.registerWithEmailAndPassword,
-  //   );
-  // }
+  void _onShowPasswordChanged(
+      ShowPasswordChanged event, Emitter<SignInFormState> emit) {
+    emit(state.copyWith(showPassword: event.value));
+  }
 
-  void _onSignInWithEmailAndPasswordPressed(
-      SignInWithEmailAndPasswordPressed event, Emitter<SignInFormState> emit) {
-    _performActionOnAuthFacadeWithEmailAndPassword(
-      _authFacade.signInWithEmailAndPassword,
+  void _onSignInWithPhoneAndPasswordPressed(
+      SignInWithPhoneAndPasswordPressed event, Emitter<SignInFormState> emit) {
+    _performActionOnAuthFacadeWithPhoneAndPassword(
+      _authFacade.signInWithPhoneAndPassword,
     );
   }
 
@@ -72,9 +76,9 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
     ));
   }
 
-  _performActionOnAuthFacadeWithEmailAndPassword(
+  _performActionOnAuthFacadeWithPhoneAndPassword(
       Future<Either<AuthFailure, Unit>> Function(
-              {required EmailAddress emailAddress, required Password password})
+              {required Phone phone, required Password password})
           forwardedCall) async {
     Either<AuthFailure, Unit> failureOrSuccess =
         const Right<AuthFailure, Unit>(unit);
@@ -89,7 +93,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       ));
 
       failureOrSuccess = await forwardedCall(
-        emailAddress: state.emailAddress,
+        phone: state.phone,
         password: state.password,
       );
     }
@@ -100,4 +104,12 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       authFailureOrSuccessOption: optionOf(failureOrSuccess),
     ));
   }
+
+  // void _onRegisterWithEmailAndPasswordPressed(
+  //     RegisterWithEmailAndPasswordPressed event,
+  //     Emitter<SignInFormState> emit) {
+  //   _performActionOnAuthFacadeWithPhoneAndPassword(
+  //     _authFacade.registerWithEmailAndPassword,
+  //   );
+  // }
 }

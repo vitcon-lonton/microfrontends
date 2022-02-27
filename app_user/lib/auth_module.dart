@@ -17,7 +17,7 @@ abstract class AuthModule {
   ForgetPasswordCubit get forgetPasswordCubit;
 
   @LazySingleton(as: IAuthFacade)
-  FirebaseAuthFacade get authFacade;
+  AuthFacade get authFacade;
 }
 
 

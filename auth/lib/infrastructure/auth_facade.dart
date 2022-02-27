@@ -20,16 +20,16 @@ final _fakeUser = User(
   street: Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City'),
 );
 
-class FirebaseAuthFacade implements IAuthFacade {
-  FirebaseAuthFacade();
+class AuthFacade implements IAuthFacade {
+  // AuthFacade();
 
   @override
   Future<Option<User>> getSignedInUser() async => optionOf(_fakeUser);
 
   @override
-  Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword(
-      {required EmailAddress emailAddress, required Password password}) async {
-    final emailAddressStr = emailAddress.getOrCrash();
+  Future<Either<AuthFailure, Unit>> signInWithPhoneAndPassword(
+      {required Phone phone, required Password password}) async {
+    final phoneStr = phone.getOrCrash();
     final passwordStr = password.getOrCrash();
     try {
       await Future.delayed(const Duration(seconds: 1));
@@ -100,21 +100,23 @@ class FirebaseAuthFacade implements IAuthFacade {
 
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
-      {required Name name,
-      required Phone phone,
+      {required Phone phone,
       required Street street,
       required Gender gender,
+      required Name lastName,
+      required Name firstName,
       required BirthDay birthDay,
       required Password password,
       required Password confirmPassword,
       required EmailAddress emailAddress}) async {
-    final nameStr = name.getOrCrash();
     final phoneStr = phone.getOrCrash();
     final streetStr = street.getOrCrash();
-    final birthDayValue = birthDay.getOrCrash();
     final passwordStr = password.getOrCrash();
-    final confirmPasswordStr = confirmPassword.getOrCrash();
+    final lastNameStr = lastName.getOrCrash();
+    final firstNameStr = firstName.getOrCrash();
+    final birthDayValue = birthDay.getOrCrash();
     final emailAddressStr = emailAddress.getOrCrash();
+    final confirmPasswordStr = confirmPassword.getOrCrash();
 
     try {
       await Future.delayed(const Duration(seconds: 1));
