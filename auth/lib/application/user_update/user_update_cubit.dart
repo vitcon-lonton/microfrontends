@@ -8,13 +8,13 @@ import 'package:auth/domain/i_auth_facade.dart';
 import 'package:auth/domain/user.dart';
 import 'package:auth/domain/value_objects.dart';
 
-part 'update_user_cubit.freezed.dart';
+part 'user_update_cubit.freezed.dart';
 
 @freezed
-class UpdateUserState with _$UpdateUserState {
-  const UpdateUserState._();
+class UserUpdateState with _$UserUpdateState {
+  const UserUpdateState._();
 
-  factory UpdateUserState({
+  factory UserUpdateState({
     User? user,
     required Name name,
     required Phone phone,
@@ -27,12 +27,12 @@ class UpdateUserState with _$UpdateUserState {
     @Default(STATUS_IDLE) ProcessingStatus status,
     required Option<User> userOption,
     required Option<Either<AuthFailure, Unit>> failureOrSuccessOption,
-  }) = _UpdateUserState;
+  }) = _UserUpdateState;
 
   bool get valid => true;
 
-  factory UpdateUserState.init() {
-    return UpdateUserState(
+  factory UserUpdateState.init() {
+    return UserUpdateState(
         name: Name(''),
         phone: Phone(''),
         street: Street(''),
@@ -43,16 +43,16 @@ class UpdateUserState with _$UpdateUserState {
         userOption: none());
   }
 
-  UpdateUserState idle() => copyWith(status: STATUS_IDLE);
-  UpdateUserState busy() => copyWith(status: STATUS_BUSY);
-  UpdateUserState failed() => copyWith(status: STATUS_FAILED);
-  UpdateUserState complete() => copyWith(status: STATUS_COMPLETE);
+  UserUpdateState idle() => copyWith(status: STATUS_IDLE);
+  UserUpdateState busy() => copyWith(status: STATUS_BUSY);
+  UserUpdateState failed() => copyWith(status: STATUS_FAILED);
+  UserUpdateState complete() => copyWith(status: STATUS_COMPLETE);
 }
 
-class UpdateUserCubit extends Cubit<UpdateUserState> {
+class UserUpdateCubit extends Cubit<UserUpdateState> {
   final IAuthFacade _authFacade;
 
-  UpdateUserCubit(this._authFacade) : super(UpdateUserState.init()) {
+  UserUpdateCubit(this._authFacade) : super(UserUpdateState.init()) {
     getUserRequested();
   }
 

@@ -7,26 +7,26 @@ class ForgetPasswordForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       autovalidateMode:
-          context.read<ForgetPasswordCubit>().state.showErrorMessages
+          context.read<PasswordForgetCubit>().state.showErrorMessages
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
       child: Column(
         children: [
-          BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+          BlocBuilder<PasswordForgetCubit, PasswordForgetState>(
             buildWhen: (prev, cur) => prev.phone != cur.phone,
             builder: (context, state) => PhoneInput(
               value: state.phone,
-              onChanged: context.read<ForgetPasswordCubit>().phoneChanged,
+              onChanged: context.read<PasswordForgetCubit>().phoneChanged,
             ),
           ),
           kVSpaceXXL,
-          BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+          BlocBuilder<PasswordForgetCubit, PasswordForgetState>(
             buildWhen: (prev, cur) => prev.status != cur.status,
             builder: (context, state) => FormSubmitBtn(
               child: const Text('OK'),
               isSubmitting:
                   state.status.maybeMap(busy: (_) => true, orElse: () => false),
-              onPressed: context.read<ForgetPasswordCubit>().submitted,
+              onPressed: context.read<PasswordForgetCubit>().submitted,
             ),
           ),
         ],

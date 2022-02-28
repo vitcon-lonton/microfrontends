@@ -12,9 +12,9 @@ class ForgetPasswordPage extends StatelessWidget {
     // final msgTerm4 = tr(LocaleKeys.msg_term4);
     // final registerTxt = tr(LocaleKeys.register);
 
-    return BlocProvider<ForgetPasswordCubit>(
-      create: (_) => context.read<ForgetPasswordCubit>(),
-      child: BlocListener<ForgetPasswordCubit, ForgetPasswordState>(
+    return BlocProvider<PasswordForgetCubit>(
+      create: (_) => context.read<PasswordForgetCubit>(),
+      child: BlocListener<PasswordForgetCubit, PasswordForgetState>(
         listenWhen: (prev, cur) =>
             prev.failureOrSuccessOption != cur.failureOrSuccessOption,
         listener: (context, state) {

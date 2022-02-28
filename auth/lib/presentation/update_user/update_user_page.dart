@@ -7,9 +7,9 @@ class UpdateUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const registerTxt = 'Update Profile';
 
-    return BlocProvider<UpdateUserCubit>(
-      create: (_) => context.read<UpdateUserCubit>(),
-      child: BlocListener<UpdateUserCubit, UpdateUserState>(
+    return BlocProvider<UserUpdateCubit>(
+      create: (_) => context.read<UserUpdateCubit>(),
+      child: BlocListener<UserUpdateCubit, UserUpdateState>(
         listenWhen: (prev, cur) {
           return prev.failureOrSuccessOption != cur.failureOrSuccessOption;
         },

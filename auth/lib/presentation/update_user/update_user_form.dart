@@ -35,7 +35,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<UpdateUserCubit, UpdateUserState>(
+        BlocListener<UserUpdateCubit, UserUpdateState>(
           listenWhen: (prev, cur) => prev.name != cur.name,
           listener: (context, state) {
             final nameStr = state.name.value.foldRight('', (value, previous) {
@@ -47,7 +47,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
             }
           },
         ),
-        BlocListener<UpdateUserCubit, UpdateUserState>(
+        BlocListener<UserUpdateCubit, UserUpdateState>(
           listenWhen: (prev, cur) => prev.phone != cur.phone,
           listener: (context, state) {
             final phoneStr = state.phone.value.foldRight('', (value, previous) {
@@ -59,7 +59,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
             }
           },
         ),
-        BlocListener<UpdateUserCubit, UpdateUserState>(
+        BlocListener<UserUpdateCubit, UserUpdateState>(
           listenWhen: (prev, cur) => prev.birthDay != cur.birthDay,
           listener: (context, state) {
             final birthDayStr = state.birthDay.value
@@ -70,7 +70,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
             }
           },
         ),
-        BlocListener<UpdateUserCubit, UpdateUserState>(
+        BlocListener<UserUpdateCubit, UserUpdateState>(
           listenWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
           listener: (context, state) {
             final emailStr = state.emailAddress.value
@@ -84,7 +84,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
       ],
       child: Form(
         autovalidateMode:
-            context.read<UpdateUserCubit>().state.showErrorMessages
+            context.read<UserUpdateCubit>().state.showErrorMessages
                 ? AutovalidateMode.always
                 : AutovalidateMode.disabled,
         child: Column(
@@ -102,7 +102,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
               ),
             ),
             kVSpaceM,
-            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+            BlocBuilder<UserUpdateCubit, UserUpdateState>(
               buildWhen: (prev, cur) => prev.name != cur.name,
               builder: (context, state) => WTextInput(
                 label: 'Full Name',
@@ -110,11 +110,11 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 controller: _fullNameController,
                 errorText: state.name.value
                     .fold((failure) => 'Invalid Name', (_) => null),
-                onChanged: context.read<UpdateUserCubit>().nameChanged,
+                onChanged: context.read<UserUpdateCubit>().nameChanged,
               ),
             ),
             kVSpaceM,
-            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+            BlocBuilder<UserUpdateCubit, UserUpdateState>(
               buildWhen: (prev, cur) => prev.birthDay != cur.birthDay,
               builder: (context, state) => WTextInput(
                 enabled: false,
@@ -125,7 +125,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
               ),
             ),
             kVSpaceM,
-            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+            BlocBuilder<UserUpdateCubit, UserUpdateState>(
               buildWhen: (prev, cur) => prev.phone != cur.phone,
               builder: (context, state) => WTextInput(
                 enabled: false,
@@ -135,7 +135,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
               ),
             ),
             kVSpaceM,
-            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+            BlocBuilder<UserUpdateCubit, UserUpdateState>(
               buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
               builder: (context, state) => WTextInput(
                 label: 'Email',
@@ -143,11 +143,11 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                 controller: _emailController,
                 errorText: state.emailAddress.value
                     .fold((failure) => 'Invalid Email', (_) => null),
-                onChanged: context.read<UpdateUserCubit>().emailAddressChanged,
+                onChanged: context.read<UserUpdateCubit>().emailAddressChanged,
               ),
             ),
             kVSpaceXXL,
-            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+            BlocBuilder<UserUpdateCubit, UserUpdateState>(
               buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
               builder: (context, state) => FormSubmitBtn(
                 child: const Text('UPDATE'),

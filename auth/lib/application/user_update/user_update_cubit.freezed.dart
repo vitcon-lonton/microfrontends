@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'update_user_cubit.dart';
+part of 'user_update_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,10 +15,10 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$UpdateUserStateTearOff {
-  const _$UpdateUserStateTearOff();
+class _$UserUpdateStateTearOff {
+  const _$UserUpdateStateTearOff();
 
-  _UpdateUserState call(
+  _UserUpdateState call(
       {User? user,
       required Name name,
       required Phone phone,
@@ -31,7 +31,7 @@ class _$UpdateUserStateTearOff {
       ProcessingStatus status = STATUS_IDLE,
       required Option<User> userOption,
       required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) {
-    return _UpdateUserState(
+    return _UserUpdateState(
       user: user,
       name: name,
       phone: phone,
@@ -49,10 +49,10 @@ class _$UpdateUserStateTearOff {
 }
 
 /// @nodoc
-const $UpdateUserState = _$UpdateUserStateTearOff();
+const $UserUpdateState = _$UserUpdateStateTearOff();
 
 /// @nodoc
-mixin _$UpdateUserState {
+mixin _$UserUpdateState {
   User? get user => throw _privateConstructorUsedError;
   Name get name => throw _privateConstructorUsedError;
   Phone get phone => throw _privateConstructorUsedError;
@@ -68,15 +68,15 @@ mixin _$UpdateUserState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $UpdateUserStateCopyWith<UpdateUserState> get copyWith =>
+  $UserUpdateStateCopyWith<UserUpdateState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UpdateUserStateCopyWith<$Res> {
-  factory $UpdateUserStateCopyWith(
-          UpdateUserState value, $Res Function(UpdateUserState) then) =
-      _$UpdateUserStateCopyWithImpl<$Res>;
+abstract class $UserUpdateStateCopyWith<$Res> {
+  factory $UserUpdateStateCopyWith(
+          UserUpdateState value, $Res Function(UserUpdateState) then) =
+      _$UserUpdateStateCopyWithImpl<$Res>;
   $Res call(
       {User? user,
       Name name,
@@ -96,13 +96,13 @@ abstract class $UpdateUserStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UpdateUserStateCopyWithImpl<$Res>
-    implements $UpdateUserStateCopyWith<$Res> {
-  _$UpdateUserStateCopyWithImpl(this._value, this._then);
+class _$UserUpdateStateCopyWithImpl<$Res>
+    implements $UserUpdateStateCopyWith<$Res> {
+  _$UserUpdateStateCopyWithImpl(this._value, this._then);
 
-  final UpdateUserState _value;
+  final UserUpdateState _value;
   // ignore: unused_field
-  final $Res Function(UpdateUserState) _then;
+  final $Res Function(UserUpdateState) _then;
 
   @override
   $Res call({
@@ -191,11 +191,11 @@ class _$UpdateUserStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$UpdateUserStateCopyWith<$Res>
-    implements $UpdateUserStateCopyWith<$Res> {
-  factory _$UpdateUserStateCopyWith(
-          _UpdateUserState value, $Res Function(_UpdateUserState) then) =
-      __$UpdateUserStateCopyWithImpl<$Res>;
+abstract class _$UserUpdateStateCopyWith<$Res>
+    implements $UserUpdateStateCopyWith<$Res> {
+  factory _$UserUpdateStateCopyWith(
+          _UserUpdateState value, $Res Function(_UserUpdateState) then) =
+      __$UserUpdateStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {User? user,
@@ -218,15 +218,15 @@ abstract class _$UpdateUserStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$UpdateUserStateCopyWithImpl<$Res>
-    extends _$UpdateUserStateCopyWithImpl<$Res>
-    implements _$UpdateUserStateCopyWith<$Res> {
-  __$UpdateUserStateCopyWithImpl(
-      _UpdateUserState _value, $Res Function(_UpdateUserState) _then)
-      : super(_value, (v) => _then(v as _UpdateUserState));
+class __$UserUpdateStateCopyWithImpl<$Res>
+    extends _$UserUpdateStateCopyWithImpl<$Res>
+    implements _$UserUpdateStateCopyWith<$Res> {
+  __$UserUpdateStateCopyWithImpl(
+      _UserUpdateState _value, $Res Function(_UserUpdateState) _then)
+      : super(_value, (v) => _then(v as _UserUpdateState));
 
   @override
-  _UpdateUserState get _value => super._value as _UpdateUserState;
+  _UserUpdateState get _value => super._value as _UserUpdateState;
 
   @override
   $Res call({
@@ -243,7 +243,7 @@ class __$UpdateUserStateCopyWithImpl<$Res>
     Object? userOption = freezed,
     Object? failureOrSuccessOption = freezed,
   }) {
-    return _then(_UpdateUserState(
+    return _then(_UserUpdateState(
       user: user == freezed
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -298,8 +298,8 @@ class __$UpdateUserStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateUserState extends _UpdateUserState {
-  _$_UpdateUserState(
+class _$_UserUpdateState extends _UserUpdateState {
+  _$_UserUpdateState(
       {this.user,
       required this.name,
       required this.phone,
@@ -344,14 +344,14 @@ class _$_UpdateUserState extends _UpdateUserState {
 
   @override
   String toString() {
-    return 'UpdateUserState(user: $user, name: $name, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, emailAddress: $emailAddress, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, userOption: $userOption, failureOrSuccessOption: $failureOrSuccessOption)';
+    return 'UserUpdateState(user: $user, name: $name, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, emailAddress: $emailAddress, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, userOption: $userOption, failureOrSuccessOption: $failureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _UpdateUserState &&
+            other is _UserUpdateState &&
             const DeepCollectionEquality().equals(other.user, user) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
@@ -389,12 +389,12 @@ class _$_UpdateUserState extends _UpdateUserState {
 
   @JsonKey(ignore: true)
   @override
-  _$UpdateUserStateCopyWith<_UpdateUserState> get copyWith =>
-      __$UpdateUserStateCopyWithImpl<_UpdateUserState>(this, _$identity);
+  _$UserUpdateStateCopyWith<_UserUpdateState> get copyWith =>
+      __$UserUpdateStateCopyWithImpl<_UserUpdateState>(this, _$identity);
 }
 
-abstract class _UpdateUserState extends UpdateUserState {
-  factory _UpdateUserState(
+abstract class _UserUpdateState extends UserUpdateState {
+  factory _UserUpdateState(
           {User? user,
           required Name name,
           required Phone phone,
@@ -407,8 +407,8 @@ abstract class _UpdateUserState extends UpdateUserState {
           ProcessingStatus status,
           required Option<User> userOption,
           required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) =
-      _$_UpdateUserState;
-  _UpdateUserState._() : super._();
+      _$_UserUpdateState;
+  _UserUpdateState._() : super._();
 
   @override
   User? get user;
@@ -436,6 +436,6 @@ abstract class _UpdateUserState extends UpdateUserState {
   Option<Either<AuthFailure, Unit>> get failureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$UpdateUserStateCopyWith<_UpdateUserState> get copyWith =>
+  _$UserUpdateStateCopyWith<_UserUpdateState> get copyWith =>
       throw _privateConstructorUsedError;
 }

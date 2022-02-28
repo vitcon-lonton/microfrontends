@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'forget_password_cubit.dart';
+part of 'password_forget_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,16 +15,16 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$ForgetPasswordStateTearOff {
-  const _$ForgetPasswordStateTearOff();
+class _$PasswordForgetStateTearOff {
+  const _$PasswordForgetStateTearOff();
 
-  _ForgetPasswordState call(
+  _PasswordForgetState call(
       {required Phone phone,
       bool isSubmitting = false,
       bool showErrorMessages = true,
       ProcessingStatus status = const ProcessingStatus.idle(),
       required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) {
-    return _ForgetPasswordState(
+    return _PasswordForgetState(
       phone: phone,
       isSubmitting: isSubmitting,
       showErrorMessages: showErrorMessages,
@@ -35,10 +35,10 @@ class _$ForgetPasswordStateTearOff {
 }
 
 /// @nodoc
-const $ForgetPasswordState = _$ForgetPasswordStateTearOff();
+const $PasswordForgetState = _$PasswordForgetStateTearOff();
 
 /// @nodoc
-mixin _$ForgetPasswordState {
+mixin _$PasswordForgetState {
   Phone get phone => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
@@ -47,15 +47,15 @@ mixin _$ForgetPasswordState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ForgetPasswordStateCopyWith<ForgetPasswordState> get copyWith =>
+  $PasswordForgetStateCopyWith<PasswordForgetState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ForgetPasswordStateCopyWith<$Res> {
-  factory $ForgetPasswordStateCopyWith(
-          ForgetPasswordState value, $Res Function(ForgetPasswordState) then) =
-      _$ForgetPasswordStateCopyWithImpl<$Res>;
+abstract class $PasswordForgetStateCopyWith<$Res> {
+  factory $PasswordForgetStateCopyWith(
+          PasswordForgetState value, $Res Function(PasswordForgetState) then) =
+      _$PasswordForgetStateCopyWithImpl<$Res>;
   $Res call(
       {Phone phone,
       bool isSubmitting,
@@ -67,13 +67,13 @@ abstract class $ForgetPasswordStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ForgetPasswordStateCopyWithImpl<$Res>
-    implements $ForgetPasswordStateCopyWith<$Res> {
-  _$ForgetPasswordStateCopyWithImpl(this._value, this._then);
+class _$PasswordForgetStateCopyWithImpl<$Res>
+    implements $PasswordForgetStateCopyWith<$Res> {
+  _$PasswordForgetStateCopyWithImpl(this._value, this._then);
 
-  final ForgetPasswordState _value;
+  final PasswordForgetState _value;
   // ignore: unused_field
-  final $Res Function(ForgetPasswordState) _then;
+  final $Res Function(PasswordForgetState) _then;
 
   @override
   $Res call({
@@ -116,11 +116,11 @@ class _$ForgetPasswordStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ForgetPasswordStateCopyWith<$Res>
-    implements $ForgetPasswordStateCopyWith<$Res> {
-  factory _$ForgetPasswordStateCopyWith(_ForgetPasswordState value,
-          $Res Function(_ForgetPasswordState) then) =
-      __$ForgetPasswordStateCopyWithImpl<$Res>;
+abstract class _$PasswordForgetStateCopyWith<$Res>
+    implements $PasswordForgetStateCopyWith<$Res> {
+  factory _$PasswordForgetStateCopyWith(_PasswordForgetState value,
+          $Res Function(_PasswordForgetState) then) =
+      __$PasswordForgetStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {Phone phone,
@@ -134,15 +134,15 @@ abstract class _$ForgetPasswordStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ForgetPasswordStateCopyWithImpl<$Res>
-    extends _$ForgetPasswordStateCopyWithImpl<$Res>
-    implements _$ForgetPasswordStateCopyWith<$Res> {
-  __$ForgetPasswordStateCopyWithImpl(
-      _ForgetPasswordState _value, $Res Function(_ForgetPasswordState) _then)
-      : super(_value, (v) => _then(v as _ForgetPasswordState));
+class __$PasswordForgetStateCopyWithImpl<$Res>
+    extends _$PasswordForgetStateCopyWithImpl<$Res>
+    implements _$PasswordForgetStateCopyWith<$Res> {
+  __$PasswordForgetStateCopyWithImpl(
+      _PasswordForgetState _value, $Res Function(_PasswordForgetState) _then)
+      : super(_value, (v) => _then(v as _PasswordForgetState));
 
   @override
-  _ForgetPasswordState get _value => super._value as _ForgetPasswordState;
+  _PasswordForgetState get _value => super._value as _PasswordForgetState;
 
   @override
   $Res call({
@@ -152,7 +152,7 @@ class __$ForgetPasswordStateCopyWithImpl<$Res>
     Object? status = freezed,
     Object? failureOrSuccessOption = freezed,
   }) {
-    return _then(_ForgetPasswordState(
+    return _then(_PasswordForgetState(
       phone: phone == freezed
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -179,8 +179,8 @@ class __$ForgetPasswordStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ForgetPasswordState extends _ForgetPasswordState {
-  _$_ForgetPasswordState(
+class _$_PasswordForgetState extends _PasswordForgetState {
+  _$_PasswordForgetState(
       {required this.phone,
       this.isSubmitting = false,
       this.showErrorMessages = true,
@@ -204,14 +204,14 @@ class _$_ForgetPasswordState extends _ForgetPasswordState {
 
   @override
   String toString() {
-    return 'ForgetPasswordState(phone: $phone, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, failureOrSuccessOption: $failureOrSuccessOption)';
+    return 'PasswordForgetState(phone: $phone, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, failureOrSuccessOption: $failureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ForgetPasswordState &&
+            other is _PasswordForgetState &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
@@ -233,20 +233,20 @@ class _$_ForgetPasswordState extends _ForgetPasswordState {
 
   @JsonKey(ignore: true)
   @override
-  _$ForgetPasswordStateCopyWith<_ForgetPasswordState> get copyWith =>
-      __$ForgetPasswordStateCopyWithImpl<_ForgetPasswordState>(
+  _$PasswordForgetStateCopyWith<_PasswordForgetState> get copyWith =>
+      __$PasswordForgetStateCopyWithImpl<_PasswordForgetState>(
           this, _$identity);
 }
 
-abstract class _ForgetPasswordState extends ForgetPasswordState {
-  factory _ForgetPasswordState(
+abstract class _PasswordForgetState extends PasswordForgetState {
+  factory _PasswordForgetState(
           {required Phone phone,
           bool isSubmitting,
           bool showErrorMessages,
           ProcessingStatus status,
           required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) =
-      _$_ForgetPasswordState;
-  _ForgetPasswordState._() : super._();
+      _$_PasswordForgetState;
+  _PasswordForgetState._() : super._();
 
   @override
   Phone get phone;
@@ -260,6 +260,6 @@ abstract class _ForgetPasswordState extends ForgetPasswordState {
   Option<Either<AuthFailure, Unit>> get failureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$ForgetPasswordStateCopyWith<_ForgetPasswordState> get copyWith =>
+  _$PasswordForgetStateCopyWith<_PasswordForgetState> get copyWith =>
       throw _privateConstructorUsedError;
 }

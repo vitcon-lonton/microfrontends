@@ -7,39 +7,39 @@ import 'package:auth/domain/auth_failure.dart';
 import 'package:auth/domain/i_auth_facade.dart';
 import 'package:auth/domain/value_objects.dart';
 
-part 'forget_password_cubit.freezed.dart';
+part 'password_forget_cubit.freezed.dart';
 
 @freezed
-class ForgetPasswordState with _$ForgetPasswordState {
-  const ForgetPasswordState._();
+class PasswordForgetState with _$PasswordForgetState {
+  const PasswordForgetState._();
 
-  factory ForgetPasswordState({
+  factory PasswordForgetState({
     required Phone phone,
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     @Default(ProcessingStatus.idle()) ProcessingStatus status,
     required Option<Either<AuthFailure, Unit>> failureOrSuccessOption,
-  }) = _ForgetPasswordState;
+  }) = _PasswordForgetState;
 
   bool get valid => true;
 
-  factory ForgetPasswordState.init() {
-    return ForgetPasswordState(
+  factory PasswordForgetState.init() {
+    return PasswordForgetState(
       phone: Phone('0372560843'),
       failureOrSuccessOption: none(),
     );
   }
 
-  ForgetPasswordState busy() => copyWith(status: STATUS_BUSY);
-  ForgetPasswordState idle() => copyWith(status: STATUS_IDLE);
-  ForgetPasswordState failed() => copyWith(status: STATUS_FAILED);
-  ForgetPasswordState complete() => copyWith(status: STATUS_COMPLETE);
+  PasswordForgetState busy() => copyWith(status: STATUS_BUSY);
+  PasswordForgetState idle() => copyWith(status: STATUS_IDLE);
+  PasswordForgetState failed() => copyWith(status: STATUS_FAILED);
+  PasswordForgetState complete() => copyWith(status: STATUS_COMPLETE);
 }
 
-class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
+class PasswordForgetCubit extends Cubit<PasswordForgetState> {
   final IAuthFacade _authFacade;
 
-  ForgetPasswordCubit(this._authFacade) : super(ForgetPasswordState.init());
+  PasswordForgetCubit(this._authFacade) : super(PasswordForgetState.init());
 
   submitted() async {
     Either<AuthFailure, Unit> failureOrSuccess =
