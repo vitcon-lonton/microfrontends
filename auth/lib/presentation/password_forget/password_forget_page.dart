@@ -1,7 +1,7 @@
-part of 'forget_password.dart';
+part of 'password_forget.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
-  const ForgetPasswordPage({Key? key}) : super(key: key);
+class PasswordForgetPage extends StatelessWidget {
+  const PasswordForgetPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class ForgetPasswordPage extends StatelessWidget {
               children: const [
                 kVSpaceXL,
                 kVSpaceXL,
-                ForgetPasswordForm(),
+                PasswordForgetForm(),
                 kVSpaceXL,
                 kVSpaceL,
               ],

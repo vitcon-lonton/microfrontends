@@ -4,14 +4,14 @@ import 'package:theme_manager/theme_manager.dart';
 
 import 'package:auth/application/application.dart';
 
-class MySettingsPage extends StatefulWidget {
-  const MySettingsPage({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<MySettingsPage> createState() => _MySettingsPageState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _MySettingsPageState extends State<MySettingsPage> {
+class _SettingsPageState extends State<SettingsPage> {
   final _options = [
     {'title': 'Favorites', 'icon': Icons.favorite},
     {'title': 'Address', 'icon': Icons.location_city},

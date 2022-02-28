@@ -1,7 +1,7 @@
-part of 'update_user.dart';
+part of 'user_update.dart';
 
-class UpdateUserPage extends StatelessWidget {
-  const UpdateUserPage({Key? key}) : super(key: key);
+class UserUpdatePage extends StatelessWidget {
+  const UserUpdatePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class UpdateUserPage extends StatelessWidget {
               children: const [
                 kVSpaceXL,
                 kVSpaceXL,
-                UpdateUserForm(),
+                UserUpdateForm(),
                 kVSpaceXL,
                 kVSpaceL,
               ],

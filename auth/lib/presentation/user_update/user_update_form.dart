@@ -1,13 +1,13 @@
-part of 'update_user.dart';
+part of 'user_update.dart';
 
-class UpdateUserForm extends StatefulWidget {
-  const UpdateUserForm({Key? key}) : super(key: key);
+class UserUpdateForm extends StatefulWidget {
+  const UserUpdateForm({Key? key}) : super(key: key);
 
   @override
-  State<UpdateUserForm> createState() => _UpdateUserFormState();
+  State<UserUpdateForm> createState() => _UserUpdateFormState();
 }
 
-class _UpdateUserFormState extends State<UpdateUserForm> {
+class _UserUpdateFormState extends State<UserUpdateForm> {
   late final TextEditingController _emailController;
   late final TextEditingController _phoneController;
   late final TextEditingController _fullNameController;
