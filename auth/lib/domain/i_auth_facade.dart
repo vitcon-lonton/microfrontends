@@ -1,4 +1,5 @@
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide Order;
+import 'package:engine/engine.dart';
 
 import 'auth_failure.dart';
 import 'user.dart';
@@ -32,5 +33,6 @@ abstract class IAuthFacade {
       required BirthDay birthDay,
       required EmailAddress emailAddress});
   Future<void> signOut();
-  // Future<Either<AuthFailure, Unit>> requestOtp({required Phone phone});
+  Future<Option<Pagination<Order>>> getOrderHistories(
+      {required int page, required int perPage});
 }

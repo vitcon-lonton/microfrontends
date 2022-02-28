@@ -21,16 +21,12 @@ class UpdateUserState with _$UpdateUserState {
     required Street street,
     required Gender gender,
     required BirthDay birthDay,
-    required Password password,
-    required Password confirmPassword,
     required EmailAddress emailAddress,
-    @Default(false) bool remember,
     @Default(false) bool isSubmitting,
-    @Default(false) bool displayPassword,
     @Default(true) bool showErrorMessages,
     @Default(STATUS_IDLE) ProcessingStatus status,
     required Option<User> userOption,
-    required Option<Either<AuthFailure, Unit>> updateFailureOrSuccessOption,
+    required Option<Either<AuthFailure, Unit>> failureOrSuccessOption,
   }) = _UpdateUserState;
 
   bool get valid => true;
@@ -41,11 +37,9 @@ class UpdateUserState with _$UpdateUserState {
         phone: Phone(''),
         street: Street(''),
         gender: Gender.male,
-        password: Password(''),
-        confirmPassword: Password(''),
         emailAddress: EmailAddress(''),
         birthDay: BirthDay(DateTime.now()),
-        updateFailureOrSuccessOption: none(),
+        failureOrSuccessOption: none(),
         userOption: none());
   }
 
@@ -64,9 +58,30 @@ class UpdateUserCubit extends Cubit<UpdateUserState> {
 
   getUserRequested() async {
     Option<User> userOption = none();
+
     emit(state.busy().copyWith(userOption: none()));
+
     userOption = await _authFacade.getSignedInUser();
+
     emit(state.idle().copyWith(userOption: userOption));
+
+    userOption.fold(() => null, (user) {
+      final name = user.name;
+      final phone = user.phone;
+      final street = user.street;
+      final gender = user.gender;
+      final birthDay = user.birthDay;
+      final emailAddress = user.emailAddress;
+
+      emit(state.copyWith(
+          user: user,
+          name: name,
+          phone: phone,
+          street: street,
+          gender: gender,
+          birthDay: birthDay,
+          emailAddress: emailAddress));
+    });
   }
 
   submitted() async {
@@ -78,8 +93,6 @@ class UpdateUserCubit extends Cubit<UpdateUserState> {
     final street = state.street;
     // final gender = state.gender;
     final birthDay = state.birthDay;
-    final password = state.password;
-    final confirmPassword = state.confirmPassword;
     final emailAddress = state.emailAddress;
 
     const isGenderValid = true;
@@ -89,30 +102,27 @@ class UpdateUserCubit extends Cubit<UpdateUserState> {
     // final isGenderValid = gender.isValid();
     final isBirthDayValid = birthDay.isValid();
     final isEmailValid = emailAddress.isValid();
-    final isPasswordValid = password.isValid();
-    final isConfirmPasswordValid = confirmPassword.isValid();
 
     if (isNameValid &&
         isPhoneValid &&
         isStreetValid &&
         isGenderValid &&
         isBirthDayValid &&
-        isEmailValid &&
-        isPasswordValid &&
-        isConfirmPasswordValid) {
+        isEmailValid) {
       emit(state.busy());
       emit(state.copyWith(
         isSubmitting: true,
-        updateFailureOrSuccessOption: none(),
+        failureOrSuccessOption: none(),
       ));
 
       failureOrSuccess = await _performUpdateUser();
     }
 
-    emit(state.complete().copyWith(
+    emit(state.complete());
+    emit(state.copyWith(
         isSubmitting: false,
         showErrorMessages: true,
-        updateFailureOrSuccessOption: optionOf(failureOrSuccess)));
+        failureOrSuccessOption: optionOf(failureOrSuccess)));
   }
 
   Future<Either<AuthFailure, Unit>> _performUpdateUser() {
@@ -122,8 +132,6 @@ class UpdateUserCubit extends Cubit<UpdateUserState> {
     final gender = state.gender;
     final birthDay = state.birthDay;
     final emailAddress = state.emailAddress;
-    // final password = state.password;
-    // final confirmPassword = state.confirmPassword;
 
     return _authFacade.updateUser(
         name: name,
@@ -134,28 +142,19 @@ class UpdateUserCubit extends Cubit<UpdateUserState> {
         emailAddress: emailAddress);
   }
 
-  birthDayChanged(DateTime value) =>
-      emit(state.copyWith(birthDay: BirthDay(value)));
-
-  emailAddressChanged(String value) =>
-      emit(state.copyWith(emailAddress: EmailAddress(value)));
-
-  passwordChanged(String value) =>
-      emit(state.copyWith(password: Password(value)));
-
-  confirmPasswordChanged(String value) =>
-      emit(state.copyWith(confirmPassword: Password(value)));
-
-  displayPasswordChanged(bool value) =>
-      emit(state.copyWith(displayPassword: value));
-
   genderChanged(Gender value) => emit(state.copyWith(gender: value));
-
-  rememberChanged(bool value) => emit(state.copyWith(remember: value));
 
   nameChanged(String value) => emit(state.copyWith(name: Name(value)));
 
   phoneChanged(String value) => emit(state.copyWith(phone: Phone(value)));
 
   streetChanged(String value) => emit(state.copyWith(street: Street(value)));
+
+  birthDayChanged(DateTime value) {
+    emit(state.copyWith(birthDay: BirthDay(value)));
+  }
+
+  emailAddressChanged(String value) {
+    emit(state.copyWith(emailAddress: EmailAddress(value)));
+  }
 }

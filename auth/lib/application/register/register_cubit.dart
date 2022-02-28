@@ -24,12 +24,11 @@ class RegisterState with _$RegisterState {
     required Password password,
     required Password confirmPassword,
     required EmailAddress emailAddress,
-    @Default(false) bool remember,
     @Default(false) bool isSubmitting,
     @Default(false) bool displayPassword,
     @Default(false) bool displayConfirmPassword,
     @Default(true) bool showErrorMessages,
-    @Default(ProcessingStatus.idle()) ProcessingStatus status,
+    @Default(STATUS_IDLE) ProcessingStatus status,
     required Option<Either<AuthFailure, Unit>> registerFailureOrSuccessOption,
   }) = _RegisterState;
 
@@ -102,10 +101,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.copyWith(birthDay: BirthDay(value)));
   }
 
-  rememberChanged(bool value) {
-    emit(state.copyWith(remember: value));
-  }
-
   emailAddressChanged(String value) {
     emit(state.copyWith(emailAddress: EmailAddress(value)));
   }
@@ -150,8 +145,12 @@ class RegisterCubit extends Cubit<RegisterState> {
     final isLastNameValid = lastName.isValid();
     final isFirstNameValid = firstName.isValid();
     final isConfirmPasswordValid = confirmPassword.isValid();
+    final passwordStr = password.getOrCrash();
+    final confirmPasswordStr = confirmPassword.getOrCrash();
+    final isMatch = passwordStr.compareTo(confirmPasswordStr) == 0;
 
-    if (isPhoneValid &&
+    if (isMatch &&
+        isPhoneValid &&
         isEmailValid &&
         isStreetValid &&
         isGenderValid &&

@@ -19,35 +19,23 @@ class _$RegisterStateTearOff {
   const _$RegisterStateTearOff();
 
   _RegisterState call(
-      {required Name lastName,
-      required Name firstName,
-      required Phone phone,
-      required Street street,
-      required Gender gender,
-      required BirthDay birthDay,
+      {required EmailAddress emailAddress,
       required Password password,
       required Password confirmPassword,
-      required EmailAddress emailAddress,
+      bool remember = false,
       bool isSubmitting = false,
       bool displayPassword = false,
-      bool displayConfirmPassword = false,
       bool showErrorMessages = true,
-      ProcessingStatus status = STATUS_IDLE,
+      ProcessingStatus status = const ProcessingStatus.idle(),
       required Option<Either<AuthFailure, Unit>>
           registerFailureOrSuccessOption}) {
     return _RegisterState(
-      lastName: lastName,
-      firstName: firstName,
-      phone: phone,
-      street: street,
-      gender: gender,
-      birthDay: birthDay,
+      emailAddress: emailAddress,
       password: password,
       confirmPassword: confirmPassword,
-      emailAddress: emailAddress,
+      remember: remember,
       isSubmitting: isSubmitting,
       displayPassword: displayPassword,
-      displayConfirmPassword: displayConfirmPassword,
       showErrorMessages: showErrorMessages,
       status: status,
       registerFailureOrSuccessOption: registerFailureOrSuccessOption,
@@ -60,18 +48,12 @@ const $RegisterState = _$RegisterStateTearOff();
 
 /// @nodoc
 mixin _$RegisterState {
-  Name get lastName => throw _privateConstructorUsedError;
-  Name get firstName => throw _privateConstructorUsedError;
-  Phone get phone => throw _privateConstructorUsedError;
-  Street get street => throw _privateConstructorUsedError;
-  Gender get gender => throw _privateConstructorUsedError;
-  BirthDay get birthDay => throw _privateConstructorUsedError;
+  EmailAddress get emailAddress => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
   Password get confirmPassword => throw _privateConstructorUsedError;
-  EmailAddress get emailAddress => throw _privateConstructorUsedError;
+  bool get remember => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get displayPassword => throw _privateConstructorUsedError;
-  bool get displayConfirmPassword => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   ProcessingStatus get status => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, Unit>> get registerFailureOrSuccessOption =>
@@ -88,18 +70,12 @@ abstract class $RegisterStateCopyWith<$Res> {
           RegisterState value, $Res Function(RegisterState) then) =
       _$RegisterStateCopyWithImpl<$Res>;
   $Res call(
-      {Name lastName,
-      Name firstName,
-      Phone phone,
-      Street street,
-      Gender gender,
-      BirthDay birthDay,
+      {EmailAddress emailAddress,
       Password password,
       Password confirmPassword,
-      EmailAddress emailAddress,
+      bool remember,
       bool isSubmitting,
       bool displayPassword,
-      bool displayConfirmPassword,
       bool showErrorMessages,
       ProcessingStatus status,
       Option<Either<AuthFailure, Unit>> registerFailureOrSuccessOption});
@@ -118,47 +94,21 @@ class _$RegisterStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? lastName = freezed,
-    Object? firstName = freezed,
-    Object? phone = freezed,
-    Object? street = freezed,
-    Object? gender = freezed,
-    Object? birthDay = freezed,
+    Object? emailAddress = freezed,
     Object? password = freezed,
     Object? confirmPassword = freezed,
-    Object? emailAddress = freezed,
+    Object? remember = freezed,
     Object? isSubmitting = freezed,
     Object? displayPassword = freezed,
-    Object? displayConfirmPassword = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
     Object? registerFailureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as Name,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as Name,
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone,
-      street: street == freezed
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as Street,
-      gender: gender == freezed
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as Gender,
-      birthDay: birthDay == freezed
-          ? _value.birthDay
-          : birthDay // ignore: cast_nullable_to_non_nullable
-              as BirthDay,
+      emailAddress: emailAddress == freezed
+          ? _value.emailAddress
+          : emailAddress // ignore: cast_nullable_to_non_nullable
+              as EmailAddress,
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -167,10 +117,10 @@ class _$RegisterStateCopyWithImpl<$Res>
           ? _value.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
               as Password,
-      emailAddress: emailAddress == freezed
-          ? _value.emailAddress
-          : emailAddress // ignore: cast_nullable_to_non_nullable
-              as EmailAddress,
+      remember: remember == freezed
+          ? _value.remember
+          : remember // ignore: cast_nullable_to_non_nullable
+              as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -178,10 +128,6 @@ class _$RegisterStateCopyWithImpl<$Res>
       displayPassword: displayPassword == freezed
           ? _value.displayPassword
           : displayPassword // ignore: cast_nullable_to_non_nullable
-              as bool,
-      displayConfirmPassword: displayConfirmPassword == freezed
-          ? _value.displayConfirmPassword
-          : displayConfirmPassword // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -214,18 +160,12 @@ abstract class _$RegisterStateCopyWith<$Res>
       __$RegisterStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Name lastName,
-      Name firstName,
-      Phone phone,
-      Street street,
-      Gender gender,
-      BirthDay birthDay,
+      {EmailAddress emailAddress,
       Password password,
       Password confirmPassword,
-      EmailAddress emailAddress,
+      bool remember,
       bool isSubmitting,
       bool displayPassword,
-      bool displayConfirmPassword,
       bool showErrorMessages,
       ProcessingStatus status,
       Option<Either<AuthFailure, Unit>> registerFailureOrSuccessOption});
@@ -247,47 +187,21 @@ class __$RegisterStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? lastName = freezed,
-    Object? firstName = freezed,
-    Object? phone = freezed,
-    Object? street = freezed,
-    Object? gender = freezed,
-    Object? birthDay = freezed,
+    Object? emailAddress = freezed,
     Object? password = freezed,
     Object? confirmPassword = freezed,
-    Object? emailAddress = freezed,
+    Object? remember = freezed,
     Object? isSubmitting = freezed,
     Object? displayPassword = freezed,
-    Object? displayConfirmPassword = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
     Object? registerFailureOrSuccessOption = freezed,
   }) {
     return _then(_RegisterState(
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as Name,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as Name,
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as Phone,
-      street: street == freezed
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as Street,
-      gender: gender == freezed
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as Gender,
-      birthDay: birthDay == freezed
-          ? _value.birthDay
-          : birthDay // ignore: cast_nullable_to_non_nullable
-              as BirthDay,
+      emailAddress: emailAddress == freezed
+          ? _value.emailAddress
+          : emailAddress // ignore: cast_nullable_to_non_nullable
+              as EmailAddress,
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -296,10 +210,10 @@ class __$RegisterStateCopyWithImpl<$Res>
           ? _value.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
               as Password,
-      emailAddress: emailAddress == freezed
-          ? _value.emailAddress
-          : emailAddress // ignore: cast_nullable_to_non_nullable
-              as EmailAddress,
+      remember: remember == freezed
+          ? _value.remember
+          : remember // ignore: cast_nullable_to_non_nullable
+              as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -307,10 +221,6 @@ class __$RegisterStateCopyWithImpl<$Res>
       displayPassword: displayPassword == freezed
           ? _value.displayPassword
           : displayPassword // ignore: cast_nullable_to_non_nullable
-              as bool,
-      displayConfirmPassword: displayConfirmPassword == freezed
-          ? _value.displayConfirmPassword
-          : displayConfirmPassword // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -332,50 +242,32 @@ class __$RegisterStateCopyWithImpl<$Res>
 
 class _$_RegisterState extends _RegisterState {
   _$_RegisterState(
-      {required this.lastName,
-      required this.firstName,
-      required this.phone,
-      required this.street,
-      required this.gender,
-      required this.birthDay,
+      {required this.emailAddress,
       required this.password,
       required this.confirmPassword,
-      required this.emailAddress,
+      this.remember = false,
       this.isSubmitting = false,
       this.displayPassword = false,
-      this.displayConfirmPassword = false,
       this.showErrorMessages = true,
-      this.status = STATUS_IDLE,
+      this.status = const ProcessingStatus.idle(),
       required this.registerFailureOrSuccessOption})
       : super._();
 
   @override
-  final Name lastName;
-  @override
-  final Name firstName;
-  @override
-  final Phone phone;
-  @override
-  final Street street;
-  @override
-  final Gender gender;
-  @override
-  final BirthDay birthDay;
+  final EmailAddress emailAddress;
   @override
   final Password password;
   @override
   final Password confirmPassword;
+  @JsonKey()
   @override
-  final EmailAddress emailAddress;
+  final bool remember;
   @JsonKey()
   @override
   final bool isSubmitting;
   @JsonKey()
   @override
   final bool displayPassword;
-  @JsonKey()
-  @override
-  final bool displayConfirmPassword;
   @JsonKey()
   @override
   final bool showErrorMessages;
@@ -387,7 +279,7 @@ class _$_RegisterState extends _RegisterState {
 
   @override
   String toString() {
-    return 'RegisterState(lastName: $lastName, firstName: $firstName, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, password: $password, confirmPassword: $confirmPassword, emailAddress: $emailAddress, isSubmitting: $isSubmitting, displayPassword: $displayPassword, displayConfirmPassword: $displayConfirmPassword, showErrorMessages: $showErrorMessages, status: $status, registerFailureOrSuccessOption: $registerFailureOrSuccessOption)';
+    return 'RegisterState(emailAddress: $emailAddress, password: $password, confirmPassword: $confirmPassword, remember: $remember, isSubmitting: $isSubmitting, displayPassword: $displayPassword, showErrorMessages: $showErrorMessages, status: $status, registerFailureOrSuccessOption: $registerFailureOrSuccessOption)';
   }
 
   @override
@@ -395,23 +287,16 @@ class _$_RegisterState extends _RegisterState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RegisterState &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.street, street) &&
-            const DeepCollectionEquality().equals(other.gender, gender) &&
-            const DeepCollectionEquality().equals(other.birthDay, birthDay) &&
+            const DeepCollectionEquality()
+                .equals(other.emailAddress, emailAddress) &&
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality()
                 .equals(other.confirmPassword, confirmPassword) &&
-            const DeepCollectionEquality()
-                .equals(other.emailAddress, emailAddress) &&
+            const DeepCollectionEquality().equals(other.remember, remember) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
                 .equals(other.displayPassword, displayPassword) &&
-            const DeepCollectionEquality()
-                .equals(other.displayConfirmPassword, displayConfirmPassword) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality().equals(other.status, status) &&
@@ -423,18 +308,12 @@ class _$_RegisterState extends _RegisterState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(lastName),
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(phone),
-      const DeepCollectionEquality().hash(street),
-      const DeepCollectionEquality().hash(gender),
-      const DeepCollectionEquality().hash(birthDay),
+      const DeepCollectionEquality().hash(emailAddress),
       const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(confirmPassword),
-      const DeepCollectionEquality().hash(emailAddress),
+      const DeepCollectionEquality().hash(remember),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(displayPassword),
-      const DeepCollectionEquality().hash(displayConfirmPassword),
       const DeepCollectionEquality().hash(showErrorMessages),
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(registerFailureOrSuccessOption));
@@ -447,18 +326,12 @@ class _$_RegisterState extends _RegisterState {
 
 abstract class _RegisterState extends RegisterState {
   factory _RegisterState(
-      {required Name lastName,
-      required Name firstName,
-      required Phone phone,
-      required Street street,
-      required Gender gender,
-      required BirthDay birthDay,
+      {required EmailAddress emailAddress,
       required Password password,
       required Password confirmPassword,
-      required EmailAddress emailAddress,
+      bool remember,
       bool isSubmitting,
       bool displayPassword,
-      bool displayConfirmPassword,
       bool showErrorMessages,
       ProcessingStatus status,
       required Option<Either<AuthFailure, Unit>>
@@ -466,29 +339,17 @@ abstract class _RegisterState extends RegisterState {
   _RegisterState._() : super._();
 
   @override
-  Name get lastName;
-  @override
-  Name get firstName;
-  @override
-  Phone get phone;
-  @override
-  Street get street;
-  @override
-  Gender get gender;
-  @override
-  BirthDay get birthDay;
+  EmailAddress get emailAddress;
   @override
   Password get password;
   @override
   Password get confirmPassword;
   @override
-  EmailAddress get emailAddress;
+  bool get remember;
   @override
   bool get isSubmitting;
   @override
   bool get displayPassword;
-  @override
-  bool get displayConfirmPassword;
   @override
   bool get showErrorMessages;
   @override

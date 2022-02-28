@@ -1,18 +1,27 @@
-part of 'update_user.dart';
+// ignore_for_file: unused_local_variable
+part of 'password_change.dart';
 
-class UpdateUserPage extends StatelessWidget {
-  const UpdateUserPage({Key? key}) : super(key: key);
+class PasswordChangePage extends StatelessWidget {
+  const PasswordChangePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const registerTxt = 'Update Profile';
+    const registerTxt = 'Enter password';
+    const msgTerm1 = 'tr(LocaleKeys.msg_term1)';
+    const msgTerm2 = 'tr(LocaleKeys.msg_term2)';
+    const msgTerm3 = 'tr(LocaleKeys.msg_term3)';
+    const msgTerm4 = 'tr(LocaleKeys.msg_term4)';
+    // final msgTerm1 = tr(LocaleKeys.msg_term1);
+    // final msgTerm2 = tr(LocaleKeys.msg_term2);
+    // final msgTerm3 = tr(LocaleKeys.msg_term3);
+    // final msgTerm4 = tr(LocaleKeys.msg_term4);
+    // final registerTxt = tr(LocaleKeys.register);
 
-    return BlocProvider<UpdateUserCubit>(
-      create: (_) => context.read<UpdateUserCubit>(),
-      child: BlocListener<UpdateUserCubit, UpdateUserState>(
-        listenWhen: (prev, cur) {
-          return prev.failureOrSuccessOption != cur.failureOrSuccessOption;
-        },
+    return BlocProvider<PasswordChangeCubit>(
+      create: (_) => context.read<PasswordChangeCubit>(),
+      child: BlocListener<PasswordChangeCubit, PasswordChangeState>(
+        listenWhen: (prev, cur) =>
+            prev.failureOrSuccessOption != cur.failureOrSuccessOption,
         listener: (context, state) {
           state.failureOrSuccessOption.fold(
             () {},
@@ -20,15 +29,7 @@ class UpdateUserPage extends StatelessWidget {
               (failure) {
                 final snackBar = SnackBar(
                   behavior: SnackBarBehavior.floating,
-                  content: Text(
-                    failure.map(
-                      cancelledByUser: (_) => 'Cancelled',
-                      serverError: (_) => 'Server error',
-                      emailAlreadyInUse: (_) => 'Email already in use',
-                      invalidEmailAndPasswordCombination: (_) =>
-                          'Invalid email and password combination',
-                    ),
-                  ),
+                  content: const Text('Server error'),
                   action: SnackBarAction(label: 'Action', onPressed: () {}),
                 );
 
@@ -53,7 +54,7 @@ class UpdateUserPage extends StatelessWidget {
               children: const [
                 kVSpaceXL,
                 kVSpaceXL,
-                UpdateUserForm(),
+                PasswordChangeForm(),
                 kVSpaceXL,
                 kVSpaceL,
               ],

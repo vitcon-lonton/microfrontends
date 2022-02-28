@@ -1,18 +1,18 @@
-part of 'update_user.dart';
+// ignore_for_file: unused_local_variable
+part of 'password_update.dart';
 
-class UpdateUserPage extends StatelessWidget {
-  const UpdateUserPage({Key? key}) : super(key: key);
+class PasswordUpdatePage extends StatelessWidget {
+  const PasswordUpdatePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const registerTxt = 'Update Profile';
+    const registerTxt = 'Update Password';
 
-    return BlocProvider<UpdateUserCubit>(
-      create: (_) => context.read<UpdateUserCubit>(),
-      child: BlocListener<UpdateUserCubit, UpdateUserState>(
-        listenWhen: (prev, cur) {
-          return prev.failureOrSuccessOption != cur.failureOrSuccessOption;
-        },
+    return BlocProvider<PasswordUpdateCubit>(
+      create: (_) => context.read<PasswordUpdateCubit>(),
+      child: BlocListener<PasswordUpdateCubit, PasswordUpdateState>(
+        listenWhen: (prev, cur) =>
+            prev.failureOrSuccessOption != cur.failureOrSuccessOption,
         listener: (context, state) {
           state.failureOrSuccessOption.fold(
             () {},
@@ -20,15 +20,7 @@ class UpdateUserPage extends StatelessWidget {
               (failure) {
                 final snackBar = SnackBar(
                   behavior: SnackBarBehavior.floating,
-                  content: Text(
-                    failure.map(
-                      cancelledByUser: (_) => 'Cancelled',
-                      serverError: (_) => 'Server error',
-                      emailAlreadyInUse: (_) => 'Email already in use',
-                      invalidEmailAndPasswordCombination: (_) =>
-                          'Invalid email and password combination',
-                    ),
-                  ),
+                  content: const Text('Server error'),
                   action: SnackBarAction(label: 'Action', onPressed: () {}),
                 );
 
@@ -53,7 +45,7 @@ class UpdateUserPage extends StatelessWidget {
               children: const [
                 kVSpaceXL,
                 kVSpaceXL,
-                UpdateUserForm(),
+                PasswordUpdateForm(),
                 kVSpaceXL,
                 kVSpaceL,
               ],

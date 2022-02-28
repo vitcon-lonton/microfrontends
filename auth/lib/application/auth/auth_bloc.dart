@@ -23,9 +23,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AuthCheckRequested event, Emitter<AuthState> emit) async {
     final userOption = await _authFacade.getSignedInUser();
 
-    emit(userOption.fold(
-      () => const AuthState.unauthenticated(),
-      (_) => const AuthState.authenticated(),
-    ));
+    emit(userOption.fold(() {
+      return const AuthState.unauthenticated();
+    }, (_) => const AuthState.authenticated()));
   }
 }

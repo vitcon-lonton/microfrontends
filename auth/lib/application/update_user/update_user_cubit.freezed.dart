@@ -25,17 +25,12 @@ class _$UpdateUserStateTearOff {
       required Street street,
       required Gender gender,
       required BirthDay birthDay,
-      required Password password,
-      required Password confirmPassword,
       required EmailAddress emailAddress,
-      bool remember = false,
       bool isSubmitting = false,
-      bool displayPassword = false,
       bool showErrorMessages = true,
       ProcessingStatus status = STATUS_IDLE,
       required Option<User> userOption,
-      required Option<Either<AuthFailure, Unit>>
-          updateFailureOrSuccessOption}) {
+      required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) {
     return _UpdateUserState(
       user: user,
       name: name,
@@ -43,16 +38,12 @@ class _$UpdateUserStateTearOff {
       street: street,
       gender: gender,
       birthDay: birthDay,
-      password: password,
-      confirmPassword: confirmPassword,
       emailAddress: emailAddress,
-      remember: remember,
       isSubmitting: isSubmitting,
-      displayPassword: displayPassword,
       showErrorMessages: showErrorMessages,
       status: status,
       userOption: userOption,
-      updateFailureOrSuccessOption: updateFailureOrSuccessOption,
+      failureOrSuccessOption: failureOrSuccessOption,
     );
   }
 }
@@ -68,16 +59,12 @@ mixin _$UpdateUserState {
   Street get street => throw _privateConstructorUsedError;
   Gender get gender => throw _privateConstructorUsedError;
   BirthDay get birthDay => throw _privateConstructorUsedError;
-  Password get password => throw _privateConstructorUsedError;
-  Password get confirmPassword => throw _privateConstructorUsedError;
   EmailAddress get emailAddress => throw _privateConstructorUsedError;
-  bool get remember => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
-  bool get displayPassword => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   ProcessingStatus get status => throw _privateConstructorUsedError;
   Option<User> get userOption => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, Unit>> get updateFailureOrSuccessOption =>
+  Option<Either<AuthFailure, Unit>> get failureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -97,16 +84,12 @@ abstract class $UpdateUserStateCopyWith<$Res> {
       Street street,
       Gender gender,
       BirthDay birthDay,
-      Password password,
-      Password confirmPassword,
       EmailAddress emailAddress,
-      bool remember,
       bool isSubmitting,
-      bool displayPassword,
       bool showErrorMessages,
       ProcessingStatus status,
       Option<User> userOption,
-      Option<Either<AuthFailure, Unit>> updateFailureOrSuccessOption});
+      Option<Either<AuthFailure, Unit>> failureOrSuccessOption});
 
   $UserCopyWith<$Res>? get user;
   $ProcessingStatusCopyWith<$Res> get status;
@@ -129,16 +112,12 @@ class _$UpdateUserStateCopyWithImpl<$Res>
     Object? street = freezed,
     Object? gender = freezed,
     Object? birthDay = freezed,
-    Object? password = freezed,
-    Object? confirmPassword = freezed,
     Object? emailAddress = freezed,
-    Object? remember = freezed,
     Object? isSubmitting = freezed,
-    Object? displayPassword = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
     Object? userOption = freezed,
-    Object? updateFailureOrSuccessOption = freezed,
+    Object? failureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
       user: user == freezed
@@ -165,29 +144,13 @@ class _$UpdateUserStateCopyWithImpl<$Res>
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as BirthDay,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as Password,
-      confirmPassword: confirmPassword == freezed
-          ? _value.confirmPassword
-          : confirmPassword // ignore: cast_nullable_to_non_nullable
-              as Password,
       emailAddress: emailAddress == freezed
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as EmailAddress,
-      remember: remember == freezed
-          ? _value.remember
-          : remember // ignore: cast_nullable_to_non_nullable
-              as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      displayPassword: displayPassword == freezed
-          ? _value.displayPassword
-          : displayPassword // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -201,9 +164,9 @@ class _$UpdateUserStateCopyWithImpl<$Res>
           ? _value.userOption
           : userOption // ignore: cast_nullable_to_non_nullable
               as Option<User>,
-      updateFailureOrSuccessOption: updateFailureOrSuccessOption == freezed
-          ? _value.updateFailureOrSuccessOption
-          : updateFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      failureOrSuccessOption: failureOrSuccessOption == freezed
+          ? _value.failureOrSuccessOption
+          : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, Unit>>,
     ));
   }
@@ -241,16 +204,12 @@ abstract class _$UpdateUserStateCopyWith<$Res>
       Street street,
       Gender gender,
       BirthDay birthDay,
-      Password password,
-      Password confirmPassword,
       EmailAddress emailAddress,
-      bool remember,
       bool isSubmitting,
-      bool displayPassword,
       bool showErrorMessages,
       ProcessingStatus status,
       Option<User> userOption,
-      Option<Either<AuthFailure, Unit>> updateFailureOrSuccessOption});
+      Option<Either<AuthFailure, Unit>> failureOrSuccessOption});
 
   @override
   $UserCopyWith<$Res>? get user;
@@ -277,16 +236,12 @@ class __$UpdateUserStateCopyWithImpl<$Res>
     Object? street = freezed,
     Object? gender = freezed,
     Object? birthDay = freezed,
-    Object? password = freezed,
-    Object? confirmPassword = freezed,
     Object? emailAddress = freezed,
-    Object? remember = freezed,
     Object? isSubmitting = freezed,
-    Object? displayPassword = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
     Object? userOption = freezed,
-    Object? updateFailureOrSuccessOption = freezed,
+    Object? failureOrSuccessOption = freezed,
   }) {
     return _then(_UpdateUserState(
       user: user == freezed
@@ -313,29 +268,13 @@ class __$UpdateUserStateCopyWithImpl<$Res>
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as BirthDay,
-      password: password == freezed
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as Password,
-      confirmPassword: confirmPassword == freezed
-          ? _value.confirmPassword
-          : confirmPassword // ignore: cast_nullable_to_non_nullable
-              as Password,
       emailAddress: emailAddress == freezed
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as EmailAddress,
-      remember: remember == freezed
-          ? _value.remember
-          : remember // ignore: cast_nullable_to_non_nullable
-              as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      displayPassword: displayPassword == freezed
-          ? _value.displayPassword
-          : displayPassword // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -349,9 +288,9 @@ class __$UpdateUserStateCopyWithImpl<$Res>
           ? _value.userOption
           : userOption // ignore: cast_nullable_to_non_nullable
               as Option<User>,
-      updateFailureOrSuccessOption: updateFailureOrSuccessOption == freezed
-          ? _value.updateFailureOrSuccessOption
-          : updateFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      failureOrSuccessOption: failureOrSuccessOption == freezed
+          ? _value.failureOrSuccessOption
+          : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, Unit>>,
     ));
   }
@@ -367,16 +306,12 @@ class _$_UpdateUserState extends _UpdateUserState {
       required this.street,
       required this.gender,
       required this.birthDay,
-      required this.password,
-      required this.confirmPassword,
       required this.emailAddress,
-      this.remember = false,
       this.isSubmitting = false,
-      this.displayPassword = false,
       this.showErrorMessages = true,
       this.status = STATUS_IDLE,
       required this.userOption,
-      required this.updateFailureOrSuccessOption})
+      required this.failureOrSuccessOption})
       : super._();
 
   @override
@@ -392,20 +327,10 @@ class _$_UpdateUserState extends _UpdateUserState {
   @override
   final BirthDay birthDay;
   @override
-  final Password password;
-  @override
-  final Password confirmPassword;
-  @override
   final EmailAddress emailAddress;
   @JsonKey()
   @override
-  final bool remember;
-  @JsonKey()
-  @override
   final bool isSubmitting;
-  @JsonKey()
-  @override
-  final bool displayPassword;
   @JsonKey()
   @override
   final bool showErrorMessages;
@@ -415,11 +340,11 @@ class _$_UpdateUserState extends _UpdateUserState {
   @override
   final Option<User> userOption;
   @override
-  final Option<Either<AuthFailure, Unit>> updateFailureOrSuccessOption;
+  final Option<Either<AuthFailure, Unit>> failureOrSuccessOption;
 
   @override
   String toString() {
-    return 'UpdateUserState(user: $user, name: $name, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, password: $password, confirmPassword: $confirmPassword, emailAddress: $emailAddress, remember: $remember, isSubmitting: $isSubmitting, displayPassword: $displayPassword, showErrorMessages: $showErrorMessages, status: $status, userOption: $userOption, updateFailureOrSuccessOption: $updateFailureOrSuccessOption)';
+    return 'UpdateUserState(user: $user, name: $name, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, emailAddress: $emailAddress, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, userOption: $userOption, failureOrSuccessOption: $failureOrSuccessOption)';
   }
 
   @override
@@ -433,24 +358,17 @@ class _$_UpdateUserState extends _UpdateUserState {
             const DeepCollectionEquality().equals(other.street, street) &&
             const DeepCollectionEquality().equals(other.gender, gender) &&
             const DeepCollectionEquality().equals(other.birthDay, birthDay) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality()
-                .equals(other.confirmPassword, confirmPassword) &&
             const DeepCollectionEquality()
                 .equals(other.emailAddress, emailAddress) &&
-            const DeepCollectionEquality().equals(other.remember, remember) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
-            const DeepCollectionEquality()
-                .equals(other.displayPassword, displayPassword) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other.userOption, userOption) &&
-            const DeepCollectionEquality().equals(
-                other.updateFailureOrSuccessOption,
-                updateFailureOrSuccessOption));
+            const DeepCollectionEquality()
+                .equals(other.failureOrSuccessOption, failureOrSuccessOption));
   }
 
   @override
@@ -462,16 +380,12 @@ class _$_UpdateUserState extends _UpdateUserState {
       const DeepCollectionEquality().hash(street),
       const DeepCollectionEquality().hash(gender),
       const DeepCollectionEquality().hash(birthDay),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(confirmPassword),
       const DeepCollectionEquality().hash(emailAddress),
-      const DeepCollectionEquality().hash(remember),
       const DeepCollectionEquality().hash(isSubmitting),
-      const DeepCollectionEquality().hash(displayPassword),
       const DeepCollectionEquality().hash(showErrorMessages),
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(userOption),
-      const DeepCollectionEquality().hash(updateFailureOrSuccessOption));
+      const DeepCollectionEquality().hash(failureOrSuccessOption));
 
   @JsonKey(ignore: true)
   @override
@@ -481,23 +395,19 @@ class _$_UpdateUserState extends _UpdateUserState {
 
 abstract class _UpdateUserState extends UpdateUserState {
   factory _UpdateUserState(
-      {User? user,
-      required Name name,
-      required Phone phone,
-      required Street street,
-      required Gender gender,
-      required BirthDay birthDay,
-      required Password password,
-      required Password confirmPassword,
-      required EmailAddress emailAddress,
-      bool remember,
-      bool isSubmitting,
-      bool displayPassword,
-      bool showErrorMessages,
-      ProcessingStatus status,
-      required Option<User> userOption,
-      required Option<Either<AuthFailure, Unit>>
-          updateFailureOrSuccessOption}) = _$_UpdateUserState;
+          {User? user,
+          required Name name,
+          required Phone phone,
+          required Street street,
+          required Gender gender,
+          required BirthDay birthDay,
+          required EmailAddress emailAddress,
+          bool isSubmitting,
+          bool showErrorMessages,
+          ProcessingStatus status,
+          required Option<User> userOption,
+          required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) =
+      _$_UpdateUserState;
   _UpdateUserState._() : super._();
 
   @override
@@ -513,17 +423,9 @@ abstract class _UpdateUserState extends UpdateUserState {
   @override
   BirthDay get birthDay;
   @override
-  Password get password;
-  @override
-  Password get confirmPassword;
-  @override
   EmailAddress get emailAddress;
   @override
-  bool get remember;
-  @override
   bool get isSubmitting;
-  @override
-  bool get displayPassword;
   @override
   bool get showErrorMessages;
   @override
@@ -531,7 +433,7 @@ abstract class _UpdateUserState extends UpdateUserState {
   @override
   Option<User> get userOption;
   @override
-  Option<Either<AuthFailure, Unit>> get updateFailureOrSuccessOption;
+  Option<Either<AuthFailure, Unit>> get failureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$UpdateUserStateCopyWith<_UpdateUserState> get copyWith =>

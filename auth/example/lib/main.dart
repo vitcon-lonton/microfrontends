@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:auth/auth.dart';
@@ -22,16 +24,34 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => OtpConfirmCubit(facade)),
         BlocProvider(create: (_) => RequestNewOtpCubit(facade)),
         BlocProvider(create: (_) => ForgetPasswordCubit(facade)),
+        BlocProvider(create: (_) => PasswordChangeCubit(facade)),
+        BlocProvider(create: (_) => PasswordUpdateCubit(facade)),
+        BlocProvider(create: (_) => OrderHistoriesCubit(facade)),
       ],
-      child: MaterialApp(
-        // title: 'Flutter Demo',
-        // home: SplashPage(),
-        // home: const SignInPage(),
-        // home: const RegisterPage(),
-        // home: const UpdateUserPage(),
-        // home: const ForgetPasswordPage(),
-        home: const OtpConfirmPage(),
-        theme: ThemeData(primarySwatch: Colors.blue),
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+          PointerDeviceKind.invertedStylus
+        }),
+        child: MaterialApp(
+          // title: 'Flutter Demo',
+          // home: SplashPage(),
+          // home: const SignInPage(),
+          // home: const RegisterPage(),
+          // home: const UpdateUserPage(),
+          // home: const ForgetPasswordPage(),
+          // home: const OtpConfirmPage(),
+          // home: const MySettingsPage(),
+          // home: const PasswordChangePage(),
+          // home: const PasswordUpdatePage(),
+          // home: const OrderHistoriesPage(),
+          home: const NotificationsPage(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(primarySwatch: Colors.blue),
+        ),
       ),
     );
   }

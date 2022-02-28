@@ -1,182 +1,162 @@
 part of 'update_user.dart';
 
-class UpdateUserForm extends StatelessWidget {
+class UpdateUserForm extends StatefulWidget {
   const UpdateUserForm({Key? key}) : super(key: key);
 
   @override
+  State<UpdateUserForm> createState() => _UpdateUserFormState();
+}
+
+class _UpdateUserFormState extends State<UpdateUserForm> {
+  late final TextEditingController _emailController;
+  late final TextEditingController _phoneController;
+  late final TextEditingController _fullNameController;
+  late final TextEditingController _birthdayController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _phoneController = TextEditingController();
+    _fullNameController = TextEditingController();
+    _birthdayController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _fullNameController.dispose();
+    _birthdayController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Form(
-      autovalidateMode: context.read<RegisterCubit>().state.showErrorMessages
-          ? AutovalidateMode.always
-          : AutovalidateMode.disabled,
-      child: Column(
-        children: [
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
-            builder: (context, state) => WTextInput(
-              hintText: 'Email',
-              // validator: (_) => context
-              //     .read<RegisterCubit>()
-              //     .state
-              //     .emailAddress
-              //     .value
-              //     .fold(
-              //         (f) => f.maybeMap(
-              //             orElse: () => null,
-              //             invalidEmail: (_) => 'Invalid Email'),
-              //         (_) => null),
-              errorText: context
-                  .read<RegisterCubit>()
-                  .state
-                  .emailAddress
-                  .value
-                  .fold(
-                      (f) => f.maybeMap(
-                          orElse: () => null,
-                          invalidEmail: (_) => 'Invalid Email'),
-                      (_) => null),
-              onChanged: context.read<RegisterCubit>().emailAddressChanged,
-            ),
-          ),
-          // BlocBuilder<RegisterCubit, RegisterState>(
-          //   buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
-          //   builder: (context, state) => TextFormField(
-          //       autocorrect: false,
-          //       decoration: const InputDecoration(
-          //           labelText: 'Phone',
-          //           prefixIcon: Icon(Icons.email),
-          //           hintText: 'no-reply@3co.network'),
-          //       onChanged: context.read<RegisterCubit>().phoneChanged,
-          //       validator: (_) => context
-          //           .read<RegisterCubit>()
-          //           .state
-          //           .emailAddress
-          //           .value
-          //           .fold(
-          //               (f) => f.maybeMap(
-          //                   orElse: () => null,
-          //                   invalidEmail: (_) => 'Invalid Email'),
-          //               (_) => null)),
-          // ),
-          kVSpaceM,
-          // TextFormField(
-          //   decoration: const InputDecoration(
-          //     labelText: 'Password',
-          //     prefixIcon: Icon(Icons.lock),
-          //   ),
-          //   obscureText: true,
-          //   autocorrect: false,
-          //   onChanged: context.read<RegisterCubit>().passwordChanged,
-          //   validator: (_) => context
-          //       .read<SignInFormBloc>()
-          //       .state
-          //       .password
-          //       .value
-          //       .fold(
-          //           (f) => f.maybeMap(
-          //               orElse: () => null,
-          //               shortPassword: (_) => 'Short Password'),
-          //           (_) => null),
-          // ),
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) =>
-                prev.password != cur.password ||
-                prev.displayPassword != cur.displayPassword,
-            builder: (context, state) => WTextInput(
-              hintText: 'Password',
-              errorText: context
-                  .read<RegisterCubit>()
-                  .state
-                  .password
-                  .value
-                  .fold(
-                      (f) => f.maybeMap(
-                          orElse: () => null,
-                          shortPassword: (_) => 'Short Password'),
-                      (_) => null),
-              obscureText: !state.displayPassword,
-              onChanged: context.read<RegisterCubit>().passwordChanged,
-            ),
-          ),
-          kVSpaceM,
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) =>
-                prev.confirmPassword != cur.confirmPassword ||
-                prev.displayPassword != cur.displayPassword,
-            builder: (context, state) => WTextInput(
-              hintText: 'Confirm password',
-              errorText: context
-                  .read<RegisterCubit>()
-                  .state
-                  .password
-                  .value
-                  .fold(
-                      (f) => f.maybeMap(
-                          orElse: () => null,
-                          shortPassword: (_) => 'Short Password'),
-                      (_) => null),
-              obscureText: !state.displayPassword,
-              onChanged: context.read<RegisterCubit>().passwordChanged,
-            ),
-          ),
-          kVSpaceM,
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.phone != cur.phone,
-            builder: (context, state) => WTextInput(
-              hintText: 'Phone number',
-              onChanged: context.read<RegisterCubit>().phoneChanged,
-              errorText: context
-                  .read<RegisterCubit>()
-                  .state
-                  .phone
-                  .value
-                  .fold((failure) => 'Invalid phone number', (_) => null),
-            ),
-          ),
-          kVSpaceM,
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.birthDay != cur.birthDay,
-            builder: (context, state) => WTextInput(
-              hintText: 'Birthday',
-              errorText: context
-                  .read<RegisterCubit>()
-                  .state
-                  .birthDay
-                  .value
-                  .fold((failure) => 'Invalid Birthday', (_) => null),
-              // onChanged: context.read<RegisterCubit>().streetChanged,
-            ),
-          ),
-          kVSpaceM,
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.street != cur.street,
-            builder: (context, state) => WTextInput(
-              hintText: 'Address',
-              errorText: context
-                  .read<RegisterCubit>()
-                  .state
-                  .street
-                  .value
-                  .fold((failure) => 'Invalid address', (_) => null),
-              onChanged: context.read<RegisterCubit>().streetChanged,
-            ),
-          ),
-          kVSpaceM,
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.status != cur.status,
-            builder: (context, state) => WSubmitBtn(
-              child: state.status.maybeMap(
-                busy: (_) => const Text('....'),
-                orElse: () => const Text('SIGN UP'),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UpdateUserCubit, UpdateUserState>(
+          listenWhen: (prev, cur) => prev.name != cur.name,
+          listener: (context, state) {
+            final nameStr = state.name.value.foldRight('', (value, previous) {
+              return value;
+            });
+
+            if (_fullNameController.text != nameStr) {
+              _fullNameController.text = nameStr;
+            }
+          },
+        ),
+        BlocListener<UpdateUserCubit, UpdateUserState>(
+          listenWhen: (prev, cur) => prev.phone != cur.phone,
+          listener: (context, state) {
+            final phoneStr = state.phone.value.foldRight('', (value, previous) {
+              return value;
+            });
+
+            if (_phoneController.text != phoneStr) {
+              _phoneController.text = phoneStr;
+            }
+          },
+        ),
+        BlocListener<UpdateUserCubit, UpdateUserState>(
+          listenWhen: (prev, cur) => prev.birthDay != cur.birthDay,
+          listener: (context, state) {
+            final birthDayStr = state.birthDay.value
+                .foldRight('', (value, previous) => value.toIso8601String());
+
+            if (_birthdayController.text != birthDayStr) {
+              _birthdayController.text = birthDayStr;
+            }
+          },
+        ),
+        BlocListener<UpdateUserCubit, UpdateUserState>(
+          listenWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
+          listener: (context, state) {
+            final emailStr = state.emailAddress.value
+                .foldRight('', (value, previous) => value);
+
+            if (_emailController.text != emailStr) {
+              _emailController.text = emailStr;
+            }
+          },
+        ),
+      ],
+      child: Form(
+        autovalidateMode:
+            context.read<UpdateUserCubit>().state.showErrorMessages
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+        child: Column(
+          children: [
+            Container(
+              width: 170,
+              height: 170,
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(150)),
+              child: IconButton(
+                iconSize: 105,
+                onPressed: () {},
+                icon: const Icon(Icons.camera_alt_sharp),
               ),
-              onPressed: state.status.maybeMap(
-                busy: (_) => null,
-                orElse: () => context.read<RegisterCubit>().submitted,
-              ),
-              // onPressed: context.read<RegisterCubit>().emailSubmitted,
             ),
-          ),
-        ],
+            kVSpaceM,
+            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+              buildWhen: (prev, cur) => prev.name != cur.name,
+              builder: (context, state) => WTextInput(
+                label: 'Full Name',
+                hintText: 'Full Name',
+                controller: _fullNameController,
+                errorText: state.name.value
+                    .fold((failure) => 'Invalid Name', (_) => null),
+                onChanged: context.read<UpdateUserCubit>().nameChanged,
+              ),
+            ),
+            kVSpaceM,
+            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+              buildWhen: (prev, cur) => prev.birthDay != cur.birthDay,
+              builder: (context, state) => WTextInput(
+                enabled: false,
+                label: 'Birthday',
+                hintText: 'Birthday',
+                controller: _birthdayController,
+                suffixIcon: const Icon(Icons.calendar_today_outlined),
+              ),
+            ),
+            kVSpaceM,
+            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+              buildWhen: (prev, cur) => prev.phone != cur.phone,
+              builder: (context, state) => WTextInput(
+                enabled: false,
+                label: 'Phone',
+                hintText: 'Phone',
+                controller: _phoneController,
+              ),
+            ),
+            kVSpaceM,
+            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+              buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
+              builder: (context, state) => WTextInput(
+                label: 'Email',
+                hintText: 'Email',
+                controller: _emailController,
+                errorText: state.emailAddress.value
+                    .fold((failure) => 'Invalid Email', (_) => null),
+                onChanged: context.read<UpdateUserCubit>().emailAddressChanged,
+              ),
+            ),
+            kVSpaceXXL,
+            BlocBuilder<UpdateUserCubit, UpdateUserState>(
+              buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
+              builder: (context, state) => FormSubmitBtn(
+                child: const Text('UPDATE'),
+                isSubmitting: state.isSubmitting,
+                onPressed: context.read<RegisterCubit>().submitted,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
