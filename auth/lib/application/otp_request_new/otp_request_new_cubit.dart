@@ -10,7 +10,7 @@ import 'package:auth/domain/auth_failure.dart';
 import 'package:auth/domain/i_auth_facade.dart';
 import 'package:auth/domain/value_objects.dart';
 
-part 'request_new_otp_cubit.freezed.dart';
+part 'otp_request_new_cubit.freezed.dart';
 
 class Ticker {
   const Ticker();
@@ -22,22 +22,22 @@ class Ticker {
 }
 
 @freezed
-class RequestNewOtpState with _$RequestNewOtpState {
-  const RequestNewOtpState._();
+class OtpRequestNewState with _$OtpRequestNewState {
+  const OtpRequestNewState._();
 
-  factory RequestNewOtpState({
+  factory OtpRequestNewState({
     required Phone phone,
     required int timeLeft,
     @Default(false) bool isAbleSubmit,
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     required Option<Either<AuthFailure, Unit>> failureOrSuccessOption,
-  }) = _RequestNewOtpState;
+  }) = _OtpRequestNewState;
 
   bool get valid => true;
 
-  factory RequestNewOtpState.init() {
-    return RequestNewOtpState(
+  factory OtpRequestNewState.init() {
+    return OtpRequestNewState(
       timeLeft: 0,
       isAbleSubmit: true,
       phone: Phone('0372560843'),
@@ -46,12 +46,12 @@ class RequestNewOtpState with _$RequestNewOtpState {
   }
 }
 
-class RequestNewOtpCubit extends Cubit<RequestNewOtpState> {
+class OtpRequestNewCubit extends Cubit<OtpRequestNewState> {
   late final Ticker _ticker;
   final IAuthFacade _authFacade;
   StreamSubscription<int>? _tickerSubscription;
 
-  RequestNewOtpCubit(this._authFacade) : super(RequestNewOtpState.init()) {
+  OtpRequestNewCubit(this._authFacade) : super(OtpRequestNewState.init()) {
     _ticker = const Ticker();
     _tickerSubscription?.cancel();
 

@@ -20,8 +20,6 @@ final _fakeUser = User(
   street: Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City'),
 );
 
-final _fakeOrders = [Order.random()];
-
 class AuthFacade implements IAuthFacade {
   // AuthFacade();
 
@@ -183,6 +181,25 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<Option<Pagination<Order>>> getOrderHistories(
+      {required int page, required int perPage}) async {
+    await Future.delayed(const Duration(milliseconds: 400));
+
+    const pageCount = 5;
+    final totalCount = perPage * 5;
+    final data = List.generate(perPage, (index) => Order.random());
+
+    final result = Pagination<Order>(
+        data: data,
+        page: page,
+        perPage: perPage,
+        pageCount: pageCount,
+        totalCount: totalCount);
+
+    return optionOf(result);
+  }
+
+  @override
+  Future<Option<Pagination<Order>>> getNotifications(
       {required int page, required int perPage}) async {
     await Future.delayed(const Duration(milliseconds: 400));
 

@@ -9,33 +9,33 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage> {
   Future<void> _onRefresh() async {
-    context.read<OrderHistoriesCubit>().refreshRequested();
-    await context.read<OrderHistoriesCubit>().getOrdersRequested();
+    context.read<NotificationsCubit>().refreshRequested();
+    await context.read<NotificationsCubit>().getOrdersRequested();
   }
 
   Future<void> _onLoadMore() async {
-    final state = context.read<OrderHistoriesCubit>().state;
+    final state = context.read<NotificationsCubit>().state;
     final currentPage = state.page;
     final totalPage = state.pageCount;
     final nextPage = currentPage + 1;
 
     if (nextPage > totalPage) return;
 
-    context.read<OrderHistoriesCubit>().pageNumberChanged(nextPage);
-    await context.read<OrderHistoriesCubit>().getOrdersRequested();
+    context.read<NotificationsCubit>().pageNumberChanged(nextPage);
+    await context.read<NotificationsCubit>().getOrdersRequested();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<OrderHistoriesCubit>(
+    return BlocProvider<NotificationsCubit>(
       create: (context) =>
-          context.read<OrderHistoriesCubit>()..getOrdersRequested(),
-      child: BlocListener<OrderHistoriesCubit, OrderHistoriesState>(
+          context.read<NotificationsCubit>()..getOrdersRequested(),
+      child: BlocListener<NotificationsCubit, NotificationsState>(
         listener: (context, state) {},
         child: WScaffold(
           appBar: const WAppBar(
               backgroundColor: Colors.white, title: Text('Notifications')),
-          body: BlocBuilder<OrderHistoriesCubit, OrderHistoriesState>(
+          body: BlocBuilder<NotificationsCubit, NotificationsState>(
             buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
             builder: (context, state) {
               final orders = state.ordersOption

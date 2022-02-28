@@ -13,7 +13,7 @@ class OtpConfirmForm extends StatelessWidget {
       autovalidateMode: validateMode,
       child: Column(
         children: [
-          BlocBuilder<RequestNewOtpCubit, RequestNewOtpState>(
+          BlocBuilder<OtpRequestNewCubit, OtpRequestNewState>(
             buildWhen: (prev, cur) =>
                 prev.isSubmitting != cur.isSubmitting ||
                 prev.failureOrSuccessOption != cur.failureOrSuccessOption,
@@ -36,7 +36,7 @@ class OtpConfirmForm extends StatelessWidget {
             ),
           ),
           kVSpaceXXL,
-          BlocBuilder<RequestNewOtpCubit, RequestNewOtpState>(
+          BlocBuilder<OtpRequestNewCubit, OtpRequestNewState>(
             buildWhen: (prev, cur) =>
                 prev.isSubmitting != cur.isSubmitting ||
                 prev.failureOrSuccessOption != cur.failureOrSuccessOption,
@@ -51,7 +51,7 @@ class OtpConfirmForm extends StatelessWidget {
                           text: 'Resend another code',
                           onTap: state.isSubmitting
                               ? null
-                              : context.read<RequestNewOtpCubit>().submitted,
+                              : context.read<OtpRequestNewCubit>().submitted,
                         ),
                 ],
               );
