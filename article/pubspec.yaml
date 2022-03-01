@@ -25,6 +25,7 @@ dependencies:
   logger: any
   dio: ^4.0.4
   flutter_html: ^2.2.1
+  refresh_loadmore: ^2.0.5
 
 dev_dependencies:
   flutter_test:

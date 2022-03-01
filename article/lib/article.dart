@@ -1,4 +1,4 @@
-library auth;
+library articles;
 
-export 'infrastructure/infrastructure.dart';
+export 'data/data.dart';
 export 'presentation/presentation.dart';

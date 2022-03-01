@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:postman_dio/postman_dio.dart';
 
-import 'package:article/infrastructure/infrastructure.dart';
+import 'package:article/data/data.dart';
 
 void main() {
   final options = BaseOptions(

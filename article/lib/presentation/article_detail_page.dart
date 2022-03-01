@@ -1,6 +1,7 @@
-import 'package:article/article.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+import 'package:article/data/data.dart';
 
 class ArticleDetail extends StatelessWidget {
   final Article article;
