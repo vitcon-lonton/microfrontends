@@ -1,4 +1,5 @@
 export 'auth/auth_bloc.dart';
+export 'favorites/favorites_cubit.dart';
 export 'notifications/notifications_cubit.dart';
 export 'order_histories/order_histories_cubit.dart';
 export 'otp_confirm/otp_confirm_cubit.dart';

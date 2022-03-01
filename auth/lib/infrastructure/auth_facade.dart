@@ -21,8 +21,6 @@ final _fakeUser = User(
 );
 
 class AuthFacade implements IAuthFacade {
-  // AuthFacade();
-
   @override
   Future<Option<User>> getSignedInUser() async => optionOf(_fakeUser);
 
@@ -208,6 +206,25 @@ class AuthFacade implements IAuthFacade {
     final data = List.generate(perPage, (index) => Order.random());
 
     final result = Pagination<Order>(
+        data: data,
+        page: page,
+        perPage: perPage,
+        pageCount: pageCount,
+        totalCount: totalCount);
+
+    return optionOf(result);
+  }
+
+  @override
+  Future<Option<Pagination<Favorite>>> getFavorites(
+      {required int page, required int perPage}) async {
+    await Future.delayed(const Duration(milliseconds: 400));
+
+    const pageCount = 5;
+    final totalCount = perPage * 5;
+    final data = List.generate(perPage, (index) => Favorite.random());
+
+    final result = Pagination<Favorite>(
         data: data,
         page: page,
         perPage: perPage,

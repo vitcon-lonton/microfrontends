@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AuthBloc(facade)),
         BlocProvider(create: (_) => RegisterCubit(facade)),
+        BlocProvider(create: (_) => FavoritesCubit(facade)),
         BlocProvider(create: (_) => SignInFormBloc(facade)),
         BlocProvider(create: (_) => UserUpdateCubit(facade)),
         BlocProvider(create: (_) => OtpConfirmCubit(facade)),
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
           // home: const PasswordChangePage(),
           // home: const PasswordUpdatePage(),
           // home: const OrderHistoriesPage(),
-          home: const NotificationsPage(),
+          // home: const NotificationsPage(),
+          home: const FavoritesPage(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(primarySwatch: Colors.blue),
         ),

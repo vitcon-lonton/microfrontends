@@ -44,7 +44,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
   pageNumberChanged(int value) => emit(state.copyWith(page: value));
 
-  Future<void> getOrdersRequested() async {
+  Future<void> getNotificationsRequested() async {
     emit(state.copyWith(isSubmitting: true));
 
     final page = state.page;

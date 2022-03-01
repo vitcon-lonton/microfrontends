@@ -7,6 +7,7 @@ export 'domain/user.dart';
 export 'domain/value_objects.dart';
 export 'infrastructure/auth_facade.dart';
 export 'infrastructure/firebase_user_mapper.dart';
+export 'presentation/favorites/favorites.dart';
 export 'presentation/notifications/notifications.dart';
 export 'presentation/order_histories/order_histories.dart';
 export 'presentation/otp_confirm/otp_confirm.dart';

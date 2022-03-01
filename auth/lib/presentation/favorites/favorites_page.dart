@@ -1,45 +1,47 @@
-part of 'notifications.dart';
+part of 'favorites.dart';
 
-class NotificationsPage extends StatefulWidget {
-  const NotificationsPage({Key? key}) : super(key: key);
+class FavoritesPage extends StatefulWidget {
+  const FavoritesPage({Key? key}) : super(key: key);
 
   @override
-  State<NotificationsPage> createState() => _NotificationsPageState();
+  State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _NotificationsPageState extends State<NotificationsPage> {
+class _FavoritesPageState extends State<FavoritesPage> {
   Future<void> _onRefresh() async {
-    context.read<NotificationsCubit>().refreshRequested();
-    await context.read<NotificationsCubit>().getNotificationsRequested();
+    context.read<FavoritesCubit>().refreshRequested();
+    await context.read<FavoritesCubit>().getFavoritesRequested();
   }
 
   Future<void> _onLoadMore() async {
-    final state = context.read<NotificationsCubit>().state;
+    final state = context.read<FavoritesCubit>().state;
     final currentPage = state.page;
     final totalPage = state.pageCount;
     final nextPage = currentPage + 1;
 
     if (nextPage > totalPage) return;
 
-    context.read<NotificationsCubit>().pageNumberChanged(nextPage);
-    await context.read<NotificationsCubit>().getNotificationsRequested();
+    context.read<FavoritesCubit>().pageNumberChanged(nextPage);
+    await context.read<FavoritesCubit>().getFavoritesRequested();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<NotificationsCubit>(
+    return BlocProvider<FavoritesCubit>(
       create: (context) =>
-          context.read<NotificationsCubit>()..getNotificationsRequested(),
-      child: BlocListener<NotificationsCubit, NotificationsState>(
+          context.read<FavoritesCubit>()..getFavoritesRequested(),
+      child: BlocListener<FavoritesCubit, FavoritesState>(
         listener: (context, state) {},
         child: WScaffold(
           appBar: const WAppBar(
-              backgroundColor: Colors.white, title: Text('Notifications')),
-          body: BlocBuilder<NotificationsCubit, NotificationsState>(
-            buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
+              backgroundColor: Colors.white, title: Text('Wish List')),
+          body: BlocBuilder<FavoritesCubit, FavoritesState>(
+            // buildWhen: (prev, cur) =>
+            //     prev.isSubmitting != cur.isSubmitting ||
+            //     prev.removingId != cur.removingId,
             builder: (context, state) {
-              final orders = state.ordersOption
-                  .foldRight(<Order>[], (orders, previous) => orders);
+              final favorites = state.favoritesOption
+                  .foldRight(<Favorite>[], (favorites, previous) => favorites);
 
               return RefreshLoadmore(
                 onRefresh: _onRefresh,
@@ -54,11 +56,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 ),
                 child: ListView.separated(
                   shrinkWrap: true,
-                  itemCount: orders.length,
+                  itemCount: favorites.length,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, index) => const Divider(height: 0),
                   itemBuilder: (_, index) {
-                    return NotificationTile(order: orders[index]);
+                    return FavoriteTile(favorite: favorites[index]);
                   },
                 ),
               );

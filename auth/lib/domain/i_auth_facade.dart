@@ -33,8 +33,10 @@ abstract class IAuthFacade {
       required BirthDay birthDay,
       required EmailAddress emailAddress});
   Future<void> signOut();
-  Future<Option<Pagination<Order>>> getOrderHistories(
+  Future<Option<Pagination<Favorite>>> getFavorites(
       {required int page, required int perPage});
   Future<Option<Pagination<Order>>> getNotifications(
+      {required int page, required int perPage});
+  Future<Option<Pagination<Order>>> getOrderHistories(
       {required int page, required int perPage});
 }
