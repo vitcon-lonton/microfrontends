@@ -1,60 +1,58 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:booking/booking.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
+// IBookingRepository repository;
+IBookingRepository? repository;
+
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await Booking.platformVersion ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+    return MultiBlocProvider(
+      providers: const [
+        // BlocProvider(create: (_) => AuthBloc(facade)),
+        // BlocProvider(create: (_) => RegisterCubit(facade)),
+        // BlocProvider(create: (_) => FavoritesCubit(facade)),
+        // BlocProvider(create: (_) => SignInFormBloc(facade)),
+        // BlocProvider(create: (_) => UserUpdateCubit(facade)),
+        // BlocProvider(create: (_) => OtpConfirmCubit(facade)),
+        // BlocProvider(create: (_) => OtpRequestNewCubit(facade)),
+        // BlocProvider(create: (_) => NotificationsCubit(facade)),
+        // BlocProvider(create: (_) => PasswordForgetCubit(facade)),
+        // BlocProvider(create: (_) => PasswordChangeCubit(facade)),
+        // BlocProvider(create: (_) => PasswordUpdateCubit(facade)),
+        // BlocProvider(create: (_) => OrderHistoriesCubit(facade)),
+      ],
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+          PointerDeviceKind.invertedStylus
+        }),
+        child: MaterialApp(
+          home: Container(),
+          // title: 'Flutter Demo',
+          // home: SplashPage(),
+          // home: const SignInPage(),
+          // home: const RegisterPage(),
+          // home: const SettingsPage(),
+          // home: const UserUpdatePage(),
+          // home: const OtpConfirmPage(),
+          // home: const NotificationsPage(),
+          // home: const PasswordForgetPage(),
+          // home: const PasswordChangePage(),
+          // home: const PasswordUpdatePage(),
+          // home: const OrderHistoriesPage(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(primarySwatch: Colors.blue),
         ),
       ),
     );
