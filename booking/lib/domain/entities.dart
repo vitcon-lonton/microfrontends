@@ -6,22 +6,34 @@ part 'entities.freezed.dart';
 enum OrderStatus { created, done, cancel }
 
 @freezed
+class CartItem with _$CartItem {
+  const CartItem._();
+
+  const factory CartItem({
+    required UniqueId id,
+    required DateTime time,
+  }) = _CartItem;
+
+  factory CartItem.random() => CartItem(id: UniqueId(), time: DateTime.now());
+
+  double get rating => 5.0;
+  String? get image => null;
+  double get price => 220022;
+  String get name => 'Item name ${id.getOrCrash()}';
+}
+
+@freezed
 class Order with _$Order {
+  const Order._();
+
   const factory Order(
       {required UniqueId id,
-      required String name,
-      required double price,
       required DateTime time,
       @Default(OrderStatus.created) OrderStatus status}) = _Order;
 
-  factory Order.random() {
-    final _id = UniqueId();
+  factory Order.random() => Order(id: UniqueId(), time: DateTime.now());
 
-    return Order(
-      id: _id,
-      price: 2000000,
-      time: DateTime.now(),
-      name: 'Service name ${_id.value.foldRight('', (id, previous) => id)}',
-    );
-  }
+  double get price => 220022;
+  String get name => 'Order name ${id.getOrCrash()}';
+  String get address => 'Address ${id.getOrCrash()}';
 }

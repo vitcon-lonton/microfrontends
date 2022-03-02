@@ -18,16 +18,19 @@ class ServiceBookingPage extends StatelessWidget {
         ],
         child: MultiBlocListener(
             listeners: [
-              BlocListener<ServiceBookingFormCubit, ServiceBookingFormState>(
-                  listenWhen: (prev, cur) =>
-                      prev.bookingFailureOrSuccessOption !=
-                      cur.bookingFailureOrSuccessOption,
-                  listener: (context, state) {}),
+              //
               BlocListener<ServiceDetailCubit, ServiceDetailState>(
                   listenWhen: (prev, cur) => prev.service != cur.service,
                   listener: (context, state) => context
                       .read<ServiceBookingFormCubit>()
                       .serviceChanged(state.service)),
+
+              //
+              BlocListener<ServiceBookingFormCubit, ServiceBookingFormState>(
+                  listenWhen: (prev, cur) =>
+                      prev.bookingFailureOrSuccessOption !=
+                      cur.bookingFailureOrSuccessOption,
+                  listener: (context, state) {}),
             ],
             child: WScaffold(
               // BODY
