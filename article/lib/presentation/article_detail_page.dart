@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 import 'package:article/data/data.dart';
 
@@ -13,9 +14,9 @@ class ArticleDetail extends StatelessWidget {
     final content = article.content;
     final title = article.title ?? '';
 
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
+    return WScaffold(
       body: Html(data: content),
+      appBar: AppBar(title: Text(title)),
     );
   }
 }

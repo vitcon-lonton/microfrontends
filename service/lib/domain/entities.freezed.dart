@@ -19,12 +19,14 @@ class _$ServiceTearOff {
   const _$ServiceTearOff();
 
   _Service call(
-      {String img = _kImg,
+      {required UniqueId id,
+      String img = _kImg,
       double rating = 0.0,
       String name = _kName,
       String price = '150\$',
       String description = _kDescription}) {
     return _Service(
+      id: id,
       img: img,
       rating: rating,
       name: name,
@@ -39,6 +41,7 @@ const $Service = _$ServiceTearOff();
 
 /// @nodoc
 mixin _$Service {
+  UniqueId get id => throw _privateConstructorUsedError;
   String get img => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -54,7 +57,8 @@ abstract class $ServiceCopyWith<$Res> {
   factory $ServiceCopyWith(Service value, $Res Function(Service) then) =
       _$ServiceCopyWithImpl<$Res>;
   $Res call(
-      {String img,
+      {UniqueId id,
+      String img,
       double rating,
       String name,
       String price,
@@ -71,6 +75,7 @@ class _$ServiceCopyWithImpl<$Res> implements $ServiceCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? img = freezed,
     Object? rating = freezed,
     Object? name = freezed,
@@ -78,6 +83,10 @@ class _$ServiceCopyWithImpl<$Res> implements $ServiceCopyWith<$Res> {
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as UniqueId,
       img: img == freezed
           ? _value.img
           : img // ignore: cast_nullable_to_non_nullable
@@ -108,7 +117,8 @@ abstract class _$ServiceCopyWith<$Res> implements $ServiceCopyWith<$Res> {
       __$ServiceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String img,
+      {UniqueId id,
+      String img,
       double rating,
       String name,
       String price,
@@ -126,6 +136,7 @@ class __$ServiceCopyWithImpl<$Res> extends _$ServiceCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? img = freezed,
     Object? rating = freezed,
     Object? name = freezed,
@@ -133,6 +144,10 @@ class __$ServiceCopyWithImpl<$Res> extends _$ServiceCopyWithImpl<$Res>
     Object? description = freezed,
   }) {
     return _then(_Service(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as UniqueId,
       img: img == freezed
           ? _value.img
           : img // ignore: cast_nullable_to_non_nullable
@@ -161,12 +176,15 @@ class __$ServiceCopyWithImpl<$Res> extends _$ServiceCopyWithImpl<$Res>
 
 class _$_Service implements _Service {
   const _$_Service(
-      {this.img = _kImg,
+      {required this.id,
+      this.img = _kImg,
       this.rating = 0.0,
       this.name = _kName,
       this.price = '150\$',
       this.description = _kDescription});
 
+  @override
+  final UniqueId id;
   @JsonKey()
   @override
   final String img;
@@ -185,7 +203,7 @@ class _$_Service implements _Service {
 
   @override
   String toString() {
-    return 'Service(img: $img, rating: $rating, name: $name, price: $price, description: $description)';
+    return 'Service(id: $id, img: $img, rating: $rating, name: $name, price: $price, description: $description)';
   }
 
   @override
@@ -193,6 +211,7 @@ class _$_Service implements _Service {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Service &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.img, img) &&
             const DeepCollectionEquality().equals(other.rating, rating) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -204,6 +223,7 @@ class _$_Service implements _Service {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(img),
       const DeepCollectionEquality().hash(rating),
       const DeepCollectionEquality().hash(name),
@@ -218,12 +238,15 @@ class _$_Service implements _Service {
 
 abstract class _Service implements Service {
   const factory _Service(
-      {String img,
+      {required UniqueId id,
+      String img,
       double rating,
       String name,
       String price,
       String description}) = _$_Service;
 
+  @override
+  UniqueId get id;
   @override
   String get img;
   @override

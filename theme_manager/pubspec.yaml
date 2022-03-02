@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.0
+  flutter_bloc: ^8.0.1
   json_annotation: ^4.1.0
   freezed_annotation: ^1.1.0
 

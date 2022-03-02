@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       home: BlocProvider.value(
         value: getIt<ArticlesCubit>(),
-        child: const ArticleList(),
+        child: const Articles(),
       ),
       // home: SignInPage(bloc: getIt<SignInFormBloc>()),
     );

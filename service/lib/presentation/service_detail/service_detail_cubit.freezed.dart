@@ -19,18 +19,19 @@ class _$ServiceDetailStateTearOff {
   const _$ServiceDetailStateTearOff();
 
   _ServiceDetailState call(
-      {Service? service,
+      {bool isLiked = false,
       bool isSubmitting = false,
+      bool isSubmittingLike = false,
       bool showErrorMessages = true,
-      ProcessingStatus status = const ProcessingStatus.idle(),
-      required Option<Either<ServiceFailure, Service>>
-          getDetailFailureOrSuccessOption}) {
+      ProcessingStatus status = STATUS_IDLE,
+      required Option<Service> detailOption}) {
     return _ServiceDetailState(
-      service: service,
+      isLiked: isLiked,
       isSubmitting: isSubmitting,
+      isSubmittingLike: isSubmittingLike,
       showErrorMessages: showErrorMessages,
       status: status,
-      getDetailFailureOrSuccessOption: getDetailFailureOrSuccessOption,
+      detailOption: detailOption,
     );
   }
 }
@@ -40,12 +41,12 @@ const $ServiceDetailState = _$ServiceDetailStateTearOff();
 
 /// @nodoc
 mixin _$ServiceDetailState {
-  Service? get service => throw _privateConstructorUsedError;
+  bool get isLiked => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get isSubmittingLike => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   ProcessingStatus get status => throw _privateConstructorUsedError;
-  Option<Either<ServiceFailure, Service>> get getDetailFailureOrSuccessOption =>
-      throw _privateConstructorUsedError;
+  Option<Service> get detailOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ServiceDetailStateCopyWith<ServiceDetailState> get copyWith =>
@@ -58,13 +59,13 @@ abstract class $ServiceDetailStateCopyWith<$Res> {
           ServiceDetailState value, $Res Function(ServiceDetailState) then) =
       _$ServiceDetailStateCopyWithImpl<$Res>;
   $Res call(
-      {Service? service,
+      {bool isLiked,
       bool isSubmitting,
+      bool isSubmittingLike,
       bool showErrorMessages,
       ProcessingStatus status,
-      Option<Either<ServiceFailure, Service>> getDetailFailureOrSuccessOption});
+      Option<Service> detailOption});
 
-  $ServiceCopyWith<$Res>? get service;
   $ProcessingStatusCopyWith<$Res> get status;
 }
 
@@ -79,20 +80,25 @@ class _$ServiceDetailStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? service = freezed,
+    Object? isLiked = freezed,
     Object? isSubmitting = freezed,
+    Object? isSubmittingLike = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
-    Object? getDetailFailureOrSuccessOption = freezed,
+    Object? detailOption = freezed,
   }) {
     return _then(_value.copyWith(
-      service: service == freezed
-          ? _value.service
-          : service // ignore: cast_nullable_to_non_nullable
-              as Service?,
+      isLiked: isLiked == freezed
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSubmittingLike: isSubmittingLike == freezed
+          ? _value.isSubmittingLike
+          : isSubmittingLike // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -102,23 +108,11 @@ class _$ServiceDetailStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProcessingStatus,
-      getDetailFailureOrSuccessOption: getDetailFailureOrSuccessOption ==
-              freezed
-          ? _value.getDetailFailureOrSuccessOption
-          : getDetailFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ServiceFailure, Service>>,
+      detailOption: detailOption == freezed
+          ? _value.detailOption
+          : detailOption // ignore: cast_nullable_to_non_nullable
+              as Option<Service>,
     ));
-  }
-
-  @override
-  $ServiceCopyWith<$Res>? get service {
-    if (_value.service == null) {
-      return null;
-    }
-
-    return $ServiceCopyWith<$Res>(_value.service!, (value) {
-      return _then(_value.copyWith(service: value));
-    });
   }
 
   @override
@@ -137,14 +131,13 @@ abstract class _$ServiceDetailStateCopyWith<$Res>
       __$ServiceDetailStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Service? service,
+      {bool isLiked,
       bool isSubmitting,
+      bool isSubmittingLike,
       bool showErrorMessages,
       ProcessingStatus status,
-      Option<Either<ServiceFailure, Service>> getDetailFailureOrSuccessOption});
+      Option<Service> detailOption});
 
-  @override
-  $ServiceCopyWith<$Res>? get service;
   @override
   $ProcessingStatusCopyWith<$Res> get status;
 }
@@ -162,20 +155,25 @@ class __$ServiceDetailStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? service = freezed,
+    Object? isLiked = freezed,
     Object? isSubmitting = freezed,
+    Object? isSubmittingLike = freezed,
     Object? showErrorMessages = freezed,
     Object? status = freezed,
-    Object? getDetailFailureOrSuccessOption = freezed,
+    Object? detailOption = freezed,
   }) {
     return _then(_ServiceDetailState(
-      service: service == freezed
-          ? _value.service
-          : service // ignore: cast_nullable_to_non_nullable
-              as Service?,
+      isLiked: isLiked == freezed
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSubmittingLike: isSubmittingLike == freezed
+          ? _value.isSubmittingLike
+          : isSubmittingLike // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -185,11 +183,10 @@ class __$ServiceDetailStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProcessingStatus,
-      getDetailFailureOrSuccessOption: getDetailFailureOrSuccessOption ==
-              freezed
-          ? _value.getDetailFailureOrSuccessOption
-          : getDetailFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ServiceFailure, Service>>,
+      detailOption: detailOption == freezed
+          ? _value.detailOption
+          : detailOption // ignore: cast_nullable_to_non_nullable
+              as Option<Service>,
     ));
   }
 }
@@ -198,18 +195,23 @@ class __$ServiceDetailStateCopyWithImpl<$Res>
 
 class _$_ServiceDetailState extends _ServiceDetailState {
   _$_ServiceDetailState(
-      {this.service,
+      {this.isLiked = false,
       this.isSubmitting = false,
+      this.isSubmittingLike = false,
       this.showErrorMessages = true,
-      this.status = const ProcessingStatus.idle(),
-      required this.getDetailFailureOrSuccessOption})
+      this.status = STATUS_IDLE,
+      required this.detailOption})
       : super._();
 
+  @JsonKey()
   @override
-  final Service? service;
+  final bool isLiked;
   @JsonKey()
   @override
   final bool isSubmitting;
+  @JsonKey()
+  @override
+  final bool isSubmittingLike;
   @JsonKey()
   @override
   final bool showErrorMessages;
@@ -217,11 +219,11 @@ class _$_ServiceDetailState extends _ServiceDetailState {
   @override
   final ProcessingStatus status;
   @override
-  final Option<Either<ServiceFailure, Service>> getDetailFailureOrSuccessOption;
+  final Option<Service> detailOption;
 
   @override
   String toString() {
-    return 'ServiceDetailState(service: $service, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, getDetailFailureOrSuccessOption: $getDetailFailureOrSuccessOption)';
+    return 'ServiceDetailState(isLiked: $isLiked, isSubmitting: $isSubmitting, isSubmittingLike: $isSubmittingLike, showErrorMessages: $showErrorMessages, status: $status, detailOption: $detailOption)';
   }
 
   @override
@@ -229,25 +231,27 @@ class _$_ServiceDetailState extends _ServiceDetailState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ServiceDetailState &&
-            const DeepCollectionEquality().equals(other.service, service) &&
+            const DeepCollectionEquality().equals(other.isLiked, isLiked) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
+                .equals(other.isSubmittingLike, isSubmittingLike) &&
+            const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(
-                other.getDetailFailureOrSuccessOption,
-                getDetailFailureOrSuccessOption));
+            const DeepCollectionEquality()
+                .equals(other.detailOption, detailOption));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(service),
+      const DeepCollectionEquality().hash(isLiked),
       const DeepCollectionEquality().hash(isSubmitting),
+      const DeepCollectionEquality().hash(isSubmittingLike),
       const DeepCollectionEquality().hash(showErrorMessages),
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(getDetailFailureOrSuccessOption));
+      const DeepCollectionEquality().hash(detailOption));
 
   @JsonKey(ignore: true)
   @override
@@ -257,24 +261,26 @@ class _$_ServiceDetailState extends _ServiceDetailState {
 
 abstract class _ServiceDetailState extends ServiceDetailState {
   factory _ServiceDetailState(
-      {Service? service,
+      {bool isLiked,
       bool isSubmitting,
+      bool isSubmittingLike,
       bool showErrorMessages,
       ProcessingStatus status,
-      required Option<Either<ServiceFailure, Service>>
-          getDetailFailureOrSuccessOption}) = _$_ServiceDetailState;
+      required Option<Service> detailOption}) = _$_ServiceDetailState;
   _ServiceDetailState._() : super._();
 
   @override
-  Service? get service;
+  bool get isLiked;
   @override
   bool get isSubmitting;
+  @override
+  bool get isSubmittingLike;
   @override
   bool get showErrorMessages;
   @override
   ProcessingStatus get status;
   @override
-  Option<Either<ServiceFailure, Service>> get getDetailFailureOrSuccessOption;
+  Option<Service> get detailOption;
   @override
   @JsonKey(ignore: true)
   _$ServiceDetailStateCopyWith<_ServiceDetailState> get copyWith =>

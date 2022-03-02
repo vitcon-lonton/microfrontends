@@ -20,19 +20,15 @@ class _$ServiceBookingFormStateTearOff {
 
   _ServiceBookingFormState call(
       {Service? service,
-      required Note note,
-      required Street street,
       required DateTime date,
       required DateTime time,
       bool isSubmitting = false,
       bool showErrorMessages = true,
-      ProcessingStatus status = const ProcessingStatus.idle(),
+      ProcessingStatus status = STATUS_IDLE,
       required Option<Either<ServiceFailure, Unit>>
           bookingFailureOrSuccessOption}) {
     return _ServiceBookingFormState(
       service: service,
-      note: note,
-      street: street,
       date: date,
       time: time,
       isSubmitting: isSubmitting,
@@ -49,8 +45,6 @@ const $ServiceBookingFormState = _$ServiceBookingFormStateTearOff();
 /// @nodoc
 mixin _$ServiceBookingFormState {
   Service? get service => throw _privateConstructorUsedError;
-  Note get note => throw _privateConstructorUsedError;
-  Street get street => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   DateTime get time => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
@@ -71,8 +65,6 @@ abstract class $ServiceBookingFormStateCopyWith<$Res> {
       _$ServiceBookingFormStateCopyWithImpl<$Res>;
   $Res call(
       {Service? service,
-      Note note,
-      Street street,
       DateTime date,
       DateTime time,
       bool isSubmitting,
@@ -96,8 +88,6 @@ class _$ServiceBookingFormStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? service = freezed,
-    Object? note = freezed,
-    Object? street = freezed,
     Object? date = freezed,
     Object? time = freezed,
     Object? isSubmitting = freezed,
@@ -110,14 +100,6 @@ class _$ServiceBookingFormStateCopyWithImpl<$Res>
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
               as Service?,
-      note: note == freezed
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as Note,
-      street: street == freezed
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as Street,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -173,8 +155,6 @@ abstract class _$ServiceBookingFormStateCopyWith<$Res>
   @override
   $Res call(
       {Service? service,
-      Note note,
-      Street street,
       DateTime date,
       DateTime time,
       bool isSubmitting,
@@ -203,8 +183,6 @@ class __$ServiceBookingFormStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? service = freezed,
-    Object? note = freezed,
-    Object? street = freezed,
     Object? date = freezed,
     Object? time = freezed,
     Object? isSubmitting = freezed,
@@ -217,14 +195,6 @@ class __$ServiceBookingFormStateCopyWithImpl<$Res>
           ? _value.service
           : service // ignore: cast_nullable_to_non_nullable
               as Service?,
-      note: note == freezed
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as Note,
-      street: street == freezed
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as Street,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -258,22 +228,16 @@ class __$ServiceBookingFormStateCopyWithImpl<$Res>
 class _$_ServiceBookingFormState extends _ServiceBookingFormState {
   _$_ServiceBookingFormState(
       {this.service,
-      required this.note,
-      required this.street,
       required this.date,
       required this.time,
       this.isSubmitting = false,
       this.showErrorMessages = true,
-      this.status = const ProcessingStatus.idle(),
+      this.status = STATUS_IDLE,
       required this.bookingFailureOrSuccessOption})
       : super._();
 
   @override
   final Service? service;
-  @override
-  final Note note;
-  @override
-  final Street street;
   @override
   final DateTime date;
   @override
@@ -292,7 +256,7 @@ class _$_ServiceBookingFormState extends _ServiceBookingFormState {
 
   @override
   String toString() {
-    return 'ServiceBookingFormState(service: $service, note: $note, street: $street, date: $date, time: $time, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, bookingFailureOrSuccessOption: $bookingFailureOrSuccessOption)';
+    return 'ServiceBookingFormState(service: $service, date: $date, time: $time, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, bookingFailureOrSuccessOption: $bookingFailureOrSuccessOption)';
   }
 
   @override
@@ -301,8 +265,6 @@ class _$_ServiceBookingFormState extends _ServiceBookingFormState {
         (other.runtimeType == runtimeType &&
             other is _ServiceBookingFormState &&
             const DeepCollectionEquality().equals(other.service, service) &&
-            const DeepCollectionEquality().equals(other.note, note) &&
-            const DeepCollectionEquality().equals(other.street, street) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.time, time) &&
             const DeepCollectionEquality()
@@ -319,8 +281,6 @@ class _$_ServiceBookingFormState extends _ServiceBookingFormState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(service),
-      const DeepCollectionEquality().hash(note),
-      const DeepCollectionEquality().hash(street),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(time),
       const DeepCollectionEquality().hash(isSubmitting),
@@ -338,8 +298,6 @@ class _$_ServiceBookingFormState extends _ServiceBookingFormState {
 abstract class _ServiceBookingFormState extends ServiceBookingFormState {
   factory _ServiceBookingFormState(
       {Service? service,
-      required Note note,
-      required Street street,
       required DateTime date,
       required DateTime time,
       bool isSubmitting,
@@ -351,10 +309,6 @@ abstract class _ServiceBookingFormState extends ServiceBookingFormState {
 
   @override
   Service? get service;
-  @override
-  Note get note;
-  @override
-  Street get street;
   @override
   DateTime get date;
   @override

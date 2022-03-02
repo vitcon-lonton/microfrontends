@@ -4,7 +4,6 @@ import 'package:engine/engine.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:service/domain/entities.dart';
-import 'package:service/domain/failure.dart';
 import 'package:service/domain/i_repository.dart';
 
 part 'services_cubit.freezed.dart';
@@ -14,24 +13,27 @@ class ServicesState with _$ServicesState {
   const ServicesState._();
 
   factory ServicesState({
+    @Default(1) page,
+    @Default(10) perPage,
+    @Default(1) pageCount,
+    @Default(0) totalCount,
+    @Default(STATUS_IDLE) status,
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
-    @Default(<Service>[]) List<Service> services,
-    @Default(ProcessingStatus.idle()) ProcessingStatus status,
-    required Option<Either<ServiceFailure, List<Service>>>
-        getCategoriesFailureOrSuccessOption,
+    required Option<List<Service>> servicesOption,
   }) = _ServicesState;
 
-  factory ServicesState.init() {
-    return ServicesState(getCategoriesFailureOrSuccessOption: none());
-  }
+  bool get isLastPage => page == pageCount;
+
+  List<Service> get services =>
+      servicesOption.foldRight(<Service>[], (services, prev) => services);
+
+  factory ServicesState.init() => ServicesState(servicesOption: none());
 
   ServicesState busy() => copyWith(status: STATUS_BUSY);
   ServicesState idle() => copyWith(status: STATUS_IDLE);
   ServicesState failed() => copyWith(status: STATUS_FAILED);
-  ServicesState complete() {
-    return copyWith(status: STATUS_COMPLETE);
-  }
+  ServicesState complete() => copyWith(status: STATUS_COMPLETE);
 }
 
 class ServicesCubit extends Cubit<ServicesState> {
@@ -39,13 +41,30 @@ class ServicesCubit extends Cubit<ServicesState> {
 
   ServicesCubit(this._repository) : super(ServicesState.init());
 
-  getAllServices() async {
-    emit(state.busy().copyWith(getCategoriesFailureOrSuccessOption: none()));
+  refreshRequested() => emit(ServicesState.init());
 
-    final failureOrSuccess = await _repository.getServices();
+  pageNumberChanged(int value) => emit(state.copyWith(page: value));
 
-    emit(failureOrSuccess.fold((failure) {
-      return state.failed();
-    }, (services) => state.idle().copyWith(services: services)));
+  Future<void> getServicesRequested() async {
+    emit(state.copyWith(isSubmitting: true));
+
+    final page = state.page;
+    final perPage = state.perPage;
+    final resultOption =
+        await _repository.getServices(page: page, perPage: perPage);
+
+    resultOption.fold(() {}, (pagination) {
+      final newServices = state.services;
+      newServices.addAll(pagination.data);
+
+      emit(state.copyWith(
+          page: pagination.page,
+          perPage: pagination.perPage,
+          pageCount: pagination.pageCount,
+          totalCount: pagination.totalCount,
+          servicesOption: optionOf(newServices)));
+    });
+
+    emit(state.copyWith(isSubmitting: false));
   }
 }

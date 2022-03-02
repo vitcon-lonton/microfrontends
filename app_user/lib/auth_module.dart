@@ -14,7 +14,7 @@ abstract class AuthModule {
   SignInFormBloc get signInFormBloc;
 
   @Injectable()
-  ForgetPasswordCubit get forgetPasswordCubit;
+  PasswordForgetCubit get passwordChangeCubit;
 
   @LazySingleton(as: IAuthFacade)
   AuthFacade get authFacade;

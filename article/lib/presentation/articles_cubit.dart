@@ -65,7 +65,7 @@ class ArticlesCubit extends Cubit<ArticlesState> {
   Future<Option<List<Article>>> _getArticles() async {
     try {
       final response = await _api.getArticles();
-      if (kDebugMode) print(response.toString());
+      if (kDebugMode) print(response.data.toString());
       if (response.valid) return optionOf(response.data);
       return optionOf(null);
     } catch (e) {

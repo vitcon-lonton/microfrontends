@@ -36,12 +36,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
           appBar: const WAppBar(
               backgroundColor: Colors.white, title: Text('Wish List')),
           body: BlocBuilder<FavoritesCubit, FavoritesState>(
-            // buildWhen: (prev, cur) =>
-            //     prev.isSubmitting != cur.isSubmitting ||
-            //     prev.removingId != cur.removingId,
+            buildWhen: (prev, cur) =>
+                prev.favorites != cur.favorites ||
+                prev.removingId != cur.removingId,
             builder: (context, state) {
-              final favorites = state.favoritesOption
-                  .foldRight(<Favorite>[], (favorites, previous) => favorites);
+              final favorites = state.favorites;
 
               return RefreshLoadmore(
                 onRefresh: _onRefresh,

@@ -21,16 +21,13 @@ class _$CategoriesStateTearOff {
   _CategoriesState call(
       {bool isSubmitting = false,
       bool showErrorMessages = true,
-      List<Catalogue> catalogues = const <Catalogue>[],
-      ProcessingStatus status = const ProcessingStatus.idle(),
-      required Option<Either<ServiceFailure, List<Catalogue>>>
-          getCategoriesFailureOrSuccessOption}) {
+      ProcessingStatus status = STATUS_IDLE,
+      required Option<List<Catalogue>> cataloguesOption}) {
     return _CategoriesState(
       isSubmitting: isSubmitting,
       showErrorMessages: showErrorMessages,
-      catalogues: catalogues,
       status: status,
-      getCategoriesFailureOrSuccessOption: getCategoriesFailureOrSuccessOption,
+      cataloguesOption: cataloguesOption,
     );
   }
 }
@@ -42,11 +39,9 @@ const $CategoriesState = _$CategoriesStateTearOff();
 mixin _$CategoriesState {
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  List<Catalogue> get catalogues => throw _privateConstructorUsedError;
   ProcessingStatus get status => throw _privateConstructorUsedError;
-  Option<Either<ServiceFailure, List<Catalogue>>>
-      get getCategoriesFailureOrSuccessOption =>
-          throw _privateConstructorUsedError;
+  Option<List<Catalogue>> get cataloguesOption =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoriesStateCopyWith<CategoriesState> get copyWith =>
@@ -61,10 +56,8 @@ abstract class $CategoriesStateCopyWith<$Res> {
   $Res call(
       {bool isSubmitting,
       bool showErrorMessages,
-      List<Catalogue> catalogues,
       ProcessingStatus status,
-      Option<Either<ServiceFailure, List<Catalogue>>>
-          getCategoriesFailureOrSuccessOption});
+      Option<List<Catalogue>> cataloguesOption});
 
   $ProcessingStatusCopyWith<$Res> get status;
 }
@@ -82,9 +75,8 @@ class _$CategoriesStateCopyWithImpl<$Res>
   $Res call({
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? catalogues = freezed,
     Object? status = freezed,
-    Object? getCategoriesFailureOrSuccessOption = freezed,
+    Object? cataloguesOption = freezed,
   }) {
     return _then(_value.copyWith(
       isSubmitting: isSubmitting == freezed
@@ -95,19 +87,14 @@ class _$CategoriesStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      catalogues: catalogues == freezed
-          ? _value.catalogues
-          : catalogues // ignore: cast_nullable_to_non_nullable
-              as List<Catalogue>,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProcessingStatus,
-      getCategoriesFailureOrSuccessOption: getCategoriesFailureOrSuccessOption ==
-              freezed
-          ? _value.getCategoriesFailureOrSuccessOption
-          : getCategoriesFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ServiceFailure, List<Catalogue>>>,
+      cataloguesOption: cataloguesOption == freezed
+          ? _value.cataloguesOption
+          : cataloguesOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Catalogue>>,
     ));
   }
 
@@ -129,10 +116,8 @@ abstract class _$CategoriesStateCopyWith<$Res>
   $Res call(
       {bool isSubmitting,
       bool showErrorMessages,
-      List<Catalogue> catalogues,
       ProcessingStatus status,
-      Option<Either<ServiceFailure, List<Catalogue>>>
-          getCategoriesFailureOrSuccessOption});
+      Option<List<Catalogue>> cataloguesOption});
 
   @override
   $ProcessingStatusCopyWith<$Res> get status;
@@ -153,9 +138,8 @@ class __$CategoriesStateCopyWithImpl<$Res>
   $Res call({
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? catalogues = freezed,
     Object? status = freezed,
-    Object? getCategoriesFailureOrSuccessOption = freezed,
+    Object? cataloguesOption = freezed,
   }) {
     return _then(_CategoriesState(
       isSubmitting: isSubmitting == freezed
@@ -166,19 +150,14 @@ class __$CategoriesStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      catalogues: catalogues == freezed
-          ? _value.catalogues
-          : catalogues // ignore: cast_nullable_to_non_nullable
-              as List<Catalogue>,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProcessingStatus,
-      getCategoriesFailureOrSuccessOption: getCategoriesFailureOrSuccessOption ==
-              freezed
-          ? _value.getCategoriesFailureOrSuccessOption
-          : getCategoriesFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ServiceFailure, List<Catalogue>>>,
+      cataloguesOption: cataloguesOption == freezed
+          ? _value.cataloguesOption
+          : cataloguesOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Catalogue>>,
     ));
   }
 }
@@ -189,9 +168,8 @@ class _$_CategoriesState extends _CategoriesState {
   _$_CategoriesState(
       {this.isSubmitting = false,
       this.showErrorMessages = true,
-      this.catalogues = const <Catalogue>[],
-      this.status = const ProcessingStatus.idle(),
-      required this.getCategoriesFailureOrSuccessOption})
+      this.status = STATUS_IDLE,
+      required this.cataloguesOption})
       : super._();
 
   @JsonKey()
@@ -202,17 +180,13 @@ class _$_CategoriesState extends _CategoriesState {
   final bool showErrorMessages;
   @JsonKey()
   @override
-  final List<Catalogue> catalogues;
-  @JsonKey()
-  @override
   final ProcessingStatus status;
   @override
-  final Option<Either<ServiceFailure, List<Catalogue>>>
-      getCategoriesFailureOrSuccessOption;
+  final Option<List<Catalogue>> cataloguesOption;
 
   @override
   String toString() {
-    return 'CategoriesState(isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, catalogues: $catalogues, status: $status, getCategoriesFailureOrSuccessOption: $getCategoriesFailureOrSuccessOption)';
+    return 'CategoriesState(isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, status: $status, cataloguesOption: $cataloguesOption)';
   }
 
   @override
@@ -224,12 +198,9 @@ class _$_CategoriesState extends _CategoriesState {
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
-            const DeepCollectionEquality()
-                .equals(other.catalogues, catalogues) &&
             const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(
-                other.getCategoriesFailureOrSuccessOption,
-                getCategoriesFailureOrSuccessOption));
+            const DeepCollectionEquality()
+                .equals(other.cataloguesOption, cataloguesOption));
   }
 
   @override
@@ -237,9 +208,8 @@ class _$_CategoriesState extends _CategoriesState {
       runtimeType,
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(showErrorMessages),
-      const DeepCollectionEquality().hash(catalogues),
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(getCategoriesFailureOrSuccessOption));
+      const DeepCollectionEquality().hash(cataloguesOption));
 
   @JsonKey(ignore: true)
   @override
@@ -251,10 +221,8 @@ abstract class _CategoriesState extends CategoriesState {
   factory _CategoriesState(
       {bool isSubmitting,
       bool showErrorMessages,
-      List<Catalogue> catalogues,
       ProcessingStatus status,
-      required Option<Either<ServiceFailure, List<Catalogue>>>
-          getCategoriesFailureOrSuccessOption}) = _$_CategoriesState;
+      required Option<List<Catalogue>> cataloguesOption}) = _$_CategoriesState;
   _CategoriesState._() : super._();
 
   @override
@@ -262,12 +230,9 @@ abstract class _CategoriesState extends CategoriesState {
   @override
   bool get showErrorMessages;
   @override
-  List<Catalogue> get catalogues;
-  @override
   ProcessingStatus get status;
   @override
-  Option<Either<ServiceFailure, List<Catalogue>>>
-      get getCategoriesFailureOrSuccessOption;
+  Option<List<Catalogue>> get cataloguesOption;
   @override
   @JsonKey(ignore: true)
   _$CategoriesStateCopyWith<_CategoriesState> get copyWith =>

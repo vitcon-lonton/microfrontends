@@ -27,6 +27,9 @@ class FavoritesState with _$FavoritesState {
 
   bool get isLastPage => page == pageCount;
 
+  List<Favorite> get favorites =>
+      favoritesOption.foldRight(<Favorite>[], (favorites, prev) => favorites);
+
   FavoritesState busy() => copyWith(status: STATUS_BUSY);
   FavoritesState idle() => copyWith(status: STATUS_IDLE);
   FavoritesState failed() => copyWith(status: STATUS_FAILED);

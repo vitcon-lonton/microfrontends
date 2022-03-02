@@ -18,21 +18,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CategoriesCubit>(create: (_) {
-          return CategoriesCubit(repository);
-        }),
-        BlocProvider<ServiceDetailCubit>(create: (_) {
-          return ServiceDetailCubit(repository);
-        }),
-        BlocProvider<ServiceBookingFormCubit>(create: (_) {
-          return ServiceBookingFormCubit(repository);
-        }),
+        BlocProvider<CategoriesCubit>(
+            create: (_) => CategoriesCubit(repository)),
+        BlocProvider<ServiceDetailCubit>(
+            create: (_) => ServiceDetailCubit(repository)),
+        BlocProvider<ServiceBookingFormCubit>(
+            create: (_) => ServiceBookingFormCubit(repository)),
         BlocProvider<ServicesCubit>(create: (_) => ServicesCubit(repository)),
       ],
       child: MaterialApp(
+        // title: 'Flutter Demo',
         // home: const Home(),
-        title: 'Flutter Demo',
-        home: const ServiceBookingForm(),
+        // home: const ServiceDetail(),
+        home: const ServiceBookingPage(),
+        // home: const ServiceBookingForm(),
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
       ),
     );
@@ -47,15 +47,17 @@ class Home extends StatelessWidget {
     return Material(
       child: Scaffold(
         appBar: AppBar(),
-        body: ListView(
+        body: Column(
           children: [
-            Services(
-              onItemPressed: (service) {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const ServiceDetail()));
-              },
-            ),
             const Categories(),
+            Expanded(
+              child: Services(
+                onItemPressed: (service) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const ServiceDetail()));
+                },
+              ),
+            ),
           ],
         ),
       ),

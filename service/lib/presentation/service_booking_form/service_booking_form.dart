@@ -39,7 +39,8 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
             : AutovalidateMode.disabled;
 
     return BlocProvider<ServiceBookingFormCubit>.value(
-      value: context.read<ServiceBookingFormCubit>()..getDetailRequested(),
+      value: context.read<ServiceBookingFormCubit>(),
+      // value: context.read<ServiceBookingFormCubit>()..getDetailRequested(),
       child: BlocListener<ServiceBookingFormCubit, ServiceBookingFormState>(
         listenWhen: (prev, cur) {
           return prev.bookingFailureOrSuccessOption !=
@@ -71,177 +72,84 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
             ),
           );
         },
-        child: Scaffold(
-          appBar: AppBar(title: const Text('Book the service')),
-          bottomNavigationBar:
-              BlocBuilder<ServiceBookingFormCubit, ServiceBookingFormState>(
-            buildWhen: (prev, cur) => prev.status != cur.status,
-            builder: (context, state) => BottomNav.submit(
-              child: const Text('Continue booking'),
-              onPressed: state.status.maybeMap(
-                busy: (_) => null,
-                orElse: () => context.read<ServiceBookingFormCubit>().submitted,
-              ),
-            ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kSpaceS),
-            child: DefaultTextStyle(
-              style: TextStyle(
-                  fontSize: 22.0,
-                  color: CupertinoColors.label.resolveFrom(context)),
-              child: Form(
-                autovalidateMode: autovalidateMode,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _DatePickerItem(
-                        children: [
-                          const Text('Select Date'),
-                          BlocBuilder<ServiceBookingFormCubit,
-                              ServiceBookingFormState>(
-                            buildWhen: (prev, cur) => prev.date != cur.date,
-                            builder: (context, state) {
-                              final date = state.date;
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: kSpaceS),
+          child: DefaultTextStyle(
+            style: TextStyle(
+                fontSize: 22.0,
+                color: CupertinoColors.label.resolveFrom(context)),
+            child: Form(
+              autovalidateMode: autovalidateMode,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _DatePickerItem(
+                      children: [
+                        const Text('Select Date'),
+                        BlocBuilder<ServiceBookingFormCubit,
+                            ServiceBookingFormState>(
+                          buildWhen: (prev, cur) => prev.date != cur.date,
+                          builder: (context, state) {
+                            final date = state.date;
 
-                              return CupertinoButton(
-                                // Display a CupertinoDatePicker in date picker mode.
-                                onPressed: () => _showDialog(
-                                  CupertinoDatePicker(
-                                    use24hFormat: true,
-                                    initialDateTime: date,
-                                    mode: CupertinoDatePickerMode.date,
-                                    // This is called when the user changes the date.
-                                    onDateTimeChanged: context
-                                        .read<ServiceBookingFormCubit>()
-                                        .dateChanged,
-                                  ),
+                            return CupertinoButton(
+                              // Display a CupertinoDatePicker in date picker mode.
+                              onPressed: () => _showDialog(
+                                CupertinoDatePicker(
+                                  use24hFormat: true,
+                                  initialDateTime: date,
+                                  mode: CupertinoDatePickerMode.date,
+                                  // This is called when the user changes the date.
+                                  onDateTimeChanged: context
+                                      .read<ServiceBookingFormCubit>()
+                                      .dateChanged,
                                 ),
-                                // In this example, the date value is formatted manually. You can use intl package
-                                // to format the value based on user's locale settings.
-                                child: Text(
-                                  '${date.month}-${date.day}-${date.year}',
-                                  style: const TextStyle(fontSize: 22.0),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      _DatePickerItem(
-                        children: [
-                          const Text('Select Time'),
-                          BlocBuilder<ServiceBookingFormCubit,
-                              ServiceBookingFormState>(
-                            buildWhen: (prev, cur) => prev.time != cur.time,
-                            builder: (context, state) {
-                              final time = state.time;
+                              ),
+                              // In this example, the date value is formatted manually. You can use intl package
+                              // to format the value based on user's locale settings.
+                              child: Text(
+                                '${date.month}-${date.day}-${date.year}',
+                                style: const TextStyle(fontSize: 22.0),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    _DatePickerItem(
+                      children: [
+                        const Text('Select Time'),
+                        BlocBuilder<ServiceBookingFormCubit,
+                            ServiceBookingFormState>(
+                          buildWhen: (prev, cur) => prev.time != cur.time,
+                          builder: (context, state) {
+                            final time = state.time;
 
-                              return CupertinoButton(
-                                // Display a CupertinoDatePicker in date picker mode.
-                                onPressed: () => _showDialog(
-                                  CupertinoDatePicker(
-                                    initialDateTime: time,
-                                    mode: CupertinoDatePickerMode.time,
-                                    use24hFormat: true,
-                                    // This is called when the user changes the time.
-                                    onDateTimeChanged: context
-                                        .read<ServiceBookingFormCubit>()
-                                        .timeChanged,
-                                  ),
+                            return CupertinoButton(
+                              // Display a CupertinoDatePicker in date picker mode.
+                              onPressed: () => _showDialog(
+                                CupertinoDatePicker(
+                                  initialDateTime: time,
+                                  mode: CupertinoDatePickerMode.time,
+                                  use24hFormat: true,
+                                  // This is called when the user changes the time.
+                                  onDateTimeChanged: context
+                                      .read<ServiceBookingFormCubit>()
+                                      .timeChanged,
                                 ),
-                                child: Text(
-                                  '${time.hour}:${time.minute}',
-                                  style: const TextStyle(fontSize: 22.0),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      kVSpaceL,
-                      BlocBuilder<ServiceBookingFormCubit,
-                          ServiceBookingFormState>(
-                        buildWhen: (prev, cur) => prev.street != cur.street,
-                        builder: (context, state) => WTextInput(
-                          height: 100,
-                          maxLines: 10,
-                          label: 'Your Address',
-                          contentPadding: const EdgeInsets.all(kSpaceXS),
-                          validator: (_) => context
-                              .read<ServiceBookingFormCubit>()
-                              .state
-                              .street
-                              .value
-                              .fold(
-                                  (failure) => 'Invalid Address', (_) => null),
-                          errorText: context
-                              .read<ServiceBookingFormCubit>()
-                              .state
-                              .street
-                              .value
-                              .fold(
-                                  (failure) => 'Invalid Address', (_) => null),
-                          onChanged: context
-                              .read<ServiceBookingFormCubit>()
-                              .streetChanged,
-                          // errorText: context
-                          //     .read<ServiceBookingFormCubit>()
-                          //     .state
-                          //     .street
-                          //     .value
-                          //     .fold((failure) {
-                          //   return 'Invalid Address';
-                          // }, (_) => null),
-                          // errorText: context
-                          //     .read<ServiceBookingFormCubit>()
-                          //     .state
-                          //     .street
-                          //     .value
-                          //     .fold(
-                          //         (f) => f.maybeMap(
-                          //             orElse: () => null,
-                          //             invalidEmail: (_) => 'Invalid Email'),
-                          //         (_) => null),
+                              ),
+                              child: Text(
+                                '${time.hour}:${time.minute}',
+                                style: const TextStyle(fontSize: 22.0),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                      kVSpaceL,
-                      BlocBuilder<ServiceBookingFormCubit,
-                          ServiceBookingFormState>(
-                        buildWhen: (prev, cur) => prev.note != cur.note,
-                        builder: (context, state) => WTextInput(
-                          height: 100,
-                          maxLines: 10,
-                          label: 'Hint',
-                          contentPadding: const EdgeInsets.all(kSpaceXS),
-                          errorText: context
-                              .read<ServiceBookingFormCubit>()
-                              .state
-                              .note
-                              .value
-                              .fold((failure) => 'Invalid Hint', (_) => null),
-                          onChanged: context
-                              .read<ServiceBookingFormCubit>()
-                              .noteChanged,
-                          // validator: (_) => context
-                          //     .read<ServiceBookingFormCubit>()
-                          //     .state
-                          //     .street
-                          //     .value
-                          //     .fold((failure) => 'Invalid Address', (_) => null),
-                          // errorText: context
-                          //     .read<ServiceBookingFormCubit>()
-                          //     .state
-                          //     .street
-                          //     .value
-                          //     .fold((failure) {
-                          //   return 'Invalid Address';
-                          // }, (_) => null),
-                        ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                    kVSpaceL,
+                  ],
                 ),
               ),
             ),

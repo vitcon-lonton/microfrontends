@@ -1,24 +1,6 @@
 import 'package:dartz/dartz.dart';
-
-import 'package:service/domain/entities.dart';
-import 'package:service/domain/failure.dart';
-import 'package:service/domain/i_repository.dart';
-
-import 'api.dart';
-import 'models.dart';
-
-const _fakeServices = [
-  Service(name: 'Interior Wall Painting'),
-  Service(name: 'Pet Sitting service'),
-  Service(name: 'Thermostai Installation'),
-  Service(name: 'Bedroom Cleaning'),
-  Service(name: 'Car Washing'),
-  Service(name: 'Men\'s fancy hair culling'),
-  Service(name: 'House Cleaning Services'),
-  Service(name: 'Get spa at home'),
-  Service(name: 'Computer & Server AMC Service'),
-  Service(name: 'Women Hair Cutting'),
-];
+import 'package:engine/pagination.dart';
+import 'package:service/service.dart';
 
 const _fakeCategories = [
   Catalogue(id: 1, name: 'Pet care'),
@@ -41,7 +23,7 @@ class ServiceRepository implements IServiceRepository {
   @override
   Future<Either<ServiceFailure, Unit>> book(Service service) async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 400));
       return right(unit);
     } catch (_) {
       return left(const ServiceFailure.serverError());
@@ -49,41 +31,59 @@ class ServiceRepository implements IServiceRepository {
   }
 
   @override
-  Future<Either<ServiceFailure, Service>> getServiceDetail() async {
-    try {
-      await Future.delayed(const Duration(seconds: 1));
-      return right(_fakeServices.first);
-    } catch (_) {
-      return left(const ServiceFailure.serverError());
-    }
+  Future<Option<Service>> getServiceDetail({int? id}) async {
+    // try {
+    //   await Future.delayed(const Duration(milliseconds: 400));
+    //   return optionOf(Service.random());
+    // } catch (_) {
+    //   return optionOf(null);
+    // }
+    return Future.delayed(const Duration(milliseconds: 400))
+        .then((_) => optionOf(Service.random()));
   }
 
   @override
-  Future<Either<ServiceFailure, List<Catalogue>>> getCatalogues() async {
+  Future<Option<List<Catalogue>>> getCatalogues() async {
     try {
       final response = await _api.getCatalogues();
 
-      if (!response.valid) return left(const ServiceFailure.serverError());
+      await Future.delayed(const Duration(milliseconds: 800));
 
-      final data = response.data;
-      final catalogues = data!.map((catalogue) {
+      if (!response.valid) {
+        return optionOf(null);
+      }
+
+      final catalogues = response.data!.map((catalogue) {
         return catalogue.toDomain();
       }).toList();
 
-      // return right(catalogues);
-      return right(catalogues..addAll(_fakeCategories));
+      return optionOf(catalogues..addAll(_fakeCategories));
     } catch (_) {
-      return left(const ServiceFailure.serverError());
+      return optionOf(null);
     }
   }
 
   @override
-  Future<Either<ServiceFailure, List<Service>>> getServices() async {
-    try {
-      await Future.delayed(const Duration(milliseconds: 200));
-      return right(_fakeServices);
-    } catch (_) {
-      return left(const ServiceFailure.serverError());
-    }
+  Future<Option<Pagination<Service>>> getServices(
+      {required int page, required int perPage}) async {
+    await Future.delayed(const Duration(milliseconds: 400));
+
+    const pageCount = 5;
+    final totalCount = perPage * 5;
+    final data = List.generate(perPage, (index) => Service.random());
+
+    final result = Pagination<Service>(
+        data: data,
+        page: page,
+        perPage: perPage,
+        pageCount: pageCount,
+        totalCount: totalCount);
+
+    return optionOf(result);
   }
 }
+
+// if (!response.valid) return left(const ServiceFailure.serverError());
+// return optionOf(catalogues);
+// return right(catalogues..addAll(_fakeCategories));
+// return left(const ServiceFailure.serverError());

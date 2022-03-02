@@ -1,19 +1,20 @@
-import 'package:article/presentation/article_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:refresh_loadmore/refresh_loadmore.dart';
 import 'package:theme_manager/theme_manager.dart';
 
-import 'package:article/article.dart';
+import 'article_detail_page.dart';
+import 'article_tile.dart';
+import 'articles_cubit.dart';
 
-class ArticleList extends StatefulWidget {
-  const ArticleList({Key? key}) : super(key: key);
+class Articles extends StatefulWidget {
+  const Articles({Key? key}) : super(key: key);
 
   @override
-  State<ArticleList> createState() => _ArticleListState();
+  State<Articles> createState() => _ArticlesState();
 }
 
-class _ArticleListState extends State<ArticleList> {
+class _ArticlesState extends State<Articles> {
   Future<void> _onRefresh() async {
     context.read<ArticlesCubit>().refreshRequested();
     await context.read<ArticlesCubit>().getArticlesRequested();
@@ -22,8 +23,8 @@ class _ArticleListState extends State<ArticleList> {
   Future<void> _onLoadMore() async {
     final state = context.read<ArticlesCubit>().state;
     final currentPage = state.page;
-    final totalPage = state.pageCount;
     final nextPage = currentPage + 1;
+    final totalPage = state.pageCount;
 
     if (nextPage > totalPage) return;
 
@@ -55,16 +56,14 @@ class _ArticleListState extends State<ArticleList> {
                   itemCount: articles.length,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, index) => const Divider(height: 0),
-                  itemBuilder: (_, index) {
-                    return ArticleTile(
-                      article: articles[index],
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) {
-                          return ArticleDetail(article: articles[index]);
-                        }),
-                      ),
-                    );
-                  },
+                  itemBuilder: (_, index) => ArticleTile(
+                    article: articles[index],
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) {
+                        return ArticleDetail(article: articles[index]);
+                      }),
+                    ),
+                  ),
                 ),
               );
             },

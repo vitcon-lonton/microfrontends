@@ -19,18 +19,23 @@ class _$ServicesStateTearOff {
   const _$ServicesStateTearOff();
 
   _ServicesState call(
-      {bool isSubmitting = false,
+      {dynamic page = 1,
+      dynamic perPage = 10,
+      dynamic pageCount = 1,
+      dynamic totalCount = 0,
+      dynamic status = STATUS_IDLE,
+      bool isSubmitting = false,
       bool showErrorMessages = true,
-      List<Service> services = const <Service>[],
-      ProcessingStatus status = const ProcessingStatus.idle(),
-      required Option<Either<ServiceFailure, List<Service>>>
-          getCategoriesFailureOrSuccessOption}) {
+      required Option<List<Service>> servicesOption}) {
     return _ServicesState(
+      page: page,
+      perPage: perPage,
+      pageCount: pageCount,
+      totalCount: totalCount,
+      status: status,
       isSubmitting: isSubmitting,
       showErrorMessages: showErrorMessages,
-      services: services,
-      status: status,
-      getCategoriesFailureOrSuccessOption: getCategoriesFailureOrSuccessOption,
+      servicesOption: servicesOption,
     );
   }
 }
@@ -40,13 +45,15 @@ const $ServicesState = _$ServicesStateTearOff();
 
 /// @nodoc
 mixin _$ServicesState {
+  dynamic get page => throw _privateConstructorUsedError;
+  dynamic get perPage => throw _privateConstructorUsedError;
+  dynamic get pageCount => throw _privateConstructorUsedError;
+  dynamic get totalCount => throw _privateConstructorUsedError;
+  dynamic get status => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  List<Service> get services => throw _privateConstructorUsedError;
-  ProcessingStatus get status => throw _privateConstructorUsedError;
-  Option<Either<ServiceFailure, List<Service>>>
-      get getCategoriesFailureOrSuccessOption =>
-          throw _privateConstructorUsedError;
+  Option<List<Service>> get servicesOption =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ServicesStateCopyWith<ServicesState> get copyWith =>
@@ -59,14 +66,14 @@ abstract class $ServicesStateCopyWith<$Res> {
           ServicesState value, $Res Function(ServicesState) then) =
       _$ServicesStateCopyWithImpl<$Res>;
   $Res call(
-      {bool isSubmitting,
+      {dynamic page,
+      dynamic perPage,
+      dynamic pageCount,
+      dynamic totalCount,
+      dynamic status,
+      bool isSubmitting,
       bool showErrorMessages,
-      List<Service> services,
-      ProcessingStatus status,
-      Option<Either<ServiceFailure, List<Service>>>
-          getCategoriesFailureOrSuccessOption});
-
-  $ProcessingStatusCopyWith<$Res> get status;
+      Option<List<Service>> servicesOption});
 }
 
 /// @nodoc
@@ -80,13 +87,36 @@ class _$ServicesStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? page = freezed,
+    Object? perPage = freezed,
+    Object? pageCount = freezed,
+    Object? totalCount = freezed,
+    Object? status = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? services = freezed,
-    Object? status = freezed,
-    Object? getCategoriesFailureOrSuccessOption = freezed,
+    Object? servicesOption = freezed,
   }) {
     return _then(_value.copyWith(
+      page: page == freezed
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      perPage: perPage == freezed
+          ? _value.perPage
+          : perPage // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      pageCount: pageCount == freezed
+          ? _value.pageCount
+          : pageCount // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      totalCount: totalCount == freezed
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -95,27 +125,11 @@ class _$ServicesStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      services: services == freezed
-          ? _value.services
-          : services // ignore: cast_nullable_to_non_nullable
-              as List<Service>,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProcessingStatus,
-      getCategoriesFailureOrSuccessOption: getCategoriesFailureOrSuccessOption ==
-              freezed
-          ? _value.getCategoriesFailureOrSuccessOption
-          : getCategoriesFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ServiceFailure, List<Service>>>,
+      servicesOption: servicesOption == freezed
+          ? _value.servicesOption
+          : servicesOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Service>>,
     ));
-  }
-
-  @override
-  $ProcessingStatusCopyWith<$Res> get status {
-    return $ProcessingStatusCopyWith<$Res>(_value.status, (value) {
-      return _then(_value.copyWith(status: value));
-    });
   }
 }
 
@@ -127,15 +141,14 @@ abstract class _$ServicesStateCopyWith<$Res>
       __$ServicesStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {bool isSubmitting,
+      {dynamic page,
+      dynamic perPage,
+      dynamic pageCount,
+      dynamic totalCount,
+      dynamic status,
+      bool isSubmitting,
       bool showErrorMessages,
-      List<Service> services,
-      ProcessingStatus status,
-      Option<Either<ServiceFailure, List<Service>>>
-          getCategoriesFailureOrSuccessOption});
-
-  @override
-  $ProcessingStatusCopyWith<$Res> get status;
+      Option<List<Service>> servicesOption});
 }
 
 /// @nodoc
@@ -151,13 +164,21 @@ class __$ServicesStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? page = freezed,
+    Object? perPage = freezed,
+    Object? pageCount = freezed,
+    Object? totalCount = freezed,
+    Object? status = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? services = freezed,
-    Object? status = freezed,
-    Object? getCategoriesFailureOrSuccessOption = freezed,
+    Object? servicesOption = freezed,
   }) {
     return _then(_ServicesState(
+      page: page == freezed ? _value.page : page,
+      perPage: perPage == freezed ? _value.perPage : perPage,
+      pageCount: pageCount == freezed ? _value.pageCount : pageCount,
+      totalCount: totalCount == freezed ? _value.totalCount : totalCount,
+      status: status == freezed ? _value.status : status,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -166,19 +187,10 @@ class __$ServicesStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      services: services == freezed
-          ? _value.services
-          : services // ignore: cast_nullable_to_non_nullable
-              as List<Service>,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ProcessingStatus,
-      getCategoriesFailureOrSuccessOption: getCategoriesFailureOrSuccessOption ==
-              freezed
-          ? _value.getCategoriesFailureOrSuccessOption
-          : getCategoriesFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ServiceFailure, List<Service>>>,
+      servicesOption: servicesOption == freezed
+          ? _value.servicesOption
+          : servicesOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Service>>,
     ));
   }
 }
@@ -187,32 +199,43 @@ class __$ServicesStateCopyWithImpl<$Res>
 
 class _$_ServicesState extends _ServicesState {
   _$_ServicesState(
-      {this.isSubmitting = false,
+      {this.page = 1,
+      this.perPage = 10,
+      this.pageCount = 1,
+      this.totalCount = 0,
+      this.status = STATUS_IDLE,
+      this.isSubmitting = false,
       this.showErrorMessages = true,
-      this.services = const <Service>[],
-      this.status = const ProcessingStatus.idle(),
-      required this.getCategoriesFailureOrSuccessOption})
+      required this.servicesOption})
       : super._();
 
+  @JsonKey()
+  @override
+  final dynamic page;
+  @JsonKey()
+  @override
+  final dynamic perPage;
+  @JsonKey()
+  @override
+  final dynamic pageCount;
+  @JsonKey()
+  @override
+  final dynamic totalCount;
+  @JsonKey()
+  @override
+  final dynamic status;
   @JsonKey()
   @override
   final bool isSubmitting;
   @JsonKey()
   @override
   final bool showErrorMessages;
-  @JsonKey()
   @override
-  final List<Service> services;
-  @JsonKey()
-  @override
-  final ProcessingStatus status;
-  @override
-  final Option<Either<ServiceFailure, List<Service>>>
-      getCategoriesFailureOrSuccessOption;
+  final Option<List<Service>> servicesOption;
 
   @override
   String toString() {
-    return 'ServicesState(isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, services: $services, status: $status, getCategoriesFailureOrSuccessOption: $getCategoriesFailureOrSuccessOption)';
+    return 'ServicesState(page: $page, perPage: $perPage, pageCount: $pageCount, totalCount: $totalCount, status: $status, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, servicesOption: $servicesOption)';
   }
 
   @override
@@ -220,25 +243,31 @@ class _$_ServicesState extends _ServicesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ServicesState &&
+            const DeepCollectionEquality().equals(other.page, page) &&
+            const DeepCollectionEquality().equals(other.perPage, perPage) &&
+            const DeepCollectionEquality().equals(other.pageCount, pageCount) &&
+            const DeepCollectionEquality()
+                .equals(other.totalCount, totalCount) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
-            const DeepCollectionEquality().equals(other.services, services) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(
-                other.getCategoriesFailureOrSuccessOption,
-                getCategoriesFailureOrSuccessOption));
+            const DeepCollectionEquality()
+                .equals(other.servicesOption, servicesOption));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(page),
+      const DeepCollectionEquality().hash(perPage),
+      const DeepCollectionEquality().hash(pageCount),
+      const DeepCollectionEquality().hash(totalCount),
+      const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(showErrorMessages),
-      const DeepCollectionEquality().hash(services),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(getCategoriesFailureOrSuccessOption));
+      const DeepCollectionEquality().hash(servicesOption));
 
   @JsonKey(ignore: true)
   @override
@@ -248,25 +277,32 @@ class _$_ServicesState extends _ServicesState {
 
 abstract class _ServicesState extends ServicesState {
   factory _ServicesState(
-      {bool isSubmitting,
+      {dynamic page,
+      dynamic perPage,
+      dynamic pageCount,
+      dynamic totalCount,
+      dynamic status,
+      bool isSubmitting,
       bool showErrorMessages,
-      List<Service> services,
-      ProcessingStatus status,
-      required Option<Either<ServiceFailure, List<Service>>>
-          getCategoriesFailureOrSuccessOption}) = _$_ServicesState;
+      required Option<List<Service>> servicesOption}) = _$_ServicesState;
   _ServicesState._() : super._();
 
+  @override
+  dynamic get page;
+  @override
+  dynamic get perPage;
+  @override
+  dynamic get pageCount;
+  @override
+  dynamic get totalCount;
+  @override
+  dynamic get status;
   @override
   bool get isSubmitting;
   @override
   bool get showErrorMessages;
   @override
-  List<Service> get services;
-  @override
-  ProcessingStatus get status;
-  @override
-  Option<Either<ServiceFailure, List<Service>>>
-      get getCategoriesFailureOrSuccessOption;
+  Option<List<Service>> get servicesOption;
   @override
   @JsonKey(ignore: true)
   _$ServicesStateCopyWith<_ServicesState> get copyWith =>

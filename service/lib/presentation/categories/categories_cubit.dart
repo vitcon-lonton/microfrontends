@@ -4,7 +4,6 @@ import 'package:engine/engine.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:service/domain/entities.dart';
-import 'package:service/domain/failure.dart';
 import 'package:service/domain/i_repository.dart';
 
 part 'categories_cubit.freezed.dart';
@@ -13,25 +12,21 @@ part 'categories_cubit.freezed.dart';
 class CategoriesState with _$CategoriesState {
   const CategoriesState._();
 
-  factory CategoriesState({
-    @Default(false) bool isSubmitting,
-    @Default(true) bool showErrorMessages,
-    @Default(<Catalogue>[]) List<Catalogue> catalogues,
-    @Default(ProcessingStatus.idle()) ProcessingStatus status,
-    required Option<Either<ServiceFailure, List<Catalogue>>>
-        getCategoriesFailureOrSuccessOption,
-  }) = _CategoriesState;
+  factory CategoriesState(
+      {@Default(false) bool isSubmitting,
+      @Default(true) bool showErrorMessages,
+      @Default(STATUS_IDLE) ProcessingStatus status,
+      required Option<List<Catalogue>> cataloguesOption}) = _CategoriesState;
 
-  factory CategoriesState.init() {
-    return CategoriesState(getCategoriesFailureOrSuccessOption: none());
-  }
+  List<Catalogue> get catalogues =>
+      cataloguesOption.getOrElse(() => <Catalogue>[]);
+
+  factory CategoriesState.init() => CategoriesState(cataloguesOption: none());
 
   CategoriesState busy() => copyWith(status: STATUS_BUSY);
   CategoriesState idle() => copyWith(status: STATUS_IDLE);
   CategoriesState failed() => copyWith(status: STATUS_FAILED);
-  CategoriesState complete() {
-    return copyWith(status: STATUS_COMPLETE);
-  }
+  CategoriesState complete() => copyWith(status: STATUS_COMPLETE);
 }
 
 class CategoriesCubit extends Cubit<CategoriesState> {
@@ -39,13 +34,16 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   CategoriesCubit(this._repository) : super(CategoriesState.init());
 
-  getAllCatalogues() async {
-    emit(state.busy().copyWith(getCategoriesFailureOrSuccessOption: none()));
+  Future<void> getCataloguesRequested() async {
+    emit(state.copyWith(isSubmitting: true));
 
-    final failureOrSuccess = await _repository.getCatalogues();
+    final resultOption = await _repository.getCatalogues();
 
-    emit(failureOrSuccess.fold((failure) {
-      return state.failed();
-    }, (catalogues) => state.idle().copyWith(catalogues: catalogues)));
+    final currentCatalogues = state.catalogues;
+    final resultCatalogues = resultOption.getOrElse(() => <Catalogue>[]);
+    final newCatalogues = currentCatalogues..addAll(resultCatalogues);
+
+    emit(state.copyWith(isSubmitting: false));
+    emit(state.copyWith(cataloguesOption: optionOf(newCatalogues)));
   }
 }
