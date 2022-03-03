@@ -14,7 +14,8 @@ class OrderTile extends StatelessWidget {
     final id = order.id.value.foldRight('', (id, previous) => id);
 
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => const OrderDetailPage())),
       child: Ink(
         padding: const EdgeInsets.symmetric(
           vertical: kSpaceM,

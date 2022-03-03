@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'entities.freezed.dart';
 
-enum OrderStatus { created, done, cancel }
+enum OrderStatus { created, processing, waitingConfirm, doing, done, cancel }
 
 @freezed
 class CartItem with _$CartItem {
@@ -34,6 +34,6 @@ class Order with _$Order {
   factory Order.random() => Order(id: UniqueId(), time: DateTime.now());
 
   double get price => 220022;
-  String get name => 'Order name ${id.getOrCrash()}';
+  String get name => 'Service name ${id.getOrCrash()}';
   String get address => 'Address ${id.getOrCrash()}';
 }

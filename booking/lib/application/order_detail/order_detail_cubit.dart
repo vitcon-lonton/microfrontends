@@ -55,5 +55,8 @@ class OrderDetailCubit extends Cubit<OrderDetailState> {
 
     emit(state.copyWith(isCanceling: false));
     emit(state.copyWith(cancelFailureOrSuccessOption: optionOf(orderOption)));
+    emit(state.copyWith(
+      orderOption: optionOf(state.order!.copyWith(status: OrderStatus.cancel)),
+    ));
   }
 }

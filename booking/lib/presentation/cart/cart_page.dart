@@ -19,7 +19,7 @@ class _OrderHistoriesPageState extends State<CartPage> {
       create: (context) => context.read<CartCubit>()..getCartRequested(),
       child: BlocListener<CartCubit, CartState>(
         listener: (context, state) {},
-        child: WScaffold(
+        child: Scaffold(
             // BODY
             body: BlocBuilder<CartCubit, CartState>(
               buildWhen: (prev, cur) => prev.items != cur.items,
@@ -93,16 +93,15 @@ class _OrderHistoriesPageState extends State<CartPage> {
               },
             ),
 
-            // NAVIGATION_BAR
+            // BOTTOM NAVIGATION_BAR
             bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
                 buildWhen: (prev, cur) => prev.isLoading != cur.isLoading,
                 builder: (_, state) => BottomNav.submit(
                     onPressed: state.isLoading ? null : () {},
-                    child: Text(state.isLoading ? '...' : 'ADD TO CART'))),
+                    child: Text(state.isLoading ? '...' : 'SEND REQUEST'))),
 
             // APP_BAR
-            appBar: const WAppBar(
-                backgroundColor: Colors.white, title: Text('My Cart'))),
+            appBar: AppBar(centerTitle: false, title: const Text('My Cart'))),
       ),
     );
   }

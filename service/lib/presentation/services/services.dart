@@ -31,13 +31,8 @@ class _ServicesState extends State<Services> {
               onRefresh: _onRefresh,
               onLoadmore: _onLoadMore,
               isLastPage: state.isLastPage,
-              noMoreWidget: Text(
-                'No more data, you are at the end',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Theme.of(context).disabledColor,
-                ),
-              ),
+              noMoreWidget: Text('No more data, you are at the end',
+                  style: TextStyle(color: Theme.of(context).disabledColor)),
               child: Column(
                 children: [
                   Row(children: [

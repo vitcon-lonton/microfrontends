@@ -32,9 +32,11 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
           context.read<OrderHistoriesCubit>()..getOrdersRequested(),
       child: BlocListener<OrderHistoriesCubit, OrderHistoriesState>(
         listener: (context, state) {},
-        child: WScaffold(
-          appBar: const WAppBar(
-              backgroundColor: Colors.white, title: Text('Order History')),
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: false,
+            title: const Text('Order History'),
+          ),
           body: BlocBuilder<OrderHistoriesCubit, OrderHistoriesState>(
             buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
             builder: (context, state) {
@@ -45,13 +47,8 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
                 onRefresh: _onRefresh,
                 onLoadmore: _onLoadMore,
                 isLastPage: state.isLastPage,
-                noMoreWidget: Text(
-                  'No more data, you are at the end',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Theme.of(context).disabledColor,
-                  ),
-                ),
+                noMoreWidget: Text('No more data, you are at the end',
+                    style: TextStyle(color: Theme.of(context).disabledColor)),
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: orders.length,

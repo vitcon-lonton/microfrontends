@@ -46,13 +46,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 onRefresh: _onRefresh,
                 onLoadmore: _onLoadMore,
                 isLastPage: state.isLastPage,
-                noMoreWidget: Text(
-                  'No more data, you are at the end',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Theme.of(context).disabledColor,
-                  ),
-                ),
+                noMoreWidget: Text('No more data, you are at the end',
+                    style: TextStyle(color: Theme.of(context).disabledColor)),
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: favorites.length,

@@ -8,26 +8,21 @@ class OrderDetailPage extends StatefulWidget {
 }
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
-  Future<void> _onRefresh() async {
-    context.read<OrderHistoriesCubit>().refreshRequested();
-    await context.read<OrderHistoriesCubit>().getOrdersRequested();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<OrderHistoriesCubit>(
+    return BlocProvider<OrderDetailCubit>(
       create: (context) =>
-          context.read<OrderHistoriesCubit>()..getOrdersRequested(),
-      child: BlocListener<OrderHistoriesCubit, OrderHistoriesState>(
+          context.read<OrderDetailCubit>()..getOrderRequested(),
+      child: BlocListener<OrderDetailCubit, OrderDetailState>(
         listener: (context, state) {},
-        child: WScaffold(
+        child: Scaffold(
           // APP_BAR
-          appBar: WAppBar(
+          appBar: AppBar(
+              centerTitle: false,
               title: BlocBuilder<OrderDetailCubit, OrderDetailState>(
                   buildWhen: (prev, cur) => prev.order != cur.order,
-                  builder: (context, state) => Text(
-                      'Order ${state.order?.id.value.foldRight('', (string, prev) => string)}')),
-              backgroundColor: Colors.white),
+                  builder: (context, state) =>
+                      Text('Order ${state.order?.id.getOrCrash() ?? ''}'))),
 
           // BODY
           body: BlocBuilder<OrderDetailCubit, OrderDetailState>(
@@ -37,7 +32,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
 
                 final order = state.order!;
                 final name = order.name;
-                final status = order.status;
+                // final status = order.status;
                 final address = order.address;
                 final price = '${order.price} VND';
                 final date = order.time.toIso8601String();
@@ -50,81 +45,163 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   child: ListView(
                       children: [
                         // STATUS
-                        kVSpaceM,
-                        OrderStatusView(status: status),
+                        kVSpaceS,
+                        _horizontalPaddingM(const StatusTimeline()),
 
                         // INFO
                         kVSpaceL,
-                        Row(children: [
-                          const Expanded(child: Icon(Icons.room_service)),
-                          Text(name),
-                          Text(price),
-                        ]),
+                        _horizontalPaddingM(SizedBox.fromSize(
+                          size: const Size.fromHeight(100),
+                          child: Row(children: [
+                            Expanded(
+                              child: Container(
+                                height: 100,
+                                child: const Icon(Icons.room_service, size: 50),
+                                decoration: BoxDecoration(border: Border.all()),
+                              ),
+                            ),
+                            kHSpaceM,
+                            Expanded(
+                              flex: 2,
+                              child: DefaultTextStyle(
+                                  maxLines: 2,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .copyWith(fontSize: 14),
+                                  overflow: TextOverflow.ellipsis,
+                                  child: Column(
+                                      children: [
+                                        Text(name, maxLines: 2),
+                                        kVSpaceM,
+                                        Text(price,
+                                            maxLines: 1,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineLarge!
+                                                .copyWith(fontSize: 16))
+                                      ],
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start)),
+                            )
+                          ]),
+                        )),
 
                         // CANCEL ORDER
-                        if (true) ...[
-                          kVSpaceL,
-                          WSubmitBtn(
-                              onPressed: () {},
-                              child: const Text('CANCEL ORDER'))
-                        ],
+                        const OrderCancelButton(),
 
                         // ADDRESS
                         ...[
                           kVSpaceL,
-                          const Text('Booking Address'),
-                          Row(children: [
-                            kHSpaceL,
-                            Text(address,
-                                maxLines: 2, overflow: TextOverflow.ellipsis),
-                            kHSpaceL,
-                          ])
+                          _horizontalPaddingM(const Text('Booking Address ')),
+                          kVSpaceS,
+                          _horizontalPaddingM(Row(children: [
+                            kHSpaceM,
+                            Expanded(
+                              child: Column(children: [
+                                Text(address,
+                                    maxLines: 2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(fontSize: 14),
+                                    overflow: TextOverflow.ellipsis),
+                              ]),
+                            ),
+                            kHSpaceM,
+                          ]))
                         ],
 
                         // TIME
                         ...[
                           kVSpaceL,
-                          const Text('Time'),
+                          _horizontalPaddingM(const Text('Time')),
+                          kVSpaceS,
                           DefaultTextStyle(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              child: Row(children: [
-                                kHSpaceL,
-                                const Icon(Icons.calendar_month_outlined),
-                                Text(date),
-                                const Spacer(),
-                                const Icon(Icons.timer_sharp),
-                                Text(time),
-                                kHSpaceL,
-                              ]),
-                              style: Theme.of(context).textTheme.bodyMedium!)
+                              child: Column(
+                                children: [
+                                  Row(children: [
+                                    kHSpaceS,
+                                    const Icon(Icons.calendar_month_outlined),
+                                    kHSpaceXXS,
+                                    Text(date),
+                                    kHSpaceS,
+                                  ]),
+                                  kVSpaceXXS,
+                                  Row(children: [
+                                    kHSpaceS,
+                                    const Icon(Icons.timer_sharp),
+                                    kHSpaceXXS,
+                                    Text(time),
+                                    kHSpaceS,
+                                  ]),
+                                ],
+                              ),
+                              style: Theme.of(context).textTheme.bodyMedium!),
                         ],
 
                         // KTV
                         ...[
                           kVSpaceL,
-                          const Text('KTV'),
-                          Row(children: [
+                          _horizontalPaddingM(const Text('Technician')),
+                          kVSpaceS,
+                          _horizontalPaddingM(Row(children: [
                             Column(children: const [
-                              Text('KTV'),
+                              Text('Technician Name'),
+                              kVSpaceXXS,
                               Text('9999999999')
-                            ]),
+                            ], crossAxisAlignment: CrossAxisAlignment.start),
+                            const Spacer(),
                             IconButton(
                                 iconSize: 40,
                                 onPressed: () {},
                                 icon: const Icon(Icons.phone))
-                          ])
+                          ])),
+                          kVSpaceL,
+                        ],
+
+                        // NOTE
+                        ...[
+                          const Divider(height: 0),
+                          kVSpaceL,
+                          _horizontalPaddingM(Row(children: const [
+                            Text('Note'),
+                            Spacer(),
+                          ])),
+                          kVSpaceXXS,
+                          _horizontalPaddingM(const Text(
+                              'Giá đã thay đổi, bao gồm phí đi lại, nguyên vật liệu thêm sau quá trình khảo sát',
+                              maxLines: 5,
+                              overflow: TextOverflow.ellipsis)),
+                          kVSpaceL,
                         ],
 
                         // PRICE
                         ...[
+                          const Divider(height: 0),
                           kVSpaceL,
-                          const Text('Price'),
-                          Row(children: [
+                          _horizontalPaddingM(Row(children: const [
+                            Text('Payment method'),
+                            Spacer(),
+                            Text('COD'),
+                          ])),
+                          kVSpaceL,
+                        ],
+
+                        // PRICE
+                        ...[
+                          const Divider(height: 0),
+                          kVSpaceL,
+                          _horizontalPaddingM(Row(children: [
                             const Text('Last price'),
                             const Spacer(),
                             Text(price)
-                          ])
+                          ])),
+                          kVSpaceL,
                         ],
                       ],
                       shrinkWrap: true,
@@ -134,5 +211,15 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _onRefresh() async {
+    // context.read<OrderDetailCubit>().refreshRequested();
+    await context.read<OrderDetailCubit>().getOrderRequested();
+  }
+
+  Widget _horizontalPaddingM(Widget child) {
+    return Padding(
+        child: child, padding: const EdgeInsets.symmetric(horizontal: kSpaceM));
   }
 }
