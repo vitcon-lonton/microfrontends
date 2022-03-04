@@ -20,7 +20,13 @@ class BookingRepository implements IBookingRepository {
   @override
   Future<Option<List<CartItem>>> getCart() async {
     await Future.delayed(_duration);
-    return optionOf(_items);
+    return optionOf(List.of(_items));
+  }
+
+  @override
+  Future<Either<BookingFailure, Unit>> submitBooking() async {
+    await Future.delayed(_duration);
+    return right(unit);
   }
 
   @override

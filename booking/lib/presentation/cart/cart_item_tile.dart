@@ -19,7 +19,10 @@ class CartItemTile extends StatelessWidget {
           child: Column(children: [
             Row(children: [
               Column(children: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.close)),
+                IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () =>
+                        context.read<CartCubit>().removeItemRequested(item.id))
               ]),
               kHSpaceM,
               Expanded(

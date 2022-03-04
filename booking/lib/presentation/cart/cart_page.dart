@@ -17,8 +17,44 @@ class _OrderHistoriesPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return BlocProvider<CartCubit>(
       create: (context) => context.read<CartCubit>()..getCartRequested(),
-      child: BlocListener<CartCubit, CartState>(
-        listener: (context, state) {},
+      child: MultiBlocListener(
+        // LISTENERS
+        listeners: [
+          BlocListener<CartCubit, CartState>(
+            listenWhen: (prev, cur) =>
+                prev.removeFailureOrSuccessOption !=
+                cur.removeFailureOrSuccessOption,
+            listener: (context, state) {
+              state.removeFailureOrSuccessOption.fold(() {}, (either) {
+                final mess = either.fold((failure) {
+                  return 'Server error';
+                }, (_) => 'Success');
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    behavior: SnackBarBehavior.floating, content: Text(mess)));
+
+                context.read<CartCubit>().getCartRequested();
+              });
+            },
+          ),
+          BlocListener<CartCubit, CartState>(
+            listenWhen: (prev, cur) =>
+                prev.submitFailureOrSuccessOption !=
+                cur.submitFailureOrSuccessOption,
+            listener: (context, state) {
+              state.submitFailureOrSuccessOption.fold(() {}, (either) {
+                final mess = either.fold((failure) {
+                  return 'Server error';
+                }, (_) => 'Success');
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    behavior: SnackBarBehavior.floating, content: Text(mess)));
+              });
+            },
+          )
+        ],
+
+        // CHILD
         child: Scaffold(
             // BODY
             body: BlocBuilder<CartCubit, CartState>(
@@ -95,10 +131,18 @@ class _OrderHistoriesPageState extends State<CartPage> {
 
             // BOTTOM NAVIGATION_BAR
             bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
-                buildWhen: (prev, cur) => prev.isLoading != cur.isLoading,
-                builder: (_, state) => BottomNav.submit(
-                    onPressed: state.isLoading ? null : () {},
-                    child: Text(state.isLoading ? '...' : 'SEND REQUEST'))),
+                builder: (_, state) {
+                  final isSubmitAvailable = state.isSubmitAvailable;
+                  final title = isSubmitAvailable ? 'SEND REQUEST' : '...';
+
+                  return BottomNav.submit(
+                      child: Text(title),
+                      onPressed: isSubmitAvailable
+                          ? context.read<CartCubit>().submitBookingRequested
+                          : null);
+                },
+                buildWhen: (prev, cur) =>
+                    prev.isSubmitAvailable != cur.isSubmitAvailable),
 
             // APP_BAR
             appBar: AppBar(centerTitle: false, title: const Text('My Cart'))),
@@ -106,3 +150,4 @@ class _OrderHistoriesPageState extends State<CartPage> {
     );
   }
 }
+// context.read<CartCubit>().submitBookingRequested
