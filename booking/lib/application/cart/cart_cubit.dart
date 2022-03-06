@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart' hide Order;
-import 'package:engine/processing_status.dart';
 import 'package:engine/value_objects/value_objects.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -13,12 +12,13 @@ class CartState with _$CartState {
 
   factory CartState({
     UniqueId? removingId,
-    @Default(STATUS_IDLE) status,
+    @Default(false) bool isAdding,
     @Default(false) bool isLoading,
     @Default(false) bool isRemoving,
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     required Option<List<CartItem>> itemsOption,
+    required Option<Either<BookingFailure, Unit>> addFailureOrSuccessOption,
     required Option<Either<BookingFailure, Unit>> removeFailureOrSuccessOption,
     required Option<Either<BookingFailure, Unit>> submitFailureOrSuccessOption,
   }) = _CartState;
@@ -40,14 +40,10 @@ class CartState with _$CartState {
   factory CartState.init() {
     return CartState(
         itemsOption: none(),
+        addFailureOrSuccessOption: none(),
         removeFailureOrSuccessOption: none(),
         submitFailureOrSuccessOption: none());
   }
-
-  CartState busy() => copyWith(status: STATUS_BUSY);
-  CartState idle() => copyWith(status: STATUS_IDLE);
-  CartState failed() => copyWith(status: STATUS_FAILED);
-  CartState complete() => copyWith(status: STATUS_COMPLETE);
 }
 
 class CartCubit extends Cubit<CartState> {
@@ -83,6 +79,16 @@ class CartCubit extends Cubit<CartState> {
     emit(state.copyWith(
       removeFailureOrSuccessOption: optionOf(failureOrSuccess),
     ));
+  }
+
+  Future<void> addItemRequested() async {
+    emit(state.copyWith(isAdding: true));
+    emit(state.copyWith(addFailureOrSuccessOption: none()));
+
+    final failureOrSuccess = await _repository.addItem(item: CartItem.random());
+
+    emit(state.copyWith(isAdding: false));
+    emit(state.copyWith(addFailureOrSuccessOption: optionOf(failureOrSuccess)));
   }
 
   Future<void> submitBookingRequested() async {

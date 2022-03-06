@@ -74,6 +74,18 @@ class BookingRepository implements IBookingRepository {
     await Future.delayed(_duration);
     return right(unit);
   }
+
+  @override
+  Future<Either<BookingFailure, Unit>> rating(
+      {UniqueId? id, required double point}) async {
+    await Future.delayed(_duration);
+
+    if (point < 0.0 || point > 5.0) {
+      return left(const BookingFailure.serverError());
+    }
+
+    return right(unit);
+  }
 }
 
 

@@ -13,4 +13,6 @@ abstract class IBookingRepository {
   Future<Option<Pagination<Order>>> getOrderHistories(
       {required int page, required int perPage});
   Future<Either<BookingFailure, Unit>> cancel({UniqueId? id});
+  Future<Either<BookingFailure, Unit>> rating(
+      {UniqueId? id, required double point});
 }

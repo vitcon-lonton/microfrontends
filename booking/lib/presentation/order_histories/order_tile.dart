@@ -14,8 +14,11 @@ class OrderTile extends StatelessWidget {
     final id = order.id.value.foldRight('', (id, previous) => id);
 
     return InkWell(
-      onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => const OrderDetailPage())),
+      // onTap: () => Navigator.of(context)
+      //     .push(MaterialPageRoute(builder: (_) => const OrderDetailPage())),
+      onTap: () {
+        _showRatingForm(context);
+      },
       child: Ink(
         padding: const EdgeInsets.symmetric(
           vertical: kSpaceM,
@@ -50,6 +53,25 @@ class OrderTile extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showRatingForm(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Material(
+        color: Colors.transparent,
+        child: Column(children: [
+          const Spacer(),
+          Container(
+              color: Colors.white,
+              child: const OrderRatingForm(),
+              margin: const EdgeInsets.symmetric(horizontal: kSpaceXXL),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: kSpaceM, vertical: kSpaceM)),
+          const Spacer(),
+        ]),
       ),
     );
   }

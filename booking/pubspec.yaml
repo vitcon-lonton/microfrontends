@@ -18,6 +18,7 @@ dependencies:
   dartz: ^0.10.0-nullsafety.2
   flutter_bloc: ^8.0.1
   refresh_loadmore: ^2.0.5
+  flutter_rating_bar: ^4.0.0
   engine:
     path: ../engine
   theme_manager:

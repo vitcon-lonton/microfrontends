@@ -1,3 +1,4 @@
+/* spell-checker: disable */
 part of 'cart.dart';
 
 class CartPage extends StatefulWidget {
@@ -20,6 +21,22 @@ class _OrderHistoriesPageState extends State<CartPage> {
       child: MultiBlocListener(
         // LISTENERS
         listeners: [
+          BlocListener<CartCubit, CartState>(
+            listenWhen: (prev, cur) =>
+                prev.addFailureOrSuccessOption != cur.addFailureOrSuccessOption,
+            listener: (context, state) {
+              state.addFailureOrSuccessOption.fold(() {}, (either) {
+                final mess = either.fold((failure) {
+                  return 'Server error';
+                }, (_) => 'Success');
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    behavior: SnackBarBehavior.floating, content: Text(mess)));
+
+                context.read<CartCubit>().getCartRequested();
+              });
+            },
+          ),
           BlocListener<CartCubit, CartState>(
             listenWhen: (prev, cur) =>
                 prev.removeFailureOrSuccessOption !=
@@ -56,6 +73,7 @@ class _OrderHistoriesPageState extends State<CartPage> {
 
         // CHILD
         child: Scaffold(
+
             // BODY
             body: BlocBuilder<CartCubit, CartState>(
               buildWhen: (prev, cur) => prev.items != cur.items,
@@ -129,6 +147,18 @@ class _OrderHistoriesPageState extends State<CartPage> {
               },
             ),
 
+            // FLOATING ACTION
+            floatingActionButton: BlocBuilder<CartCubit, CartState>(
+                builder: (_, state) => IconButton(
+                    color: Colors.blue.shade600,
+                    icon: state.isAdding
+                        ? const CircularProgressIndicator()
+                        : const Icon(Icons.add),
+                    onPressed: state.isAdding
+                        ? null
+                        : context.read<CartCubit>().addItemRequested),
+                buildWhen: (prev, cur) => prev.isAdding != cur.isAdding),
+
             // BOTTOM NAVIGATION_BAR
             bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
                 builder: (_, state) {
@@ -150,4 +180,3 @@ class _OrderHistoriesPageState extends State<CartPage> {
     );
   }
 }
-// context.read<CartCubit>().submitBookingRequested

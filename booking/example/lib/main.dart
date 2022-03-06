@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => CartCubit(repository)),
         BlocProvider(create: (_) => OrderDetailCubit(repository)),
+        BlocProvider(create: (_) => OrderRatingCubit(repository)),
         BlocProvider(create: (_) => OrderHistoriesCubit(repository)),
       ],
       child: ScrollConfiguration(
@@ -29,9 +30,9 @@ class MyApp extends StatelessWidget {
         }),
         child: MaterialApp(
           // title: 'Flutter Demo',
-          home: const CartPage(),
+          // home: const CartPage(),
           // home: const OrderDetailPage(),
-          // home: const OrderHistoriesPage(),
+          home: const OrderHistoriesPage(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(primarySwatch: Colors.blue),
         ),

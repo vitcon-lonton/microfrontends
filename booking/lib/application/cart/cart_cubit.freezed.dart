@@ -20,24 +20,26 @@ class _$CartStateTearOff {
 
   _CartState call(
       {UniqueId? removingId,
-      dynamic status = STATUS_IDLE,
+      bool isAdding = false,
       bool isLoading = false,
       bool isRemoving = false,
       bool isSubmitting = false,
       bool showErrorMessages = true,
       required Option<List<CartItem>> itemsOption,
+      required Option<Either<BookingFailure, Unit>> addFailureOrSuccessOption,
       required Option<Either<BookingFailure, Unit>>
           removeFailureOrSuccessOption,
       required Option<Either<BookingFailure, Unit>>
           submitFailureOrSuccessOption}) {
     return _CartState(
       removingId: removingId,
-      status: status,
+      isAdding: isAdding,
       isLoading: isLoading,
       isRemoving: isRemoving,
       isSubmitting: isSubmitting,
       showErrorMessages: showErrorMessages,
       itemsOption: itemsOption,
+      addFailureOrSuccessOption: addFailureOrSuccessOption,
       removeFailureOrSuccessOption: removeFailureOrSuccessOption,
       submitFailureOrSuccessOption: submitFailureOrSuccessOption,
     );
@@ -50,12 +52,14 @@ const $CartState = _$CartStateTearOff();
 /// @nodoc
 mixin _$CartState {
   UniqueId? get removingId => throw _privateConstructorUsedError;
-  dynamic get status => throw _privateConstructorUsedError;
+  bool get isAdding => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isRemoving => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   Option<List<CartItem>> get itemsOption => throw _privateConstructorUsedError;
+  Option<Either<BookingFailure, Unit>> get addFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
   Option<Either<BookingFailure, Unit>> get removeFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
   Option<Either<BookingFailure, Unit>> get submitFailureOrSuccessOption =>
@@ -72,12 +76,13 @@ abstract class $CartStateCopyWith<$Res> {
       _$CartStateCopyWithImpl<$Res>;
   $Res call(
       {UniqueId? removingId,
-      dynamic status,
+      bool isAdding,
       bool isLoading,
       bool isRemoving,
       bool isSubmitting,
       bool showErrorMessages,
       Option<List<CartItem>> itemsOption,
+      Option<Either<BookingFailure, Unit>> addFailureOrSuccessOption,
       Option<Either<BookingFailure, Unit>> removeFailureOrSuccessOption,
       Option<Either<BookingFailure, Unit>> submitFailureOrSuccessOption});
 }
@@ -93,12 +98,13 @@ class _$CartStateCopyWithImpl<$Res> implements $CartStateCopyWith<$Res> {
   @override
   $Res call({
     Object? removingId = freezed,
-    Object? status = freezed,
+    Object? isAdding = freezed,
     Object? isLoading = freezed,
     Object? isRemoving = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
     Object? itemsOption = freezed,
+    Object? addFailureOrSuccessOption = freezed,
     Object? removeFailureOrSuccessOption = freezed,
     Object? submitFailureOrSuccessOption = freezed,
   }) {
@@ -107,10 +113,10 @@ class _$CartStateCopyWithImpl<$Res> implements $CartStateCopyWith<$Res> {
           ? _value.removingId
           : removingId // ignore: cast_nullable_to_non_nullable
               as UniqueId?,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+      isAdding: isAdding == freezed
+          ? _value.isAdding
+          : isAdding // ignore: cast_nullable_to_non_nullable
+              as bool,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -131,6 +137,10 @@ class _$CartStateCopyWithImpl<$Res> implements $CartStateCopyWith<$Res> {
           ? _value.itemsOption
           : itemsOption // ignore: cast_nullable_to_non_nullable
               as Option<List<CartItem>>,
+      addFailureOrSuccessOption: addFailureOrSuccessOption == freezed
+          ? _value.addFailureOrSuccessOption
+          : addFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<BookingFailure, Unit>>,
       removeFailureOrSuccessOption: removeFailureOrSuccessOption == freezed
           ? _value.removeFailureOrSuccessOption
           : removeFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -151,12 +161,13 @@ abstract class _$CartStateCopyWith<$Res> implements $CartStateCopyWith<$Res> {
   @override
   $Res call(
       {UniqueId? removingId,
-      dynamic status,
+      bool isAdding,
       bool isLoading,
       bool isRemoving,
       bool isSubmitting,
       bool showErrorMessages,
       Option<List<CartItem>> itemsOption,
+      Option<Either<BookingFailure, Unit>> addFailureOrSuccessOption,
       Option<Either<BookingFailure, Unit>> removeFailureOrSuccessOption,
       Option<Either<BookingFailure, Unit>> submitFailureOrSuccessOption});
 }
@@ -173,12 +184,13 @@ class __$CartStateCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? removingId = freezed,
-    Object? status = freezed,
+    Object? isAdding = freezed,
     Object? isLoading = freezed,
     Object? isRemoving = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
     Object? itemsOption = freezed,
+    Object? addFailureOrSuccessOption = freezed,
     Object? removeFailureOrSuccessOption = freezed,
     Object? submitFailureOrSuccessOption = freezed,
   }) {
@@ -187,7 +199,10 @@ class __$CartStateCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
           ? _value.removingId
           : removingId // ignore: cast_nullable_to_non_nullable
               as UniqueId?,
-      status: status == freezed ? _value.status : status,
+      isAdding: isAdding == freezed
+          ? _value.isAdding
+          : isAdding // ignore: cast_nullable_to_non_nullable
+              as bool,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -208,6 +223,10 @@ class __$CartStateCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
           ? _value.itemsOption
           : itemsOption // ignore: cast_nullable_to_non_nullable
               as Option<List<CartItem>>,
+      addFailureOrSuccessOption: addFailureOrSuccessOption == freezed
+          ? _value.addFailureOrSuccessOption
+          : addFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<BookingFailure, Unit>>,
       removeFailureOrSuccessOption: removeFailureOrSuccessOption == freezed
           ? _value.removeFailureOrSuccessOption
           : removeFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -225,12 +244,13 @@ class __$CartStateCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
 class _$_CartState extends _CartState {
   _$_CartState(
       {this.removingId,
-      this.status = STATUS_IDLE,
+      this.isAdding = false,
       this.isLoading = false,
       this.isRemoving = false,
       this.isSubmitting = false,
       this.showErrorMessages = true,
       required this.itemsOption,
+      required this.addFailureOrSuccessOption,
       required this.removeFailureOrSuccessOption,
       required this.submitFailureOrSuccessOption})
       : super._();
@@ -239,7 +259,7 @@ class _$_CartState extends _CartState {
   final UniqueId? removingId;
   @JsonKey()
   @override
-  final dynamic status;
+  final bool isAdding;
   @JsonKey()
   @override
   final bool isLoading;
@@ -255,13 +275,15 @@ class _$_CartState extends _CartState {
   @override
   final Option<List<CartItem>> itemsOption;
   @override
+  final Option<Either<BookingFailure, Unit>> addFailureOrSuccessOption;
+  @override
   final Option<Either<BookingFailure, Unit>> removeFailureOrSuccessOption;
   @override
   final Option<Either<BookingFailure, Unit>> submitFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'CartState(removingId: $removingId, status: $status, isLoading: $isLoading, isRemoving: $isRemoving, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, itemsOption: $itemsOption, removeFailureOrSuccessOption: $removeFailureOrSuccessOption, submitFailureOrSuccessOption: $submitFailureOrSuccessOption)';
+    return 'CartState(removingId: $removingId, isAdding: $isAdding, isLoading: $isLoading, isRemoving: $isRemoving, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, itemsOption: $itemsOption, addFailureOrSuccessOption: $addFailureOrSuccessOption, removeFailureOrSuccessOption: $removeFailureOrSuccessOption, submitFailureOrSuccessOption: $submitFailureOrSuccessOption)';
   }
 
   @override
@@ -271,7 +293,7 @@ class _$_CartState extends _CartState {
             other is _CartState &&
             const DeepCollectionEquality()
                 .equals(other.removingId, removingId) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality().equals(other.isAdding, isAdding) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality()
                 .equals(other.isRemoving, isRemoving) &&
@@ -281,6 +303,8 @@ class _$_CartState extends _CartState {
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality()
                 .equals(other.itemsOption, itemsOption) &&
+            const DeepCollectionEquality().equals(
+                other.addFailureOrSuccessOption, addFailureOrSuccessOption) &&
             const DeepCollectionEquality().equals(
                 other.removeFailureOrSuccessOption,
                 removeFailureOrSuccessOption) &&
@@ -293,12 +317,13 @@ class _$_CartState extends _CartState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(removingId),
-      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(isAdding),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isRemoving),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(showErrorMessages),
       const DeepCollectionEquality().hash(itemsOption),
+      const DeepCollectionEquality().hash(addFailureOrSuccessOption),
       const DeepCollectionEquality().hash(removeFailureOrSuccessOption),
       const DeepCollectionEquality().hash(submitFailureOrSuccessOption));
 
@@ -311,12 +336,13 @@ class _$_CartState extends _CartState {
 abstract class _CartState extends CartState {
   factory _CartState(
       {UniqueId? removingId,
-      dynamic status,
+      bool isAdding,
       bool isLoading,
       bool isRemoving,
       bool isSubmitting,
       bool showErrorMessages,
       required Option<List<CartItem>> itemsOption,
+      required Option<Either<BookingFailure, Unit>> addFailureOrSuccessOption,
       required Option<Either<BookingFailure, Unit>>
           removeFailureOrSuccessOption,
       required Option<Either<BookingFailure, Unit>>
@@ -326,7 +352,7 @@ abstract class _CartState extends CartState {
   @override
   UniqueId? get removingId;
   @override
-  dynamic get status;
+  bool get isAdding;
   @override
   bool get isLoading;
   @override
@@ -337,6 +363,8 @@ abstract class _CartState extends CartState {
   bool get showErrorMessages;
   @override
   Option<List<CartItem>> get itemsOption;
+  @override
+  Option<Either<BookingFailure, Unit>> get addFailureOrSuccessOption;
   @override
   Option<Either<BookingFailure, Unit>> get removeFailureOrSuccessOption;
   @override
