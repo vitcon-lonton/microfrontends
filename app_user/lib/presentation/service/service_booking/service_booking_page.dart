@@ -5,6 +5,7 @@ import 'package:service/service.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:app_user/injection.dart';
 import 'package:app_user/presentation/routes/router.gr.dart';
+import 'package:app_user/presentation/service/service.dart';
 
 class ServiceBookingPage extends StatelessWidget {
   const ServiceBookingPage({Key? key}) : super(key: key);

@@ -18,41 +18,43 @@ import '../user/sign_in/sign_in_page.dart';
 import '../user/splash/splash_page.dart';
 import '../user/user_update/user_update.dart';
 
-@MaterialAutoRouter(routes: <AutoRoute>[
-  // HOME
-  MaterialRoute(page: HomePage, initial: true),
-  // MaterialRoute(page: HomePage),
+@MaterialAutoRouter(
+  routes: <AutoRoute>[
+    // HOME
+    MaterialRoute(page: HomePage, initial: true),
+    // MaterialRoute(page: HomePage),
 
-  // AUTH
-  MaterialRoute(page: FavoritesPage),
-  MaterialRoute(page: OtpConfirmPage),
-  MaterialRoute(page: PasswordChangePage),
-  MaterialRoute(page: PasswordForgetPage),
-  MaterialRoute(page: PasswordUpdatePage),
-  MaterialRoute(page: RegisterPage),
-  MaterialRoute(page: SignInPage),
-  MaterialRoute(page: SplashPage),
-  MaterialRoute(page: UserUpdatePage),
-  // MaterialRoute(page: SplashPage, initial: true),
+    // AUTH
+    MaterialRoute(page: FavoritesPage),
+    MaterialRoute(page: OtpConfirmPage),
+    MaterialRoute(page: PasswordChangePage),
+    MaterialRoute(page: PasswordForgetPage),
+    MaterialRoute(page: PasswordUpdatePage),
+    MaterialRoute(page: RegisterPage),
+    MaterialRoute(page: SignInPage),
+    MaterialRoute(page: SplashPage),
+    MaterialRoute(page: UserUpdatePage),
+    // MaterialRoute(page: SplashPage, initial: true),
 
-  // SETTING
-  MaterialRoute(page: SettingsPage),
+    // SETTING
+    MaterialRoute(page: SettingsPage),
 
-  // NOTIFICATION
-  MaterialRoute(page: NotificationsPage),
+    // NOTIFICATION
+    MaterialRoute(page: NotificationsPage),
 
-  // SERVICE
-  MaterialRoute(page: ServiceDetail),
-  MaterialRoute(page: ServiceBookingPage),
-  MaterialRoute(page: CategoriesPage),
+    // SERVICE
+    MaterialRoute(page: ServiceDetail),
+    MaterialRoute(page: ServiceBookingPage),
+    MaterialRoute(page: CategoriesPage),
 
-  // BOOKING
-  MaterialRoute(page: CartPage),
-  MaterialRoute(page: OrderDetailPage),
-  MaterialRoute(page: OrderHistoriesPage),
+    // BOOKING
+    MaterialRoute(page: CartPage),
+    MaterialRoute(page: OrderDetailPage),
+    MaterialRoute(page: OrderHistoriesPage),
 
-  // ARTICLES
-  MaterialRoute(page: ArticlesPage),
-  MaterialRoute(page: ArticleDetailPage),
-])
+    // ARTICLES
+    MaterialRoute(page: ArticlesPage),
+    MaterialRoute(page: ArticleDetailPage),
+  ],
+)
 class $Router {}

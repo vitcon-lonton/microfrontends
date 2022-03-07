@@ -1,9 +1,10 @@
 import 'package:article/article.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:refresh_loadmore/refresh_loadmore.dart';
 import 'package:theme_manager/theme_manager.dart';
-
+import 'package:app_user/presentation/routes/router.gr.dart';
 import 'article_tile.dart';
 
 class Articles extends StatefulWidget {
@@ -54,10 +55,14 @@ class _ArticlesState extends State<Articles> {
               scrollDirection: widget.scrollDirection,
               separatorBuilder: (_, i) => kSpaceZero,
               itemBuilder: (context, index) {
-                final name = articles[index].title ?? '';
+                final article = articles[index];
+                final name = article.title ?? '';
 
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    context.router
+                        .push(ArticleDetailPageRoute(article: article));
+                  },
                   child: SizedBox.square(
                     dimension: 130,
                     child: Column(
@@ -92,11 +97,8 @@ class _ArticlesState extends State<Articles> {
               itemBuilder: (_, index) => ArticleTile(
                 article: articles[index],
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) {
-                      return ArticleDetail(article: articles[index]);
-                    }),
-                  );
+                  context.router
+                      .push(ArticleDetailPageRoute(article: articles[index]));
                 },
               ),
             ),

@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
           // title: 'Flutter Demo',
           // home: const CartPage(),
           // home: const OrderDetailPage(),
-          home: const OrderHistoriesPage(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(primarySwatch: Colors.blue),
         ),

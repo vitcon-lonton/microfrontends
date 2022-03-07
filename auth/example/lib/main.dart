@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
           // home: const PasswordUpdatePage(),
           // home: const OrderHistoriesPage(),
           // home: const NotificationsPage(),
-          home: const FavoritesPage(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(primarySwatch: Colors.blue),
         ),

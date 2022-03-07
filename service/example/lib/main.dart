@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         // title: 'Flutter Demo',
         // home: const Home(),
         // home: const ServiceDetail(),
-        home: const ServiceBookingPage(),
+        // home: const ServiceBookingPage(),
         // home: const ServiceBookingForm(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
@@ -49,15 +49,15 @@ class Home extends StatelessWidget {
         appBar: AppBar(),
         body: Column(
           children: [
-            const Categories(),
-            Expanded(
-              child: Services(
-                onItemPressed: (service) {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const ServiceDetail()));
-                },
-              ),
-            ),
+            // const Categories(),
+            // Expanded(
+            //   child: Services(
+            //     onItemPressed: (service) {
+            //       Navigator.of(context).push(
+            //           MaterialPageRoute(builder: (_) => const ServiceDetail()));
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

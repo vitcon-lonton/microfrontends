@@ -46,19 +46,18 @@ class UserUpdatePage extends StatelessWidget {
           );
         },
         child: Scaffold(
-          appBar: AppBar(title: const Text(registerTxt)),
+          // BODY
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
-            child: Column(
-              children: const [
-                kVSpaceXL,
-                kVSpaceXL,
-                UserUpdateForm(),
-                kVSpaceXL,
-                kVSpaceL,
-              ],
-            ),
+            child: Column(children: const [
+              kVSpaceXL,
+              UserUpdateForm(),
+              kVSpaceL,
+            ]),
           ),
+
+          // APP_BAR
+          appBar: AppBar(title: const Text(registerTxt)),
         ),
       ),
     );

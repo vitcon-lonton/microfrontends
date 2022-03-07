@@ -10,6 +10,7 @@
 //
 // ignore_for_file: type=lint
 
+import 'package:article/article.dart' as _i20;
 import 'package:auto_route/auto_route.dart' as _i18;
 import 'package:flutter/material.dart' as _i19;
 
@@ -114,8 +115,10 @@ class Router extends _i18.RootStackRouter {
           routeData: routeData, child: const _i17.ArticlesPage());
     },
     ArticleDetailPageRoute.name: (routeData) {
+      final args = routeData.argsAs<ArticleDetailPageRouteArgs>();
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i17.ArticleDetailPage());
+          routeData: routeData,
+          child: _i17.ArticleDetailPage(key: args.key, article: args.article));
     }
   };
 
@@ -320,9 +323,25 @@ class ArticlesPageRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.ArticleDetailPage]
-class ArticleDetailPageRoute extends _i18.PageRouteInfo<void> {
-  const ArticleDetailPageRoute()
-      : super(ArticleDetailPageRoute.name, path: '/article-detail-page');
+class ArticleDetailPageRoute
+    extends _i18.PageRouteInfo<ArticleDetailPageRouteArgs> {
+  ArticleDetailPageRoute({_i19.Key? key, required _i20.Article article})
+      : super(ArticleDetailPageRoute.name,
+            path: '/article-detail-page',
+            args: ArticleDetailPageRouteArgs(key: key, article: article));
 
   static const String name = 'ArticleDetailPageRoute';
+}
+
+class ArticleDetailPageRouteArgs {
+  const ArticleDetailPageRouteArgs({this.key, required this.article});
+
+  final _i19.Key? key;
+
+  final _i20.Article article;
+
+  @override
+  String toString() {
+    return 'ArticleDetailPageRouteArgs{key: $key, article: $article}';
+  }
 }

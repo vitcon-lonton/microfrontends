@@ -2,7 +2,6 @@ import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_user/presentation/routes/router.gr.dart' as app_router;
-
 import 'injection.dart' show getIt;
 
 class AppWidget extends StatelessWidget {
@@ -25,7 +24,8 @@ class AppWidget extends StatelessWidget {
         routeInformationParser: _appRouter.defaultRouteParser(),
         routerDelegate: _appRouter.delegate(
           initialRoutes: [
-            const app_router.HomePageRoute(),
+            const app_router.SplashPageRoute(),
+            // const app_router.HomePageRoute(),
             // const app_router.OrderHistoriesPageRoute(),
             // const app_router.FavoritesPageRoute(),
             // const app_router.UserUpdatePageRoute(),
@@ -41,18 +41,21 @@ class AppWidget extends StatelessWidget {
           ],
         ),
         theme: ThemeData.light().copyWith(
-          primaryColor: Colors.green[800],
-          appBarTheme: AppBarTheme.of(context).copyWith(centerTitle: false),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Colors.blue[900],
-          ),
+          primaryColor: const Color(0xFFD44541),
+          appBarTheme: AppBarTheme.of(context)
+              .copyWith(centerTitle: false, elevation: 0),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Color(0xFFD44541)),
           inputDecorationTheme: InputDecorationTheme(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
           ),
-          colorScheme:
-              ColorScheme.fromSwatch().copyWith(secondary: Colors.blueAccent),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red),
+          // primaryColor: Colors.green[800],
+          // colorScheme:
+          //     ColorScheme.fromSwatch().copyWith(secondary: Colors.blueAccent),
+          // floatingActionButtonTheme: FloatingActionButtonThemeData(
+          //   backgroundColor: Colors.blue[900],
+          // ),
         ),
       ),
     );

@@ -1,8 +1,8 @@
-import 'package:app_user/presentation/routes/router.gr.dart';
 import 'package:auth/application/application.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_user/presentation/routes/router.gr.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -11,7 +11,8 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       child: const Scaffold(body: Center(child: CircularProgressIndicator())),
-      listener: (context, state) {
+      listener: (context, state) async {
+        await Future.delayed(const Duration(seconds: 1));
         state.map(
           initial: (_) {},
           authenticated: (_) => context.router.replace(const HomePageRoute()),
