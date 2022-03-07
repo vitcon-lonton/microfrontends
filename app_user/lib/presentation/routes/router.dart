@@ -19,10 +19,9 @@ import '../user/splash/splash_page.dart';
 import '../user/user_update/user_update.dart';
 
 @MaterialAutoRouter(routes: <AutoRoute>[
-  // MaterialRoute(page: SplashPage, initial: true),
-  // MaterialRoute(page: HomePage),
   // HOME
   MaterialRoute(page: HomePage, initial: true),
+  // MaterialRoute(page: HomePage),
 
   // AUTH
   MaterialRoute(page: FavoritesPage),
@@ -33,8 +32,8 @@ import '../user/user_update/user_update.dart';
   MaterialRoute(page: RegisterPage),
   MaterialRoute(page: SignInPage),
   MaterialRoute(page: SplashPage),
-  // MaterialRoute(page: SplashPage, initial: true),
   MaterialRoute(page: UserUpdatePage),
+  // MaterialRoute(page: SplashPage, initial: true),
 
   // SETTING
   MaterialRoute(page: SettingsPage),

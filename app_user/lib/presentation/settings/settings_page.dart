@@ -1,8 +1,9 @@
+import 'package:auth/application/application.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
-
-import 'package:auth/application/application.dart';
+import 'package:app_user/presentation/routes/router.gr.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -33,13 +34,13 @@ class _SettingsPageState extends State<SettingsPage> {
         //       AutoRouter.of(context).replace(const SignInPageRoute()),
         // );
       },
-      child: WScaffold(
+      child: Scaffold(
+        appBar: AppBar(),
         body: Column(
           children: [
             const SizedBox.square(
               dimension: 150,
               child: CircleAvatar(
-                // backgroundColor: Colors.transparent,
                 child: Icon(Icons.person_outline_sharp, size: 120),
               ),
             ),
@@ -47,7 +48,9 @@ class _SettingsPageState extends State<SettingsPage> {
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(const UserUpdatePageRoute());
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: kSpaceS),
                     child: Row(
@@ -66,28 +69,30 @@ class _SettingsPageState extends State<SettingsPage> {
                 );
               },
             ),
-            Row(
-              children: [
-                const Spacer(),
-                const Text('Update profile'),
-                kHSpaceXXS,
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit),
-                ),
-                const Spacer(),
-              ],
-            ),
+            Row(children: [
+              const Spacer(),
+              const Text('Update profile'),
+              kHSpaceXXS,
+              IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: () {
+                  context.router.push(const UserUpdatePageRoute());
+                },
+              ),
+              const Spacer(),
+            ]),
             kVSpaceM,
             Padding(
               padding: const EdgeInsets.symmetric(vertical: kSpaceL),
-              child: Row(
-                children: [
-                  _button('Order history', Icons.history),
-                  kHSpaceL,
-                  _button('Notification', Icons.notification_add),
-                ],
-              ),
+              child: Row(children: [
+                _button('Order history', Icons.history, onPressed: () {
+                  context.router.push(const OrderHistoriesPageRoute());
+                }),
+                kHSpaceL,
+                _button('Notification', Icons.notification_add, onPressed: () {
+                  context.router.push(const NotificationsPageRoute());
+                }),
+              ]),
             ),
             ..._options.map((item) {
               final title = item['title'] as String;
@@ -97,11 +102,21 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Text(title),
                 leading: Icon(icon),
                 onTap: () {
-                  if (title != 'Logout') {
+                  if (title == 'Logout') {
+                    _confirmLogOut(context);
+                  } else if (title == 'Favorites') {
+                    context.router.push(const FavoritesPageRoute());
+                    return;
+                  } else if (title == 'Address') {
+                    return;
+                  } else if (title == 'Policy') {
+                    return;
+                  } else if (title == 'About') {
+                    return;
+                  } else if (title == 'Update password') {
+                    context.router.push(const PasswordUpdatePageRoute());
                     return;
                   }
-
-                  _confirmLogOut(context);
                 },
               );
             }).toList(),
@@ -167,20 +182,13 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _button(String title, IconData iconData) {
+  Widget _button(String title, IconData iconData, {VoidCallback? onPressed}) {
     return Expanded(
       child: TextButton(
-        style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: kSpaceL),
-        ),
-        onPressed: () {},
-        child: Column(
-          children: [
-            Icon(iconData),
-            Text(title),
-          ],
-        ),
-      ),
+          onPressed: onPressed,
+          child: Column(children: [Icon(iconData), Text(title)]),
+          style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: kSpaceL))),
     );
   }
 }

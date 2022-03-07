@@ -8,13 +8,28 @@ abstract class AuthModule {
   AuthBloc get authBloc;
 
   @Injectable()
+  FavoritesCubit get favoritesCubit;
+
+  @Injectable()
+  OtpConfirmCubit get otpConfirmCubit;
+
+  @Injectable()
   RegisterCubit get registerCubit;
 
   @Injectable()
   SignInFormBloc get signInFormBloc;
 
   @Injectable()
-  PasswordForgetCubit get passwordChangeCubit;
+  PasswordForgetCubit get passwordForgetCubit;
+
+  @Injectable()
+  PasswordChangeCubit get passwordChangeCubit;
+
+  @Injectable()
+  PasswordUpdateCubit get passwordUpdateCubit;
+
+  @Injectable()
+  UserUpdateCubit get userUpdateCubit;
 
   @LazySingleton(as: IAuthFacade)
   AuthFacade get authFacade;

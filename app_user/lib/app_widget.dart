@@ -21,16 +21,24 @@ class AppWidget extends StatelessWidget {
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         routeInformationParser: _appRouter.defaultRouteParser(),
         routerDelegate: _appRouter.delegate(
           initialRoutes: [
-            // const app_router.ServiceBookingPageRoute(),
             const app_router.HomePageRoute(),
+            // const app_router.FavoritesPageRoute(),
+            // const app_router.UserUpdatePageRoute(),
+            // const app_router.PasswordChangePageRoute(),
+            // const app_router.RegisterPageRoute(),
+            // const app_router.PasswordUpdatePageRoute(),
+            // const app_router.PasswordForgetPageRoute(),
+            // const app_router.OtpConfirmPageRoute(),
+            // const app_router.NotificationsPageRoute(),
             // const app_router.HomePageRoute(),
             // const app_router.SignInPageRoute(),
+            // const app_router.ServiceBookingPageRoute(),
           ],
         ),
-        debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(
           primaryColor: Colors.green[800],
           appBarTheme: AppBarTheme.of(context).copyWith(centerTitle: false),
@@ -49,30 +57,3 @@ class AppWidget extends StatelessWidget {
     );
   }
 }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MultiBlocProvider(
-//       providers: [
-//         // Articles
-//         BlocProvider(create: (context) => getIt<ArticlesCubit>()),
-//         // Booking
-//         BlocProvider(create: (context) => getIt<OrderRatingCubit>()),
-//         BlocProvider(create: (context) => getIt<OrderHistoriesCubit>()),
-//       ],
-//       child: MaterialApp(
-//         title: 'Flutter Demo',
-//         theme: ThemeData(primarySwatch: Colors.blue),
-//         home: const OrderHistoriesPage(),
-//         // home: BlocProvider.value(
-//         //   value: getIt<ArticlesCubit>(),
-//         //   child: const Articles(),
-//         // ),
-//         // home: SignInPage(bloc: getIt<SignInFormBloc>()),
-//       ),
-//     );
-//   }
-// }

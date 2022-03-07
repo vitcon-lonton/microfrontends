@@ -152,7 +152,7 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
               builder: (context, state) => FormSubmitBtn(
                 child: const Text('UPDATE'),
                 isSubmitting: state.isSubmitting,
-                onPressed: context.read<RegisterCubit>().submitted,
+                onPressed: context.read<UserUpdateCubit>().submitted,
               ),
             ),
           ],

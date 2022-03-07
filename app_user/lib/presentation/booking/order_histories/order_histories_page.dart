@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of 'order_histories.dart';
 
 class OrderHistoriesPage extends StatefulWidget {
@@ -28,8 +29,7 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<OrderHistoriesCubit>(
-      create: (context) =>
-          context.read<OrderHistoriesCubit>()..getOrdersRequested(),
+      create: (context) => getIt<OrderHistoriesCubit>()..getOrdersRequested(),
       child: BlocListener<OrderHistoriesCubit, OrderHistoriesState>(
         listener: (context, state) {},
         child: Scaffold(
@@ -41,8 +41,29 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
                   .foldRight(<Order>[], (orders, previous) => orders);
 
               return RefreshLoadmore(
-                onRefresh: _onRefresh,
-                onLoadmore: _onLoadMore,
+                // onRefresh: _onRefresh,
+                // onLoadmore: _onLoadMore,
+                onRefresh: () async {
+                  context.read<OrderHistoriesCubit>().refreshRequested();
+                  await context
+                      .read<OrderHistoriesCubit>()
+                      .getOrdersRequested();
+                },
+                onLoadmore: () async {
+                  final state = context.read<OrderHistoriesCubit>().state;
+                  final currentPage = state.page;
+                  final totalPage = state.pageCount;
+                  final nextPage = currentPage + 1;
+
+                  if (nextPage > totalPage) return;
+
+                  context
+                      .read<OrderHistoriesCubit>()
+                      .pageNumberChanged(nextPage);
+                  await context
+                      .read<OrderHistoriesCubit>()
+                      .getOrdersRequested();
+                },
                 isLastPage: state.isLastPage,
                 noMoreWidget: Text('No more data, you are at the end',
                     style: TextStyle(color: Theme.of(context).disabledColor)),

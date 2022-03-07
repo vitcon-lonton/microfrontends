@@ -12,8 +12,15 @@ class OtpConfirmPage extends StatelessWidget {
     // final msgTerm4 = tr(LocaleKeys.msg_term4);
     // final registerTxt = tr(LocaleKeys.register);
 
-    return BlocProvider<PasswordForgetCubit>(
-      create: (_) => context.read<PasswordForgetCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PasswordForgetCubit>(
+          create: (_) => getIt<PasswordForgetCubit>(),
+        ),
+        BlocProvider<OtpRequestNewCubit>(
+          create: (_) => getIt<OtpRequestNewCubit>(),
+        ),
+      ],
       child: BlocListener<PasswordForgetCubit, PasswordForgetState>(
         listenWhen: (prev, cur) =>
             prev.failureOrSuccessOption != cur.failureOrSuccessOption,
@@ -44,8 +51,8 @@ class OtpConfirmPage extends StatelessWidget {
             ),
           );
         },
-        child: WScaffold(
-          appBar: const WAppBar(title: Text(registerTxt)),
+        child: Scaffold(
+          appBar: AppBar(title: const Text(registerTxt)),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

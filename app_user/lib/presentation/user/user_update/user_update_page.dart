@@ -8,7 +8,7 @@ class UserUpdatePage extends StatelessWidget {
     const registerTxt = 'Update Profile';
 
     return BlocProvider<UserUpdateCubit>(
-      create: (_) => context.read<UserUpdateCubit>(),
+      create: (_) => getIt<UserUpdateCubit>(),
       child: BlocListener<UserUpdateCubit, UserUpdateState>(
         listenWhen: (prev, cur) {
           return prev.failureOrSuccessOption != cur.failureOrSuccessOption;
@@ -45,8 +45,8 @@ class UserUpdatePage extends StatelessWidget {
             ),
           );
         },
-        child: WScaffold(
-          appBar: const WAppBar(title: Text(registerTxt)),
+        child: Scaffold(
+          appBar: AppBar(title: const Text(registerTxt)),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

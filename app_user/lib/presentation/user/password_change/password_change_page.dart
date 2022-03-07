@@ -18,7 +18,7 @@ class PasswordChangePage extends StatelessWidget {
     // final registerTxt = tr(LocaleKeys.register);
 
     return BlocProvider<PasswordChangeCubit>(
-      create: (_) => context.read<PasswordChangeCubit>(),
+      create: (_) => getIt<PasswordChangeCubit>(),
       child: BlocListener<PasswordChangeCubit, PasswordChangeState>(
         listenWhen: (prev, cur) =>
             prev.failureOrSuccessOption != cur.failureOrSuccessOption,
@@ -46,8 +46,8 @@ class PasswordChangePage extends StatelessWidget {
             ),
           );
         },
-        child: WScaffold(
-          appBar: const WAppBar(title: Text(registerTxt)),
+        child: Scaffold(
+          appBar: AppBar(title: const Text(registerTxt)),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

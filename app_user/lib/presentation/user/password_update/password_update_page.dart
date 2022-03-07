@@ -9,7 +9,7 @@ class PasswordUpdatePage extends StatelessWidget {
     const registerTxt = 'Update Password';
 
     return BlocProvider<PasswordUpdateCubit>(
-      create: (_) => context.read<PasswordUpdateCubit>(),
+      create: (_) => getIt<PasswordUpdateCubit>(),
       child: BlocListener<PasswordUpdateCubit, PasswordUpdateState>(
         listenWhen: (prev, cur) =>
             prev.failureOrSuccessOption != cur.failureOrSuccessOption,
@@ -37,8 +37,8 @@ class PasswordUpdatePage extends StatelessWidget {
             ),
           );
         },
-        child: WScaffold(
-          appBar: const WAppBar(title: Text(registerTxt)),
+        child: Scaffold(
+          appBar: AppBar(title: const Text(registerTxt)),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

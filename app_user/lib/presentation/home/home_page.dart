@@ -89,7 +89,11 @@ class _HomePageState extends State<HomePage> {
 
       // APP_BAR
       appBar: AppBar(
-        leading: const Icon(Icons.person),
+        leading: IconButton(
+          icon: const Icon(Icons.person),
+          onPressed: () => context.router.push(const SettingsPageRoute()),
+        ),
+        // leading: const Icon(Icons.person),
         title: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             return state.maybeMap(

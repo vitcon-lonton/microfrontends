@@ -18,7 +18,7 @@ class RegisterPage extends StatelessWidget {
     // final registerTxt = tr(LocaleKeys.register);
 
     return BlocProvider<RegisterCubit>(
-      create: (_) => context.read<RegisterCubit>(),
+      create: (_) => getIt<RegisterCubit>(),
       child: BlocListener<RegisterCubit, RegisterState>(
         listenWhen: (prev, cur) =>
             prev.registerFailureOrSuccessOption !=
@@ -55,8 +55,8 @@ class RegisterPage extends StatelessWidget {
             ),
           );
         },
-        child: WScaffold(
-          appBar: const WAppBar(title: Text(registerTxt)),
+        child: Scaffold(
+          appBar: AppBar(title: const Text(registerTxt)),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

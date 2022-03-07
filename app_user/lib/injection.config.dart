@@ -41,16 +41,21 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i7.OrderDetailCubit>(() => bookingModule.orderDetailCubit);
   gh.factory<_i7.OrderHistoriesCubit>(() => bookingModule.orderHistoriesCubit);
   gh.factory<_i7.OrderRatingCubit>(() => bookingModule.orderRatingCubit);
-  gh.factory<_i6.PasswordForgetCubit>(() => authModule.passwordChangeCubit);
+  gh.factory<_i6.OtpConfirmCubit>(() => authModule.otpConfirmCubit);
+  gh.factory<_i6.PasswordChangeCubit>(() => authModule.passwordChangeCubit);
+  gh.factory<_i6.PasswordForgetCubit>(() => authModule.passwordForgetCubit);
+  gh.factory<_i6.PasswordUpdateCubit>(() => authModule.passwordUpdateCubit);
   gh.factory<_i6.RegisterCubit>(() => authModule.registerCubit);
   gh.factory<_i5.ServiceBookingFormCubit>(
       () => serviceModule.serviceBookingFormCubit);
   gh.factory<_i5.ServiceDetailCubit>(() => serviceModule.serviceDetailCubit);
   gh.factory<_i5.ServicesCubit>(() => serviceModule.servicesCubit);
   gh.factory<_i6.SignInFormBloc>(() => authModule.signInFormBloc);
+  gh.factory<_i6.UserUpdateCubit>(() => authModule.userUpdateCubit);
   gh.factory<_i6.AuthBloc>(() => authModule.authBloc);
   gh.factory<_i7.CartCubit>(() => bookingModule.cartCubit);
   gh.factory<_i5.CategoriesCubit>(() => serviceModule.categoriesCubit);
+  gh.factory<_i6.FavoritesCubit>(() => authModule.favoritesCubit);
   return get;
 }
 
@@ -94,8 +99,17 @@ class _$AuthModule extends _i10.AuthModule {
   @override
   _i6.AuthFacade get authFacade => _i6.AuthFacade();
   @override
-  _i6.PasswordForgetCubit get passwordChangeCubit =>
+  _i6.OtpConfirmCubit get otpConfirmCubit =>
+      _i6.OtpConfirmCubit(_getIt<_i6.IAuthFacade>());
+  @override
+  _i6.PasswordChangeCubit get passwordChangeCubit =>
+      _i6.PasswordChangeCubit(_getIt<_i6.IAuthFacade>());
+  @override
+  _i6.PasswordForgetCubit get passwordForgetCubit =>
       _i6.PasswordForgetCubit(_getIt<_i6.IAuthFacade>());
+  @override
+  _i6.PasswordUpdateCubit get passwordUpdateCubit =>
+      _i6.PasswordUpdateCubit(_getIt<_i6.IAuthFacade>());
   @override
   _i6.RegisterCubit get registerCubit =>
       _i6.RegisterCubit(_getIt<_i6.IAuthFacade>());
@@ -103,7 +117,13 @@ class _$AuthModule extends _i10.AuthModule {
   _i6.SignInFormBloc get signInFormBloc =>
       _i6.SignInFormBloc(_getIt<_i6.IAuthFacade>());
   @override
+  _i6.UserUpdateCubit get userUpdateCubit =>
+      _i6.UserUpdateCubit(_getIt<_i6.IAuthFacade>());
+  @override
   _i6.AuthBloc get authBloc => _i6.AuthBloc(_getIt<_i6.IAuthFacade>());
+  @override
+  _i6.FavoritesCubit get favoritesCubit =>
+      _i6.FavoritesCubit(_getIt<_i6.IAuthFacade>());
 }
 
 class _$BookingModule extends _i11.BookingModule {

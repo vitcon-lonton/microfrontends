@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 part of 'favorites.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -28,13 +30,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FavoritesCubit>(
-      create: (context) =>
-          context.read<FavoritesCubit>()..getFavoritesRequested(),
+      create: (context) => getIt<FavoritesCubit>()..getFavoritesRequested(),
       child: BlocListener<FavoritesCubit, FavoritesState>(
         listener: (context, state) {},
-        child: WScaffold(
-          appBar: const WAppBar(
-              backgroundColor: Colors.white, title: Text('Wish List')),
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Wish List')),
           body: BlocBuilder<FavoritesCubit, FavoritesState>(
             buildWhen: (prev, cur) =>
                 prev.favorites != cur.favorites ||
@@ -43,8 +43,23 @@ class _FavoritesPageState extends State<FavoritesPage> {
               final favorites = state.favorites;
 
               return RefreshLoadmore(
-                onRefresh: _onRefresh,
-                onLoadmore: _onLoadMore,
+                // onRefresh: _onRefresh,
+                // onLoadmore: _onLoadMore,
+                onRefresh: () async {
+                  context.read<FavoritesCubit>().refreshRequested();
+                  await context.read<FavoritesCubit>().getFavoritesRequested();
+                },
+                onLoadmore: () async {
+                  final state = context.read<FavoritesCubit>().state;
+                  final currentPage = state.page;
+                  final totalPage = state.pageCount;
+                  final nextPage = currentPage + 1;
+
+                  if (nextPage > totalPage) return;
+
+                  context.read<FavoritesCubit>().pageNumberChanged(nextPage);
+                  await context.read<FavoritesCubit>().getFavoritesRequested();
+                },
                 isLastPage: state.isLastPage,
                 noMoreWidget: Text('No more data, you are at the end',
                     style: TextStyle(color: Theme.of(context).disabledColor)),
