@@ -1,7 +1,6 @@
 part of 'widgets.dart';
 
 class WScaffold extends StatelessWidget {
-  final Key? key;
   final Widget body;
   final bool gradient;
   final bool background;
@@ -10,7 +9,7 @@ class WScaffold extends StatelessWidget {
   final Widget? bottomNavigationBar;
 
   const WScaffold.raw({
-    this.key,
+    Key? key,
     required this.body,
     this.appBar,
     this.scrollable,

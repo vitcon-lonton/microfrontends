@@ -1,9 +1,7 @@
-import 'package:article/article.dart' hide Articles;
+import 'package:article/article.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:app_user/injection.dart';
-
 import 'articles.dart';
 
 class ArticlesPage extends StatefulWidget {

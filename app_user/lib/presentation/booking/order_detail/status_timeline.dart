@@ -21,25 +21,37 @@ class StatusTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _processes.map((status) {
-          return Padding(
-              child: Row(children: [
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Row(
+            children: const [
+              kHSpaceM,
+              Expanded(child: Divider(height: 0)),
+              kHSpaceM,
+            ],
+          ),
+        ),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: _processes.map((status) {
+              return Column(children: [
                 Icon(Icons.check_circle_rounded,
                     color: status == _processes[3]
-                        ? Colors.green.shade400
+                        ? const Color(0xFF009B19)
                         : Colors.blueGrey.shade100,
-                    size: 20),
-                kHSpaceS,
+                    size: 22),
+                kVSpaceS,
                 DefaultTextStyle(
                     style: TextStyle(
                         color: status == _processes[3]
-                            ? Colors.green.shade400
+                            ? const Color(0xFF009B19)
                             : Colors.blueGrey.shade100),
                     child: Text(capitalize(status))),
-              ]),
-              padding: const EdgeInsets.symmetric(vertical: 2.0));
-        }).toList());
+              ]);
+            }).toList()),
+      ],
+    );
   }
 }

@@ -1,13 +1,13 @@
 part of 'order_detail.dart';
 
-class OrderCancelButton extends StatefulWidget {
-  const OrderCancelButton({Key? key}) : super(key: key);
+class OrderConfirmButton extends StatefulWidget {
+  const OrderConfirmButton({Key? key}) : super(key: key);
 
   @override
-  State<OrderCancelButton> createState() => _OrderCancelButtonState();
+  State<OrderConfirmButton> createState() => _OrderConfirmButtonState();
 }
 
-class _OrderCancelButtonState extends State<OrderCancelButton> {
+class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrderDetailCubit, OrderDetailState>(
@@ -21,12 +21,10 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
           child: SizedBox(
             height: 45,
             child: ElevatedButton(
-              onPressed: state.isCanceling ? null : _onPressed,
-              child: Text(state.isCanceling ? '...' : 'Reject'),
-              style: TextButton.styleFrom(
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  backgroundColor: const Color(0xFFB5B5B5)),
+              onPressed: state.isCanceling ? null : _confirm,
+              child: Text(state.isCanceling ? '...' : 'Confirm'),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0, shadowColor: Colors.transparent),
             ),
           ),
         );
@@ -34,14 +32,8 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
     );
   }
 
-  Future _onPressed() async {
-    final confirmResponse = await _confirm();
-    if (confirmResponse != true) return;
-    context.read<OrderDetailCubit>().cancelOrderRequested();
-  }
-
-  Future<bool?> _confirm() {
-    return showDialog<bool?>(
+  void _confirm() {
+    showDialog(
       context: context,
       builder: (context) => Material(
         color: Colors.transparent,
@@ -68,7 +60,8 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
                   child: ElevatedButton(
                       child: const Text('Cancel'),
                       onPressed: () {
-                        Navigator.of(context).pop(true);
+                        Navigator.of(context).pop();
+                        context.read<OrderDetailCubit>().cancelOrderRequested();
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0, shadowColor: Colors.transparent)),

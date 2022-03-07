@@ -1,3 +1,4 @@
+/* spell-checker: disable */
 part of 'order_rating.dart';
 
 class OrderRatingForm extends StatelessWidget {
@@ -42,7 +43,30 @@ class OrderRatingForm extends StatelessWidget {
                 ? AutovalidateMode.always
                 : AutovalidateMode.disabled,
         child: Column(children: [
-          kVSpaceM,
+          kVSpaceL,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kSpaceL),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: [
+                  const TextSpan(
+                      text:
+                          'Đơn hàng hoàn thành, mời bạn để lại đánh giá về kỹ thuật viên'),
+                  TextSpan(
+                      text: ' Trần Thanh ',
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
+                  const TextSpan(text: 'với dịch vụ'),
+                  TextSpan(
+                      text: ' Sửa điện lạnh ',
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
+                ],
+              ),
+            ),
+          ),
+
+          kVSpaceL,
           BlocBuilder<OrderRatingCubit, OrderRatingState>(
               buildWhen: (prev, cur) =>
                   prev.point != cur.point ||
@@ -55,14 +79,14 @@ class OrderRatingForm extends StatelessWidget {
                   onRatingUpdate: context.read<OrderRatingCubit>().pointChanged,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   ratingWidget: RatingWidget(
-                      half: Icon(Icons.favorite_border_sharp,
+                      half: Icon(Icons.star_half_rounded,
                           color: Colors.amber.shade400),
-                      empty: Icon(Icons.favorite_border_sharp,
+                      empty: Icon(Icons.star_outline_rounded,
                           color: Colors.amber.shade400),
-                      full:
-                          Icon(Icons.favorite, color: Colors.amber.shade400)))),
+                      full: Icon(Icons.star_rate_rounded,
+                          color: Colors.amber.shade400)))),
 
-          kVSpaceM,
+          kVSpaceXL,
           BlocBuilder<OrderRatingCubit, OrderRatingState>(
               buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
               builder: (context, state) => WTextInput(

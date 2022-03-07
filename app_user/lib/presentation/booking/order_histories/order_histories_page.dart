@@ -48,8 +48,9 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: orders.length,
+                  separatorBuilder: (_, index) => kVSpaceM,
                   physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (_, index) => const Divider(height: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
                   itemBuilder: (_, index) => OrderTile(order: orders[index]),
                 ),
                 onRefresh: () async {

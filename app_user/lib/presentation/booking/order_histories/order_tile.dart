@@ -9,50 +9,50 @@ class OrderTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final name = order.name;
     final status = order.status;
-    final price = '${order.price} vnd';
     final time = order.time.toIso8601String();
-    final id = order.id.value.foldRight('', (id, previous) => id);
+    final id = order.id.value.foldRight('', (id, previous) => '#$id');
+    final price = '${order.price} VND';
 
     return InkWell(
-      // onTap: () => Navigator.of(context)
-      //     .push(MaterialPageRoute(builder: (_) => const OrderDetailPage())),
-      onTap: () {
-        _showRatingForm(context);
-      },
+      onTap: () => _showRatingForm(context),
+      borderRadius: BorderRadius.circular(8),
       child: Ink(
-        padding: const EdgeInsets.symmetric(
-          vertical: kSpaceM,
-          horizontal: kSpaceL,
-        ),
+        color: const Color(0xFFF7F8FA),
         child: DefaultTextStyle(
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleSmall!,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Order ID: $id'),
-                        kVSpaceXXS,
-                        Text(name),
-                        Text(time),
-                      ],
-                    ),
-                  ),
-                  kHSpaceM,
-                  Text(price, maxLines: 1)
-                ],
-              ),
-              kVSpaceS,
-              Text(status.toString()),
-            ],
-          ),
+          child: Row(children: [
+            kHSpaceM,
+            Expanded(
+              child: Column(children: [
+                // ID, PRICE
+                Row(children: [
+                  const Text('Order ID: '),
+                  Expanded(child: Text(id)),
+                  Text(price),
+                ]),
+
+                // NAME, TIME
+                kVSpaceXS,
+                Row(children: [
+                  Expanded(child: Text(name)),
+                  Text(time),
+                ]),
+
+                // STATUS
+                kVSpaceXS,
+                Row(children: [
+                  const Text('Status'),
+                  const Spacer(),
+                  Text(status.toString()),
+                ])
+              ], crossAxisAlignment: CrossAxisAlignment.start),
+            ),
+            kHSpaceM,
+          ], crossAxisAlignment: CrossAxisAlignment.start),
         ),
+        padding: const EdgeInsets.symmetric(vertical: kSpaceM),
       ),
     );
   }
@@ -60,18 +60,23 @@ class OrderTile extends StatelessWidget {
   void _showRatingForm(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => Material(
-        color: Colors.transparent,
-        child: Column(children: [
-          const Spacer(),
-          Container(
-              color: Colors.white,
+      builder: (context) => BlocProvider(
+        create: (_) => getIt<OrderRatingCubit>(),
+        child: Material(
+          color: Colors.transparent,
+          child: Column(children: [
+            const Spacer(),
+            Container(
               child: const OrderRatingForm(),
-              margin: const EdgeInsets.symmetric(horizontal: kSpaceXXL),
               padding: const EdgeInsets.symmetric(
-                  horizontal: kSpaceM, vertical: kSpaceM)),
-          const Spacer(),
-        ]),
+                  horizontal: kSpaceXXL, vertical: kSpaceM),
+              decoration: const BoxDecoration(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(16.0)),
+                  color: Colors.white),
+            ),
+          ]),
+        ),
       ),
     );
   }

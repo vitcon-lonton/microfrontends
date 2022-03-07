@@ -48,7 +48,7 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(),
         body: Column(
-          children: [
+          children: const [
             // const Categories(),
             // Expanded(
             //   child: Services(

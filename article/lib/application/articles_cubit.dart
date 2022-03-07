@@ -25,8 +25,8 @@ class ArticlesState with _$ArticlesState {
 
   bool get isLastPage => page == pageCount;
 
-  List<Article> get articles =>
-      articlesOption.foldRight(<Article>[], (data, previous) => data);
+  List<Article> get articles => List.of(
+      articlesOption.foldRight(<Article>[], (articles, previous) => articles));
 
   factory ArticlesState.init() => ArticlesState(articlesOption: none());
 
@@ -51,8 +51,7 @@ class ArticlesCubit extends Cubit<ArticlesState> {
     final result = await _getArticles();
 
     result.fold(() {}, (newArticles) {
-      final currentArticles = state.articlesOption
-          .foldRight(<Article>[], (articles, previous) => articles);
+      final currentArticles = state.articles;
 
       emit(state.copyWith(
         articlesOption: optionOf(currentArticles..addAll(newArticles)),
@@ -65,7 +64,7 @@ class ArticlesCubit extends Cubit<ArticlesState> {
   Future<Option<List<Article>>> _getArticles() async {
     try {
       final response = await _api.getArticles();
-      if (kDebugMode) print(response.data.toString());
+      // if (kDebugMode) print(response.data.toString());
       if (response.valid) return optionOf(response.data);
       return optionOf(null);
     } catch (e) {

@@ -9,46 +9,43 @@ class NotificationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final name = order.name;
     final status = order.status;
-    final price = '${order.price} vnd';
     final time = order.time.toIso8601String();
-    final id = order.id.value.foldRight('', (id, previous) => id);
+    final id = order.id.value.foldRight('', (id, previous) => '#$id');
 
     return InkWell(
       onTap: () {},
       child: Ink(
-        padding: const EdgeInsets.symmetric(
-          vertical: kSpaceM,
-          horizontal: kSpaceL,
-        ),
         child: DefaultTextStyle(
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleSmall!,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
+          child: Row(children: [
+            kHSpaceS,
+            Padding(
+                child: Icon(Icons.article_outlined,
+                    color: Theme.of(context).colorScheme.primary),
+                padding: const EdgeInsets.only(top: 8.0)),
+            kHSpaceM,
+            Expanded(
+              child: Column(children: [
+                Row(children: [
+                  const Text('Order: '),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Order ID: $id'),
-                        kVSpaceXXS,
-                        Text(name),
-                        Text(time),
-                      ],
-                    ),
-                  ),
-                  kHSpaceM,
-                  Text(price, maxLines: 1)
-                ],
-              ),
-              kVSpaceS,
-              Text(status.toString()),
-            ],
-          ),
+                      child: Text(id,
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor))),
+                  Text(time),
+                ]),
+                kVSpaceS,
+                Text(name),
+                kVSpaceS,
+                Text(status.toString()),
+              ], crossAxisAlignment: CrossAxisAlignment.start),
+            ),
+            kHSpaceS,
+          ], crossAxisAlignment: CrossAxisAlignment.start),
         ),
+        padding: const EdgeInsets.symmetric(vertical: kSpaceM),
       ),
     );
   }
