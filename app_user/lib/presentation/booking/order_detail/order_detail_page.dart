@@ -18,7 +18,6 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         child: Scaffold(
           // APP_BAR
           appBar: AppBar(
-              centerTitle: false,
               title: BlocBuilder<OrderDetailCubit, OrderDetailState>(
                   buildWhen: (prev, cur) => prev.order != cur.order,
                   builder: (context, state) =>

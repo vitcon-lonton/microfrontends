@@ -178,7 +178,7 @@ class _OrderHistoriesPageState extends State<CartPage> {
                     prev.isSubmitAvailable != cur.isSubmitAvailable),
 
             // APP_BAR
-            appBar: AppBar(centerTitle: false, title: const Text('My Cart'))),
+            appBar: AppBar(title: const Text('My Cart'))),
       ),
     );
   }

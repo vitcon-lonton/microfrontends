@@ -33,6 +33,7 @@ class AppWidget extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(
           primaryColor: Colors.green[800],
+          appBarTheme: AppBarTheme.of(context).copyWith(centerTitle: false),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Colors.blue[900],
           ),

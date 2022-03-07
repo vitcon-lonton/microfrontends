@@ -15,6 +15,7 @@ import 'package:service/service.dart' as _i5;
 import 'module/article_module.dart' as _i8;
 import 'module/auth_module.dart' as _i10;
 import 'module/booking_module.dart' as _i11;
+import 'module/notification_module.dart' as _i12;
 import 'module/service_module.dart'
     as _i9; // ignore_for_file: unnecessary_lambdas
 
@@ -27,6 +28,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   final serviceModule = _$ServiceModule(get);
   final authModule = _$AuthModule(get);
   final bookingModule = _$BookingModule(get);
+  final notificationModule = _$NotificationModule(get);
   gh.lazySingleton<_i3.ArticleApi>(() => articleModule.api(get<_i4.Dio>()));
   gh.factory<_i3.ArticlesCubit>(() => articleModule.articlesCubit);
   gh.lazySingleton<_i5.CatalogueApi>(() => serviceModule.api(get<_i4.Dio>()));
@@ -34,6 +36,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i7.IBookingRepository>(
       () => bookingModule.bookingRepository);
   gh.lazySingleton<_i5.IServiceRepository>(() => serviceModule.repository);
+  gh.factory<_i6.NotificationsCubit>(
+      () => notificationModule.notificationsCubit);
   gh.factory<_i7.OrderDetailCubit>(() => bookingModule.orderDetailCubit);
   gh.factory<_i7.OrderHistoriesCubit>(() => bookingModule.orderHistoriesCubit);
   gh.factory<_i7.OrderRatingCubit>(() => bookingModule.orderRatingCubit);
@@ -121,4 +125,14 @@ class _$BookingModule extends _i11.BookingModule {
   @override
   _i7.CartCubit get cartCubit =>
       _i7.CartCubit(_getIt<_i7.IBookingRepository>());
+}
+
+class _$NotificationModule extends _i12.NotificationModule {
+  _$NotificationModule(this._getIt);
+
+  final _i1.GetIt _getIt;
+
+  @override
+  _i6.NotificationsCubit get notificationsCubit =>
+      _i6.NotificationsCubit(_getIt<_i6.IAuthFacade>());
 }

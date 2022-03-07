@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service/service.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:app_user/injection.dart';
+import 'package:app_user/presentation/routes/router.gr.dart';
 
 class ServiceBookingPage extends StatelessWidget {
   const ServiceBookingPage({Key? key}) : super(key: key);
@@ -30,7 +32,18 @@ class ServiceBookingPage extends StatelessWidget {
                   listenWhen: (prev, cur) =>
                       prev.bookingFailureOrSuccessOption !=
                       cur.bookingFailureOrSuccessOption,
-                  listener: (context, state) {}),
+                  listener: (context, state) {
+                    state.bookingFailureOrSuccessOption.fold(() {}, (either) {
+                      either.fold((failure) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text('Server error')));
+                      }, (_) {
+                        context.router.push(const CartPageRoute());
+                      });
+                    });
+                  }),
             ],
             child: Scaffold(
               // BODY
@@ -46,7 +59,6 @@ class ServiceBookingPage extends StatelessWidget {
 
               // APP_BAR
               appBar: AppBar(
-                  centerTitle: false,
                   title: BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
                       builder: (context, state) => state.service == null
                           ? kSpaceZero

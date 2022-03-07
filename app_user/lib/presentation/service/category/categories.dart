@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:service/service.dart';
 import 'package:theme_manager/theme_manager.dart';
-
-import 'categories_cubit.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
@@ -19,8 +18,8 @@ class Categories extends StatelessWidget {
                 prev.isSubmitting != cur.isSubmitting;
           },
           builder: (context, state) {
-            final isSubmitting = state.isSubmitting;
             final catalogues = state.catalogues;
+            final isSubmitting = state.isSubmitting;
 
             if (isSubmitting) return const LinearProgressIndicator();
 
@@ -37,19 +36,14 @@ class Categories extends StatelessWidget {
                     onTap: () {},
                     child: SizedBox.square(
                       dimension: 130,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.category_outlined),
-                          kVSpaceM,
-                          Text(
-                            name,
+                      child: Column(children: [
+                        const Icon(Icons.category_outlined),
+                        kVSpaceM,
+                        Text(name,
                             maxLines: 2,
                             textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
+                            overflow: TextOverflow.ellipsis),
+                      ], mainAxisAlignment: MainAxisAlignment.center),
                     ),
                   );
                 },

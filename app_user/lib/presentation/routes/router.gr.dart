@@ -13,13 +13,13 @@
 import 'package:auto_route/auto_route.dart' as _i18;
 import 'package:flutter/material.dart' as _i19;
 
-import '../booking/cart/cart.dart' as _i15;
-import '../booking/order_detail/order_detail.dart' as _i16;
-import '../booking/order_histories/order_histories.dart' as _i17;
+import '../article/article.dart' as _i17;
+import '../booking/cart/cart.dart' as _i14;
+import '../booking/order_detail/order_detail.dart' as _i15;
+import '../booking/order_histories/order_histories.dart' as _i16;
 import '../home/home.dart' as _i1;
 import '../notifications/notifications.dart' as _i12;
-import '../service/service_booking/service_booking_page.dart' as _i14;
-import '../service/service_detail/service_detail.dart' as _i13;
+import '../service/service.dart' as _i13;
 import '../settings/settings_page.dart' as _i11;
 import '../user/favorites/favorites.dart' as _i2;
 import '../user/otp_confirm/otp_confirm.dart' as _i3;
@@ -91,19 +91,31 @@ class Router extends _i18.RootStackRouter {
     },
     ServiceBookingPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i14.ServiceBookingPage());
+          routeData: routeData, child: const _i13.ServiceBookingPage());
+    },
+    CategoriesPageRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i13.CategoriesPage());
     },
     CartPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i15.CartPage());
+          routeData: routeData, child: const _i14.CartPage());
     },
     OrderDetailPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i16.OrderDetailPage());
+          routeData: routeData, child: const _i15.OrderDetailPage());
     },
     OrderHistoriesPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i17.OrderHistoriesPage());
+          routeData: routeData, child: const _i16.OrderHistoriesPage());
+    },
+    ArticlesPageRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i17.ArticlesPage());
+    },
+    ArticleDetailPageRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i17.ArticleDetailPage());
     }
   };
 
@@ -128,10 +140,14 @@ class Router extends _i18.RootStackRouter {
         _i18.RouteConfig(ServiceDetailRoute.name, path: '/service-detail'),
         _i18.RouteConfig(ServiceBookingPageRoute.name,
             path: '/service-booking-page'),
+        _i18.RouteConfig(CategoriesPageRoute.name, path: '/categories-page'),
         _i18.RouteConfig(CartPageRoute.name, path: '/cart-page'),
         _i18.RouteConfig(OrderDetailPageRoute.name, path: '/order-detail-page'),
         _i18.RouteConfig(OrderHistoriesPageRoute.name,
-            path: '/order-histories-page')
+            path: '/order-histories-page'),
+        _i18.RouteConfig(ArticlesPageRoute.name, path: '/articles-page'),
+        _i18.RouteConfig(ArticleDetailPageRoute.name,
+            path: '/article-detail-page')
       ];
 }
 
@@ -250,7 +266,7 @@ class ServiceDetailRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.ServiceBookingPage]
+/// [_i13.ServiceBookingPage]
 class ServiceBookingPageRoute extends _i18.PageRouteInfo<void> {
   const ServiceBookingPageRoute()
       : super(ServiceBookingPageRoute.name, path: '/service-booking-page');
@@ -259,7 +275,16 @@ class ServiceBookingPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.CartPage]
+/// [_i13.CategoriesPage]
+class CategoriesPageRoute extends _i18.PageRouteInfo<void> {
+  const CategoriesPageRoute()
+      : super(CategoriesPageRoute.name, path: '/categories-page');
+
+  static const String name = 'CategoriesPageRoute';
+}
+
+/// generated route for
+/// [_i14.CartPage]
 class CartPageRoute extends _i18.PageRouteInfo<void> {
   const CartPageRoute() : super(CartPageRoute.name, path: '/cart-page');
 
@@ -267,7 +292,7 @@ class CartPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.OrderDetailPage]
+/// [_i15.OrderDetailPage]
 class OrderDetailPageRoute extends _i18.PageRouteInfo<void> {
   const OrderDetailPageRoute()
       : super(OrderDetailPageRoute.name, path: '/order-detail-page');
@@ -276,10 +301,28 @@ class OrderDetailPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.OrderHistoriesPage]
+/// [_i16.OrderHistoriesPage]
 class OrderHistoriesPageRoute extends _i18.PageRouteInfo<void> {
   const OrderHistoriesPageRoute()
       : super(OrderHistoriesPageRoute.name, path: '/order-histories-page');
 
   static const String name = 'OrderHistoriesPageRoute';
+}
+
+/// generated route for
+/// [_i17.ArticlesPage]
+class ArticlesPageRoute extends _i18.PageRouteInfo<void> {
+  const ArticlesPageRoute()
+      : super(ArticlesPageRoute.name, path: '/articles-page');
+
+  static const String name = 'ArticlesPageRoute';
+}
+
+/// generated route for
+/// [_i17.ArticleDetailPage]
+class ArticleDetailPageRoute extends _i18.PageRouteInfo<void> {
+  const ArticleDetailPageRoute()
+      : super(ArticleDetailPageRoute.name, path: '/article-detail-page');
+
+  static const String name = 'ArticleDetailPageRoute';
 }

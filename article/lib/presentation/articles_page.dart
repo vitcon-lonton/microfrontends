@@ -39,9 +39,8 @@ class _ArticlesState extends State<Articles> {
           context.read<ArticlesCubit>()..getArticlesRequested(),
       child: BlocListener<ArticlesCubit, ArticlesState>(
         listener: (context, state) {},
-        child: WScaffold(
-          appBar: const WAppBar(
-              backgroundColor: Colors.white, title: Text('Wish List')),
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Articles')),
           body: BlocBuilder<ArticlesCubit, ArticlesState>(
             buildWhen: (prev, cur) => prev.articles != cur.articles,
             builder: (context, state) {

@@ -33,10 +33,7 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
       child: BlocListener<OrderHistoriesCubit, OrderHistoriesState>(
         listener: (context, state) {},
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: false,
-            title: const Text('Order History'),
-          ),
+          appBar: AppBar(title: const Text('Order History')),
           body: BlocBuilder<OrderHistoriesCubit, OrderHistoriesState>(
             buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
             builder: (context, state) {

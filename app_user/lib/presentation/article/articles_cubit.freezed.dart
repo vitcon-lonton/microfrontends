@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'services_cubit.dart';
+part of 'articles_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,10 +15,10 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$ServicesStateTearOff {
-  const _$ServicesStateTearOff();
+class _$ArticlesStateTearOff {
+  const _$ArticlesStateTearOff();
 
-  _ServicesState call(
+  _ArticlesState call(
       {dynamic page = 1,
       dynamic perPage = 10,
       dynamic pageCount = 1,
@@ -26,8 +26,8 @@ class _$ServicesStateTearOff {
       dynamic status = STATUS_IDLE,
       bool isSubmitting = false,
       bool showErrorMessages = true,
-      required Option<List<Service>> servicesOption}) {
-    return _ServicesState(
+      required Option<List<Article>> articlesOption}) {
+    return _ArticlesState(
       page: page,
       perPage: perPage,
       pageCount: pageCount,
@@ -35,16 +35,16 @@ class _$ServicesStateTearOff {
       status: status,
       isSubmitting: isSubmitting,
       showErrorMessages: showErrorMessages,
-      servicesOption: servicesOption,
+      articlesOption: articlesOption,
     );
   }
 }
 
 /// @nodoc
-const $ServicesState = _$ServicesStateTearOff();
+const $ArticlesState = _$ArticlesStateTearOff();
 
 /// @nodoc
-mixin _$ServicesState {
+mixin _$ArticlesState {
   dynamic get page => throw _privateConstructorUsedError;
   dynamic get perPage => throw _privateConstructorUsedError;
   dynamic get pageCount => throw _privateConstructorUsedError;
@@ -52,19 +52,19 @@ mixin _$ServicesState {
   dynamic get status => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  Option<List<Service>> get servicesOption =>
+  Option<List<Article>> get articlesOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ServicesStateCopyWith<ServicesState> get copyWith =>
+  $ArticlesStateCopyWith<ArticlesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ServicesStateCopyWith<$Res> {
-  factory $ServicesStateCopyWith(
-          ServicesState value, $Res Function(ServicesState) then) =
-      _$ServicesStateCopyWithImpl<$Res>;
+abstract class $ArticlesStateCopyWith<$Res> {
+  factory $ArticlesStateCopyWith(
+          ArticlesState value, $Res Function(ArticlesState) then) =
+      _$ArticlesStateCopyWithImpl<$Res>;
   $Res call(
       {dynamic page,
       dynamic perPage,
@@ -73,17 +73,17 @@ abstract class $ServicesStateCopyWith<$Res> {
       dynamic status,
       bool isSubmitting,
       bool showErrorMessages,
-      Option<List<Service>> servicesOption});
+      Option<List<Article>> articlesOption});
 }
 
 /// @nodoc
-class _$ServicesStateCopyWithImpl<$Res>
-    implements $ServicesStateCopyWith<$Res> {
-  _$ServicesStateCopyWithImpl(this._value, this._then);
+class _$ArticlesStateCopyWithImpl<$Res>
+    implements $ArticlesStateCopyWith<$Res> {
+  _$ArticlesStateCopyWithImpl(this._value, this._then);
 
-  final ServicesState _value;
+  final ArticlesState _value;
   // ignore: unused_field
-  final $Res Function(ServicesState) _then;
+  final $Res Function(ArticlesState) _then;
 
   @override
   $Res call({
@@ -94,7 +94,7 @@ class _$ServicesStateCopyWithImpl<$Res>
     Object? status = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? servicesOption = freezed,
+    Object? articlesOption = freezed,
   }) {
     return _then(_value.copyWith(
       page: page == freezed
@@ -125,20 +125,20 @@ class _$ServicesStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      servicesOption: servicesOption == freezed
-          ? _value.servicesOption
-          : servicesOption // ignore: cast_nullable_to_non_nullable
-              as Option<List<Service>>,
+      articlesOption: articlesOption == freezed
+          ? _value.articlesOption
+          : articlesOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Article>>,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$ServicesStateCopyWith<$Res>
-    implements $ServicesStateCopyWith<$Res> {
-  factory _$ServicesStateCopyWith(
-          _ServicesState value, $Res Function(_ServicesState) then) =
-      __$ServicesStateCopyWithImpl<$Res>;
+abstract class _$ArticlesStateCopyWith<$Res>
+    implements $ArticlesStateCopyWith<$Res> {
+  factory _$ArticlesStateCopyWith(
+          _ArticlesState value, $Res Function(_ArticlesState) then) =
+      __$ArticlesStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {dynamic page,
@@ -148,19 +148,19 @@ abstract class _$ServicesStateCopyWith<$Res>
       dynamic status,
       bool isSubmitting,
       bool showErrorMessages,
-      Option<List<Service>> servicesOption});
+      Option<List<Article>> articlesOption});
 }
 
 /// @nodoc
-class __$ServicesStateCopyWithImpl<$Res>
-    extends _$ServicesStateCopyWithImpl<$Res>
-    implements _$ServicesStateCopyWith<$Res> {
-  __$ServicesStateCopyWithImpl(
-      _ServicesState _value, $Res Function(_ServicesState) _then)
-      : super(_value, (v) => _then(v as _ServicesState));
+class __$ArticlesStateCopyWithImpl<$Res>
+    extends _$ArticlesStateCopyWithImpl<$Res>
+    implements _$ArticlesStateCopyWith<$Res> {
+  __$ArticlesStateCopyWithImpl(
+      _ArticlesState _value, $Res Function(_ArticlesState) _then)
+      : super(_value, (v) => _then(v as _ArticlesState));
 
   @override
-  _ServicesState get _value => super._value as _ServicesState;
+  _ArticlesState get _value => super._value as _ArticlesState;
 
   @override
   $Res call({
@@ -171,9 +171,9 @@ class __$ServicesStateCopyWithImpl<$Res>
     Object? status = freezed,
     Object? isSubmitting = freezed,
     Object? showErrorMessages = freezed,
-    Object? servicesOption = freezed,
+    Object? articlesOption = freezed,
   }) {
-    return _then(_ServicesState(
+    return _then(_ArticlesState(
       page: page == freezed ? _value.page : page,
       perPage: perPage == freezed ? _value.perPage : perPage,
       pageCount: pageCount == freezed ? _value.pageCount : pageCount,
@@ -187,18 +187,18 @@ class __$ServicesStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      servicesOption: servicesOption == freezed
-          ? _value.servicesOption
-          : servicesOption // ignore: cast_nullable_to_non_nullable
-              as Option<List<Service>>,
+      articlesOption: articlesOption == freezed
+          ? _value.articlesOption
+          : articlesOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Article>>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_ServicesState extends _ServicesState {
-  _$_ServicesState(
+class _$_ArticlesState extends _ArticlesState with DiagnosticableTreeMixin {
+  _$_ArticlesState(
       {this.page = 1,
       this.perPage = 10,
       this.pageCount = 1,
@@ -206,7 +206,7 @@ class _$_ServicesState extends _ServicesState {
       this.status = STATUS_IDLE,
       this.isSubmitting = false,
       this.showErrorMessages = true,
-      required this.servicesOption})
+      required this.articlesOption})
       : super._();
 
   @JsonKey()
@@ -231,18 +231,33 @@ class _$_ServicesState extends _ServicesState {
   @override
   final bool showErrorMessages;
   @override
-  final Option<List<Service>> servicesOption;
+  final Option<List<Article>> articlesOption;
 
   @override
-  String toString() {
-    return 'ServicesState(page: $page, perPage: $perPage, pageCount: $pageCount, totalCount: $totalCount, status: $status, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, servicesOption: $servicesOption)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ArticlesState(page: $page, perPage: $perPage, pageCount: $pageCount, totalCount: $totalCount, status: $status, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, articlesOption: $articlesOption)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ArticlesState'))
+      ..add(DiagnosticsProperty('page', page))
+      ..add(DiagnosticsProperty('perPage', perPage))
+      ..add(DiagnosticsProperty('pageCount', pageCount))
+      ..add(DiagnosticsProperty('totalCount', totalCount))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
+      ..add(DiagnosticsProperty('showErrorMessages', showErrorMessages))
+      ..add(DiagnosticsProperty('articlesOption', articlesOption));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ServicesState &&
+            other is _ArticlesState &&
             const DeepCollectionEquality().equals(other.page, page) &&
             const DeepCollectionEquality().equals(other.perPage, perPage) &&
             const DeepCollectionEquality().equals(other.pageCount, pageCount) &&
@@ -254,7 +269,7 @@ class _$_ServicesState extends _ServicesState {
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality()
-                .equals(other.servicesOption, servicesOption));
+                .equals(other.articlesOption, articlesOption));
   }
 
   @override
@@ -267,16 +282,16 @@ class _$_ServicesState extends _ServicesState {
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(showErrorMessages),
-      const DeepCollectionEquality().hash(servicesOption));
+      const DeepCollectionEquality().hash(articlesOption));
 
   @JsonKey(ignore: true)
   @override
-  _$ServicesStateCopyWith<_ServicesState> get copyWith =>
-      __$ServicesStateCopyWithImpl<_ServicesState>(this, _$identity);
+  _$ArticlesStateCopyWith<_ArticlesState> get copyWith =>
+      __$ArticlesStateCopyWithImpl<_ArticlesState>(this, _$identity);
 }
 
-abstract class _ServicesState extends ServicesState {
-  factory _ServicesState(
+abstract class _ArticlesState extends ArticlesState {
+  factory _ArticlesState(
       {dynamic page,
       dynamic perPage,
       dynamic pageCount,
@@ -284,8 +299,8 @@ abstract class _ServicesState extends ServicesState {
       dynamic status,
       bool isSubmitting,
       bool showErrorMessages,
-      required Option<List<Service>> servicesOption}) = _$_ServicesState;
-  _ServicesState._() : super._();
+      required Option<List<Article>> articlesOption}) = _$_ArticlesState;
+  _ArticlesState._() : super._();
 
   @override
   dynamic get page;
@@ -302,9 +317,9 @@ abstract class _ServicesState extends ServicesState {
   @override
   bool get showErrorMessages;
   @override
-  Option<List<Service>> get servicesOption;
+  Option<List<Article>> get articlesOption;
   @override
   @JsonKey(ignore: true)
-  _$ServicesStateCopyWith<_ServicesState> get copyWith =>
+  _$ArticlesStateCopyWith<_ArticlesState> get copyWith =>
       throw _privateConstructorUsedError;
 }

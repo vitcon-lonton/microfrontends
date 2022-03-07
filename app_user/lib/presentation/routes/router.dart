@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 
+import '../article/article.dart';
 import '../booking/cart/cart.dart';
 import '../booking/order_detail/order_detail.dart';
 import '../booking/order_histories/order_histories.dart';
 import '../home/home.dart';
 import '../notifications/notifications.dart';
-import '../service/service_booking/service_booking_page.dart';
-import '../service/service_detail/service_detail.dart';
+import '../service/service.dart';
 import '../settings/settings_page.dart';
 import '../user/favorites/favorites.dart';
 import '../user/otp_confirm/otp_confirm.dart';
@@ -45,10 +45,15 @@ import '../user/user_update/user_update.dart';
   // SERVICE
   MaterialRoute(page: ServiceDetail),
   MaterialRoute(page: ServiceBookingPage),
+  MaterialRoute(page: CategoriesPage),
 
   // BOOKING
   MaterialRoute(page: CartPage),
   MaterialRoute(page: OrderDetailPage),
   MaterialRoute(page: OrderHistoriesPage),
+
+  // ARTICLES
+  MaterialRoute(page: ArticlesPage),
+  MaterialRoute(page: ArticleDetailPage),
 ])
 class $Router {}
