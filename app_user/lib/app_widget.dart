@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_user/presentation/routes/router.gr.dart' as app_router;
 
-import 'injection.dart';
+import 'injection.dart' show getIt;
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -20,11 +20,16 @@ class AppWidget extends StatelessWidget {
         )
       ],
       child: MaterialApp.router(
+        title: 'Flutter Demo',
         routeInformationParser: _appRouter.defaultRouteParser(),
         routerDelegate: _appRouter.delegate(
-          initialRoutes: [const app_router.SignInPageRoute()],
+          initialRoutes: [
+            // const app_router.ServiceBookingPageRoute(),
+            const app_router.HomePageRoute(),
+            // const app_router.HomePageRoute(),
+            // const app_router.SignInPageRoute(),
+          ],
         ),
-        title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(
           primaryColor: Colors.green[800],

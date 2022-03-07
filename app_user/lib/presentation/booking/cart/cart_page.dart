@@ -17,7 +17,7 @@ class _OrderHistoriesPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CartCubit>(
-      create: (context) => context.read<CartCubit>()..getCartRequested(),
+      create: (context) => getIt<CartCubit>()..getCartRequested(),
       child: MultiBlocListener(
         // LISTENERS
         listeners: [
@@ -83,6 +83,10 @@ class _OrderHistoriesPageState extends State<CartPage> {
                 return RefreshLoadmore(
                   isLastPage: true,
                   onRefresh: _onRefresh,
+                  // onRefresh: () async {
+                  //   context.read<CartCubit>().refreshRequested();
+                  //   await context.read<CartCubit>().getCartRequested();
+                  // },
                   noMoreWidget: kSpaceZero,
                   child: Column(children: [
                     // ADDRESS
@@ -149,9 +153,8 @@ class _OrderHistoriesPageState extends State<CartPage> {
 
             // FLOATING ACTION
             floatingActionButton: BlocBuilder<CartCubit, CartState>(
-                builder: (_, state) => IconButton(
-                    color: Colors.blue.shade600,
-                    icon: state.isAdding
+                builder: (context, state) => FloatingActionButton(
+                    child: state.isAdding
                         ? const CircularProgressIndicator()
                         : const Icon(Icons.add),
                     onPressed: state.isAdding
@@ -161,7 +164,7 @@ class _OrderHistoriesPageState extends State<CartPage> {
 
             // BOTTOM NAVIGATION_BAR
             bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
-                builder: (_, state) {
+                builder: (context, state) {
                   final isSubmitAvailable = state.isSubmitAvailable;
                   final title = isSubmitAvailable ? 'SEND REQUEST' : '...';
 
