@@ -25,9 +25,9 @@ class OrderHistoriesState with _$OrderHistoriesState {
   bool get isLastPage => page == pageCount;
 
   List<Order> get orders {
-    return ordersOption.foldRight(<Order>[], (orders, prev) {
+    return List.of(ordersOption.foldRight(<Order>[], (orders, prev) {
       return orders;
-    });
+    }));
   }
 
   OrderHistoriesState busy() => copyWith(status: STATUS_BUSY);

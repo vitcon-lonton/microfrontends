@@ -26,6 +26,7 @@ class AppWidget extends StatelessWidget {
         routerDelegate: _appRouter.delegate(
           initialRoutes: [
             const app_router.HomePageRoute(),
+            // const app_router.OrderHistoriesPageRoute(),
             // const app_router.FavoritesPageRoute(),
             // const app_router.UserUpdatePageRoute(),
             // const app_router.PasswordChangePageRoute(),

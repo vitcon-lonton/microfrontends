@@ -35,14 +35,23 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
         child: Scaffold(
           appBar: AppBar(title: const Text('Order History')),
           body: BlocBuilder<OrderHistoriesCubit, OrderHistoriesState>(
-            buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
+            buildWhen: (prev, cur) => prev.orders != cur.orders,
             builder: (context, state) {
-              final orders = state.ordersOption
-                  .foldRight(<Order>[], (orders, previous) => orders);
+              final orders = state.orders;
 
               return RefreshLoadmore(
                 // onRefresh: _onRefresh,
                 // onLoadmore: _onLoadMore,
+                isLastPage: state.isLastPage,
+                noMoreWidget: Text('No more data, you are at the end',
+                    style: TextStyle(color: Theme.of(context).disabledColor)),
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: orders.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (_, index) => const Divider(height: 0),
+                  itemBuilder: (_, index) => OrderTile(order: orders[index]),
+                ),
                 onRefresh: () async {
                   context.read<OrderHistoriesCubit>().refreshRequested();
                   await context
@@ -64,16 +73,6 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
                       .read<OrderHistoriesCubit>()
                       .getOrdersRequested();
                 },
-                isLastPage: state.isLastPage,
-                noMoreWidget: Text('No more data, you are at the end',
-                    style: TextStyle(color: Theme.of(context).disabledColor)),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: orders.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (_, index) => const Divider(height: 0),
-                  itemBuilder: (_, index) => OrderTile(order: orders[index]),
-                ),
               );
             },
           ),
