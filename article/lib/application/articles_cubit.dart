@@ -50,12 +50,14 @@ class ArticlesCubit extends Cubit<ArticlesState> {
 
     final result = await _getArticles();
 
-    result.fold(() {}, (newArticles) {
-      final currentArticles = state.articles;
+    result.fold(() {}, (articles) {
+      final newArticles = state.articles
+        ..addAll(articles)
+        ..addAll(articles)
+        ..addAll(articles)
+        ..addAll(articles);
 
-      emit(state.copyWith(
-        articlesOption: optionOf(currentArticles..addAll(newArticles)),
-      ));
+      emit(state.copyWith(articlesOption: optionOf(newArticles)));
     });
 
     emit(state.copyWith(isSubmitting: false));

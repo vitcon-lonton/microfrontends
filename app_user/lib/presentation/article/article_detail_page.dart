@@ -1,6 +1,4 @@
-import 'package:article/data/data.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+part of 'article.dart';
 
 class ArticleDetailPage extends StatelessWidget {
   final Article article;

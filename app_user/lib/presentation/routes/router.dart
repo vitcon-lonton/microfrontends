@@ -7,7 +7,7 @@ import '../booking/order_histories/order_histories.dart';
 import '../home/home.dart';
 import '../notifications/notifications.dart';
 import '../service/service.dart';
-import '../settings/settings_page.dart';
+import '../setting/setting.dart';
 import '../user/favorites/favorites.dart';
 import '../user/otp_confirm/otp_confirm.dart';
 import '../user/password_change/password_change.dart';
@@ -46,6 +46,7 @@ import '../user/user_update/user_update.dart';
     MaterialRoute(page: ServiceDetail),
     MaterialRoute(page: ServiceBookingPage),
     MaterialRoute(page: CategoriesPage),
+    MaterialRoute(page: ServicesPage),
 
     // BOOKING
     MaterialRoute(page: CartPage),

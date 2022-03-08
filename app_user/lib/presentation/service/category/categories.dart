@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:service/service.dart';
-import 'package:theme_manager/theme_manager.dart';
+part of 'category.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
@@ -24,27 +21,15 @@ class Categories extends StatelessWidget {
             if (isSubmitting) return const LinearProgressIndicator();
 
             return SizedBox(
-              height: 130,
+              height: 125,
               child: ListView.separated(
                 itemCount: catalogues.length,
-                separatorBuilder: (_, i) => kSpaceZero,
+                // separatorBuilder: (_, i) => kSpaceZero,
+                separatorBuilder: (_, i) => kHSpaceM,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  final name = catalogues[index].name ?? '';
-
-                  return InkWell(
-                    onTap: () {},
-                    child: SizedBox.square(
-                      dimension: 130,
-                      child: Column(children: [
-                        const Icon(Icons.category_outlined),
-                        kVSpaceM,
-                        Text(name,
-                            maxLines: 2,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis),
-                      ], mainAxisAlignment: MainAxisAlignment.center),
-                    ),
+                  return CategoryTile(
+                    catalogue: catalogues[index],
                   );
                 },
               ),

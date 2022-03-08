@@ -1,20 +1,15 @@
-import 'package:article/article.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:refresh_loadmore/refresh_loadmore.dart';
-import 'package:theme_manager/theme_manager.dart';
-import 'package:app_user/presentation/routes/router.gr.dart';
-import 'article_tile.dart';
+part of 'article.dart';
 
 class Articles extends StatefulWidget {
   final bool isPagination;
+  final EdgeInsets padding;
   final Axis scrollDirection;
 
   const Articles({
     Key? key,
     this.isPagination = true,
     this.scrollDirection = Axis.vertical,
+    this.padding = const EdgeInsets.symmetric(horizontal: kSpaceM),
   }) : super(key: key);
 
   @override
@@ -51,34 +46,15 @@ class _ArticlesState extends State<Articles> {
 
           if (!widget.isPagination) {
             return ListView.separated(
+              padding: widget.padding,
               itemCount: articles.length,
+              separatorBuilder: (_, i) => kHSpaceM,
               scrollDirection: widget.scrollDirection,
-              separatorBuilder: (_, i) => kSpaceZero,
               itemBuilder: (context, index) {
-                final article = articles[index];
-                final name = article.title ?? '';
-
-                return InkWell(
-                  onTap: () {
-                    context.router
-                        .push(ArticleDetailPageRoute(article: article));
-                  },
-                  child: SizedBox.square(
-                    dimension: 130,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.category_outlined),
-                        kVSpaceM,
-                        Text(
-                          name,
-                          maxLines: 2,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ),
+                return SizedBox(
+                  width: 130,
+                  height: 90,
+                  child: ArticleTile(article: articles[index]),
                 );
               },
             );
@@ -92,15 +68,19 @@ class _ArticlesState extends State<Articles> {
               shrinkWrap: true,
               itemCount: articles.length,
               scrollDirection: widget.scrollDirection,
+              separatorBuilder: (_, index) => kVSpaceM,
               physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (_, index) => const Divider(height: 0),
-              itemBuilder: (_, index) => ArticleTile(
-                article: articles[index],
-                onTap: () {
-                  context.router
-                      .push(ArticleDetailPageRoute(article: articles[index]));
-                },
-              ),
+              padding: widget.padding,
+              itemBuilder: (_, index) {
+                return SizedBox(
+                  height: 180,
+                  width: double.infinity,
+                  child: ArticleTile(
+                    article: articles[index],
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                );
+              },
             ),
           );
         },

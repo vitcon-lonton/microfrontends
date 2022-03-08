@@ -12,9 +12,14 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Sign In')),
-        body: BlocProvider(
-            child: const SignInForm(),
-            create: (context) => getIt<SignInFormBloc>()));
+      appBar: AppBar(title: const Text('Sign In')),
+      body: BlocProvider(
+        child: const SignInForm(),
+        // create: (context) => getIt<SignInFormBloc>(),
+        create: (context) => getIt<SignInFormBloc>()
+          ..add(const SignInFormEvent.passwordChanged('0909090909'))
+          ..add(const SignInFormEvent.phoneChanged('123123')),
+      ),
+    );
   }
 }

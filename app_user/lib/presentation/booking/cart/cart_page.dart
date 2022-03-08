@@ -73,112 +73,95 @@ class _OrderHistoriesPageState extends State<CartPage> {
 
         // CHILD
         child: Scaffold(
+          // BODY
+          body: BlocBuilder<CartCubit, CartState>(
+            buildWhen: (prev, cur) => prev.items != cur.items,
+            builder: (context, state) {
+              final items = state.items;
 
-            // BODY
-            body: BlocBuilder<CartCubit, CartState>(
-              buildWhen: (prev, cur) => prev.items != cur.items,
-              builder: (context, state) {
-                final items = state.items;
+              return RefreshLoadmore(
+                isLastPage: true,
+                onRefresh: _onRefresh,
+                // onRefresh: () async {
+                //   context.read<CartCubit>().refreshRequested();
+                //   await context.read<CartCubit>().getCartRequested();
+                // },
+                noMoreWidget: kSpaceZero,
+                child: Column(children: [
+                  // ADDRESS
+                  ...[
+                    kVSpaceS,
+                    Row(children: [
+                      kHSpaceM,
+                      const Text('Address'),
+                      const Spacer(),
+                      Link(text: 'Edit', onTap: () {}),
+                      kHSpaceM,
+                    ]),
+                    kVSpaceS,
+                    Row(children: [
+                      kHSpaceM,
+                      Icon(Icons.location_on,
+                          color: Theme.of(context).primaryColor),
+                      kHSpaceXS,
+                      const Expanded(
+                        child: Text(
+                            '261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                      kHSpaceM,
+                    ]),
+                  ],
 
-                return RefreshLoadmore(
-                  isLastPage: true,
-                  onRefresh: _onRefresh,
-                  // onRefresh: () async {
-                  //   context.read<CartCubit>().refreshRequested();
-                  //   await context.read<CartCubit>().getCartRequested();
-                  // },
-                  noMoreWidget: kSpaceZero,
-                  child: Column(children: [
-                    // ADDRESS
-                    ...[
-                      kVSpaceS,
-                      Row(children: [
-                        kHSpaceM,
-                        const Text('Address'),
-                        const Spacer(),
-                        Link(text: 'Edit', onTap: () {}),
-                        kHSpaceM,
-                      ]),
-                      kVSpaceS,
-                      Row(children: [
-                        kHSpaceL,
-                        kHSpaceXXL,
-                        Expanded(
-                          child: Text(
-                              '261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City',
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.headline6),
-                        ),
-                        kHSpaceXXL,
-                        kHSpaceL,
-                      ]),
-                    ],
+                  // LIST CART ITEM
+                  ...[
+                    kVSpaceL,
+                    const Divider(height: 8, thickness: 8),
+                    kVSpaceM,
+                    Row(children: const [kHSpaceM, Text('Detail'), kHSpaceM]),
+                    kVSpaceS,
+                    ListView.separated(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: kSpaceM),
+                        shrinkWrap: true,
+                        itemCount: items.length,
+                        itemBuilder: (_, index) =>
+                            CartItemTile(item: items[index]),
+                        separatorBuilder: (_, index) => kVSpaceXS,
+                        physics: const NeverScrollableScrollPhysics()),
+                  ],
 
-                    // LIST CART ITEM
-                    ...[
-                      kVSpaceL,
-                      const Divider(height: 0),
-                      kVSpaceM,
-                      Row(children: const [kHSpaceM, Text('Detail'), kHSpaceM]),
-                      kVSpaceS,
-                      ListView.separated(
-                          shrinkWrap: true,
-                          itemCount: items.length,
-                          itemBuilder: (_, index) =>
-                              CartItemTile(item: items[index]),
-                          separatorBuilder: (_, index) =>
-                              const Divider(height: 0),
-                          physics: const NeverScrollableScrollPhysics()),
-                      const Divider(height: 0),
-                    ],
+                  // NOTE
+                  ...[
+                    kVSpaceL,
+                    const Padding(
+                        child: CartNote(),
+                        padding: EdgeInsets.symmetric(horizontal: kSpaceM)),
+                    kVSpaceL,
+                  ],
+                ]),
+              );
+            },
+          ),
 
-                    // NOTE
-                    ...[
-                      kVSpaceXL,
-                      const Divider(height: 0),
-                      kVSpaceL,
-                      const Padding(
-                          child: Text(
-                              'Đây là yêu cầu báo giá, sau khi gửi yêu cầu, nhân viên tư vấn sẽ liên hệ chốt giá và lựa chọn kỹ thuật viên phù hợp sau cho từng dịch vụ'),
-                          padding: EdgeInsets.symmetric(horizontal: kSpaceXL)),
-                      kVSpaceL,
-                      const Divider(height: 0),
-                    ],
-                  ]),
-                );
-              },
-            ),
+          // FLOATING ACTION
+          floatingActionButton: BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) => FloatingActionButton(
+                  child: state.isAdding
+                      ? const CircularProgressIndicator()
+                      : const Icon(Icons.add),
+                  onPressed: state.isAdding
+                      ? null
+                      : context.read<CartCubit>().addItemRequested),
+              buildWhen: (prev, cur) => prev.isAdding != cur.isAdding),
 
-            // FLOATING ACTION
-            floatingActionButton: BlocBuilder<CartCubit, CartState>(
-                builder: (context, state) => FloatingActionButton(
-                    child: state.isAdding
-                        ? const CircularProgressIndicator()
-                        : const Icon(Icons.add),
-                    onPressed: state.isAdding
-                        ? null
-                        : context.read<CartCubit>().addItemRequested),
-                buildWhen: (prev, cur) => prev.isAdding != cur.isAdding),
+          // BOTTOM NAVIGATION_BAR
+          bottomNavigationBar: const CartRequestBtn(),
 
-            // BOTTOM NAVIGATION_BAR
-            bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
-                builder: (context, state) {
-                  final isSubmitAvailable = state.isSubmitAvailable;
-                  final title = isSubmitAvailable ? 'SEND REQUEST' : '...';
-
-                  return BottomNav.submit(
-                      child: Text(title),
-                      onPressed: isSubmitAvailable
-                          ? context.read<CartCubit>().submitBookingRequested
-                          : null);
-                },
-                buildWhen: (prev, cur) =>
-                    prev.isSubmitAvailable != cur.isSubmitAvailable),
-
-            // APP_BAR
-            appBar: AppBar(title: const Text('My Cart'))),
+          // APP_BAR
+          appBar: AppBar(title: const Text('My Cart')),
+        ),
       ),
     );
   }

@@ -21,7 +21,7 @@ import '../booking/order_histories/order_histories.dart' as _i16;
 import '../home/home.dart' as _i1;
 import '../notifications/notifications.dart' as _i12;
 import '../service/service.dart' as _i13;
-import '../settings/settings_page.dart' as _i11;
+import '../setting/setting.dart' as _i11;
 import '../user/favorites/favorites.dart' as _i2;
 import '../user/otp_confirm/otp_confirm.dart' as _i3;
 import '../user/password_change/password_change.dart' as _i4;
@@ -98,6 +98,10 @@ class Router extends _i18.RootStackRouter {
       return _i18.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i13.CategoriesPage());
     },
+    ServicesPageRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i13.ServicesPage());
+    },
     CartPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i14.CartPage());
@@ -144,6 +148,7 @@ class Router extends _i18.RootStackRouter {
         _i18.RouteConfig(ServiceBookingPageRoute.name,
             path: '/service-booking-page'),
         _i18.RouteConfig(CategoriesPageRoute.name, path: '/categories-page'),
+        _i18.RouteConfig(ServicesPageRoute.name, path: '/services-page'),
         _i18.RouteConfig(CartPageRoute.name, path: '/cart-page'),
         _i18.RouteConfig(OrderDetailPageRoute.name, path: '/order-detail-page'),
         _i18.RouteConfig(OrderHistoriesPageRoute.name,
@@ -284,6 +289,15 @@ class CategoriesPageRoute extends _i18.PageRouteInfo<void> {
       : super(CategoriesPageRoute.name, path: '/categories-page');
 
   static const String name = 'CategoriesPageRoute';
+}
+
+/// generated route for
+/// [_i13.ServicesPage]
+class ServicesPageRoute extends _i18.PageRouteInfo<void> {
+  const ServicesPageRoute()
+      : super(ServicesPageRoute.name, path: '/services-page');
+
+  static const String name = 'ServicesPageRoute';
 }
 
 /// generated route for

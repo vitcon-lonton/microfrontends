@@ -61,16 +61,11 @@ class SignInForm extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(8),
             children: [
-              const Text(
-                '📝',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 130),
-              ),
               const SizedBox(height: 8),
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'Phone',
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(Icons.phone),
                 ),
                 autocorrect: false,
                 onChanged: (value) => context
@@ -165,7 +160,7 @@ class SignInForm extends StatelessWidget {
               BlocBuilder<SignInFormBloc, SignInFormState>(
                 buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
                 builder: (context, state) => WSubmitBtn(
-                  child: Text(state.isSubmitting ? '...' : 'SIGN UP'),
+                  child: Text(state.isSubmitting ? '...' : 'LOGIN'),
                   onPressed: !state.isSubmitting
                       ? () => context.read<SignInFormBloc>().add(
                             const SignInFormEvent
@@ -173,28 +168,6 @@ class SignInForm extends StatelessWidget {
                           )
                       : null,
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        context.read<SignInFormBloc>().add(const SignInFormEvent
-                            .signInWithPhoneAndPasswordPressed());
-                      },
-                      child: const Text('SIGN IN'),
-                    ),
-                  ),
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        context.read<SignInFormBloc>().add(const SignInFormEvent
-                            .registerWithPhoneAndPasswordPressed());
-                      },
-                      child: const Text('REGISTER'),
-                    ),
-                  ),
-                ],
               ),
               if (state.isSubmitting) ...[
                 const SizedBox(height: 8),

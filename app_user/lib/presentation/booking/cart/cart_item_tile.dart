@@ -11,48 +11,60 @@ class CartItemTile extends StatelessWidget {
     final price = '${item.price} VND';
     final time = item.time.toIso8601String();
 
-    return DefaultTextStyle(
+    return InkWell(
+      // onTap: () {},
+      borderRadius: BorderRadius.circular(4),
       child: Ink(
-          padding:
-              const EdgeInsets.symmetric(vertical: kSpaceM, horizontal: kSpaceM)
-                  .copyWith(left: 0),
-          child: Column(children: [
-            Row(children: [
-              Column(children: [
-                IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () =>
-                        context.read<CartCubit>().removeItemRequested(item.id))
-              ]),
-              kHSpaceM,
-              Expanded(
-                  child: Column(children: [
-                Text(name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: 16)),
-                kVSpaceS,
-                Text(time),
-                kVSpaceS,
-                Text(time),
-              ], crossAxisAlignment: CrossAxisAlignment.start)),
-              kHSpaceM,
-              Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                Link(text: 'Change', onTap: () {}),
-                kVSpaceS,
-                Text(price,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: Colors.green.shade900))
-              ])
-            ]),
-            kVSpaceS,
-          ], crossAxisAlignment: CrossAxisAlignment.start)),
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: Theme.of(context).textTheme.titleSmall!,
+        color: const Color(0xFFF7F8FA),
+        child: DefaultTextStyle(
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.titleSmall!,
+          child: Row(children: [
+            SizedBox.square(
+              dimension: 90,
+              child: Icon(Icons.article_outlined,
+                  color: Theme.of(context).primaryColor),
+            ),
+            kHSpaceM,
+            Expanded(
+              child: Column(children: [
+                Row(children: [
+                  Expanded(child: Text(name)),
+                  IconButton(
+                    onPressed: () {},
+                    iconSize: 12,
+                    icon: const Icon(Icons.edit),
+                    padding: const EdgeInsets.all(0.0),
+                  ),
+                  IconButton(
+                    iconSize: 12,
+                    padding: const EdgeInsets.all(0.0),
+                    icon: const Icon(Icons.cancel),
+                    onPressed: () {
+                      context.read<CartCubit>().removeItemRequested(item.id);
+                    },
+                  )
+                  // Text(time),
+                ]),
+                Text(price),
+                kVSpaceXS,
+                Row(children: [
+                  const Icon(Icons.history_toggle_off_rounded, size: 14),
+                  kHSpaceXXS,
+                  Text(time),
+                ]),
+                kVSpaceXS,
+              ], crossAxisAlignment: CrossAxisAlignment.start),
+            ),
+            // kHSpaceS,
+          ], crossAxisAlignment: CrossAxisAlignment.start),
+        ),
+      ),
     );
   }
 }
+// IconButton(
+// icon: const Icon(Icons.close),
+// onPressed: () =>
+//     context.read<CartCubit>().removeItemRequested(item.id))

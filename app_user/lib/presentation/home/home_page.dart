@@ -16,20 +16,27 @@ class _HomePageState extends State<HomePage> {
         child: Column(children: [
           // BANNER
           ...[
-            SizedBox(
-                height: 300,
-                width: double.infinity,
-                child: Container(
-                    child: const Icon(Icons.abc_rounded),
-                    color: Theme.of(context).colorScheme.primary)),
+            Padding(
+              padding: const EdgeInsets.all(kSpaceM),
+              child: SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  child: Container(
+                      child: const Icon(Icons.abc_rounded),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Theme.of(context).primaryColor))),
+            ),
           ],
 
           // BLOGS
           ...[
-            kVSpaceL,
+            const Divider(height: 8.0, thickness: 8.0),
+            kVSpaceM,
             _title('Blogs', onTapSeeMore: () {
               context.router.push(const ArticlesPageRoute());
             }),
+            kVSpaceM,
             BlocProvider(
               create: (_) => getIt<ArticlesCubit>(),
               child: const SizedBox(
@@ -40,23 +47,26 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            kVSpaceM,
           ],
 
           // CATEGORIES
           ...[
-            kVSpaceL,
-            _title('Categories', onTapSeeMore: () {
-              context.router.push(const CategoriesPageRoute());
-            }),
+            const Divider(height: 8.0, thickness: 8.0),
+            kVSpaceM,
+            _title('Categories'),
+            kVSpaceM,
             BlocProvider(
               child: const Categories(),
               create: (_) => getIt<CategoriesCubit>(),
             ),
+            kVSpaceM,
           ],
 
           // SERVICES
           ...[
-            kVSpaceL,
+            const Divider(height: 8.0, thickness: 8.0),
+            kVSpaceM,
             BlocProvider(
               create: (_) => getIt<ServicesCubit>(),
               child: Services(
@@ -65,11 +75,13 @@ class _HomePageState extends State<HomePage> {
                     context.router.push(const ServiceBookingPageRoute()),
               ),
             ),
+            kVSpaceM,
           ],
 
           // SERVICES
           ...[
-            kVSpaceL,
+            const Divider(height: 8.0, thickness: 8.0),
+            kVSpaceM,
             BlocProvider(
               create: (_) => getIt<ServicesCubit>(),
               child: Services(
@@ -78,6 +90,8 @@ class _HomePageState extends State<HomePage> {
                     context.router.push(const ServiceBookingPageRoute()),
               ),
             ),
+            kVSpaceM,
+            kVSpaceL,
           ],
         ]),
       ),

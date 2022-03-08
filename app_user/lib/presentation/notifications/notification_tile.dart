@@ -23,7 +23,7 @@ class NotificationTile extends StatelessWidget {
             kHSpaceS,
             Padding(
                 child: Icon(Icons.article_outlined,
-                    color: Theme.of(context).colorScheme.primary),
+                    color: Theme.of(context).primaryColor),
                 padding: const EdgeInsets.only(top: 8.0)),
             kHSpaceM,
             Expanded(
