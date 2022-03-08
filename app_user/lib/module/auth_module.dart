@@ -1,9 +1,12 @@
-import 'package:auth/auth.dart';
-
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:app_user/auth/auth.dart';
 
 @module
 abstract class AuthModule {
+  @LazySingleton()
+  AccountApi api(Dio dio) => AccountApi(dio);
+
   @Injectable()
   AuthBloc get authBloc;
 
