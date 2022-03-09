@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_user/presentation/routes/router.gr.dart' as app_router;
-import 'auth/auth.dart';
 import 'injection.dart' show getIt;
+import 'module/auth/auth.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);

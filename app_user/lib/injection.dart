@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postman_dio/postman_dio.dart';
 
-import 'auth/auth.dart';
 import 'injection.config.dart';
+import 'module/auth/auth.dart';
 
 final GetIt getIt = GetIt.instance;
 

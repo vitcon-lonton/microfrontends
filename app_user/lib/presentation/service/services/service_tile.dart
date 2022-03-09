@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:service/domain/domain.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:app_user/presentation/routes/router.gr.dart';
+import 'package:app_user/module/service/service.dart';
 
 class ServiceTile extends StatelessWidget {
   final Service service;

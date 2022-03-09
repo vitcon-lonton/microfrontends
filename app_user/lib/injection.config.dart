@@ -10,14 +10,14 @@ import 'package:dio/dio.dart' as _i3;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:service/service.dart' as _i8;
 
-import 'auth/auth.dart' as _i6;
 import 'module/article_module.dart' as _i12;
+import 'module/auth/auth.dart' as _i6;
 import 'module/auth_module.dart' as _i11;
 import 'module/booking_module.dart' as _i10;
 import 'module/core_injectable_module.dart' as _i9;
 import 'module/notification_module.dart' as _i14;
+import 'module/service/service.dart' as _i8;
 import 'module/service_module.dart'
     as _i13; // ignore_for_file: unnecessary_lambdas
 

@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
-
-import 'package:service/service.dart';
+import 'package:app_user/module/service/service.dart';
 
 class ServiceBookingForm extends StatefulWidget {
   const ServiceBookingForm({Key? key}) : super(key: key);

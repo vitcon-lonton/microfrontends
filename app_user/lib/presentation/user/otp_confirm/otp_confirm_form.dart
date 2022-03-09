@@ -5,9 +5,12 @@ class OtpConfirmForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final validateMode = context.read<OtpConfirmCubit>().state.showErrorMessages
-        ? AutovalidateMode.always
-        : AutovalidateMode.disabled;
+    final AutovalidateMode validateMode;
+    if (context.read<OtpConfirmCubit>().state.showErrorMessages) {
+      validateMode = AutovalidateMode.always;
+    } else {
+      validateMode = AutovalidateMode.disabled;
+    }
 
     return Form(
       autovalidateMode: validateMode,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theme_manager/theme_manager.dart';
-import 'package:app_user/auth/auth.dart';
+import 'package:app_user/module/auth/auth.dart';
 
 class PhoneInput extends StatelessWidget {
   final Phone value;

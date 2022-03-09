@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:app_user/auth/auth.dart';
+import 'package:app_user/module/auth/auth.dart';
 
 @module
 abstract class AuthModule {
