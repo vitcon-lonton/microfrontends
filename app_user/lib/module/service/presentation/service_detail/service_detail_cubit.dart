@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:engine/engine.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:app_user/core/core.dart';
 import '../../domain/entities.dart';
 import '../../domain/i_repository.dart';
 part 'service_detail_cubit.freezed.dart';

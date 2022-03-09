@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_import
 
 import 'package:dartz/dartz.dart';
-import 'package:engine/engine.dart';
+import 'package:app_user/core/core.dart';
 import '../domain/i_repository.dart';
 import '../domain/favorite.dart';
 

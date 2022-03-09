@@ -4,7 +4,6 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:article/article.dart' as _i11;
 import 'package:dio/dio.dart' as _i3;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
@@ -18,6 +17,7 @@ import 'injectable/core_injectable_module.dart' as _i12;
 import 'injectable/favorite_module.dart' as _i13;
 import 'injectable/notification_module.dart' as _i15;
 import 'injectable/service_module.dart' as _i16;
+import 'module/article/article.dart' as _i11;
 import 'module/auth/auth.dart' as _i10;
 import 'module/booking/booking.dart' as _i6;
 import 'module/favorite/favorite.dart' as _i4;
@@ -199,5 +199,5 @@ class _$ArticleModule extends _i18.ArticleModule {
 
   @override
   _i11.ArticlesCubit get articlesCubit =>
-      _i11.ArticlesCubit(_getIt<_i11.ArticleApi>());
+      _i11.ArticlesCubit(_getIt<_i7.Logger>(), _getIt<_i11.ArticleApi>());
 }

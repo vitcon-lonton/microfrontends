@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart' hide Order;
-import 'package:engine/processing_status.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:app_user/core/core.dart';
 import '../../domain/entities.dart';
 import '../../domain/failure.dart';
 import '../../domain/i_repository.dart';

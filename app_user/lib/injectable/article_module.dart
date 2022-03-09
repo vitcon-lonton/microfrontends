@@ -1,7 +1,6 @@
-import 'package:article/article.dart';
 import 'package:dio/dio.dart';
-
 import 'package:injectable/injectable.dart';
+import '../module/article/article.dart';
 
 @module
 abstract class ArticleModule {

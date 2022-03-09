@@ -10,10 +10,10 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:article/article.dart' as _i20;
 import 'package:auto_route/auto_route.dart' as _i18;
 import 'package:flutter/material.dart' as _i19;
 
+import '../../module/article/article.dart' as _i20;
 import '../article/article.dart' as _i17;
 import '../booking/cart/cart.dart' as _i14;
 import '../booking/order_detail/order_detail.dart' as _i15;

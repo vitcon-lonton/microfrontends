@@ -1,6 +1,5 @@
-import 'package:engine/engine.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import 'package:app_user/core/core.dart';
 part 'entities.freezed.dart';
 
 enum OrderStatus { created, processing, waitingConfirm, doing, done, cancel }

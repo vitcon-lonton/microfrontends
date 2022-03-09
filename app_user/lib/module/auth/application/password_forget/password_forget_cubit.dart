@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:engine/engine.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:app_user/core/core.dart';
 import '../../domain/auth_failure.dart';
 import '../../domain/i_auth_facade.dart';
 import '../../domain/value_objects.dart';

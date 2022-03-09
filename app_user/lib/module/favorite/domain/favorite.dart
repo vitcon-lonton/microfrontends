@@ -1,5 +1,5 @@
-import 'package:engine/engine.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:app_user/core/core.dart';
 part 'favorite.freezed.dart';
 
 @freezed

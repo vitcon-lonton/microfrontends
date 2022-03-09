@@ -1,6 +1,5 @@
-import 'package:engine/engine.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import 'package:app_user/core/core.dart';
 part 'notification.freezed.dart';
 
 enum NotificationStatus { created, done, cancel }
