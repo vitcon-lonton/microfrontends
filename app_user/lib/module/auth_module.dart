@@ -8,7 +8,13 @@ abstract class AuthModule {
   AccountApi api(Dio dio) => AccountApi(dio);
 
   @Injectable()
+  AuthInterceptors get authInterceptors;
+
+  @Injectable()
   AuthBloc get authBloc;
+
+  @Injectable()
+  UserCubit get userCubit;
 
   @Injectable()
   FavoritesCubit get favoritesCubit;

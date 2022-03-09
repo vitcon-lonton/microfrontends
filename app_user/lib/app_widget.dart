@@ -14,9 +14,10 @@ class AppWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-              getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
-        )
+            create: (context) => getIt<UserCubit>()..getUserRequested()),
+        BlocProvider(
+            create: (context) =>
+                getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested())),
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
@@ -26,7 +27,7 @@ class AppWidget extends StatelessWidget {
           initialRoutes: [
             // const app_router.SplashPageRoute(),
             // const app_router.CartPageRoute(),
-            // const app_router.HomePageRoute(),
+            const app_router.HomePageRoute(),
             // const app_router.CategoriesPageRoute(),
             // const app_router.OrderDetailPageRoute(),
             // const app_router.SettingsPageRoute(),
@@ -41,7 +42,7 @@ class AppWidget extends StatelessWidget {
             // const app_router.NotificationsPageRoute(),
             // const app_router.HomePageRoute(),
             // const app_router.SignInPageRoute(),
-            const app_router.ServiceBookingPageRoute(),
+            // const app_router.ServiceBookingPageRoute(),
           ],
         ),
         theme: ThemeData.light().copyWith(

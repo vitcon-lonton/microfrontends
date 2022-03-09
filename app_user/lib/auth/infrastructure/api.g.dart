@@ -18,7 +18,28 @@ class _AccountApi implements AccountApi {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<dynamic>> login(loginkey, password, deviceId) async {
+  Future<BaseResponse<dynamic>> info() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'requires-token': 'true'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/info',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> login(loginkey, password,
+      {deviceId = 'android'}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'loginkey': loginkey,
@@ -26,20 +47,15 @@ class _AccountApi implements AccountApi {
       r'device_id': deviceId
     };
     final _headers = <String, dynamic>{};
-    final _data = {
-      'loginkey': loginkey,
-      'password': password,
-      'deviceId': deviceId
-    };
+    final _data = FormData();
+    _data.fields.add(MapEntry('loginkey', loginkey));
+    _data.fields.add(MapEntry('password', password));
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
-                method: 'POST',
-                headers: _headers,
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, '/login',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<BaseResponse<dynamic>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/login',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -61,6 +77,30 @@ class _AccountApi implements AccountApi {
                 extra: _extra,
                 contentType: 'application/x-www-form-urlencoded')
             .compose(_dio.options, '/register',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> changeCurrentPassword(data) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'requires-token': 'true'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(data.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'application/x-www-form-urlencoded')
+            .compose(_dio.options, '/change_current_password',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<dynamic>.fromJson(

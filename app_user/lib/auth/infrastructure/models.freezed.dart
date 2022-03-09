@@ -190,8 +190,7 @@ class _$RegisterDataTearOff {
       {required String name,
       required String email,
       required String password,
-      @JsonKey(name: 'password_confirmation')
-          required String passwordConfirmation,
+      required String passwordConfirmation,
       required String address,
       required String phone,
       required String birthdate,
@@ -221,7 +220,6 @@ mixin _$RegisterData {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  @JsonKey(name: 'password_confirmation')
   String get passwordConfirmation => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
@@ -243,7 +241,7 @@ abstract class $RegisterDataCopyWith<$Res> {
       {String name,
       String email,
       String password,
-      @JsonKey(name: 'password_confirmation') String passwordConfirmation,
+      String passwordConfirmation,
       String address,
       String phone,
       String birthdate,
@@ -317,7 +315,7 @@ abstract class _$RegisterDataCopyWith<$Res>
       {String name,
       String email,
       String password,
-      @JsonKey(name: 'password_confirmation') String passwordConfirmation,
+      String passwordConfirmation,
       String address,
       String phone,
       String birthdate,
@@ -383,14 +381,14 @@ class __$RegisterDataCopyWithImpl<$Res> extends _$RegisterDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_RegisterData implements _RegisterData {
   const _$_RegisterData(
       {required this.name,
       required this.email,
       required this.password,
-      @JsonKey(name: 'password_confirmation')
-          required this.passwordConfirmation,
+      required this.passwordConfirmation,
       required this.address,
       required this.phone,
       required this.birthdate,
@@ -406,7 +404,6 @@ class _$_RegisterData implements _RegisterData {
   @override
   final String password;
   @override
-  @JsonKey(name: 'password_confirmation')
   final String passwordConfirmation;
   @override
   final String address;
@@ -466,8 +463,7 @@ abstract class _RegisterData implements RegisterData {
       {required String name,
       required String email,
       required String password,
-      @JsonKey(name: 'password_confirmation')
-          required String passwordConfirmation,
+      required String passwordConfirmation,
       required String address,
       required String phone,
       required String birthdate,
@@ -483,7 +479,6 @@ abstract class _RegisterData implements RegisterData {
   @override
   String get password;
   @override
-  @JsonKey(name: 'password_confirmation')
   String get passwordConfirmation;
   @override
   String get address;
@@ -497,4 +492,208 @@ abstract class _RegisterData implements RegisterData {
   @JsonKey(ignore: true)
   _$RegisterDataCopyWith<_RegisterData> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+ChangeCurrentPasswordData _$ChangeCurrentPasswordDataFromJson(
+    Map<String, dynamic> json) {
+  return _ChangeCurrentPasswordData.fromJson(json);
+}
+
+/// @nodoc
+class _$ChangeCurrentPasswordDataTearOff {
+  const _$ChangeCurrentPasswordDataTearOff();
+
+  _ChangeCurrentPasswordData call(
+      {required String password,
+      required String passwordConfirmation,
+      required String currentPassword}) {
+    return _ChangeCurrentPasswordData(
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+      currentPassword: currentPassword,
+    );
+  }
+
+  ChangeCurrentPasswordData fromJson(Map<String, Object?> json) {
+    return ChangeCurrentPasswordData.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $ChangeCurrentPasswordData = _$ChangeCurrentPasswordDataTearOff();
+
+/// @nodoc
+mixin _$ChangeCurrentPasswordData {
+  String get password => throw _privateConstructorUsedError;
+  String get passwordConfirmation => throw _privateConstructorUsedError;
+  String get currentPassword => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ChangeCurrentPasswordDataCopyWith<ChangeCurrentPasswordData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ChangeCurrentPasswordDataCopyWith<$Res> {
+  factory $ChangeCurrentPasswordDataCopyWith(ChangeCurrentPasswordData value,
+          $Res Function(ChangeCurrentPasswordData) then) =
+      _$ChangeCurrentPasswordDataCopyWithImpl<$Res>;
+  $Res call(
+      {String password, String passwordConfirmation, String currentPassword});
+}
+
+/// @nodoc
+class _$ChangeCurrentPasswordDataCopyWithImpl<$Res>
+    implements $ChangeCurrentPasswordDataCopyWith<$Res> {
+  _$ChangeCurrentPasswordDataCopyWithImpl(this._value, this._then);
+
+  final ChangeCurrentPasswordData _value;
+  // ignore: unused_field
+  final $Res Function(ChangeCurrentPasswordData) _then;
+
+  @override
+  $Res call({
+    Object? password = freezed,
+    Object? passwordConfirmation = freezed,
+    Object? currentPassword = freezed,
+  }) {
+    return _then(_value.copyWith(
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      passwordConfirmation: passwordConfirmation == freezed
+          ? _value.passwordConfirmation
+          : passwordConfirmation // ignore: cast_nullable_to_non_nullable
+              as String,
+      currentPassword: currentPassword == freezed
+          ? _value.currentPassword
+          : currentPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ChangeCurrentPasswordDataCopyWith<$Res>
+    implements $ChangeCurrentPasswordDataCopyWith<$Res> {
+  factory _$ChangeCurrentPasswordDataCopyWith(_ChangeCurrentPasswordData value,
+          $Res Function(_ChangeCurrentPasswordData) then) =
+      __$ChangeCurrentPasswordDataCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String password, String passwordConfirmation, String currentPassword});
+}
+
+/// @nodoc
+class __$ChangeCurrentPasswordDataCopyWithImpl<$Res>
+    extends _$ChangeCurrentPasswordDataCopyWithImpl<$Res>
+    implements _$ChangeCurrentPasswordDataCopyWith<$Res> {
+  __$ChangeCurrentPasswordDataCopyWithImpl(_ChangeCurrentPasswordData _value,
+      $Res Function(_ChangeCurrentPasswordData) _then)
+      : super(_value, (v) => _then(v as _ChangeCurrentPasswordData));
+
+  @override
+  _ChangeCurrentPasswordData get _value =>
+      super._value as _ChangeCurrentPasswordData;
+
+  @override
+  $Res call({
+    Object? password = freezed,
+    Object? passwordConfirmation = freezed,
+    Object? currentPassword = freezed,
+  }) {
+    return _then(_ChangeCurrentPasswordData(
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      passwordConfirmation: passwordConfirmation == freezed
+          ? _value.passwordConfirmation
+          : passwordConfirmation // ignore: cast_nullable_to_non_nullable
+              as String,
+      currentPassword: currentPassword == freezed
+          ? _value.currentPassword
+          : currentPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _$_ChangeCurrentPasswordData implements _ChangeCurrentPasswordData {
+  const _$_ChangeCurrentPasswordData(
+      {required this.password,
+      required this.passwordConfirmation,
+      required this.currentPassword});
+
+  factory _$_ChangeCurrentPasswordData.fromJson(Map<String, dynamic> json) =>
+      _$$_ChangeCurrentPasswordDataFromJson(json);
+
+  @override
+  final String password;
+  @override
+  final String passwordConfirmation;
+  @override
+  final String currentPassword;
+
+  @override
+  String toString() {
+    return 'ChangeCurrentPasswordData(password: $password, passwordConfirmation: $passwordConfirmation, currentPassword: $currentPassword)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ChangeCurrentPasswordData &&
+            const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other.passwordConfirmation, passwordConfirmation) &&
+            const DeepCollectionEquality()
+                .equals(other.currentPassword, currentPassword));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(passwordConfirmation),
+      const DeepCollectionEquality().hash(currentPassword));
+
+  @JsonKey(ignore: true)
+  @override
+  _$ChangeCurrentPasswordDataCopyWith<_ChangeCurrentPasswordData>
+      get copyWith =>
+          __$ChangeCurrentPasswordDataCopyWithImpl<_ChangeCurrentPasswordData>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ChangeCurrentPasswordDataToJson(this);
+  }
+}
+
+abstract class _ChangeCurrentPasswordData implements ChangeCurrentPasswordData {
+  const factory _ChangeCurrentPasswordData(
+      {required String password,
+      required String passwordConfirmation,
+      required String currentPassword}) = _$_ChangeCurrentPasswordData;
+
+  factory _ChangeCurrentPasswordData.fromJson(Map<String, dynamic> json) =
+      _$_ChangeCurrentPasswordData.fromJson;
+
+  @override
+  String get password;
+  @override
+  String get passwordConfirmation;
+  @override
+  String get currentPassword;
+  @override
+  @JsonKey(ignore: true)
+  _$ChangeCurrentPasswordDataCopyWith<_ChangeCurrentPasswordData>
+      get copyWith => throw _privateConstructorUsedError;
 }

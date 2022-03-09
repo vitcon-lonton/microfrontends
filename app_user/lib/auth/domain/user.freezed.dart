@@ -19,7 +19,7 @@ class _$UserTearOff {
   const _$UserTearOff();
 
   _User call(
-      {required UniqueId id,
+      {required int id,
       required Name name,
       required Phone phone,
       required String image,
@@ -45,7 +45,7 @@ const $User = _$UserTearOff();
 
 /// @nodoc
 mixin _$User {
-  UniqueId get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   Name get name => throw _privateConstructorUsedError;
   Phone get phone => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id,
+      {int id,
       Name name,
       Phone phone,
       String image,
@@ -96,7 +96,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as UniqueId,
+              as int,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -135,7 +135,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id,
+      {int id,
       Name name,
       Phone phone,
       String image,
@@ -169,7 +169,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as UniqueId,
+              as int,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -204,7 +204,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_User implements _User {
+class _$_User extends _User {
   const _$_User(
       {required this.id,
       required this.name,
@@ -213,10 +213,11 @@ class _$_User implements _User {
       required this.street,
       required this.gender,
       required this.birthDay,
-      required this.emailAddress});
+      required this.emailAddress})
+      : super._();
 
   @override
-  final UniqueId id;
+  final int id;
   @override
   final Name name;
   @override
@@ -271,9 +272,9 @@ class _$_User implements _User {
       __$UserCopyWithImpl<_User>(this, _$identity);
 }
 
-abstract class _User implements User {
+abstract class _User extends User {
   const factory _User(
-      {required UniqueId id,
+      {required int id,
       required Name name,
       required Phone phone,
       required String image,
@@ -281,9 +282,10 @@ abstract class _User implements User {
       required Gender gender,
       required BirthDay birthDay,
       required EmailAddress emailAddress}) = _$_User;
+  const _User._() : super._();
 
   @override
-  UniqueId get id;
+  int get id;
   @override
   Name get name;
   @override

@@ -9,8 +9,9 @@ enum OrderStatus { created, done, cancel }
 
 @freezed
 class User with _$User {
+  const User._();
   const factory User(
-      {required UniqueId id,
+      {required int id,
       required Name name,
       required Phone phone,
       required String image,

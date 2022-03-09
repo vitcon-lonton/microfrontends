@@ -90,24 +90,47 @@ class _HomePageState extends State<HomePage> {
 
       // FLOATING_ACTION_BUTTON
       floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.shopping_cart),
+          child: Icon(Icons.shopping_cart,
+              color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => context.router.push(const CartPageRoute())),
 
       // APP_BAR
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.person),
-          onPressed: () => context.router.push(const SettingsPageRoute()),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: kSpaceXS),
+          child: BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) => IconButton(
+              icon: const CircleAvatar(
+                  backgroundColor: Color(0xFFE6E6E6),
+                  child: Icon(Icons.person, size: 20, color: Colors.grey)),
+              onPressed: () => context.router.push(const SettingsPageRoute()),
+            ),
+          ),
         ),
-        // leading: const Icon(Icons.person),
-        title: BlocBuilder<AuthBloc, AuthState>(
+        title: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
-            return state.maybeMap(
-              orElse: () => kSpaceZero,
-              authenticated: (_) => Row(children: const [Text('Alvin')]),
-            );
+            if (state.isLoading) {
+              return const CircularProgressIndicator();
+            }
+
+            final userName =
+                state.user?.name.value.foldRight(null, (name, prev) => name);
+
+            if (userName == null) {
+              return Row(children: const [Text('Welcome to S H O M E')]);
+            }
+
+            return Row(children: [Text('Hi, $userName')]);
           },
         ),
+        // title: BlocBuilder<AuthBloc, AuthState>(
+        //   builder: (context, state) {
+        //     return state.maybeMap(
+        //       orElse: () => kSpaceZero,
+        //       authenticated: (_) => Row(children: const [Text('Alvin')]),
+        //     );
+        //   },
+        // ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications),

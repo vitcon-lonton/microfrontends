@@ -12,39 +12,72 @@ import 'package:app_user/auth/domain/auth_failure.dart';
 import 'package:app_user/auth/domain/i_auth_facade.dart';
 import 'package:app_user/auth/domain/user.dart';
 import 'package:app_user/auth/domain/value_objects.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-final _fakeUser = User(
-  image: '',
-  id: UniqueId(),
-  name: Name('Alvin'),
-  phone: Phone('9999999999'),
-  gender: Gender.male,
-  birthDay: BirthDay(DateTime(1997, 01, 29)),
-  emailAddress: EmailAddress('9999999999@gmail.com'),
-  street: Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City'),
-);
+const String tokenKey = 'token';
 
 class AuthFacade implements IAuthFacade {
   final AccountApi _api;
+  final FlutterSecureStorage _storage;
 
-  AuthFacade(this._api);
+  AuthFacade(this._api, this._storage);
+
+  Future<void> _saveCredential(String token) {
+    return _storage.write(key: tokenKey, value: token);
+  }
 
   @override
-  Future<Option<User>> getSignedInUser() async => optionOf(_fakeUser);
+  Future<Option<User>> getSignedInUser() async {
+    try {
+      final response = await _api.info();
+
+      if (!response.valid) return none();
+
+      const image = '';
+      const gender = Gender.male;
+
+      final responseData = response.data;
+      final id = responseData['id'];
+      final phone = Phone('9999999999');
+      final name = Name(responseData['name']);
+      final birthDay = BirthDay(DateTime(1997, 01, 29));
+      final emailAddress = EmailAddress(responseData['email']);
+      final street =
+          Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City');
+
+      return optionOf(User(
+          id: id,
+          image: image,
+          name: name,
+          phone: phone,
+          street: street,
+          gender: gender,
+          birthDay: birthDay,
+          emailAddress: emailAddress));
+    } catch (e) {
+      return none();
+    }
+  }
 
   @override
   Future<Either<AuthFailure, Unit>> signInWithPhoneAndPassword(
       {required Phone phone, required Password password}) async {
-    const deviceId = 'android';
     final phoneStr = phone.getOrCrash();
     final passwordStr = password.getOrCrash();
 
     try {
-      final response = await _api.login(phoneStr, passwordStr, deviceId);
+      final response = await _api.login(phoneStr, passwordStr);
 
-      if (response.valid) return right(unit);
+      if (!response.valid) {
+        return left(const AuthFailure.invalidEmailAndPasswordCombination());
+      }
 
-      return left(const AuthFailure.invalidEmailAndPasswordCombination());
+      final responseData = response.data;
+      final token = responseData['token_user'];
+
+      await _saveCredential(token);
+
+      return right(unit);
     } catch (e) {
       return left(const AuthFailure.invalidEmailAndPasswordCombination());
     }
@@ -253,3 +286,15 @@ class AuthFacade implements IAuthFacade {
     return optionOf(result);
   }
 }
+
+
+// final _fakeUser = User(
+//   id: 1,
+//   image: '',
+//   name: Name('Alvin'),
+//   phone: Phone('9999999999'),
+//   gender: Gender.male,
+//   birthDay: BirthDay(DateTime(1997, 01, 29)),
+//   emailAddress: EmailAddress('9999999999@gmail.com'),
+//   street: Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City'),
+// );

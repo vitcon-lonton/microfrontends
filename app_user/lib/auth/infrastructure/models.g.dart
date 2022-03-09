@@ -56,3 +56,19 @@ Map<String, dynamic> _$$_RegisterDataToJson(_$_RegisterData instance) =>
       'birthdate': instance.birthdate,
       'gender': instance.gender,
     };
+
+_$_ChangeCurrentPasswordData _$$_ChangeCurrentPasswordDataFromJson(
+        Map<String, dynamic> json) =>
+    _$_ChangeCurrentPasswordData(
+      password: json['password'] as String,
+      passwordConfirmation: json['password_confirmation'] as String,
+      currentPassword: json['current_password'] as String,
+    );
+
+Map<String, dynamic> _$$_ChangeCurrentPasswordDataToJson(
+        _$_ChangeCurrentPasswordData instance) =>
+    <String, dynamic>{
+      'password': instance.password,
+      'password_confirmation': instance.passwordConfirmation,
+      'current_password': instance.currentPassword,
+    };

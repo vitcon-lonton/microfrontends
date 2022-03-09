@@ -78,15 +78,15 @@ class SplashPage extends StatelessWidget {
       ),
       listener: (context, state) async {
         await Future.delayed(const Duration(seconds: 1));
-        // state.map(
-        //   initial: (_) {},
-        //   authenticated: (_) => context.router.replace(const HomePageRoute()),
-        //   unauthenticated: (_) =>
-        //       context.router.replace(const SignInPageRoute()),
-        //   // unauthenticated: (_) {
-        //   //   return context.router.replace(const HomePageRoute());
-        //   // },
-        // );
+        state.map(
+          initial: (_) {},
+          authenticated: (_) => context.router.replace(const HomePageRoute()),
+          unauthenticated: (_) =>
+              context.router.replace(const SignInPageRoute()),
+          // unauthenticated: (_) {
+          //   return context.router.replace(const HomePageRoute());
+          // },
+        );
       },
     );
   }

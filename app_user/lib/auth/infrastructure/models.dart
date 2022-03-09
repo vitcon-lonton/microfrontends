@@ -30,12 +30,12 @@ class LoginData with _$LoginData {
 
 @freezed
 class RegisterData with _$RegisterData {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory RegisterData({
     required String name,
     required String email,
     required String password,
-    @JsonKey(name: 'password_confirmation')
-        required String passwordConfirmation,
+    required String passwordConfirmation,
     required String address,
     required String phone,
     required String birthdate,
@@ -44,4 +44,16 @@ class RegisterData with _$RegisterData {
 
   factory RegisterData.fromJson(Map<String, dynamic> json) =>
       _$RegisterDataFromJson(json);
+}
+
+@freezed
+class ChangeCurrentPasswordData with _$ChangeCurrentPasswordData {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory ChangeCurrentPasswordData(
+      {required String password,
+      required String passwordConfirmation,
+      required String currentPassword}) = _ChangeCurrentPasswordData;
+
+  factory ChangeCurrentPasswordData.fromJson(Map<String, dynamic> json) =>
+      _$ChangeCurrentPasswordDataFromJson(json);
 }

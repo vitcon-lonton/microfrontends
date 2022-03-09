@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postman_dio/postman_dio.dart';
 
-import 'env_config.dart';
+import 'auth/auth.dart';
 import 'injection.config.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -14,8 +14,8 @@ final GetIt getIt = GetIt.instance;
   preferRelativeImports: true, // default
 )
 void configureInjection(String env) {
-  final dioClient = Dio(EnvConfig.options);
-  dioClient.interceptors.add(PostmanDioLogger(enablePrint: true));
-  getIt.registerLazySingleton<Dio>(() => dioClient);
   $initGetIt(getIt, environment: env);
+  getIt<Dio>().interceptors.add(PostmanDioLogger());
+  getIt<Dio>().interceptors.add(getIt<AuthInterceptors>());
 }
+// getIt<Dio>().interceptors.add(PostmanDioLogger(enablePrint: true));

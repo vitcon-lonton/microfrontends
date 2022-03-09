@@ -9,4 +9,5 @@ export 'password_forget/password_forget_cubit.dart';
 export 'password_update/password_update_cubit.dart';
 export 'register/register_cubit.dart';
 export 'sign_in_form/sign_in_form_bloc.dart';
+export 'user/user_cubit.dart';
 export 'user_update/user_update_cubit.dart';
