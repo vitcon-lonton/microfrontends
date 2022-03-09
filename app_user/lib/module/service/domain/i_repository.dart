@@ -9,5 +9,5 @@ abstract class IServiceRepository {
   Future<Option<Pagination<Service>>> getServices(
       {required int page, required int perPage});
   Future<Option<Service>> getServiceDetail({int? id});
-  Future<Either<ServiceFailure, Unit>> book(Service service);
+  Future<Either<ServiceFailure, Unit>> check(Service service);
 }

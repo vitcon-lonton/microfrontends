@@ -14,7 +14,7 @@ abstract class ServiceModule {
   ServiceDetailCubit get serviceDetailCubit;
 
   @Injectable()
-  ServiceBookingFormCubit get serviceBookingFormCubit;
+  ServiceCheckingCubit get serviceCheckingCubit;
 
   @LazySingleton(as: IServiceRepository)
   ServiceRepository get repository;

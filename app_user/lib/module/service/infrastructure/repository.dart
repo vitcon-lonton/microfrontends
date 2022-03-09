@@ -29,10 +29,11 @@ class ServiceRepository implements IServiceRepository {
   ServiceRepository(this._logger, this._serviceApi, this._catalogueApi);
 
   @override
-  Future<Either<ServiceFailure, Unit>> book(Service service) async {
+  Future<Either<ServiceFailure, Unit>> check(Service service) async {
     try {
       await Future.delayed(const Duration(milliseconds: 400));
-      return right(unit);
+      return left(const ServiceFailure.serverError());
+      // return right(unit);
     } catch (_) {
       return left(const ServiceFailure.serverError());
     }

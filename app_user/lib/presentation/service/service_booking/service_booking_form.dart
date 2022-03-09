@@ -33,43 +33,19 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
   @override
   Widget build(BuildContext context) {
     final autovalidateMode =
-        context.read<ServiceBookingFormCubit>().state.showErrorMessages
+        context.read<ServiceCheckingCubit>().state.showErrorMessages
             ? AutovalidateMode.always
             : AutovalidateMode.disabled;
 
-    return BlocProvider<ServiceBookingFormCubit>.value(
-      value: context.read<ServiceBookingFormCubit>(),
-      // value: context.read<ServiceBookingFormCubit>()..getDetailRequested(),
-      child: BlocListener<ServiceBookingFormCubit, ServiceBookingFormState>(
+    return BlocProvider<ServiceCheckingCubit>.value(
+      value: context.read<ServiceCheckingCubit>(),
+      // value: context.read<ServiceCheckingCubit>()..getDetailRequested(),
+      child: BlocListener<ServiceCheckingCubit, ServiceCheckingState>(
         listenWhen: (prev, cur) {
-          return prev.bookingFailureOrSuccessOption !=
-              cur.bookingFailureOrSuccessOption;
+          return prev.time != cur.time || prev.date != cur.date;
         },
         listener: (context, state) {
-          state.bookingFailureOrSuccessOption.fold(
-            () {},
-            (either) => either.fold(
-              (failure) {
-                final snackBar = SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  content: const Text('Server error'),
-                  action: SnackBarAction(label: 'Action', onPressed: () {}),
-                );
-
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-              (_) {
-                // AutoRouter.of(context).replace(const NotesOverviewPageRoute());
-                // Navigator.of(context).pushNamed('routeName');
-                final snackBar = SnackBar(
-                    content: const Text('Success'),
-                    behavior: SnackBarBehavior.floating,
-                    action: SnackBarAction(label: 'Action', onPressed: () {}));
-
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-            ),
-          );
+          context.read<ServiceCheckingCubit>().checkingRequested();
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: kSpaceS),
@@ -81,13 +57,41 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
               autovalidateMode: autovalidateMode,
               child: Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Row(children: [
+                      DefaultTextStyle(
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                        child: BlocBuilder<ServiceCheckingCubit,
+                            ServiceCheckingState>(
+                          buildWhen: (prev, cur) => prev.date != cur.date,
+                          builder: (context, state) {
+                            return state.failureOrSuccessOption
+                                .fold(() => kSpaceZero, (either) {
+                              return either.fold(
+                                  (failure) => const Text('Unable booking'),
+                                  (_) => kSpaceZero);
+                            });
+                          },
+                        ),
+                      ),
+                    ]),
+                    BlocBuilder<ServiceCheckingCubit, ServiceCheckingState>(
+                      buildWhen: (prev, cur) =>
+                          prev.isSubmitting != cur.isSubmitting,
+                      builder: (context, state) {
+                        if (state.isSubmitting) {
+                          return const LinearProgressIndicator();
+                        }
+
+                        return kSpaceZero;
+                      },
+                    ),
+                    kVSpaceM,
                     _DatePickerItem(
                       children: [
                         const Text('Select Date'),
-                        BlocBuilder<ServiceBookingFormCubit,
-                            ServiceBookingFormState>(
+                        BlocBuilder<ServiceCheckingCubit, ServiceCheckingState>(
                           buildWhen: (prev, cur) => prev.date != cur.date,
                           builder: (context, state) {
                             final date = state.date;
@@ -101,7 +105,7 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
                                   mode: CupertinoDatePickerMode.date,
                                   // This is called when the user changes the date.
                                   onDateTimeChanged: context
-                                      .read<ServiceBookingFormCubit>()
+                                      .read<ServiceCheckingCubit>()
                                       .dateChanged,
                                 ),
                               ),
@@ -119,8 +123,7 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
                     _DatePickerItem(
                       children: [
                         const Text('Select Time'),
-                        BlocBuilder<ServiceBookingFormCubit,
-                            ServiceBookingFormState>(
+                        BlocBuilder<ServiceCheckingCubit, ServiceCheckingState>(
                           buildWhen: (prev, cur) => prev.time != cur.time,
                           builder: (context, state) {
                             final time = state.time;
@@ -134,7 +137,7 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
                                   use24hFormat: true,
                                   // This is called when the user changes the time.
                                   onDateTimeChanged: context
-                                      .read<ServiceBookingFormCubit>()
+                                      .read<ServiceCheckingCubit>()
                                       .timeChanged,
                                 ),
                               ),

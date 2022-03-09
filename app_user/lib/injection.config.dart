@@ -71,8 +71,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i10.PasswordForgetCubit>(() => authModule.passwordForgetCubit);
   gh.factory<_i10.PasswordUpdateCubit>(() => authModule.passwordUpdateCubit);
   gh.factory<_i10.RegisterCubit>(() => authModule.registerCubit);
-  gh.factory<_i9.ServiceBookingFormCubit>(
-      () => serviceModule.serviceBookingFormCubit);
+  gh.factory<_i9.ServiceCheckingCubit>(
+      () => serviceModule.serviceCheckingCubit);
   gh.factory<_i9.ServiceDetailCubit>(() => serviceModule.serviceDetailCubit);
   gh.factory<_i9.ServicesCubit>(() => serviceModule.servicesCubit);
   gh.factory<_i10.SignInBloc>(() => authModule.signInBloc);
@@ -142,8 +142,8 @@ class _$ServiceModule extends _i16.ServiceModule {
       _getIt<_i9.ServiceApi>(),
       _getIt<_i9.CatalogueApi>());
   @override
-  _i9.ServiceBookingFormCubit get serviceBookingFormCubit =>
-      _i9.ServiceBookingFormCubit(_getIt<_i9.IServiceRepository>());
+  _i9.ServiceCheckingCubit get serviceCheckingCubit =>
+      _i9.ServiceCheckingCubit(_getIt<_i9.IServiceRepository>());
   @override
   _i9.ServiceDetailCubit get serviceDetailCubit =>
       _i9.ServiceDetailCubit(_getIt<_i9.IServiceRepository>());

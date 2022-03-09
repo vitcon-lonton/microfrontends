@@ -10,12 +10,12 @@ class ArticleDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final title = article.title;
     final content = article.content;
-    final title = article.title ?? '';
 
     return Scaffold(
       body: Html(data: content),
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(title: title == null ? kSpaceZero : Text(title)),
     );
 
     // return Scaffold(appBar: AppBar(), body: const Text('Not found content'));

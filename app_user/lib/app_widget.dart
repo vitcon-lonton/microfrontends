@@ -26,7 +26,7 @@ class AppWidget extends StatelessWidget {
         routerDelegate: _appRouter.delegate(
           initialRoutes: [
             // const app_router.SplashPageRoute(),
-            const app_router.HomePageRoute(),
+            // const app_router.HomePageRoute(),
 
             // const app_router.SignInPageRoute(),
             // const app_router.RegisterPageRoute(),
@@ -42,12 +42,12 @@ class AppWidget extends StatelessWidget {
 
             /// SERVICE
             // const app_router.CategoriesPageRoute(),
+            const app_router.ServiceBookingPageRoute(),
 
             /// BOOKING
             // const app_router.CartPageRoute(),
             // const app_router.OrderDetailPageRoute(),
             // const app_router.OrderHistoriesPageRoute(),
-            // const app_router.ServiceBookingPageRoute(),
 
             /// NOTIFICATION
             // const app_router.NotificationsPageRoute(),
