@@ -18,19 +18,19 @@ import '../article/article.dart' as _i17;
 import '../booking/cart/cart.dart' as _i14;
 import '../booking/order_detail/order_detail.dart' as _i15;
 import '../booking/order_histories/order_histories.dart' as _i16;
+import '../favorites/favorites.dart' as _i10;
 import '../home/home.dart' as _i1;
 import '../notifications/notifications.dart' as _i12;
 import '../service/service.dart' as _i13;
 import '../setting/setting.dart' as _i11;
-import '../user/favorites/favorites.dart' as _i2;
-import '../user/otp_confirm/otp_confirm.dart' as _i3;
-import '../user/password_change/password_change.dart' as _i4;
-import '../user/password_forget/password_forget.dart' as _i5;
-import '../user/password_update/password_update.dart' as _i6;
-import '../user/register/register.dart' as _i7;
-import '../user/sign_in/sign_in_page.dart' as _i8;
-import '../user/splash/splash_page.dart' as _i9;
-import '../user/user_update/user_update.dart' as _i10;
+import '../splash/splash_page.dart' as _i8;
+import '../user/otp_confirm/otp_confirm.dart' as _i2;
+import '../user/password_change/password_change.dart' as _i3;
+import '../user/password_forget/password_forget.dart' as _i4;
+import '../user/password_update/password_update.dart' as _i5;
+import '../user/register/register.dart' as _i6;
+import '../user/sign_in/sign_in.dart' as _i7;
+import '../user/user_update/user_update.dart' as _i9;
 
 class Router extends _i18.RootStackRouter {
   Router([_i19.GlobalKey<_i19.NavigatorState>? navigatorKey])
@@ -42,41 +42,41 @@ class Router extends _i18.RootStackRouter {
       return _i18.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.HomePage());
     },
-    FavoritesPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.FavoritesPage());
-    },
     OtpConfirmPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.OtpConfirmPage());
+          routeData: routeData, child: const _i2.OtpConfirmPage());
     },
     PasswordChangePageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.PasswordChangePage());
+          routeData: routeData, child: const _i3.PasswordChangePage());
     },
     PasswordForgetPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i5.PasswordForgetPage());
+          routeData: routeData, child: const _i4.PasswordForgetPage());
     },
     PasswordUpdatePageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i6.PasswordUpdatePage());
+          routeData: routeData, child: const _i5.PasswordUpdatePage());
     },
     RegisterPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i7.RegisterPage());
+          routeData: routeData, child: const _i6.RegisterPage());
     },
     SignInPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.SignInPage());
+          routeData: routeData, child: const _i7.SignInPage());
     },
     SplashPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i9.SplashPage());
+          routeData: routeData, child: const _i8.SplashPage());
     },
     UserUpdatePageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i10.UserUpdatePage());
+          routeData: routeData, child: const _i9.UserUpdatePage());
+    },
+    FavoritesPageRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i10.FavoritesPage());
     },
     SettingsPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
@@ -125,7 +125,6 @@ class Router extends _i18.RootStackRouter {
   @override
   List<_i18.RouteConfig> get routes => [
         _i18.RouteConfig(HomePageRoute.name, path: '/'),
-        _i18.RouteConfig(FavoritesPageRoute.name, path: '/favorites-page'),
         _i18.RouteConfig(OtpConfirmPageRoute.name, path: '/otp-confirm-page'),
         _i18.RouteConfig(PasswordChangePageRoute.name,
             path: '/password-change-page'),
@@ -137,6 +136,7 @@ class Router extends _i18.RootStackRouter {
         _i18.RouteConfig(SignInPageRoute.name, path: '/sign-in-page'),
         _i18.RouteConfig(SplashPageRoute.name, path: '/splash-page'),
         _i18.RouteConfig(UserUpdatePageRoute.name, path: '/user-update-page'),
+        _i18.RouteConfig(FavoritesPageRoute.name, path: '/favorites-page'),
         _i18.RouteConfig(SettingsPageRoute.name, path: '/settings-page'),
         _i18.RouteConfig(NotificationsPageRoute.name,
             path: '/notifications-page'),
@@ -163,16 +163,7 @@ class HomePageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.FavoritesPage]
-class FavoritesPageRoute extends _i18.PageRouteInfo<void> {
-  const FavoritesPageRoute()
-      : super(FavoritesPageRoute.name, path: '/favorites-page');
-
-  static const String name = 'FavoritesPageRoute';
-}
-
-/// generated route for
-/// [_i3.OtpConfirmPage]
+/// [_i2.OtpConfirmPage]
 class OtpConfirmPageRoute extends _i18.PageRouteInfo<void> {
   const OtpConfirmPageRoute()
       : super(OtpConfirmPageRoute.name, path: '/otp-confirm-page');
@@ -181,7 +172,7 @@ class OtpConfirmPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.PasswordChangePage]
+/// [_i3.PasswordChangePage]
 class PasswordChangePageRoute extends _i18.PageRouteInfo<void> {
   const PasswordChangePageRoute()
       : super(PasswordChangePageRoute.name, path: '/password-change-page');
@@ -190,7 +181,7 @@ class PasswordChangePageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.PasswordForgetPage]
+/// [_i4.PasswordForgetPage]
 class PasswordForgetPageRoute extends _i18.PageRouteInfo<void> {
   const PasswordForgetPageRoute()
       : super(PasswordForgetPageRoute.name, path: '/password-forget-page');
@@ -199,7 +190,7 @@ class PasswordForgetPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.PasswordUpdatePage]
+/// [_i5.PasswordUpdatePage]
 class PasswordUpdatePageRoute extends _i18.PageRouteInfo<void> {
   const PasswordUpdatePageRoute()
       : super(PasswordUpdatePageRoute.name, path: '/password-update-page');
@@ -208,7 +199,7 @@ class PasswordUpdatePageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.RegisterPage]
+/// [_i6.RegisterPage]
 class RegisterPageRoute extends _i18.PageRouteInfo<void> {
   const RegisterPageRoute()
       : super(RegisterPageRoute.name, path: '/register-page');
@@ -217,7 +208,7 @@ class RegisterPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.SignInPage]
+/// [_i7.SignInPage]
 class SignInPageRoute extends _i18.PageRouteInfo<void> {
   const SignInPageRoute() : super(SignInPageRoute.name, path: '/sign-in-page');
 
@@ -225,7 +216,7 @@ class SignInPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.SplashPage]
+/// [_i8.SplashPage]
 class SplashPageRoute extends _i18.PageRouteInfo<void> {
   const SplashPageRoute() : super(SplashPageRoute.name, path: '/splash-page');
 
@@ -233,12 +224,21 @@ class SplashPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.UserUpdatePage]
+/// [_i9.UserUpdatePage]
 class UserUpdatePageRoute extends _i18.PageRouteInfo<void> {
   const UserUpdatePageRoute()
       : super(UserUpdatePageRoute.name, path: '/user-update-page');
 
   static const String name = 'UserUpdatePageRoute';
+}
+
+/// generated route for
+/// [_i10.FavoritesPage]
+class FavoritesPageRoute extends _i18.PageRouteInfo<void> {
+  const FavoritesPageRoute()
+      : super(FavoritesPageRoute.name, path: '/favorites-page');
+
+  static const String name = 'FavoritesPageRoute';
 }
 
 /// generated route for

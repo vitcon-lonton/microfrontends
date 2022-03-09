@@ -1,11 +1,10 @@
 import 'package:dartz/dartz.dart' hide Order;
+import 'package:engine/pagination.dart';
 import 'package:engine/processing_status.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../domain/i_auth_facade.dart';
-import '../../domain/user.dart';
-
+import '../../domain/entities.dart';
+import '../../domain/i_repository.dart';
 part 'order_histories_cubit.freezed.dart';
 
 @freezed
@@ -25,6 +24,12 @@ class OrderHistoriesState with _$OrderHistoriesState {
 
   bool get isLastPage => page == pageCount;
 
+  List<Order> get orders {
+    return List.of(ordersOption.foldRight(<Order>[], (orders, prev) {
+      return orders;
+    }));
+  }
+
   OrderHistoriesState busy() => copyWith(status: STATUS_BUSY);
   OrderHistoriesState idle() => copyWith(status: STATUS_IDLE);
   OrderHistoriesState failed() => copyWith(status: STATUS_FAILED);
@@ -36,34 +41,22 @@ class OrderHistoriesState with _$OrderHistoriesState {
 }
 
 class OrderHistoriesCubit extends Cubit<OrderHistoriesState> {
-  final IAuthFacade _authFacade;
+  final IBookingRepository _repository;
 
-  OrderHistoriesCubit(this._authFacade) : super(OrderHistoriesState.init());
+  OrderHistoriesCubit(this._repository) : super(OrderHistoriesState.init());
 
-  @override
-  void onChange(Change<OrderHistoriesState> change) {
-    super.onChange(change);
-    // print(
-    //   change.nextState.ordersOption.foldRight([], (a, previous) => a.length),
-    // );
+  Future<Option<Pagination<Order>>> _performGetOrders() {
+    return _repository.getOrderHistories(
+        page: state.page, perPage: state.perPage);
   }
-
-  refreshRequested() => emit(OrderHistoriesState.init());
-
-  pageNumberChanged(int value) => emit(state.copyWith(page: value));
 
   Future<void> getOrdersRequested() async {
     emit(state.copyWith(isSubmitting: true));
 
-    final page = state.page;
-    final perPage = state.perPage;
-    final resultOption =
-        await _authFacade.getOrderHistories(page: page, perPage: perPage);
+    final result = await _performGetOrders();
 
-    resultOption.fold(() {}, (pagination) {
-      final ordersOption = state.ordersOption;
-      final currentOrders =
-          ordersOption.foldRight(<Order>[], (orders, previous) => orders);
+    result.fold(() {}, (pagination) {
+      final currentOrders = state.orders;
       final newOrders = currentOrders..addAll(pagination.data);
 
       emit(state.copyWith(
@@ -76,4 +69,8 @@ class OrderHistoriesCubit extends Cubit<OrderHistoriesState> {
 
     emit(state.copyWith(isSubmitting: false));
   }
+
+  void refreshRequested() => emit(OrderHistoriesState.init());
+
+  void pageNumberChanged(int value) => emit(state.copyWith(page: value));
 }

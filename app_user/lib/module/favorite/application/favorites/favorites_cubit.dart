@@ -4,8 +4,8 @@ import 'package:engine/value_objects/value_objects.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/i_auth_facade.dart';
-import '../../domain/user.dart';
+import '../../domain/i_repository.dart';
+import '../../domain/favorite.dart';
 
 part 'favorites_cubit.freezed.dart';
 
@@ -41,9 +41,9 @@ class FavoritesState with _$FavoritesState {
 }
 
 class FavoritesCubit extends Cubit<FavoritesState> {
-  final IAuthFacade _authFacade;
+  final IFavoriteRepository _repository;
 
-  FavoritesCubit(this._authFacade) : super(FavoritesState.init());
+  FavoritesCubit(this._repository) : super(FavoritesState.init());
 
   refreshRequested() => emit(FavoritesState.init());
 
@@ -55,7 +55,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     final page = state.page;
     final perPage = state.perPage;
     final resultOption =
-        await _authFacade.getFavorites(page: page, perPage: perPage);
+        await _repository.getFavorites(page: page, perPage: perPage);
 
     resultOption.fold(() {}, (pagination) {
       final favoritesOption = state.favoritesOption;

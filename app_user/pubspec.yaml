@@ -27,15 +27,12 @@ dependencies:
   firebase_core: ^1.3.0
   google_sign_in: ^5.0.4
   cloud_firestore: ^3.1.6
+  flutter_rating_bar: ^4.0.0
   flutter_secure_storage: ^5.0.2
   article:
     path: ../article
-  booking:
-    path: ../booking
   engine:
     path: ../engine
-  # service:
-  #   path: ../service
   theme_manager:
     path: ../theme_manager
   # auth:

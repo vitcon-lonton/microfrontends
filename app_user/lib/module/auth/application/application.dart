@@ -1,6 +1,4 @@
 export 'auth/auth_bloc.dart';
-export 'favorites/favorites_cubit.dart';
-export 'order_histories/order_histories_cubit.dart';
 export 'otp_confirm/otp_confirm_cubit.dart';
 export 'otp_request_new/otp_request_new_cubit.dart';
 export 'password_change/password_change_cubit.dart';

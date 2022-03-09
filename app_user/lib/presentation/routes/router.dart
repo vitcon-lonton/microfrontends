@@ -4,18 +4,18 @@ import '../article/article.dart';
 import '../booking/cart/cart.dart';
 import '../booking/order_detail/order_detail.dart';
 import '../booking/order_histories/order_histories.dart';
+import '../favorites/favorites.dart';
 import '../home/home.dart';
 import '../notifications/notifications.dart';
 import '../service/service.dart';
 import '../setting/setting.dart';
-import '../user/favorites/favorites.dart';
+import '../splash/splash_page.dart';
 import '../user/otp_confirm/otp_confirm.dart';
 import '../user/password_change/password_change.dart';
 import '../user/password_forget/password_forget.dart';
 import '../user/password_update/password_update.dart';
 import '../user/register/register.dart';
-import '../user/sign_in/sign_in_page.dart';
-import '../user/splash/splash_page.dart';
+import '../user/sign_in/sign_in.dart';
 import '../user/user_update/user_update.dart';
 
 @MaterialAutoRouter(
@@ -25,7 +25,6 @@ import '../user/user_update/user_update.dart';
     // MaterialRoute(page: HomePage),
 
     // AUTH
-    MaterialRoute(page: FavoritesPage),
     MaterialRoute(page: OtpConfirmPage),
     MaterialRoute(page: PasswordChangePage),
     MaterialRoute(page: PasswordForgetPage),
@@ -35,6 +34,9 @@ import '../user/user_update/user_update.dart';
     MaterialRoute(page: SplashPage),
     MaterialRoute(page: UserUpdatePage),
     // MaterialRoute(page: SplashPage, initial: true),
+
+    // FAVORITE
+    MaterialRoute(page: FavoritesPage),
 
     // SETTING
     MaterialRoute(page: SettingsPage),

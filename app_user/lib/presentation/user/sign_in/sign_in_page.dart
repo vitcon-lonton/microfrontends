@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_user/module/auth/auth.dart';
-import 'package:app_user/injection.dart';
-import 'widgets/sign_in_form.dart';
+part of 'sign_in.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);

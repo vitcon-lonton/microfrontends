@@ -4,8 +4,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:app_user/module/auth/auth.dart';
-import 'package:dartz/dartz.dart' hide Order;
-import 'package:engine/engine.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -222,44 +221,6 @@ class AuthFacade implements IAuthFacade {
         return left(const AuthFailure.serverError());
       }
     }
-  }
-
-  @override
-  Future<Option<Pagination<Order>>> getOrderHistories(
-      {required int page, required int perPage}) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-
-    const pageCount = 5;
-    final totalCount = perPage * 5;
-    final data = List.generate(perPage, (index) => Order.random());
-
-    final result = Pagination<Order>(
-        data: data,
-        page: page,
-        perPage: perPage,
-        pageCount: pageCount,
-        totalCount: totalCount);
-
-    return optionOf(result);
-  }
-
-  @override
-  Future<Option<Pagination<Favorite>>> getFavorites(
-      {required int page, required int perPage}) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-
-    const pageCount = 5;
-    final totalCount = perPage * 5;
-    final data = List.generate(perPage, (index) => Favorite.random());
-
-    final result = Pagination<Favorite>(
-        data: data,
-        page: page,
-        perPage: perPage,
-        pageCount: pageCount,
-        totalCount: totalCount);
-
-    return optionOf(result);
   }
 }
 

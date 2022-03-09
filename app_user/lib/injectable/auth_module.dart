@@ -4,12 +4,6 @@ import 'package:app_user/module/auth/auth.dart';
 
 @module
 abstract class AuthModule {
-  @LazySingleton()
-  AccountApi api(Dio dio) => AccountApi(dio);
-
-  @LazySingleton(as: IAuthFacade)
-  AuthFacade get authFacade;
-
   @Injectable()
   AuthBloc get authBloc;
 
@@ -21,9 +15,6 @@ abstract class AuthModule {
 
   @Injectable()
   RegisterCubit get registerCubit;
-
-  @Injectable()
-  FavoritesCubit get favoritesCubit;
 
   @Injectable()
   OtpConfirmCubit get otpConfirmCubit;
@@ -42,6 +33,12 @@ abstract class AuthModule {
 
   @Injectable()
   AuthInterceptors get authInterceptors;
+
+  @LazySingleton(as: IAuthFacade)
+  AuthFacade get authFacade;
+
+  @LazySingleton()
+  AccountApi api(Dio dio) => AccountApi(dio);
 }
 
 

@@ -1,5 +1,4 @@
-import 'package:dartz/dartz.dart' hide Order;
-import 'package:engine/engine.dart';
+import 'package:dartz/dartz.dart';
 
 import 'auth_failure.dart';
 import 'user.dart';
@@ -7,6 +6,7 @@ import 'value_objects.dart';
 
 abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();
+  Future<void> signOut();
   Future<Either<AuthFailure, Unit>> forgetPassword({required Phone phone});
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
       {required Name name,
@@ -31,9 +31,4 @@ abstract class IAuthFacade {
       required Gender gender,
       required BirthDay birthDay,
       required EmailAddress emailAddress});
-  Future<void> signOut();
-  Future<Option<Pagination<Favorite>>> getFavorites(
-      {required int page, required int perPage});
-  Future<Option<Pagination<Order>>> getOrderHistories(
-      {required int page, required int perPage});
 }
