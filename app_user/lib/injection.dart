@@ -13,4 +13,3 @@ final GetIt getIt = GetIt.instance;
 void configureInjection(String env) {
   $initGetIt(getIt, environment: env);
 }
-// getIt<Dio>().interceptors.add(PostmanDioLogger(enablePrint: true));

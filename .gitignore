@@ -52,6 +52,10 @@ app.*.map.json
 pubspec.lock
 .metadata
 
+*.g.dart
+*.freezed.dart
+*.config.dart
+
 */example/ios/
 */example/android/
 */example/web/
