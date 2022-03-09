@@ -19,8 +19,7 @@ class _$RegisterStateTearOff {
   const _$RegisterStateTearOff();
 
   _RegisterState call(
-      {required Name lastName,
-      required Name firstName,
+      {required Name name,
       required Phone phone,
       required Street street,
       required Gender gender,
@@ -36,8 +35,7 @@ class _$RegisterStateTearOff {
       required Option<Either<AuthFailure, Unit>>
           registerFailureOrSuccessOption}) {
     return _RegisterState(
-      lastName: lastName,
-      firstName: firstName,
+      name: name,
       phone: phone,
       street: street,
       gender: gender,
@@ -60,8 +58,7 @@ const $RegisterState = _$RegisterStateTearOff();
 
 /// @nodoc
 mixin _$RegisterState {
-  Name get lastName => throw _privateConstructorUsedError;
-  Name get firstName => throw _privateConstructorUsedError;
+  Name get name => throw _privateConstructorUsedError;
   Phone get phone => throw _privateConstructorUsedError;
   Street get street => throw _privateConstructorUsedError;
   Gender get gender => throw _privateConstructorUsedError;
@@ -88,8 +85,7 @@ abstract class $RegisterStateCopyWith<$Res> {
           RegisterState value, $Res Function(RegisterState) then) =
       _$RegisterStateCopyWithImpl<$Res>;
   $Res call(
-      {Name lastName,
-      Name firstName,
+      {Name name,
       Phone phone,
       Street street,
       Gender gender,
@@ -118,8 +114,7 @@ class _$RegisterStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? lastName = freezed,
-    Object? firstName = freezed,
+    Object? name = freezed,
     Object? phone = freezed,
     Object? street = freezed,
     Object? gender = freezed,
@@ -135,13 +130,9 @@ class _$RegisterStateCopyWithImpl<$Res>
     Object? registerFailureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as Name,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as Name,
       phone: phone == freezed
           ? _value.phone
@@ -214,8 +205,7 @@ abstract class _$RegisterStateCopyWith<$Res>
       __$RegisterStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Name lastName,
-      Name firstName,
+      {Name name,
       Phone phone,
       Street street,
       Gender gender,
@@ -247,8 +237,7 @@ class __$RegisterStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? lastName = freezed,
-    Object? firstName = freezed,
+    Object? name = freezed,
     Object? phone = freezed,
     Object? street = freezed,
     Object? gender = freezed,
@@ -264,13 +253,9 @@ class __$RegisterStateCopyWithImpl<$Res>
     Object? registerFailureOrSuccessOption = freezed,
   }) {
     return _then(_RegisterState(
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as Name,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as Name,
       phone: phone == freezed
           ? _value.phone
@@ -332,8 +317,7 @@ class __$RegisterStateCopyWithImpl<$Res>
 
 class _$_RegisterState extends _RegisterState {
   _$_RegisterState(
-      {required this.lastName,
-      required this.firstName,
+      {required this.name,
       required this.phone,
       required this.street,
       required this.gender,
@@ -350,9 +334,7 @@ class _$_RegisterState extends _RegisterState {
       : super._();
 
   @override
-  final Name lastName;
-  @override
-  final Name firstName;
+  final Name name;
   @override
   final Phone phone;
   @override
@@ -387,7 +369,7 @@ class _$_RegisterState extends _RegisterState {
 
   @override
   String toString() {
-    return 'RegisterState(lastName: $lastName, firstName: $firstName, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, password: $password, confirmPassword: $confirmPassword, emailAddress: $emailAddress, isSubmitting: $isSubmitting, displayPassword: $displayPassword, displayConfirmPassword: $displayConfirmPassword, showErrorMessages: $showErrorMessages, status: $status, registerFailureOrSuccessOption: $registerFailureOrSuccessOption)';
+    return 'RegisterState(name: $name, phone: $phone, street: $street, gender: $gender, birthDay: $birthDay, password: $password, confirmPassword: $confirmPassword, emailAddress: $emailAddress, isSubmitting: $isSubmitting, displayPassword: $displayPassword, displayConfirmPassword: $displayConfirmPassword, showErrorMessages: $showErrorMessages, status: $status, registerFailureOrSuccessOption: $registerFailureOrSuccessOption)';
   }
 
   @override
@@ -395,8 +377,7 @@ class _$_RegisterState extends _RegisterState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _RegisterState &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality().equals(other.street, street) &&
             const DeepCollectionEquality().equals(other.gender, gender) &&
@@ -423,8 +404,7 @@ class _$_RegisterState extends _RegisterState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(lastName),
-      const DeepCollectionEquality().hash(firstName),
+      const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(street),
       const DeepCollectionEquality().hash(gender),
@@ -447,8 +427,7 @@ class _$_RegisterState extends _RegisterState {
 
 abstract class _RegisterState extends RegisterState {
   factory _RegisterState(
-      {required Name lastName,
-      required Name firstName,
+      {required Name name,
       required Phone phone,
       required Street street,
       required Gender gender,
@@ -466,9 +445,7 @@ abstract class _RegisterState extends RegisterState {
   _RegisterState._() : super._();
 
   @override
-  Name get lastName;
-  @override
-  Name get firstName;
+  Name get name;
   @override
   Phone get phone;
   @override

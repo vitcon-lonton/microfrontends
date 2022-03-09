@@ -13,6 +13,7 @@ dependencies:
   dio: ^4.0.4
   retrofit: any
   get_it: ^7.2.0
+  rxdart: ^0.27.3
   kt_dart: ^0.10.0
   injectable: ^1.4.1
   auto_route: ^3.2.4

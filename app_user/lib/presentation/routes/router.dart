@@ -43,10 +43,10 @@ import '../user/user_update/user_update.dart';
     MaterialRoute(page: NotificationsPage),
 
     // SERVICE
-    MaterialRoute(page: ServiceDetail),
-    MaterialRoute(page: ServiceBookingPage),
     MaterialRoute(page: CategoriesPage),
     MaterialRoute(page: ServicesPage),
+    MaterialRoute(page: ServiceBookingPage),
+    // MaterialRoute(page: ServiceDetail),
 
     // BOOKING
     MaterialRoute(page: CartPage),

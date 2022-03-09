@@ -9,11 +9,10 @@ abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();
   Future<Either<AuthFailure, Unit>> forgetPassword({required Phone phone});
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
-      {required Phone phone,
+      {required Name name,
+      required Phone phone,
       required Street street,
       required Gender gender,
-      required Name lastName,
-      required Name firstName,
       required BirthDay birthDay,
       required Password password,
       required Password confirmPassword,

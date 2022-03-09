@@ -69,11 +69,7 @@ class _HomePageState extends State<HomePage> {
             kVSpaceM,
             BlocProvider(
               create: (_) => getIt<ServicesCubit>(),
-              child: Services(
-                isPagination: false,
-                onItemPressed: (service) =>
-                    context.router.push(const ServiceBookingPageRoute()),
-              ),
+              child: const Services(isPagination: false),
             ),
             kVSpaceM,
           ],
@@ -84,11 +80,7 @@ class _HomePageState extends State<HomePage> {
             kVSpaceM,
             BlocProvider(
               create: (_) => getIt<ServicesCubit>(),
-              child: Services(
-                isPagination: false,
-                onItemPressed: (service) =>
-                    context.router.push(const ServiceBookingPageRoute()),
-              ),
+              child: const Services(isPagination: false),
             ),
             kVSpaceM,
             kVSpaceL,

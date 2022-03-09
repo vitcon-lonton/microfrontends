@@ -14,83 +14,99 @@ class ServiceDetail extends StatelessWidget {
         listener: (context, state) {},
         child: BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
             builder: (context, state) {
-              if (state.isSubmitting) {
-                return const LinearProgressIndicator();
-              }
+              if (state.isSubmitting) return const LinearProgressIndicator();
 
-              if (state.service == null) {
-                return kSpaceZero;
-              }
+              if (state.service == null) return kSpaceZero;
 
               // final img = service.img;
               final service = state.service!;
+              final name = service.name;
               final price = service.price;
-              final rating = service.rating;
               final description = service.description;
 
-              return Padding(
-                  child: Column(children: [
-                    // Image.network(img),
+              return Column(
+                children: [
+                  // Image.network(img),
 
-                    // HEADER
-                    kVSpaceM,
-                    SizedBox.fromSize(
-                        size: const Size.fromHeight(500),
+                  // HEADER
+                  // kVSpaceM,
+                  SizedBox.fromSize(
+                      size: const Size.fromHeight(500),
+                      child: Container(
+                        color: Theme.of(context).primaryColor,
                         child: Stack(children: [
-                          const Center(
-                              child: Icon(Icons.room_service, size: 500)),
+                          Center(
+                            child: Icon(Icons.room_service,
+                                size: 500,
+                                color: Theme.of(context).colorScheme.onPrimary),
+                          ),
                           Row(children: [
-                            BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
-                              builder: (context, state) {
-                                if (state.isSubmittingLike) {
-                                  return const IconButton(
-                                      icon: CircularProgressIndicator(
-                                          strokeWidth: 2.0, color: Colors.red),
-                                      onPressed: null);
-                                }
+                            IconTheme(
+                              data: IconThemeData(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                              child: BlocBuilder<ServiceDetailCubit,
+                                  ServiceDetailState>(
+                                builder: (context, state) {
+                                  if (state.isSubmittingLike) {
+                                    return IconButton(
+                                        icon: CircularProgressIndicator(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onPrimary,
+                                            strokeWidth: 2.0),
+                                        onPressed: null);
+                                  }
 
-                                if (state.isLiked) {
+                                  if (state.isLiked) {
+                                    return IconButton(
+                                        onPressed: context
+                                            .read<ServiceDetailCubit>()
+                                            .unlikeRequested,
+                                        icon: const Icon(Icons.favorite));
+                                  }
+
                                   return IconButton(
-                                      color: Colors.red,
                                       onPressed: context
                                           .read<ServiceDetailCubit>()
-                                          .unlikeRequested,
-                                      icon: const Icon(Icons.favorite));
-                                }
-
-                                return IconButton(
-                                  color: Colors.red,
-                                  onPressed: context
-                                      .read<ServiceDetailCubit>()
-                                      .likeRequested,
-                                  icon: const Icon(
-                                      Icons.favorite_border_outlined),
-                                );
-                              },
-                              buildWhen: (prev, cur) =>
-                                  prev.isLiked != cur.isLiked ||
-                                  prev.isSubmittingLike != cur.isSubmittingLike,
+                                          .likeRequested,
+                                      icon: const Icon(
+                                          Icons.favorite_border_outlined));
+                                },
+                                buildWhen: (prev, cur) =>
+                                    prev.isLiked != cur.isLiked ||
+                                    prev.isSubmittingLike !=
+                                        cur.isSubmittingLike,
+                              ),
                             ),
                           ], mainAxisAlignment: MainAxisAlignment.end)
-                        ])),
+                        ]),
+                      )),
 
-                    // BODY
-                    kVSpaceL,
-                    Row(children: [
-                      const Icon(Icons.star, size: 15),
-                      Text(rating.toString()),
-                    ], crossAxisAlignment: CrossAxisAlignment.end),
+                  Padding(
+                    child: Column(children: [
+                      Row(),
+                      kVSpaceM,
+                      Text(name),
+                      kVSpaceM,
+                      Text(price),
+                      kVSpaceM,
+                    ], crossAxisAlignment: CrossAxisAlignment.start),
+                    padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
+                  ),
 
-                    kVSpaceL,
-                    Text(price),
-
-                    kVSpaceL,
-                    const Text('Description'),
-
-                    kVSpaceL,
-                    Text(description),
-                  ], crossAxisAlignment: CrossAxisAlignment.start),
-                  padding: const EdgeInsets.symmetric(horizontal: kSpaceM));
+                  Padding(
+                    child: Column(children: [
+                      kVSpaceM,
+                      const Text('Description'),
+                      kVSpaceM,
+                      Text(description),
+                      kVSpaceM,
+                    ], crossAxisAlignment: CrossAxisAlignment.start),
+                    padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
+                  ),
+                ],
+              );
             },
             buildWhen: (prev, cur) =>
                 prev.service != cur.service ||

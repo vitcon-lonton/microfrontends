@@ -59,12 +59,7 @@ class ServiceBookingPage extends StatelessWidget {
               ]),
 
               // APP_BAR
-              appBar: AppBar(
-                  title: BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
-                      builder: (context, state) => state.service == null
-                          ? kSpaceZero
-                          : Text(state.service!.name),
-                      buildWhen: (prev, cur) => prev.service != cur.service)),
+              // appBar: AppBar(backgroundColor: Colors.transparent,),
 
               // NAVIGATION_BAR
               bottomNavigationBar: BlocBuilder<ServiceBookingFormCubit,

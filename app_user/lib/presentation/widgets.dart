@@ -136,11 +136,11 @@ class StreetInput extends StatelessWidget {
   }
 }
 
-class FirstNameInput extends StatelessWidget {
+class NameInput extends StatelessWidget {
   final Name value;
   final void Function(String)? onChanged;
 
-  const FirstNameInput({
+  const NameInput({
     Key? key,
     required this.value,
     this.onChanged,
@@ -149,40 +149,14 @@ class FirstNameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WTextInput(
-      label: 'First Name',
-      hintText: 'First Name',
+      label: 'Name',
+      hintText: 'Name',
       onChanged: onChanged,
       initialValue: value.value.fold((failure) {
         return failure.failedValue;
       }, (string) => string),
       errorText: value.value.fold((failure) {
         return 'Invalid First Name';
-      }, (_) => null),
-    );
-  }
-}
-
-class LastNameInput extends StatelessWidget {
-  final Name value;
-  final void Function(String)? onChanged;
-
-  const LastNameInput({
-    Key? key,
-    required this.value,
-    this.onChanged,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return WTextInput(
-      label: 'Last Name',
-      hintText: 'Last Name',
-      onChanged: onChanged,
-      initialValue: value.value.fold((failure) {
-        return failure.failedValue;
-      }, (string) => string),
-      errorText: value.value.fold((failure) {
-        return 'Invalid Last Name';
       }, (_) => null),
     );
   }

@@ -40,8 +40,8 @@ class AppWidget extends StatelessWidget {
             // const app_router.OtpConfirmPageRoute(),
             // const app_router.NotificationsPageRoute(),
             // const app_router.HomePageRoute(),
-            const app_router.SignInPageRoute(),
-            // const app_router.ServiceBookingPageRoute(),
+            // const app_router.SignInPageRoute(),
+            const app_router.ServiceBookingPageRoute(),
           ],
         ),
         theme: ThemeData.light().copyWith(

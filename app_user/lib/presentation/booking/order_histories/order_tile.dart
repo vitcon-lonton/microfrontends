@@ -9,9 +9,9 @@ class OrderTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final name = order.name;
     final status = order.status;
+    final price = '${order.price} VND';
     final time = order.time.toIso8601String();
     final id = order.id.value.foldRight('', (id, previous) => '#$id');
-    final price = '${order.price} VND';
 
     return InkWell(
       onTap: () => _showRatingForm(context),

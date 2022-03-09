@@ -108,32 +108,31 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
-      {required Phone phone,
+      {required Name name,
+      required Phone phone,
       required Street street,
       required Gender gender,
-      required Name lastName,
-      required Name firstName,
       required BirthDay birthDay,
       required Password password,
       required Password confirmPassword,
       required EmailAddress emailAddress}) async {
+    final nameStr = name.getOrCrash();
     final phoneStr = phone.getOrCrash();
     final streetStr = street.getOrCrash();
     final passwordStr = password.getOrCrash();
-    final lastNameStr = lastName.getOrCrash();
-    final firstNameStr = firstName.getOrCrash();
     final birthDayValue = birthDay.getOrCrash();
     final emailAddressStr = emailAddress.getOrCrash();
     final confirmPasswordStr = confirmPassword.getOrCrash();
-
     try {
+      // Male
+      // 1/1/1993
       final data = RegisterData(
+          name: nameStr,
           phone: phoneStr,
           address: streetStr,
-          gender: gender.toString(),
           password: passwordStr,
           email: emailAddressStr,
-          name: firstNameStr + lastNameStr,
+          gender: gender.toString(),
           birthdate: birthDayValue.toString(),
           passwordConfirmation: confirmPasswordStr);
 

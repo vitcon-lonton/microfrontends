@@ -16,51 +16,98 @@ class _FavoriteTileState extends State<FavoriteTile> {
     final name = widget.favorite.name;
     final price = '${widget.favorite.price} vnd';
 
-    return ListTile(
-      onTap: () {},
-      title: Text(name),
-      subtitle: Text(price),
-      minVerticalPadding: 32.0,
-      visualDensity: const VisualDensity(vertical: 4),
-      trailing: BlocBuilder<FavoritesCubit, FavoritesState>(
-        buildWhen: (prev, cur) => prev.removingId != cur.removingId,
-        builder: (context, state) {
-          if (state.removingId == null) {
-            return IconButton(
-              onPressed: () {
-                // context
-                //     .read<FavoritesCubit>()
-                //     .unlikeRequested(widget.favorite.id);
-
-                _confirm(context);
-              },
-              icon: const Icon(Icons.favorite, color: Colors.red),
-            );
-          }
-
-          if (state.removingId!.getOrCrash().compareTo(id.getOrCrash()) == 0) {
-            return const IconButton(
-                onPressed: null, icon: CircularProgressIndicator());
-          }
-
-          return const IconButton(
-            onPressed: null,
-            icon: Icon(Icons.favorite, color: Colors.red),
-          );
-        },
-      ),
-      leading: Container(
-        width: 70,
-        height: 70,
-        child: const Icon(Icons.medical_services),
+    return InkWell(
+      borderRadius: BorderRadius.circular(8),
+      onTap: () => context.router.push(const ServiceBookingPageRoute()),
+      child: Ink(
+        padding: const EdgeInsets.all(kSpaceS),
         decoration: BoxDecoration(
-            border: Border.all(), borderRadius: BorderRadius.circular(6)),
+          color: const Color(0xFFF7F8FA),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: SizedBox.fromSize(
+          size: const Size.fromHeight(60),
+          child: Row(children: [
+            SizedBox(
+              width: 60,
+              height: 60,
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 0.25),
+                    borderRadius: BorderRadius.circular(2)),
+                child: Icon(
+                  Icons.medical_services,
+                  size: 60,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+            kHSpaceM,
+            Expanded(
+              flex: 2,
+              child: DefaultTextStyle(
+                  maxLines: 2,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(fontSize: 14),
+                  overflow: TextOverflow.ellipsis,
+                  child: Column(
+                      children: [
+                        kVSpaceXS,
+                        Text(name, maxLines: 2),
+                        kVSpaceXS,
+                        Text(price,
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(fontSize: 16))
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start)),
+            ),
+            BlocBuilder<FavoritesCubit, FavoritesState>(
+              buildWhen: (prev, cur) => prev.removingId != cur.removingId,
+              builder: (context, state) {
+                final removingId = state.removingId;
+
+                if (removingId == null) {
+                  return IconButton(
+                      onPressed: _onPressedUnlike,
+                      icon: const Icon(Icons.favorite, color: Colors.red));
+                }
+
+                final idStr = id.getOrCrash();
+                final removingIdStr = removingId.getOrCrash();
+
+                if (idStr == removingIdStr) {
+                  return const IconButton(
+                      onPressed: null, icon: CircularProgressIndicator());
+                }
+
+                return const IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.favorite, color: Colors.red),
+                );
+              },
+            )
+          ]),
+        ),
       ),
     );
   }
 
-  void _confirm(BuildContext context) {
-    showDialog(
+  Future<void> _onPressedUnlike() async {
+    final res = await _confirm();
+
+    if (res != true) return;
+
+    return context.read<FavoritesCubit>().unlikeRequested(widget.favorite.id);
+  }
+
+  Future<bool?> _confirm() {
+    return showDialog(
       context: context,
       builder: (context) => Material(
         color: Colors.transparent,
@@ -92,13 +139,7 @@ class _FavoriteTileState extends State<FavoriteTile> {
                           child: const Text('Unlike'),
                           style: ElevatedButton.styleFrom(
                               elevation: 0, shadowColor: Colors.transparent),
-                          onPressed: () {
-                            context
-                                .read<FavoritesCubit>()
-                                .unlikeRequested(widget.favorite.id);
-
-                            Navigator.of(context).pop();
-                          },
+                          onPressed: () => Navigator.of(context).pop(true),
                         ),
                       ),
                     ],

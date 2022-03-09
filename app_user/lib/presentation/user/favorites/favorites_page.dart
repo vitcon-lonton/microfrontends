@@ -66,11 +66,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: favorites.length,
+                  separatorBuilder: (_, index) => kVSpaceM,
                   physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (_, index) => const Divider(height: 0),
-                  itemBuilder: (_, index) {
-                    return FavoriteTile(favorite: favorites[index]);
-                  },
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: kSpaceM, vertical: kSpaceM),
+                  itemBuilder: (_, index) =>
+                      FavoriteTile(favorite: favorites[index]),
                 ),
               );
             },

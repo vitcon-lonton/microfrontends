@@ -13,18 +13,10 @@ class RegisterForm extends StatelessWidget {
         children: [
           kVSpaceM,
           BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.firstName != cur.firstName,
-            builder: (context, state) => FirstNameInput(
-              value: state.firstName,
-              onChanged: context.read<RegisterCubit>().firstNameChanged,
-            ),
-          ),
-          kVSpaceM,
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.lastName != cur.lastName,
-            builder: (context, state) => LastNameInput(
-              value: state.lastName,
-              onChanged: context.read<RegisterCubit>().lastNameChanged,
+            buildWhen: (prev, cur) => prev.name != cur.name,
+            builder: (context, state) => NameInput(
+              value: state.name,
+              onChanged: context.read<RegisterCubit>().nameChanged,
             ),
           ),
           kVSpaceM,

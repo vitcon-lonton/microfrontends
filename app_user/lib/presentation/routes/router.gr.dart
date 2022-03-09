@@ -86,14 +86,6 @@ class Router extends _i18.RootStackRouter {
       return _i18.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i12.NotificationsPage());
     },
-    ServiceDetailRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i13.ServiceDetail());
-    },
-    ServiceBookingPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i13.ServiceBookingPage());
-    },
     CategoriesPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i13.CategoriesPage());
@@ -101,6 +93,10 @@ class Router extends _i18.RootStackRouter {
     ServicesPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i13.ServicesPage());
+    },
+    ServiceBookingPageRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i13.ServiceBookingPage());
     },
     CartPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
@@ -144,11 +140,10 @@ class Router extends _i18.RootStackRouter {
         _i18.RouteConfig(SettingsPageRoute.name, path: '/settings-page'),
         _i18.RouteConfig(NotificationsPageRoute.name,
             path: '/notifications-page'),
-        _i18.RouteConfig(ServiceDetailRoute.name, path: '/service-detail'),
-        _i18.RouteConfig(ServiceBookingPageRoute.name,
-            path: '/service-booking-page'),
         _i18.RouteConfig(CategoriesPageRoute.name, path: '/categories-page'),
         _i18.RouteConfig(ServicesPageRoute.name, path: '/services-page'),
+        _i18.RouteConfig(ServiceBookingPageRoute.name,
+            path: '/service-booking-page'),
         _i18.RouteConfig(CartPageRoute.name, path: '/cart-page'),
         _i18.RouteConfig(OrderDetailPageRoute.name, path: '/order-detail-page'),
         _i18.RouteConfig(OrderHistoriesPageRoute.name,
@@ -265,24 +260,6 @@ class NotificationsPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ServiceDetail]
-class ServiceDetailRoute extends _i18.PageRouteInfo<void> {
-  const ServiceDetailRoute()
-      : super(ServiceDetailRoute.name, path: '/service-detail');
-
-  static const String name = 'ServiceDetailRoute';
-}
-
-/// generated route for
-/// [_i13.ServiceBookingPage]
-class ServiceBookingPageRoute extends _i18.PageRouteInfo<void> {
-  const ServiceBookingPageRoute()
-      : super(ServiceBookingPageRoute.name, path: '/service-booking-page');
-
-  static const String name = 'ServiceBookingPageRoute';
-}
-
-/// generated route for
 /// [_i13.CategoriesPage]
 class CategoriesPageRoute extends _i18.PageRouteInfo<void> {
   const CategoriesPageRoute()
@@ -298,6 +275,15 @@ class ServicesPageRoute extends _i18.PageRouteInfo<void> {
       : super(ServicesPageRoute.name, path: '/services-page');
 
   static const String name = 'ServicesPageRoute';
+}
+
+/// generated route for
+/// [_i13.ServiceBookingPage]
+class ServiceBookingPageRoute extends _i18.PageRouteInfo<void> {
+  const ServiceBookingPageRoute()
+      : super(ServiceBookingPageRoute.name, path: '/service-booking-page');
+
+  static const String name = 'ServiceBookingPageRoute';
 }
 
 /// generated route for

@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service/service.dart';
 import 'package:app_user/injection.dart';
-import 'package:app_user/presentation/routes/router.gr.dart';
 import 'package:app_user/presentation/service/service.dart';
 
 class ServicesPage extends StatelessWidget {
@@ -14,11 +12,8 @@ class ServicesPage extends StatelessWidget {
     return BlocProvider<ServicesCubit>.value(
       value: getIt<ServicesCubit>()..getServicesRequested(),
       child: Scaffold(
+        body: const Services(),
         appBar: AppBar(title: const Text('Services')),
-        body: Services(
-          onItemPressed: (service) =>
-              context.router.push(const ServiceBookingPageRoute()),
-        ),
       ),
     );
   }

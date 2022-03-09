@@ -13,8 +13,7 @@ class RegisterState with _$RegisterState {
   const RegisterState._();
 
   factory RegisterState({
-    required Name lastName,
-    required Name firstName,
+    required Name name,
     required Phone phone,
     required Street street,
     required Gender gender,
@@ -36,8 +35,7 @@ class RegisterState with _$RegisterState {
 
   factory RegisterState.init() {
     return RegisterState(
-      lastName: Name('Last'),
-      firstName: Name('First'),
+      name: Name('First'),
       phone: Phone('9999999999'),
       gender: Gender.male,
       birthDay: BirthDay(DateTime.now()),
@@ -75,12 +73,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this._authFacade) : super(RegisterState.init());
 
-  firstNameChanged(String value) {
-    emit(state.copyWith(firstName: Name(value)));
-  }
-
-  lastNameChanged(String value) {
-    emit(state.copyWith(lastName: Name(value)));
+  nameChanged(String value) {
+    emit(state.copyWith(name: Name(value)));
   }
 
   phoneChanged(String value) {
@@ -123,39 +117,36 @@ class RegisterCubit extends Cubit<RegisterState> {
     Either<AuthFailure, Unit> failureOrSuccess =
         const Right<AuthFailure, Unit>(unit);
 
+    final name = state.name;
     final phone = state.phone;
     final street = state.street;
     // final gender = state.gender;
     final password = state.password;
     final birthDay = state.birthDay;
-    final lastName = state.lastName;
-    final firstName = state.firstName;
     final confirmPassword = state.confirmPassword;
     final emailAddress = state.emailAddress;
 
     const isGenderValid = true;
+    final isNameValid = name.isValid();
     final isPhoneValid = phone.isValid();
     final isStreetValid = street.isValid();
     // final isGenderValid = gender.isValid();
     final isBirthDayValid = birthDay.isValid();
     final isEmailValid = emailAddress.isValid();
     final isPasswordValid = password.isValid();
-    final isLastNameValid = lastName.isValid();
-    final isFirstNameValid = firstName.isValid();
     final isConfirmPasswordValid = confirmPassword.isValid();
     final passwordStr = password.getOrCrash();
     final confirmPasswordStr = confirmPassword.getOrCrash();
     final isMatch = passwordStr.compareTo(confirmPasswordStr) == 0;
 
     if (isMatch &&
+        isNameValid &&
         isPhoneValid &&
         isEmailValid &&
         isStreetValid &&
         isGenderValid &&
         isPasswordValid &&
         isBirthDayValid &&
-        isLastNameValid &&
-        isFirstNameValid &&
         isConfirmPasswordValid) {
       emit(state.busy());
       emit(state.copyWith(
@@ -175,24 +166,22 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<Either<AuthFailure, Unit>> _performRegister() {
+    final name = state.name;
     final phone = state.phone;
     final street = state.street;
     final gender = state.gender;
     final birthDay = state.birthDay;
-    final lastName = state.lastName;
-    final firstName = state.firstName;
     final emailAddress = state.emailAddress;
     final password = state.password;
     final confirmPassword = state.confirmPassword;
 
     return _authFacade.registerWithEmailAndPassword(
+        name: name,
         phone: phone,
         street: street,
         gender: gender,
         birthDay: birthDay,
         password: password,
-        lastName: lastName,
-        firstName: firstName,
         confirmPassword: confirmPassword,
         emailAddress: emailAddress);
   }

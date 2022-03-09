@@ -7,11 +7,9 @@ import 'service_tile.dart';
 
 class Services extends StatefulWidget {
   final bool isPagination;
-  final void Function(Service)? onItemPressed;
 
   const Services({
     Key? key,
-    this.onItemPressed,
     this.isPagination = true,
   }) : super(key: key);
 
@@ -38,11 +36,10 @@ class _ServicesState extends State<Services> {
                     kHSpaceM,
                     Expanded(
                       child: DefaultTextStyle(
-                        maxLines: 1,
-                        child: const Text('Washing'),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headlineSmall!,
-                      ),
+                          maxLines: 1,
+                          child: const Text('Washing'),
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headlineSmall!),
                     ),
                     kHSpaceM
                   ]),
@@ -50,15 +47,11 @@ class _ServicesState extends State<Services> {
                   ListView.separated(
                     shrinkWrap: true,
                     itemCount: services.length,
+                    separatorBuilder: (_, index) => kVSpaceS,
                     physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (_, index) => const Divider(height: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
                     itemBuilder: (_, index) {
-                      return ServiceTile(
-                        onTap: widget.onItemPressed == null
-                            ? null
-                            : () => widget.onItemPressed!(services[index]),
-                        service: services[index],
-                      );
+                      return ServiceTile(service: services[index]);
                     },
                   ),
                 ],
@@ -89,15 +82,11 @@ class _ServicesState extends State<Services> {
                   ListView.separated(
                     shrinkWrap: true,
                     itemCount: services.length,
+                    separatorBuilder: (_, index) => kVSpaceS,
                     physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (_, index) => const Divider(height: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
                     itemBuilder: (_, index) {
-                      return ServiceTile(
-                        onTap: widget.onItemPressed == null
-                            ? null
-                            : () => widget.onItemPressed!(services[index]),
-                        service: services[index],
-                      );
+                      return ServiceTile(service: services[index]);
                     },
                   ),
                 ],
