@@ -189,21 +189,21 @@ class _$RegisterDataTearOff {
   _RegisterData call(
       {required String name,
       required String email,
-      required String password,
-      required String passwordConfirmation,
-      required String address,
       required String phone,
+      required String gender,
+      required String address,
       required String birthdate,
-      required String gender}) {
+      required String password,
+      required String passwordConfirmation}) {
     return _RegisterData(
       name: name,
       email: email,
+      phone: phone,
+      gender: gender,
+      address: address,
+      birthdate: birthdate,
       password: password,
       passwordConfirmation: passwordConfirmation,
-      address: address,
-      phone: phone,
-      birthdate: birthdate,
-      gender: gender,
     );
   }
 
@@ -219,12 +219,12 @@ const $RegisterData = _$RegisterDataTearOff();
 mixin _$RegisterData {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
+  String get birthdate => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get passwordConfirmation => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
-  String get phone => throw _privateConstructorUsedError;
-  String get birthdate => throw _privateConstructorUsedError;
-  String get gender => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -240,12 +240,12 @@ abstract class $RegisterDataCopyWith<$Res> {
   $Res call(
       {String name,
       String email,
-      String password,
-      String passwordConfirmation,
-      String address,
       String phone,
+      String gender,
+      String address,
       String birthdate,
-      String gender});
+      String password,
+      String passwordConfirmation});
 }
 
 /// @nodoc
@@ -260,12 +260,12 @@ class _$RegisterDataCopyWithImpl<$Res> implements $RegisterDataCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? email = freezed,
+    Object? phone = freezed,
+    Object? gender = freezed,
+    Object? address = freezed,
+    Object? birthdate = freezed,
     Object? password = freezed,
     Object? passwordConfirmation = freezed,
-    Object? address = freezed,
-    Object? phone = freezed,
-    Object? birthdate = freezed,
-    Object? gender = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -276,6 +276,22 @@ class _$RegisterDataCopyWithImpl<$Res> implements $RegisterDataCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      birthdate: birthdate == freezed
+          ? _value.birthdate
+          : birthdate // ignore: cast_nullable_to_non_nullable
+              as String,
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -283,22 +299,6 @@ class _$RegisterDataCopyWithImpl<$Res> implements $RegisterDataCopyWith<$Res> {
       passwordConfirmation: passwordConfirmation == freezed
           ? _value.passwordConfirmation
           : passwordConfirmation // ignore: cast_nullable_to_non_nullable
-              as String,
-      address: address == freezed
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String,
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      birthdate: birthdate == freezed
-          ? _value.birthdate
-          : birthdate // ignore: cast_nullable_to_non_nullable
-              as String,
-      gender: gender == freezed
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -314,12 +314,12 @@ abstract class _$RegisterDataCopyWith<$Res>
   $Res call(
       {String name,
       String email,
-      String password,
-      String passwordConfirmation,
-      String address,
       String phone,
+      String gender,
+      String address,
       String birthdate,
-      String gender});
+      String password,
+      String passwordConfirmation});
 }
 
 /// @nodoc
@@ -336,12 +336,12 @@ class __$RegisterDataCopyWithImpl<$Res> extends _$RegisterDataCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? email = freezed,
+    Object? phone = freezed,
+    Object? gender = freezed,
+    Object? address = freezed,
+    Object? birthdate = freezed,
     Object? password = freezed,
     Object? passwordConfirmation = freezed,
-    Object? address = freezed,
-    Object? phone = freezed,
-    Object? birthdate = freezed,
-    Object? gender = freezed,
   }) {
     return _then(_RegisterData(
       name: name == freezed
@@ -352,6 +352,22 @@ class __$RegisterDataCopyWithImpl<$Res> extends _$RegisterDataCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      birthdate: birthdate == freezed
+          ? _value.birthdate
+          : birthdate // ignore: cast_nullable_to_non_nullable
+              as String,
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -359,22 +375,6 @@ class __$RegisterDataCopyWithImpl<$Res> extends _$RegisterDataCopyWithImpl<$Res>
       passwordConfirmation: passwordConfirmation == freezed
           ? _value.passwordConfirmation
           : passwordConfirmation // ignore: cast_nullable_to_non_nullable
-              as String,
-      address: address == freezed
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String,
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      birthdate: birthdate == freezed
-          ? _value.birthdate
-          : birthdate // ignore: cast_nullable_to_non_nullable
-              as String,
-      gender: gender == freezed
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -387,12 +387,12 @@ class _$_RegisterData implements _RegisterData {
   const _$_RegisterData(
       {required this.name,
       required this.email,
-      required this.password,
-      required this.passwordConfirmation,
-      required this.address,
       required this.phone,
+      required this.gender,
+      required this.address,
       required this.birthdate,
-      required this.gender});
+      required this.password,
+      required this.passwordConfirmation});
 
   factory _$_RegisterData.fromJson(Map<String, dynamic> json) =>
       _$$_RegisterDataFromJson(json);
@@ -402,21 +402,21 @@ class _$_RegisterData implements _RegisterData {
   @override
   final String email;
   @override
-  final String password;
+  final String phone;
   @override
-  final String passwordConfirmation;
+  final String gender;
   @override
   final String address;
   @override
-  final String phone;
-  @override
   final String birthdate;
   @override
-  final String gender;
+  final String password;
+  @override
+  final String passwordConfirmation;
 
   @override
   String toString() {
-    return 'RegisterData(name: $name, email: $email, password: $password, passwordConfirmation: $passwordConfirmation, address: $address, phone: $phone, birthdate: $birthdate, gender: $gender)';
+    return 'RegisterData(name: $name, email: $email, phone: $phone, gender: $gender, address: $address, birthdate: $birthdate, password: $password, passwordConfirmation: $passwordConfirmation)';
   }
 
   @override
@@ -426,13 +426,13 @@ class _$_RegisterData implements _RegisterData {
             other is _RegisterData &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.phone, phone) &&
+            const DeepCollectionEquality().equals(other.gender, gender) &&
+            const DeepCollectionEquality().equals(other.address, address) &&
+            const DeepCollectionEquality().equals(other.birthdate, birthdate) &&
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality()
-                .equals(other.passwordConfirmation, passwordConfirmation) &&
-            const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.birthdate, birthdate) &&
-            const DeepCollectionEquality().equals(other.gender, gender));
+                .equals(other.passwordConfirmation, passwordConfirmation));
   }
 
   @override
@@ -440,12 +440,12 @@ class _$_RegisterData implements _RegisterData {
       runtimeType,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(passwordConfirmation),
-      const DeepCollectionEquality().hash(address),
       const DeepCollectionEquality().hash(phone),
+      const DeepCollectionEquality().hash(gender),
+      const DeepCollectionEquality().hash(address),
       const DeepCollectionEquality().hash(birthdate),
-      const DeepCollectionEquality().hash(gender));
+      const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(passwordConfirmation));
 
   @JsonKey(ignore: true)
   @override
@@ -462,12 +462,12 @@ abstract class _RegisterData implements RegisterData {
   const factory _RegisterData(
       {required String name,
       required String email,
-      required String password,
-      required String passwordConfirmation,
-      required String address,
       required String phone,
+      required String gender,
+      required String address,
       required String birthdate,
-      required String gender}) = _$_RegisterData;
+      required String password,
+      required String passwordConfirmation}) = _$_RegisterData;
 
   factory _RegisterData.fromJson(Map<String, dynamic> json) =
       _$_RegisterData.fromJson;
@@ -477,17 +477,17 @@ abstract class _RegisterData implements RegisterData {
   @override
   String get email;
   @override
-  String get password;
+  String get phone;
   @override
-  String get passwordConfirmation;
+  String get gender;
   @override
   String get address;
   @override
-  String get phone;
-  @override
   String get birthdate;
   @override
-  String get gender;
+  String get password;
+  @override
+  String get passwordConfirmation;
   @override
   @JsonKey(ignore: true)
   _$RegisterDataCopyWith<_RegisterData> get copyWith =>

@@ -12,7 +12,7 @@ class ServiceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final name = service.name;
-    final price = service.price;
+    final price = service.priceApprox.toString();
 
     return InkWell(
       borderRadius: BorderRadius.circular(8),

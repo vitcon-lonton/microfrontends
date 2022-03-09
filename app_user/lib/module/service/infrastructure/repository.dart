@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:engine/pagination.dart';
+import 'package:logger/logger.dart';
 
 import '../domain/entities.dart';
 import '../domain/failure.dart';
@@ -21,9 +22,11 @@ const _fakeCategories = [
 ];
 
 class ServiceRepository implements IServiceRepository {
-  final CatalogueApi _api;
+  final Logger _logger;
+  final ServiceApi _serviceApi;
+  final CatalogueApi _catalogueApi;
 
-  const ServiceRepository(this._api);
+  ServiceRepository(this._logger, this._serviceApi, this._catalogueApi);
 
   @override
   Future<Either<ServiceFailure, Unit>> book(Service service) async {
@@ -43,48 +46,58 @@ class ServiceRepository implements IServiceRepository {
     // } catch (_) {
     //   return optionOf(null);
     // }
-    return Future.delayed(const Duration(milliseconds: 400))
-        .then((_) => optionOf(Service.random()));
+    // return Future.delayed(const Duration(milliseconds: 400))
+    //     .then((_) => optionOf(Service.random()));
+    try {
+      final response = await _serviceApi.getDetail(1);
+
+      if (!response.valid) return none();
+
+      return optionOf(Service.random());
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return none();
   }
 
   @override
   Future<Option<List<Catalogue>>> getCatalogues() async {
     try {
-      final response = await _api.getCatalogues();
-
-      await Future.delayed(const Duration(milliseconds: 800));
-
-      if (!response.valid) {
-        return optionOf(null);
-      }
-
+      final response = await _catalogueApi.getCatalogues();
+      if (!response.valid) return none();
       final catalogues = response.data!.map((catalogue) {
         return catalogue.toDomain();
       }).toList();
 
       return optionOf(catalogues..addAll(_fakeCategories));
-    } catch (_) {
-      return optionOf(null);
+    } catch (e) {
+      _logger.e(e);
     }
+
+    return none();
   }
 
   @override
   Future<Option<Pagination<Service>>> getServices(
       {required int page, required int perPage}) async {
-    await Future.delayed(const Duration(milliseconds: 400));
+    try {
+      final response = await _serviceApi.getServices();
+      if (!response.valid) return none();
+      final services = response.data!;
+      final result = Pagination<Service>(
+          pageCount: 1,
+          totalCount: 1,
+          page: page,
+          perPage: perPage,
+          data: [...services, ...services]);
 
-    const pageCount = 5;
-    final totalCount = perPage * 5;
-    final data = List.generate(perPage, (index) => Service.random());
+      return optionOf(result);
+    } catch (e) {
+      _logger.e(e);
+    }
 
-    final result = Pagination<Service>(
-        data: data,
-        page: page,
-        perPage: perPage,
-        pageCount: pageCount,
-        totalCount: totalCount);
-
-    return optionOf(result);
+    return none();
   }
 }
 

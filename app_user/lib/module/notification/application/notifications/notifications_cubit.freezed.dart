@@ -23,19 +23,17 @@ class _$NotificationsStateTearOff {
       dynamic perPage = 10,
       dynamic pageCount = 1,
       dynamic totalCount = 0,
-      dynamic status = STATUS_IDLE,
-      bool isSubmitting = false,
+      bool isLoading = false,
       bool showErrorMessages = true,
-      required Option<List<Order>> ordersOption}) {
+      required Option<List<Notification>> notificationsOption}) {
     return _NotificationsState(
       page: page,
       perPage: perPage,
       pageCount: pageCount,
       totalCount: totalCount,
-      status: status,
-      isSubmitting: isSubmitting,
+      isLoading: isLoading,
       showErrorMessages: showErrorMessages,
-      ordersOption: ordersOption,
+      notificationsOption: notificationsOption,
     );
   }
 }
@@ -49,10 +47,10 @@ mixin _$NotificationsState {
   dynamic get perPage => throw _privateConstructorUsedError;
   dynamic get pageCount => throw _privateConstructorUsedError;
   dynamic get totalCount => throw _privateConstructorUsedError;
-  dynamic get status => throw _privateConstructorUsedError;
-  bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  Option<List<Order>> get ordersOption => throw _privateConstructorUsedError;
+  Option<List<Notification>> get notificationsOption =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NotificationsStateCopyWith<NotificationsState> get copyWith =>
@@ -69,10 +67,9 @@ abstract class $NotificationsStateCopyWith<$Res> {
       dynamic perPage,
       dynamic pageCount,
       dynamic totalCount,
-      dynamic status,
-      bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
-      Option<List<Order>> ordersOption});
+      Option<List<Notification>> notificationsOption});
 }
 
 /// @nodoc
@@ -90,10 +87,9 @@ class _$NotificationsStateCopyWithImpl<$Res>
     Object? perPage = freezed,
     Object? pageCount = freezed,
     Object? totalCount = freezed,
-    Object? status = freezed,
-    Object? isSubmitting = freezed,
+    Object? isLoading = freezed,
     Object? showErrorMessages = freezed,
-    Object? ordersOption = freezed,
+    Object? notificationsOption = freezed,
   }) {
     return _then(_value.copyWith(
       page: page == freezed
@@ -112,22 +108,18 @@ class _$NotificationsStateCopyWithImpl<$Res>
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      status: status == freezed
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      isSubmitting: isSubmitting == freezed
-          ? _value.isSubmitting
-          : isSubmitting // ignore: cast_nullable_to_non_nullable
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      ordersOption: ordersOption == freezed
-          ? _value.ordersOption
-          : ordersOption // ignore: cast_nullable_to_non_nullable
-              as Option<List<Order>>,
+      notificationsOption: notificationsOption == freezed
+          ? _value.notificationsOption
+          : notificationsOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Notification>>,
     ));
   }
 }
@@ -144,10 +136,9 @@ abstract class _$NotificationsStateCopyWith<$Res>
       dynamic perPage,
       dynamic pageCount,
       dynamic totalCount,
-      dynamic status,
-      bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
-      Option<List<Order>> ordersOption});
+      Option<List<Notification>> notificationsOption});
 }
 
 /// @nodoc
@@ -167,29 +158,27 @@ class __$NotificationsStateCopyWithImpl<$Res>
     Object? perPage = freezed,
     Object? pageCount = freezed,
     Object? totalCount = freezed,
-    Object? status = freezed,
-    Object? isSubmitting = freezed,
+    Object? isLoading = freezed,
     Object? showErrorMessages = freezed,
-    Object? ordersOption = freezed,
+    Object? notificationsOption = freezed,
   }) {
     return _then(_NotificationsState(
       page: page == freezed ? _value.page : page,
       perPage: perPage == freezed ? _value.perPage : perPage,
       pageCount: pageCount == freezed ? _value.pageCount : pageCount,
       totalCount: totalCount == freezed ? _value.totalCount : totalCount,
-      status: status == freezed ? _value.status : status,
-      isSubmitting: isSubmitting == freezed
-          ? _value.isSubmitting
-          : isSubmitting // ignore: cast_nullable_to_non_nullable
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      ordersOption: ordersOption == freezed
-          ? _value.ordersOption
-          : ordersOption // ignore: cast_nullable_to_non_nullable
-              as Option<List<Order>>,
+      notificationsOption: notificationsOption == freezed
+          ? _value.notificationsOption
+          : notificationsOption // ignore: cast_nullable_to_non_nullable
+              as Option<List<Notification>>,
     ));
   }
 }
@@ -202,10 +191,9 @@ class _$_NotificationsState extends _NotificationsState {
       this.perPage = 10,
       this.pageCount = 1,
       this.totalCount = 0,
-      this.status = STATUS_IDLE,
-      this.isSubmitting = false,
+      this.isLoading = false,
       this.showErrorMessages = true,
-      required this.ordersOption})
+      required this.notificationsOption})
       : super._();
 
   @JsonKey()
@@ -222,19 +210,16 @@ class _$_NotificationsState extends _NotificationsState {
   final dynamic totalCount;
   @JsonKey()
   @override
-  final dynamic status;
-  @JsonKey()
-  @override
-  final bool isSubmitting;
+  final bool isLoading;
   @JsonKey()
   @override
   final bool showErrorMessages;
   @override
-  final Option<List<Order>> ordersOption;
+  final Option<List<Notification>> notificationsOption;
 
   @override
   String toString() {
-    return 'NotificationsState(page: $page, perPage: $perPage, pageCount: $pageCount, totalCount: $totalCount, status: $status, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, ordersOption: $ordersOption)';
+    return 'NotificationsState(page: $page, perPage: $perPage, pageCount: $pageCount, totalCount: $totalCount, isLoading: $isLoading, showErrorMessages: $showErrorMessages, notificationsOption: $notificationsOption)';
   }
 
   @override
@@ -247,13 +232,11 @@ class _$_NotificationsState extends _NotificationsState {
             const DeepCollectionEquality().equals(other.pageCount, pageCount) &&
             const DeepCollectionEquality()
                 .equals(other.totalCount, totalCount) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.isSubmitting, isSubmitting) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
             const DeepCollectionEquality()
-                .equals(other.ordersOption, ordersOption));
+                .equals(other.notificationsOption, notificationsOption));
   }
 
   @override
@@ -263,10 +246,9 @@ class _$_NotificationsState extends _NotificationsState {
       const DeepCollectionEquality().hash(perPage),
       const DeepCollectionEquality().hash(pageCount),
       const DeepCollectionEquality().hash(totalCount),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(isSubmitting),
+      const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(showErrorMessages),
-      const DeepCollectionEquality().hash(ordersOption));
+      const DeepCollectionEquality().hash(notificationsOption));
 
   @JsonKey(ignore: true)
   @override
@@ -276,14 +258,14 @@ class _$_NotificationsState extends _NotificationsState {
 
 abstract class _NotificationsState extends NotificationsState {
   factory _NotificationsState(
-      {dynamic page,
-      dynamic perPage,
-      dynamic pageCount,
-      dynamic totalCount,
-      dynamic status,
-      bool isSubmitting,
-      bool showErrorMessages,
-      required Option<List<Order>> ordersOption}) = _$_NotificationsState;
+          {dynamic page,
+          dynamic perPage,
+          dynamic pageCount,
+          dynamic totalCount,
+          bool isLoading,
+          bool showErrorMessages,
+          required Option<List<Notification>> notificationsOption}) =
+      _$_NotificationsState;
   _NotificationsState._() : super._();
 
   @override
@@ -295,13 +277,11 @@ abstract class _NotificationsState extends NotificationsState {
   @override
   dynamic get totalCount;
   @override
-  dynamic get status;
-  @override
-  bool get isSubmitting;
+  bool get isLoading;
   @override
   bool get showErrorMessages;
   @override
-  Option<List<Order>> get ordersOption;
+  Option<List<Notification>> get notificationsOption;
   @override
   @JsonKey(ignore: true)
   _$NotificationsStateCopyWith<_NotificationsState> get copyWith =>

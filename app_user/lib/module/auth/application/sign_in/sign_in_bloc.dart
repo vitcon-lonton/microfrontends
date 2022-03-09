@@ -10,14 +10,14 @@ import '../../domain/auth_failure.dart';
 import '../../domain/i_auth_facade.dart';
 import '../../domain/value_objects.dart';
 
-part 'sign_in_form_bloc.freezed.dart';
-part 'sign_in_form_event.dart';
-part 'sign_in_form_state.dart';
+part 'sign_in_bloc.freezed.dart';
+part 'sign_in_event.dart';
+part 'sign_in_state.dart';
 
-class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
+class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final IAuthFacade _authFacade;
 
-  SignInFormBloc(this._authFacade) : super(SignInFormState.initial()) {
+  SignInBloc(this._authFacade) : super(SignInState.initial()) {
     on<PhoneChanged>(_onPhoneChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<ShowPasswordChanged>(_onShowPasswordChanged);
@@ -25,15 +25,14 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
     on<SignInWithPhoneAndPasswordPressed>(_onSignInWithPhoneAndPasswordPressed);
   }
 
-  void _onPhoneChanged(PhoneChanged event, Emitter<SignInFormState> emit) {
+  void _onPhoneChanged(PhoneChanged event, Emitter<SignInState> emit) {
     emit(state.copyWith(
       phone: Phone(event.phoneStr),
       authFailureOrSuccessOption: none(),
     ));
   }
 
-  void _onPasswordChanged(
-      PasswordChanged event, Emitter<SignInFormState> emit) {
+  void _onPasswordChanged(PasswordChanged event, Emitter<SignInState> emit) {
     emit(state.copyWith(
       password: Password(event.passwordStr),
       authFailureOrSuccessOption: none(),
@@ -41,19 +40,19 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   }
 
   void _onShowPasswordChanged(
-      ShowPasswordChanged event, Emitter<SignInFormState> emit) {
+      ShowPasswordChanged event, Emitter<SignInState> emit) {
     emit(state.copyWith(showPassword: event.value));
   }
 
   void _onSignInWithPhoneAndPasswordPressed(
-      SignInWithPhoneAndPasswordPressed event, Emitter<SignInFormState> emit) {
+      SignInWithPhoneAndPasswordPressed event, Emitter<SignInState> emit) {
     _performActionOnAuthFacadeWithPhoneAndPassword(
       _authFacade.signInWithPhoneAndPassword,
     );
   }
 
   Future<void> _onSignInWithGooglePressed(
-      SignInWithGooglePressed event, Emitter<SignInFormState> emit) async {
+      SignInWithGooglePressed event, Emitter<SignInState> emit) async {
     emit(state.copyWith(
       isSubmitting: true,
       authFailureOrSuccessOption: none(),
@@ -97,7 +96,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
 
   // void _onRegisterWithEmailAndPasswordPressed(
   //     RegisterWithEmailAndPasswordPressed event,
-  //     Emitter<SignInFormState> emit) {
+  //     Emitter<SignInState> emit) {
   //   _performActionOnAuthFacadeWithPhoneAndPassword(
   //     _authFacade.registerWithEmailAndPassword,
   //   );

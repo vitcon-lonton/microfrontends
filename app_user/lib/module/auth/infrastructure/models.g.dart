@@ -37,24 +37,24 @@ _$_RegisterData _$$_RegisterDataFromJson(Map<String, dynamic> json) =>
     _$_RegisterData(
       name: json['name'] as String,
       email: json['email'] as String,
+      phone: json['phone'] as String,
+      gender: json['gender'] as String,
+      address: json['address'] as String,
+      birthdate: json['birthdate'] as String,
       password: json['password'] as String,
       passwordConfirmation: json['password_confirmation'] as String,
-      address: json['address'] as String,
-      phone: json['phone'] as String,
-      birthdate: json['birthdate'] as String,
-      gender: json['gender'] as String,
     );
 
 Map<String, dynamic> _$$_RegisterDataToJson(_$_RegisterData instance) =>
     <String, dynamic>{
       'name': instance.name,
       'email': instance.email,
+      'phone': instance.phone,
+      'gender': instance.gender,
+      'address': instance.address,
+      'birthdate': instance.birthdate,
       'password': instance.password,
       'password_confirmation': instance.passwordConfirmation,
-      'address': instance.address,
-      'phone': instance.phone,
-      'birthdate': instance.birthdate,
-      'gender': instance.gender,
     };
 
 _$_ChangeCurrentPasswordData _$$_ChangeCurrentPasswordDataFromJson(

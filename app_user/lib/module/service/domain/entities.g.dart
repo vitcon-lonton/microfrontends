@@ -6,6 +6,33 @@ part of 'entities.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_Service _$$_ServiceFromJson(Map<String, dynamic> json) => _$_Service(
+      image: json['image'] as String?,
+      status: json['status'],
+      deletedAt: json['deleted_at'],
+      id: json['id'] as int,
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+      parent: json['parent'] as int,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      priceApprox: (json['price_approx'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$_ServiceToJson(_$_Service instance) =>
+    <String, dynamic>{
+      'image': instance.image,
+      'status': instance.status,
+      'deleted_at': instance.deletedAt,
+      'id': instance.id,
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
+      'parent': instance.parent,
+      'name': instance.name,
+      'description': instance.description,
+      'price_approx': instance.priceApprox,
+    };
+
 _$_Catalogue _$$_CatalogueFromJson(Map<String, dynamic> json) => _$_Catalogue(
       id: json['id'] as int?,
       taxon: json['taxon'] as int?,

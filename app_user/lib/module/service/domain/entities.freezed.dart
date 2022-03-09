@@ -14,25 +14,41 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Service _$ServiceFromJson(Map<String, dynamic> json) {
+  return _Service.fromJson(json);
+}
+
 /// @nodoc
 class _$ServiceTearOff {
   const _$ServiceTearOff();
 
   _Service call(
-      {required UniqueId id,
-      String img = _kImg,
-      double rating = 0.0,
-      String name = _kName,
-      String price = '150\$',
-      String description = _kDescription}) {
+      {String? image,
+      dynamic status,
+      dynamic deletedAt,
+      required int id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      required int parent,
+      required String name,
+      required String description,
+      required double priceApprox}) {
     return _Service(
+      image: image,
+      status: status,
+      deletedAt: deletedAt,
       id: id,
-      img: img,
-      rating: rating,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      parent: parent,
       name: name,
-      price: price,
       description: description,
+      priceApprox: priceApprox,
     );
+  }
+
+  Service fromJson(Map<String, Object?> json) {
+    return Service.fromJson(json);
   }
 }
 
@@ -41,13 +57,18 @@ const $Service = _$ServiceTearOff();
 
 /// @nodoc
 mixin _$Service {
-  UniqueId get id => throw _privateConstructorUsedError;
-  String get img => throw _privateConstructorUsedError;
-  double get rating => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
+  dynamic get status => throw _privateConstructorUsedError;
+  dynamic get deletedAt => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  int get parent => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  double get priceApprox => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ServiceCopyWith<Service> get copyWith => throw _privateConstructorUsedError;
 }
@@ -57,12 +78,16 @@ abstract class $ServiceCopyWith<$Res> {
   factory $ServiceCopyWith(Service value, $Res Function(Service) then) =
       _$ServiceCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id,
-      String img,
-      double rating,
+      {String? image,
+      dynamic status,
+      dynamic deletedAt,
+      int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      int parent,
       String name,
-      String price,
-      String description});
+      String description,
+      double priceApprox});
 }
 
 /// @nodoc
@@ -75,38 +100,58 @@ class _$ServiceCopyWithImpl<$Res> implements $ServiceCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? image = freezed,
+    Object? status = freezed,
+    Object? deletedAt = freezed,
     Object? id = freezed,
-    Object? img = freezed,
-    Object? rating = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? parent = freezed,
     Object? name = freezed,
-    Object? price = freezed,
     Object? description = freezed,
+    Object? priceApprox = freezed,
   }) {
     return _then(_value.copyWith(
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      deletedAt: deletedAt == freezed
+          ? _value.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as UniqueId,
-      img: img == freezed
-          ? _value.img
-          : img // ignore: cast_nullable_to_non_nullable
-              as String,
-      rating: rating == freezed
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      parent: parent == freezed
+          ? _value.parent
+          : parent // ignore: cast_nullable_to_non_nullable
+              as int,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
               as String,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      priceApprox: priceApprox == freezed
+          ? _value.priceApprox
+          : priceApprox // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -117,12 +162,16 @@ abstract class _$ServiceCopyWith<$Res> implements $ServiceCopyWith<$Res> {
       __$ServiceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id,
-      String img,
-      double rating,
+      {String? image,
+      dynamic status,
+      dynamic deletedAt,
+      int id,
+      DateTime createdAt,
+      DateTime updatedAt,
+      int parent,
       String name,
-      String price,
-      String description});
+      String description,
+      double priceApprox});
 }
 
 /// @nodoc
@@ -136,74 +185,106 @@ class __$ServiceCopyWithImpl<$Res> extends _$ServiceCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? image = freezed,
+    Object? status = freezed,
+    Object? deletedAt = freezed,
     Object? id = freezed,
-    Object? img = freezed,
-    Object? rating = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? parent = freezed,
     Object? name = freezed,
-    Object? price = freezed,
     Object? description = freezed,
+    Object? priceApprox = freezed,
   }) {
     return _then(_Service(
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      deletedAt: deletedAt == freezed
+          ? _value.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as UniqueId,
-      img: img == freezed
-          ? _value.img
-          : img // ignore: cast_nullable_to_non_nullable
-              as String,
-      rating: rating == freezed
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      parent: parent == freezed
+          ? _value.parent
+          : parent // ignore: cast_nullable_to_non_nullable
+              as int,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
               as String,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      priceApprox: priceApprox == freezed
+          ? _value.priceApprox
+          : priceApprox // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_Service implements _Service {
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _$_Service extends _Service {
   const _$_Service(
-      {required this.id,
-      this.img = _kImg,
-      this.rating = 0.0,
-      this.name = _kName,
-      this.price = '150\$',
-      this.description = _kDescription});
+      {this.image,
+      this.status,
+      this.deletedAt,
+      required this.id,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.parent,
+      required this.name,
+      required this.description,
+      required this.priceApprox})
+      : super._();
+
+  factory _$_Service.fromJson(Map<String, dynamic> json) =>
+      _$$_ServiceFromJson(json);
 
   @override
-  final UniqueId id;
-  @JsonKey()
+  final String? image;
   @override
-  final String img;
-  @JsonKey()
+  final dynamic status;
   @override
-  final double rating;
-  @JsonKey()
+  final dynamic deletedAt;
+  @override
+  final int id;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+  @override
+  final int parent;
   @override
   final String name;
-  @JsonKey()
-  @override
-  final String price;
-  @JsonKey()
   @override
   final String description;
+  @override
+  final double priceApprox;
 
   @override
   String toString() {
-    return 'Service(id: $id, img: $img, rating: $rating, name: $name, price: $price, description: $description)';
+    return 'Service(image: $image, status: $status, deletedAt: $deletedAt, id: $id, createdAt: $createdAt, updatedAt: $updatedAt, parent: $parent, name: $name, description: $description, priceApprox: $priceApprox)';
   }
 
   @override
@@ -211,52 +292,81 @@ class _$_Service implements _Service {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Service &&
+            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality().equals(other.deletedAt, deletedAt) &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.img, img) &&
-            const DeepCollectionEquality().equals(other.rating, rating) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.parent, parent) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality()
-                .equals(other.description, description));
+                .equals(other.description, description) &&
+            const DeepCollectionEquality()
+                .equals(other.priceApprox, priceApprox));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(deletedAt),
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(img),
-      const DeepCollectionEquality().hash(rating),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(parent),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(description));
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(priceApprox));
 
   @JsonKey(ignore: true)
   @override
   _$ServiceCopyWith<_Service> get copyWith =>
       __$ServiceCopyWithImpl<_Service>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ServiceToJson(this);
+  }
 }
 
-abstract class _Service implements Service {
+abstract class _Service extends Service {
   const factory _Service(
-      {required UniqueId id,
-      String img,
-      double rating,
-      String name,
-      String price,
-      String description}) = _$_Service;
+      {String? image,
+      dynamic status,
+      dynamic deletedAt,
+      required int id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      required int parent,
+      required String name,
+      required String description,
+      required double priceApprox}) = _$_Service;
+  const _Service._() : super._();
+
+  factory _Service.fromJson(Map<String, dynamic> json) = _$_Service.fromJson;
 
   @override
-  UniqueId get id;
+  String? get image;
   @override
-  String get img;
+  dynamic get status;
   @override
-  double get rating;
+  dynamic get deletedAt;
+  @override
+  int get id;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
+  @override
+  int get parent;
   @override
   String get name;
   @override
-  String get price;
-  @override
   String get description;
+  @override
+  double get priceApprox;
   @override
   @JsonKey(ignore: true)
   _$ServiceCopyWith<_Service> get copyWith =>

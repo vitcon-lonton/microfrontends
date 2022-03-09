@@ -4,12 +4,6 @@ import 'package:app_user/module/service/service.dart';
 
 @module
 abstract class ServiceModule {
-  @LazySingleton()
-  CatalogueApi api(Dio dio) => CatalogueApi(dio);
-
-  @LazySingleton(as: IServiceRepository)
-  ServiceRepository get repository;
-
   @Injectable()
   ServicesCubit get servicesCubit;
 
@@ -21,4 +15,13 @@ abstract class ServiceModule {
 
   @Injectable()
   ServiceBookingFormCubit get serviceBookingFormCubit;
+
+  @LazySingleton(as: IServiceRepository)
+  ServiceRepository get repository;
+
+  @LazySingleton()
+  ServiceApi serviceApi(Dio dio) => ServiceApi(dio);
+
+  @LazySingleton()
+  CatalogueApi catalogueApi(Dio dio) => CatalogueApi(dio);
 }

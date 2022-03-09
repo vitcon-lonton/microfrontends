@@ -21,6 +21,10 @@ abstract class AccountApi {
     @Query('device_id') String deviceId = 'android',
   });
 
+  @POST('/logout')
+  @Headers(authHeader)
+  Future<BaseResponse<dynamic>> logout();
+
   @POST('/register')
   @FormUrlEncoded()
   Future<BaseResponse<dynamic>> register(@Body() RegisterData data);
@@ -31,7 +35,3 @@ abstract class AccountApi {
   Future<BaseResponse<dynamic>> changeCurrentPassword(
       @Body() ChangeCurrentPasswordData data);
 }
-
-// @Query('device_id') String deviceId
-// @Query('loginkey') @Field() String loginkey,
-// @Query('password') @Field() String password,

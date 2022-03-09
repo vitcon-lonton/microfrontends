@@ -23,8 +23,8 @@ class ServicesState with _$ServicesState {
 
   bool get isLastPage => page == pageCount;
 
-  List<Service> get services =>
-      servicesOption.foldRight(<Service>[], (services, prev) => services);
+  List<Service> get services => List.of(
+      servicesOption.foldRight(<Service>[], (services, prev) => services));
 
   factory ServicesState.init() => ServicesState(servicesOption: none());
 

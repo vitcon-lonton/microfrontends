@@ -1,18 +1,18 @@
-part of 'sign_in_form_bloc.dart';
+part of 'sign_in_bloc.dart';
 
 @freezed
-class SignInFormState with _$SignInFormState {
-  const factory SignInFormState({
+class SignInState with _$SignInState {
+  const factory SignInState({
     required Phone phone,
     required Password password,
     @Default(false) bool showPassword,
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
-  }) = _SignInFormState;
+  }) = _SignInState;
 
-  factory SignInFormState.initial() {
-    return SignInFormState(
+  factory SignInState.initial() {
+    return SignInState(
       isSubmitting: false,
       showErrorMessages: true,
       phone: Phone('0909090909'),
@@ -21,7 +21,7 @@ class SignInFormState with _$SignInFormState {
     );
 
     // ignore: dead_code
-    return SignInFormState(
+    return SignInState(
       phone: Phone(''),
       password: Password(''),
       showErrorMessages: true,

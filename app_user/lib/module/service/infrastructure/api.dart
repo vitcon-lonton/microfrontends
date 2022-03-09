@@ -1,26 +1,29 @@
 /* spell-checker: disable */
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
+import '../domain/entities.dart';
 import 'models.dart';
 part 'api.g.dart';
 
-const getCataloguesUrl = '';
-const aboutUrl = 'https://www.aqbooking.com/about-us.html';
-const privacyUrl = 'https://www.aqbooking.com/privacy.html';
 const cache = CacheControl(maxAge: 172800, maxStale: 172800);
 
 @RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/catalogues')
 abstract class CatalogueApi {
   factory CatalogueApi(Dio dio, {String baseUrl}) = _CatalogueApi;
 
-  @GET(aboutUrl)
-  Future<String> getAbout();
-
-  @GET(privacyUrl)
-  Future<String> getPolicy();
-
   @GET('')
   Future<BaseResponse<List<CatalogueDto>>> getCatalogues();
+}
+
+@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/services')
+abstract class ServiceApi {
+  factory ServiceApi(Dio dio, {String baseUrl}) = _ServiceApi;
+
+  @GET('')
+  Future<BaseResponse<List<Service>>> getServices();
+
+  @GET('/{id}')
+  Future<BaseResponse<Service>> getDetail(@Path() int id);
 }
 
 

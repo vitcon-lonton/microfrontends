@@ -31,16 +31,15 @@ class LoginData with _$LoginData {
 @freezed
 class RegisterData with _$RegisterData {
   @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory RegisterData({
-    required String name,
-    required String email,
-    required String password,
-    required String passwordConfirmation,
-    required String address,
-    required String phone,
-    required String birthdate,
-    required String gender,
-  }) = _RegisterData;
+  const factory RegisterData(
+      {required String name,
+      required String email,
+      required String phone,
+      required String gender,
+      required String address,
+      required String birthdate,
+      required String password,
+      required String passwordConfirmation}) = _RegisterData;
 
   factory RegisterData.fromJson(Map<String, dynamic> json) =>
       _$RegisterDataFromJson(json);

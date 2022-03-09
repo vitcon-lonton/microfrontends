@@ -90,7 +90,7 @@ class RegisterForm extends StatelessWidget {
 //   autocorrect: false,
 //   onChanged: context.read<RegisterCubit>().passwordChanged,
 //   validator: (_) => context
-//       .read<SignInFormBloc>()
+//       .read<SignInBloc>()
 //       .state
 //       .password
 //       .value

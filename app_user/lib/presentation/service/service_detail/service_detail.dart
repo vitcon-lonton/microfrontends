@@ -21,7 +21,7 @@ class ServiceDetail extends StatelessWidget {
               // final img = service.img;
               final service = state.service!;
               final name = service.name;
-              final price = service.price;
+              final price = service.priceApprox.toString();
               final description = service.description;
 
               return Column(

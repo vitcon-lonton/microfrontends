@@ -9,10 +9,10 @@ class SignInForm extends StatefulWidget {
   const SignInForm({Key? key}) : super(key: key);
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  State<SignInForm> createState() => _SignInState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignInState extends State<SignInForm> {
   late final TextEditingController _phoneController;
   late final TextEditingController _passwordController;
 
@@ -34,7 +34,7 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<SignInFormBloc, SignInFormState>(
+        BlocListener<SignInBloc, SignInState>(
           listenWhen: (prev, cur) => prev.phone != cur.phone,
           listener: (context, state) {
             final phoneStr =
@@ -45,7 +45,7 @@ class _SignInFormState extends State<SignInForm> {
             _phoneController.text = phoneStr;
           },
         ),
-        BlocListener<SignInFormBloc, SignInFormState>(
+        BlocListener<SignInBloc, SignInState>(
           listenWhen: (prev, cur) => prev.password != cur.password,
           listener: (context, state) {
             final passwordStr =
@@ -56,7 +56,7 @@ class _SignInFormState extends State<SignInForm> {
             _passwordController.text = passwordStr;
           },
         ),
-        BlocListener<SignInFormBloc, SignInFormState>(
+        BlocListener<SignInBloc, SignInState>(
           listenWhen: (prev, cur) {
             return prev.authFailureOrSuccessOption !=
                 cur.authFailureOrSuccessOption;
@@ -95,14 +95,14 @@ class _SignInFormState extends State<SignInForm> {
         ),
       ],
       child: Form(
-        autovalidateMode: context.read<SignInFormBloc>().state.showErrorMessages
+        autovalidateMode: context.read<SignInBloc>().state.showErrorMessages
             ? AutovalidateMode.always
             : AutovalidateMode.disabled,
         child: ListView(
           padding: const EdgeInsets.all(8),
           children: [
             const SizedBox(height: 8),
-            BlocBuilder<SignInFormBloc, SignInFormState>(
+            BlocBuilder<SignInBloc, SignInState>(
               buildWhen: (prev, cur) => prev.phone != cur.phone,
               builder: (context, state) {
                 return TextFormField(
@@ -111,8 +111,8 @@ class _SignInFormState extends State<SignInForm> {
                   decoration: const InputDecoration(
                       labelText: 'Phone', prefixIcon: Icon(Icons.phone)),
                   onChanged: (value) => context
-                      .read<SignInFormBloc>()
-                      .add(SignInFormEvent.phoneChanged(value)),
+                      .read<SignInBloc>()
+                      .add(SignInEvent.phoneChanged(value)),
                   initialValue:
                       state.phone.value.foldRight(null, (str, prev) => str),
                   validator: (_) => state.phone.value.fold((failure) {
@@ -124,8 +124,8 @@ class _SignInFormState extends State<SignInForm> {
             // PhoneInput(
             //   value: state.phone,
             //   onChanged: (value) => context
-            //       .read<SignInFormBloc>()
-            //       .add(SignInFormEvent.phoneChanged(value)),
+            //       .read<SignInBloc>()
+            //       .add(SignInEvent.phoneChanged(value)),
             // ),
             // TextFormField(
             //   decoration: const InputDecoration(
@@ -134,10 +134,10 @@ class _SignInFormState extends State<SignInForm> {
             //   ),
             //   autocorrect: false,
             //   onChanged: (value) => context
-            //       .read<SignInFormBloc>()
-            //       .add(SignInFormEvent.emailChanged(value)),
+            //       .read<SignInBloc>()
+            //       .add(SignInEvent.emailChanged(value)),
             //   validator: (_) => context
-            //       .read<SignInFormBloc>()
+            //       .read<SignInBloc>()
             //       .state
             //       .emailAddress
             //       .value
@@ -149,7 +149,7 @@ class _SignInFormState extends State<SignInForm> {
             //         (_) => null,
             //       ),
             // ),
-            // BlocBuilder<SignInFormBloc, SignInFormState>(
+            // BlocBuilder<SignInBloc, SignInState>(
             //   buildWhen: (previous, current) =>
             //       previous.emailAddress != current.emailAddress,
             //   builder: (context, state) {
@@ -168,7 +168,7 @@ class _SignInFormState extends State<SignInForm> {
             //   },
             // ),
             kVSpaceL,
-            BlocBuilder<SignInFormBloc, SignInFormState>(
+            BlocBuilder<SignInBloc, SignInState>(
               buildWhen: (prev, cur) =>
                   prev.password != cur.password ||
                   prev.showPassword != cur.showPassword,
@@ -185,16 +185,16 @@ class _SignInFormState extends State<SignInForm> {
                           ? Icons.visibility
                           : Icons.visibility_off),
                       onPressed: () {
-                        context.read<SignInFormBloc>().add(
-                            SignInFormEvent.showPasswordChanged(
+                        context.read<SignInBloc>().add(
+                            SignInEvent.showPasswordChanged(
                                 !state.showPassword));
                       },
                     ),
                   ),
                   initialValue: state.password.getOrCrash(),
                   onChanged: (value) => context
-                      .read<SignInFormBloc>()
-                      .add(SignInFormEvent.passwordChanged(value)),
+                      .read<SignInBloc>()
+                      .add(SignInEvent.passwordChanged(value)),
                   validator: (_) => state.password.value.fold((failure) {
                     return 'Short Password';
                   }, (_) => null),
@@ -202,20 +202,19 @@ class _SignInFormState extends State<SignInForm> {
               },
             ),
             const SizedBox(height: 8),
-            BlocBuilder<SignInFormBloc, SignInFormState>(
+            BlocBuilder<SignInBloc, SignInState>(
               buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
               builder: (context, state) => WSubmitBtn(
                 child: Text(state.isSubmitting ? '...' : 'LOGIN'),
                 onPressed: !state.isSubmitting
-                    ? () => context.read<SignInFormBloc>().add(
-                          const SignInFormEvent
-                              .signInWithPhoneAndPasswordPressed(),
+                    ? () => context.read<SignInBloc>().add(
+                          const SignInEvent.signInWithPhoneAndPasswordPressed(),
                         )
                     : null,
               ),
             ),
 
-            BlocBuilder<SignInFormBloc, SignInFormState>(
+            BlocBuilder<SignInBloc, SignInState>(
               buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
               builder: (context, state) {
                 return Column(

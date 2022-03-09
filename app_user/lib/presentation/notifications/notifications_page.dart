@@ -38,10 +38,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
         listener: (context, state) {},
         child: Scaffold(
           body: BlocBuilder<NotificationsCubit, NotificationsState>(
-            buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
+            buildWhen: (prev, cur) => prev.notifications != cur.notifications,
             builder: (context, state) {
-              final orders = state.ordersOption
-                  .foldRight(<Order>[], (orders, previous) => orders);
+              final notifications = state.notifications;
 
               return RefreshLoadmore(
                 // onRefresh: _onRefresh,
@@ -72,11 +71,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
                     style: TextStyle(color: Theme.of(context).disabledColor)),
                 child: ListView.separated(
                   shrinkWrap: true,
-                  itemCount: orders.length,
+                  itemCount: notifications.length,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, index) => const Divider(height: 0),
                   itemBuilder: (_, index) {
-                    return NotificationTile(order: orders[index]);
+                    return NotificationTile(notification: notifications[index]);
                   },
                 ),
               );

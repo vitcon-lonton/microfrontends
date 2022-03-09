@@ -7,8 +7,8 @@ abstract class AuthModule {
   @LazySingleton()
   AccountApi api(Dio dio) => AccountApi(dio);
 
-  @Injectable()
-  AuthInterceptors get authInterceptors;
+  @LazySingleton(as: IAuthFacade)
+  AuthFacade get authFacade;
 
   @Injectable()
   AuthBloc get authBloc;
@@ -17,16 +17,19 @@ abstract class AuthModule {
   UserCubit get userCubit;
 
   @Injectable()
+  SignInBloc get signInBloc;
+
+  @Injectable()
+  RegisterCubit get registerCubit;
+
+  @Injectable()
   FavoritesCubit get favoritesCubit;
 
   @Injectable()
   OtpConfirmCubit get otpConfirmCubit;
 
   @Injectable()
-  RegisterCubit get registerCubit;
-
-  @Injectable()
-  SignInFormBloc get signInFormBloc;
+  UserUpdateCubit get userUpdateCubit;
 
   @Injectable()
   PasswordForgetCubit get passwordForgetCubit;
@@ -38,10 +41,7 @@ abstract class AuthModule {
   PasswordUpdateCubit get passwordUpdateCubit;
 
   @Injectable()
-  UserUpdateCubit get userUpdateCubit;
-
-  @LazySingleton(as: IAuthFacade)
-  AuthFacade get authFacade;
+  AuthInterceptors get authInterceptors;
 }
 
 

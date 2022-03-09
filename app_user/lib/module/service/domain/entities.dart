@@ -1,12 +1,9 @@
-import 'package:engine/engine.dart';
+/* spell-checker: disable */
+import 'dart:math';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'entities.freezed.dart';
 part 'entities.g.dart';
 
-// const _kImg =
-// 'https://facilityexecutive.com/wp-content/uploads/2016/08/FEJulyAug16-SM-Feature.jpg';
-const _kName = 'Pet Sitting service';
 const _kImg =
     'https://www.strategiesonline.net/wp-content/uploads/2014/09/laundry-service.png';
 const _kDescription =
@@ -14,22 +11,37 @@ const _kDescription =
 
 @freezed
 class Service with _$Service {
+  const Service._();
+
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Service({
-    required UniqueId id,
-    @Default(_kImg) String img,
-    @Default(0.0) double rating,
-    @Default(_kName) String name,
-    @Default('150\$') String price,
-    @Default(_kDescription) String description,
+    String? image,
+    dynamic status,
+    dynamic deletedAt,
+    required int id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    required int parent,
+    required String name,
+    required String description,
+    required double priceApprox,
   }) = _Service;
 
+  factory Service.fromJson(Map<String, dynamic> json) =>
+      _$ServiceFromJson(json);
+
   factory Service.random() {
-    final _id = UniqueId();
+    final _id = Random().nextInt(1000);
 
     return Service(
-      id: _id,
-      name: 'Service name ${_id.value.foldRight('', (id, previous) => id)}',
-    );
+        id: _id,
+        parent: 1,
+        image: _kImg,
+        priceApprox: 2000000,
+        name: 'Service name $_id',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        description: _kDescription);
   }
 }
 

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'sign_in_form_bloc.dart';
+part of 'sign_in_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,8 +15,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$SignInFormEventTearOff {
-  const _$SignInFormEventTearOff();
+class _$SignInEventTearOff {
+  const _$SignInEventTearOff();
 
   PhoneChanged phoneChanged(String phoneStr) {
     return PhoneChanged(
@@ -46,10 +46,10 @@ class _$SignInFormEventTearOff {
 }
 
 /// @nodoc
-const $SignInFormEvent = _$SignInFormEventTearOff();
+const $SignInEvent = _$SignInEventTearOff();
 
 /// @nodoc
-mixin _$SignInFormEvent {
+mixin _$SignInEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String phoneStr) phoneChanged,
@@ -113,20 +113,19 @@ mixin _$SignInFormEvent {
 }
 
 /// @nodoc
-abstract class $SignInFormEventCopyWith<$Res> {
-  factory $SignInFormEventCopyWith(
-          SignInFormEvent value, $Res Function(SignInFormEvent) then) =
-      _$SignInFormEventCopyWithImpl<$Res>;
+abstract class $SignInEventCopyWith<$Res> {
+  factory $SignInEventCopyWith(
+          SignInEvent value, $Res Function(SignInEvent) then) =
+      _$SignInEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SignInFormEventCopyWithImpl<$Res>
-    implements $SignInFormEventCopyWith<$Res> {
-  _$SignInFormEventCopyWithImpl(this._value, this._then);
+class _$SignInEventCopyWithImpl<$Res> implements $SignInEventCopyWith<$Res> {
+  _$SignInEventCopyWithImpl(this._value, this._then);
 
-  final SignInFormEvent _value;
+  final SignInEvent _value;
   // ignore: unused_field
-  final $Res Function(SignInFormEvent) _then;
+  final $Res Function(SignInEvent) _then;
 }
 
 /// @nodoc
@@ -138,8 +137,7 @@ abstract class $PhoneChangedCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PhoneChangedCopyWithImpl<$Res>
-    extends _$SignInFormEventCopyWithImpl<$Res>
+class _$PhoneChangedCopyWithImpl<$Res> extends _$SignInEventCopyWithImpl<$Res>
     implements $PhoneChangedCopyWith<$Res> {
   _$PhoneChangedCopyWithImpl(
       PhoneChanged _value, $Res Function(PhoneChanged) _then)
@@ -171,14 +169,14 @@ class _$PhoneChanged with DiagnosticableTreeMixin implements PhoneChanged {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignInFormEvent.phoneChanged(phoneStr: $phoneStr)';
+    return 'SignInEvent.phoneChanged(phoneStr: $phoneStr)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SignInFormEvent.phoneChanged'))
+      ..add(DiagnosticsProperty('type', 'SignInEvent.phoneChanged'))
       ..add(DiagnosticsProperty('phoneStr', phoneStr));
   }
 
@@ -284,7 +282,7 @@ class _$PhoneChanged with DiagnosticableTreeMixin implements PhoneChanged {
   }
 }
 
-abstract class PhoneChanged implements SignInFormEvent {
+abstract class PhoneChanged implements SignInEvent {
   const factory PhoneChanged(String phoneStr) = _$PhoneChanged;
 
   String get phoneStr;
@@ -303,7 +301,7 @@ abstract class $ShowPasswordChangedCopyWith<$Res> {
 
 /// @nodoc
 class _$ShowPasswordChangedCopyWithImpl<$Res>
-    extends _$SignInFormEventCopyWithImpl<$Res>
+    extends _$SignInEventCopyWithImpl<$Res>
     implements $ShowPasswordChangedCopyWith<$Res> {
   _$ShowPasswordChangedCopyWithImpl(
       ShowPasswordChanged _value, $Res Function(ShowPasswordChanged) _then)
@@ -337,14 +335,14 @@ class _$ShowPasswordChanged
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignInFormEvent.showPasswordChanged(value: $value)';
+    return 'SignInEvent.showPasswordChanged(value: $value)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SignInFormEvent.showPasswordChanged'))
+      ..add(DiagnosticsProperty('type', 'SignInEvent.showPasswordChanged'))
       ..add(DiagnosticsProperty('value', value));
   }
 
@@ -450,7 +448,7 @@ class _$ShowPasswordChanged
   }
 }
 
-abstract class ShowPasswordChanged implements SignInFormEvent {
+abstract class ShowPasswordChanged implements SignInEvent {
   const factory ShowPasswordChanged(bool value) = _$ShowPasswordChanged;
 
   bool get value;
@@ -469,7 +467,7 @@ abstract class $PasswordChangedCopyWith<$Res> {
 
 /// @nodoc
 class _$PasswordChangedCopyWithImpl<$Res>
-    extends _$SignInFormEventCopyWithImpl<$Res>
+    extends _$SignInEventCopyWithImpl<$Res>
     implements $PasswordChangedCopyWith<$Res> {
   _$PasswordChangedCopyWithImpl(
       PasswordChanged _value, $Res Function(PasswordChanged) _then)
@@ -503,14 +501,14 @@ class _$PasswordChanged
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignInFormEvent.passwordChanged(passwordStr: $passwordStr)';
+    return 'SignInEvent.passwordChanged(passwordStr: $passwordStr)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SignInFormEvent.passwordChanged'))
+      ..add(DiagnosticsProperty('type', 'SignInEvent.passwordChanged'))
       ..add(DiagnosticsProperty('passwordStr', passwordStr));
   }
 
@@ -617,7 +615,7 @@ class _$PasswordChanged
   }
 }
 
-abstract class PasswordChanged implements SignInFormEvent {
+abstract class PasswordChanged implements SignInEvent {
   const factory PasswordChanged(String passwordStr) = _$PasswordChanged;
 
   String get passwordStr;
@@ -636,7 +634,7 @@ abstract class $SignInWithPhoneAndPasswordPressedCopyWith<$Res> {
 
 /// @nodoc
 class _$SignInWithPhoneAndPasswordPressedCopyWithImpl<$Res>
-    extends _$SignInFormEventCopyWithImpl<$Res>
+    extends _$SignInEventCopyWithImpl<$Res>
     implements $SignInWithPhoneAndPasswordPressedCopyWith<$Res> {
   _$SignInWithPhoneAndPasswordPressedCopyWithImpl(
       SignInWithPhoneAndPasswordPressed _value,
@@ -657,7 +655,7 @@ class _$SignInWithPhoneAndPasswordPressed
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignInFormEvent.signInWithPhoneAndPasswordPressed()';
+    return 'SignInEvent.signInWithPhoneAndPasswordPressed()';
   }
 
   @override
@@ -665,7 +663,7 @@ class _$SignInWithPhoneAndPasswordPressed
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty(
-          'type', 'SignInFormEvent.signInWithPhoneAndPasswordPressed'));
+          'type', 'SignInEvent.signInWithPhoneAndPasswordPressed'));
   }
 
   @override
@@ -763,7 +761,7 @@ class _$SignInWithPhoneAndPasswordPressed
   }
 }
 
-abstract class SignInWithPhoneAndPasswordPressed implements SignInFormEvent {
+abstract class SignInWithPhoneAndPasswordPressed implements SignInEvent {
   const factory SignInWithPhoneAndPasswordPressed() =
       _$SignInWithPhoneAndPasswordPressed;
 }
@@ -777,7 +775,7 @@ abstract class $SignInWithGooglePressedCopyWith<$Res> {
 
 /// @nodoc
 class _$SignInWithGooglePressedCopyWithImpl<$Res>
-    extends _$SignInFormEventCopyWithImpl<$Res>
+    extends _$SignInEventCopyWithImpl<$Res>
     implements $SignInWithGooglePressedCopyWith<$Res> {
   _$SignInWithGooglePressedCopyWithImpl(SignInWithGooglePressed _value,
       $Res Function(SignInWithGooglePressed) _then)
@@ -796,15 +794,14 @@ class _$SignInWithGooglePressed
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignInFormEvent.signInWithGooglePressed()';
+    return 'SignInEvent.signInWithGooglePressed()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty(
-          'type', 'SignInFormEvent.signInWithGooglePressed'));
+      ..add(DiagnosticsProperty('type', 'SignInEvent.signInWithGooglePressed'));
   }
 
   @override
@@ -901,22 +898,22 @@ class _$SignInWithGooglePressed
   }
 }
 
-abstract class SignInWithGooglePressed implements SignInFormEvent {
+abstract class SignInWithGooglePressed implements SignInEvent {
   const factory SignInWithGooglePressed() = _$SignInWithGooglePressed;
 }
 
 /// @nodoc
-class _$SignInFormStateTearOff {
-  const _$SignInFormStateTearOff();
+class _$SignInStateTearOff {
+  const _$SignInStateTearOff();
 
-  _SignInFormState call(
+  _SignInState call(
       {required Phone phone,
       required Password password,
       bool showPassword = false,
       bool isSubmitting = false,
       bool showErrorMessages = true,
       required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) {
-    return _SignInFormState(
+    return _SignInState(
       phone: phone,
       password: password,
       showPassword: showPassword,
@@ -928,10 +925,10 @@ class _$SignInFormStateTearOff {
 }
 
 /// @nodoc
-const $SignInFormState = _$SignInFormStateTearOff();
+const $SignInState = _$SignInStateTearOff();
 
 /// @nodoc
-mixin _$SignInFormState {
+mixin _$SignInState {
   Phone get phone => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
   bool get showPassword => throw _privateConstructorUsedError;
@@ -941,15 +938,15 @@ mixin _$SignInFormState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignInFormStateCopyWith<SignInFormState> get copyWith =>
+  $SignInStateCopyWith<SignInState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignInFormStateCopyWith<$Res> {
-  factory $SignInFormStateCopyWith(
-          SignInFormState value, $Res Function(SignInFormState) then) =
-      _$SignInFormStateCopyWithImpl<$Res>;
+abstract class $SignInStateCopyWith<$Res> {
+  factory $SignInStateCopyWith(
+          SignInState value, $Res Function(SignInState) then) =
+      _$SignInStateCopyWithImpl<$Res>;
   $Res call(
       {Phone phone,
       Password password,
@@ -960,13 +957,12 @@ abstract class $SignInFormStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SignInFormStateCopyWithImpl<$Res>
-    implements $SignInFormStateCopyWith<$Res> {
-  _$SignInFormStateCopyWithImpl(this._value, this._then);
+class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
+  _$SignInStateCopyWithImpl(this._value, this._then);
 
-  final SignInFormState _value;
+  final SignInState _value;
   // ignore: unused_field
-  final $Res Function(SignInFormState) _then;
+  final $Res Function(SignInState) _then;
 
   @override
   $Res call({
@@ -1007,11 +1003,11 @@ class _$SignInFormStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SignInFormStateCopyWith<$Res>
-    implements $SignInFormStateCopyWith<$Res> {
-  factory _$SignInFormStateCopyWith(
-          _SignInFormState value, $Res Function(_SignInFormState) then) =
-      __$SignInFormStateCopyWithImpl<$Res>;
+abstract class _$SignInStateCopyWith<$Res>
+    implements $SignInStateCopyWith<$Res> {
+  factory _$SignInStateCopyWith(
+          _SignInState value, $Res Function(_SignInState) then) =
+      __$SignInStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {Phone phone,
@@ -1023,15 +1019,14 @@ abstract class _$SignInFormStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SignInFormStateCopyWithImpl<$Res>
-    extends _$SignInFormStateCopyWithImpl<$Res>
-    implements _$SignInFormStateCopyWith<$Res> {
-  __$SignInFormStateCopyWithImpl(
-      _SignInFormState _value, $Res Function(_SignInFormState) _then)
-      : super(_value, (v) => _then(v as _SignInFormState));
+class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
+    implements _$SignInStateCopyWith<$Res> {
+  __$SignInStateCopyWithImpl(
+      _SignInState _value, $Res Function(_SignInState) _then)
+      : super(_value, (v) => _then(v as _SignInState));
 
   @override
-  _SignInFormState get _value => super._value as _SignInFormState;
+  _SignInState get _value => super._value as _SignInState;
 
   @override
   $Res call({
@@ -1042,7 +1037,7 @@ class __$SignInFormStateCopyWithImpl<$Res>
     Object? showErrorMessages = freezed,
     Object? authFailureOrSuccessOption = freezed,
   }) {
-    return _then(_SignInFormState(
+    return _then(_SignInState(
       phone: phone == freezed
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -1073,10 +1068,8 @@ class __$SignInFormStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInFormState
-    with DiagnosticableTreeMixin
-    implements _SignInFormState {
-  const _$_SignInFormState(
+class _$_SignInState with DiagnosticableTreeMixin implements _SignInState {
+  const _$_SignInState(
       {required this.phone,
       required this.password,
       this.showPassword = false,
@@ -1102,14 +1095,14 @@ class _$_SignInFormState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignInFormState(phone: $phone, password: $password, showPassword: $showPassword, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'SignInState(phone: $phone, password: $password, showPassword: $showPassword, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SignInFormState'))
+      ..add(DiagnosticsProperty('type', 'SignInState'))
       ..add(DiagnosticsProperty('phone', phone))
       ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('showPassword', showPassword))
@@ -1123,7 +1116,7 @@ class _$_SignInFormState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SignInFormState &&
+            other is _SignInState &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality()
@@ -1148,19 +1141,19 @@ class _$_SignInFormState
 
   @JsonKey(ignore: true)
   @override
-  _$SignInFormStateCopyWith<_SignInFormState> get copyWith =>
-      __$SignInFormStateCopyWithImpl<_SignInFormState>(this, _$identity);
+  _$SignInStateCopyWith<_SignInState> get copyWith =>
+      __$SignInStateCopyWithImpl<_SignInState>(this, _$identity);
 }
 
-abstract class _SignInFormState implements SignInFormState {
-  const factory _SignInFormState(
+abstract class _SignInState implements SignInState {
+  const factory _SignInState(
       {required Phone phone,
       required Password password,
       bool showPassword,
       bool isSubmitting,
       bool showErrorMessages,
       required Option<Either<AuthFailure, Unit>>
-          authFailureOrSuccessOption}) = _$_SignInFormState;
+          authFailureOrSuccessOption}) = _$_SignInState;
 
   @override
   Phone get phone;
@@ -1176,6 +1169,6 @@ abstract class _SignInFormState implements SignInFormState {
   Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$SignInFormStateCopyWith<_SignInFormState> get copyWith =>
+  _$SignInStateCopyWith<_SignInState> get copyWith =>
       throw _privateConstructorUsedError;
 }

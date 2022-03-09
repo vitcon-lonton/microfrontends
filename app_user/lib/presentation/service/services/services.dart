@@ -25,7 +25,7 @@ class _ServicesState extends State<Services> {
       child: BlocListener<ServicesCubit, ServicesState>(
         listener: (context, state) {},
         child: BlocBuilder<ServicesCubit, ServicesState>(
-          buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
+          buildWhen: (prev, cur) => prev.services != cur.services,
           builder: (context, state) {
             final services = state.services;
 

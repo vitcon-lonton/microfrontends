@@ -1,16 +1,17 @@
 part of 'notifications.dart';
 
 class NotificationTile extends StatelessWidget {
-  final Order order;
+  final Notification notification;
 
-  const NotificationTile({Key? key, required this.order}) : super(key: key);
+  const NotificationTile({Key? key, required this.notification})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final name = order.name;
-    final status = order.status;
-    final time = order.time.toIso8601String();
-    final id = order.id.value.foldRight('', (id, previous) => '#$id');
+    final name = notification.name;
+    final status = notification.status;
+    final time = notification.time.toIso8601String();
+    final id = notification.id.value.foldRight('', (id, previous) => '#$id');
 
     return InkWell(
       onTap: () {},

@@ -26,23 +26,31 @@ class AppWidget extends StatelessWidget {
         routerDelegate: _appRouter.delegate(
           initialRoutes: [
             // const app_router.SplashPageRoute(),
-            // const app_router.CartPageRoute(),
             const app_router.HomePageRoute(),
-            // const app_router.CategoriesPageRoute(),
-            // const app_router.OrderDetailPageRoute(),
-            // const app_router.SettingsPageRoute(),
-            // const app_router.OrderHistoriesPageRoute(),
-            // const app_router.FavoritesPageRoute(),
-            // const app_router.UserUpdatePageRoute(),
-            // const app_router.PasswordChangePageRoute(),
+
+            // const app_router.SignInPageRoute(),
             // const app_router.RegisterPageRoute(),
+            // const app_router.OtpConfirmPageRoute(),
+            // const app_router.UserUpdatePageRoute(),
             // const app_router.PasswordUpdatePageRoute(),
             // const app_router.PasswordForgetPageRoute(),
-            // const app_router.OtpConfirmPageRoute(),
-            // const app_router.NotificationsPageRoute(),
-            // const app_router.HomePageRoute(),
-            // const app_router.SignInPageRoute(),
+            // const app_router.PasswordChangePageRoute(),
+            // const app_router.SettingsPageRoute(),
+
+            /// FAVORITES
+            // const app_router.FavoritesPageRoute(),
+
+            /// SERVICE
+            // const app_router.CategoriesPageRoute(),
+
+            /// BOOKING
+            // const app_router.CartPageRoute(),
+            // const app_router.OrderDetailPageRoute(),
+            // const app_router.OrderHistoriesPageRoute(),
             // const app_router.ServiceBookingPageRoute(),
+
+            /// NOTIFICATION
+            // const app_router.NotificationsPageRoute(),
           ],
         ),
         theme: ThemeData.light().copyWith(
