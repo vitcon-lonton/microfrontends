@@ -9,21 +9,6 @@ extension CatalogueDtoExt on CatalogueDto {
   Catalogue toDomain() => Catalogue.fromJson(toJson());
 }
 
-@JsonSerializable(createToJson: false, genericArgumentFactories: true)
-class BaseResponse<T> {
-  final T? data;
-  final String? msg;
-  final bool? success;
-
-  bool get valid => (success ?? false);
-
-  BaseResponse({this.msg, this.data, this.success});
-
-  factory BaseResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$BaseResponseFromJson(json, fromJsonT);
-}
-
 @freezed
 class CatalogueDto with _$CatalogueDto {
   const factory CatalogueDto({

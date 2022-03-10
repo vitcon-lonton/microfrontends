@@ -1,7 +1,8 @@
 /* spell-checker: disable */
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
-import 'models.dart';
+import 'package:app_user/core/core.dart';
+
 part 'api.g.dart';
 
 const authHeader = {'requires-token': 'true'};

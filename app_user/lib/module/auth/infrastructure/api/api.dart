@@ -1,10 +1,13 @@
 /* spell-checker: disable */
 import 'package:dio/dio.dart' hide Headers;
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
-import 'models.dart';
-part 'api.g.dart';
+import 'package:app_user/core/core.dart';
 
-const authHeader = {'requires-token': 'true'};
+part 'api.freezed.dart';
+part 'api.g.dart';
+part 'request.dart';
+part 'response.dart';
 
 @RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/account')
 abstract class AccountApi {
@@ -12,10 +15,10 @@ abstract class AccountApi {
 
   @GET('/info')
   @Headers(authHeader)
-  Future<BaseResponse<dynamic>> info();
+  Future<BaseResponse<Credential>> info();
 
   @POST('/login')
-  Future<BaseResponse<dynamic>> login(
+  Future<BaseResponse<Credential>> login(
     @Part() @Query('loginkey') String loginkey,
     @Part() @Query('password') String password, {
     @Query('device_id') String deviceId = 'android',

@@ -5,7 +5,6 @@ import 'package:app_user/core/core.dart';
 import '../../domain/entities.dart';
 import '../../domain/failure.dart';
 import '../../domain/i_repository.dart';
-
 part 'cart_cubit.freezed.dart';
 
 @freezed

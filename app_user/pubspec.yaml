@@ -9,18 +9,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cupertino_icons: ^1.0.2
   logger: any
   dio: ^4.0.4
+  uuid: ^3.0.4
   retrofit: any
   get_it: ^7.2.0
   rxdart: ^0.27.3
   kt_dart: ^0.10.0
   injectable: ^1.4.1
   auto_route: ^3.2.4
-  postman_dio: ^1.0.2
   flutter_bloc: ^8.0.1
   json_annotation: ^4.1.0
-  cupertino_icons: ^1.0.2
   freezed_annotation: ^1.1.0
   dartz: ^0.10.0-nullsafety.2
   firebase_auth: ^3.3.5
@@ -31,9 +31,9 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   flutter_html: ^2.2.1
   refresh_loadmore: ^2.0.5
+  easy_localization: ^3.0.0
   theme_manager:
     path: ../theme_manager
-  uuid: ^3.0.4
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +41,7 @@ dev_dependencies:
   mockito: any
   lint: ^1.5.3
   freezed: ^1.1.1
+  postman_dio: ^1.0.2
   build_runner: ^2.1.7
   flutter_lints: ^1.0.0
   json_serializable: ^6.1.4

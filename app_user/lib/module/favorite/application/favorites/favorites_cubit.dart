@@ -52,8 +52,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
     final page = state.page;
     final perPage = state.perPage;
-    final resultOption =
-        await _repository.getFavorites(page: page, perPage: perPage);
+    final resultOption = await _repository.get(page: page, perPage: perPage);
 
     resultOption.fold(() {}, (pagination) {
       final favoritesOption = state.favoritesOption;

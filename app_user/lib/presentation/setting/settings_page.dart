@@ -19,66 +19,89 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        // state.map(
-        //   initial: (_) {},
-        //   authenticated: (_) =>
-        //       AutoRouter.of(context).replace(const NotesOverviewPageRoute()),
-        //   unauthenticated: (_) =>
-        //       AutoRouter.of(context).replace(const SignInPageRoute()),
-        // );
-      },
+    return BlocProvider(
+      create: (context) => context.read<UserCubit>()..getUserRequested(),
       child: Scaffold(
         appBar: AppBar(),
-        backgroundColor: Colors.red,
+        backgroundColor: Theme.of(context).primaryColor,
         body: Column(
           children: [
             DefaultTextStyle(
               style: const TextStyle(color: Colors.white),
               child: Column(children: [
                 kVSpaceM,
-                SizedBox.square(
-                  dimension: 80,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.person_rounded,
-                      size: 60,
-                      color: Colors.grey.shade500,
-                    ),
-                  ),
-                ),
-                kVSpaceM,
-                BlocBuilder<AuthBloc, AuthState>(
+                BlocBuilder<UserCubit, UserState>(
                   builder: (context, state) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: kSpaceS),
-                      child: Row(
-                        children: [
-                          const Spacer(),
-                          Text(state.maybeMap(
-                              orElse: () => 'Login',
-                              authenticated: (_) => 'Name')),
-                          const Spacer(),
-                        ],
+                    return SizedBox.square(
+                      dimension: 80,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.person_rounded,
+                          size: 60,
+                          color: Colors.grey.shade500,
+                        ),
                       ),
                     );
+                    // if (state.isLoading) {
+                    //   return const CircularProgressIndicator();
+                    // }
+
+                    // final userName = state.user?.name.value
+                    //     .foldRight(null, (name, prev) => name);
+
+                    // if (userName == null) {
+                    //   return Row(
+                    //       children: const [Text('Welcome to S H O M E')]);
+                    // }
+
+                    // return Row(children: [Text('Hi, $userName')]);
                   },
                 ),
-                Row(children: [
-                  const Spacer(),
-                  IconButton(
-                    iconSize: 14,
-                    color: Colors.white,
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      context.router.push(const UserUpdatePageRoute());
+                kVSpaceM,
+                BlocBuilder<UserCubit, UserState>(
+                    builder: (context, state) => Padding(
+                        child: Row(children: [
+                          const Spacer(),
+                          Text(state.user?.name.getOrCrash() ?? 'Login'),
+                          const Spacer()
+                        ]),
+                        padding: const EdgeInsets.symmetric(vertical: kSpaceS)),
+                    buildWhen: (prev, cur) => prev.user != cur.user),
+
+                //
+                BlocBuilder<UserCubit, UserState>(
+                    builder: (context, state) {
+                      if (state.user == null) {
+                        return Row(children: [
+                          const Spacer(),
+                          Theme(
+                              data: Theme.of(context).copyWith(
+                                  primaryColor:
+                                      Theme.of(context).colorScheme.onPrimary),
+                              child: Link(
+                                  text: 'Login now',
+                                  onTap: () => context.router
+                                      .push(const SignInPageRoute()))),
+                          const Spacer()
+                        ]);
+                      }
+
+                      return Row(children: [
+                        const Spacer(),
+                        IconButton(
+                          iconSize: 14,
+                          color: Colors.white,
+                          icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            context.router.push(const UserUpdatePageRoute());
+                          },
+                        ),
+                        const Text('Update profile'),
+                        const Spacer(),
+                      ]);
                     },
-                  ),
-                  const Text('Update profile'),
-                  const Spacer(),
-                ]),
+                    buildWhen: (prev, cur) => prev.user != cur.user),
               ]),
             ),
             kVSpaceXXS,
@@ -97,9 +120,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: ListView.separated(
                         shrinkWrap: true,
                         itemCount: _options.length,
-                        padding:
-                            const EdgeInsets.only(top: kSpaceXXL + kSpaceL),
                         physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.only(top: kSpaceXL * 2),
                         separatorBuilder: (context, i) => const Padding(
                           child: Divider(height: 0),
                           padding: EdgeInsets.symmetric(horizontal: kSpaceXXL),
@@ -108,12 +130,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           final item = _options[i];
                           final title = item['title'] as String;
 
+                          if (title == 'Logout') {
+                            return const LogoutTile();
+                          }
+
                           return SettingTile(
                             item: item,
                             onTap: () {
-                              if (title == 'Logout') {
-                                _confirmLogOut(context);
-                              } else if (title == 'Favorites') {
+                              if (title == 'Favorites') {
                                 context.router.push(const FavoritesPageRoute());
                                 return;
                               } else if (title == 'Address') {
@@ -164,62 +188,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _confirmLogOut(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => Material(
-        color: Colors.transparent,
-        // width: Theme.of(context).backgroundColor,
-        child: Column(
-          children: [
-            const Spacer(),
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(horizontal: kSpaceXXL),
-              padding: const EdgeInsets.symmetric(
-                  vertical: kSpaceXL, horizontal: kSpaceXXL),
-              child: Column(
-                children: [
-                  kVSpaceL,
-                  const Text('Are you want log out ?'),
-                  kVSpaceXL,
-                  kVSpaceXL,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          child: const Text('Cancel'),
-                          onPressed: Navigator.of(context).pop,
-                        ),
-                      ),
-                      kHSpaceL,
-                      Expanded(
-                        child: ElevatedButton(
-                          child: const Text('Log out'),
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0, shadowColor: Colors.transparent),
-                          onPressed: () {
-                            context
-                                .read<AuthBloc>()
-                                .add(const AuthEvent.signedOut());
-
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  kVSpaceL,
-                ],
-              ),
-            ),
-            const Spacer(),
           ],
         ),
       ),

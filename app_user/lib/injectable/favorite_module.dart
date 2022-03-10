@@ -5,11 +5,14 @@ import '../module/favorite/favorite.dart';
 @module
 abstract class FavoriteModule {
   @Injectable()
-  FavoritesCubit get favoritesCubit;
+  FavoriteCubit get favoriteCubit;
 
-  @LazySingleton(as: IFavoriteRepository)
-  FavoriteRepository get repository;
+  @Injectable()
+  FavoritesCubit get favoritesCubit;
 
   @LazySingleton()
   FavoriteApi api(Dio dio) => FavoriteApi(dio);
+
+  @LazySingleton(as: IFavoriteRepository)
+  FavoriteRepository get repository;
 }

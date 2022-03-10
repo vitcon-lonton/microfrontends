@@ -1,11 +1,10 @@
 /* spell-checker: disable */
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
+import 'package:app_user/core/core.dart';
 import '../domain/entities.dart';
 import 'models.dart';
 part 'api.g.dart';
-
-const cache = CacheControl(maxAge: 172800, maxStale: 172800);
 
 @RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/catalogues')
 abstract class CatalogueApi {

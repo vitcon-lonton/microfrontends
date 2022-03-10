@@ -1,5 +1,6 @@
 library core;
 
+export 'api.dart';
 export 'errors.dart';
 export 'failures.dart';
 export 'pagination.dart';

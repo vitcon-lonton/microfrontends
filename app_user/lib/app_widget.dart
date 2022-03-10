@@ -35,14 +35,14 @@ class AppWidget extends StatelessWidget {
             // const app_router.PasswordUpdatePageRoute(),
             // const app_router.PasswordForgetPageRoute(),
             // const app_router.PasswordChangePageRoute(),
-            // const app_router.SettingsPageRoute(),
+            const app_router.SettingsPageRoute(),
 
             /// FAVORITES
             // const app_router.FavoritesPageRoute(),
 
             /// SERVICE
             // const app_router.CategoriesPageRoute(),
-            const app_router.ServiceBookingPageRoute(),
+            // const app_router.ServiceBookingPageRoute(),
 
             /// BOOKING
             // const app_router.CartPageRoute(),

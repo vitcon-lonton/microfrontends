@@ -2,10 +2,8 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
-
+import 'package:app_user/core/core.dart';
 part 'api.g.dart';
-
-const cache = CacheControl(maxAge: 172800, maxStale: 172800);
 
 @RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/articles')
 abstract class ArticleApi {
@@ -16,21 +14,6 @@ abstract class ArticleApi {
 
   @GET('/{id}')
   Future<BaseResponse<Article>> getArticleDetail(@Path() int id);
-}
-
-@JsonSerializable(createToJson: false, genericArgumentFactories: true)
-class BaseResponse<T> {
-  final T? data;
-  final String? msg;
-  final bool? success;
-
-  bool get valid => (success ?? false);
-
-  BaseResponse({this.msg, this.data, this.success});
-
-  factory BaseResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$BaseResponseFromJson(json, fromJsonT);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)

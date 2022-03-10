@@ -11,43 +11,41 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 const String tokenKey = 'token';
 
 class AuthFacade implements IAuthFacade {
+  User? _user;
+
   final AccountApi _api;
   final FlutterSecureStorage _storage;
 
   AuthFacade(this._api, this._storage);
 
-  Future<void> _saveCredential(String token) {
-    return _storage.write(key: tokenKey, value: token);
-  }
-
   @override
   Future<Option<User>> getSignedInUser() async {
     try {
+      if (_user != null) return optionOf(_user!);
       final response = await _api.info();
-
       if (!response.valid) return none();
+      return optionOf(response.data!.toDomain());
 
-      const image = '';
-      const gender = Gender.male;
+      // const image = '';
+      // const gender = Gender.male;
+      // final responseData = response.data!;
+      // final id = responseData['id'];
+      // final phone = Phone('9999999999');
+      // final name = Name(responseData['name']);
+      // final birthDay = BirthDay(DateTime(1997, 01, 29));
+      // final emailAddress = EmailAddress(responseData['email']);
+      // final street =
+      //     Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City');
 
-      final responseData = response.data;
-      final id = responseData['id'];
-      final phone = Phone('9999999999');
-      final name = Name(responseData['name']);
-      final birthDay = BirthDay(DateTime(1997, 01, 29));
-      final emailAddress = EmailAddress(responseData['email']);
-      final street =
-          Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City');
-
-      return optionOf(User(
-          id: id,
-          image: image,
-          name: name,
-          phone: phone,
-          street: street,
-          gender: gender,
-          birthDay: birthDay,
-          emailAddress: emailAddress));
+      // return optionOf(User(
+      //     id: id,
+      //     image: image,
+      //     name: name,
+      //     phone: phone,
+      //     street: street,
+      //     gender: gender,
+      //     birthDay: birthDay,
+      //     emailAddress: emailAddress));
     } catch (e) {
       return none();
     }
@@ -66,10 +64,11 @@ class AuthFacade implements IAuthFacade {
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
       }
 
-      final responseData = response.data;
-      final token = responseData['token_user'];
+      final responseData = response.data!;
+      final token = responseData.tokenUser!;
 
-      await _saveCredential(token);
+      _user = responseData.toDomain();
+      _storage.write(key: tokenKey, value: token);
 
       return right(unit);
     } catch (e) {
