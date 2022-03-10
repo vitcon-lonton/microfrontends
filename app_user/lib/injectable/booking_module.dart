@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../module/booking/booking.dart';
@@ -5,17 +6,17 @@ import '../module/booking/booking.dart';
 @module
 abstract class BookingModule {
   @Injectable()
-  CartCubit get cartCubit;
+  OrderDetailCubit get detail;
 
   @Injectable()
-  OrderDetailCubit get orderDetailCubit;
+  OrderRatingCubit get rating;
 
   @Injectable()
-  OrderRatingCubit get orderRatingCubit;
-
-  @Injectable()
-  OrderHistoriesCubit get orderHistoriesCubit;
+  OrderHistoriesCubit get histories;
 
   @LazySingleton(as: IBookingRepository)
-  BookingRepository get bookingRepository;
+  BookingRepository get repository;
+
+  @LazySingleton()
+  BookingApi api(Dio dio) => BookingApi(dio);
 }

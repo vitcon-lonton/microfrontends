@@ -6,41 +6,9 @@ import '../domain/i_repository.dart';
 
 class BookingRepository implements IBookingRepository {
   late final Duration _duration;
-  late final List<CartItem> _items;
 
   BookingRepository() {
-    _items = [];
     _duration = const Duration(milliseconds: 700);
-    _items.add(CartItem.random());
-    _items.add(CartItem.random());
-    _items.add(CartItem.random());
-  }
-
-  @override
-  Future<Option<List<CartItem>>> getCart() async {
-    await Future.delayed(_duration);
-    return optionOf(List.of(_items));
-  }
-
-  @override
-  Future<Either<BookingFailure, Unit>> submitBooking() async {
-    await Future.delayed(_duration);
-    return right(unit);
-  }
-
-  @override
-  Future<Either<BookingFailure, Unit>> addItem({required CartItem item}) async {
-    await Future.delayed(_duration);
-    _items.add(item);
-    return right(unit);
-  }
-
-  @override
-  Future<Either<BookingFailure, Unit>> removeItem(UniqueId id) async {
-    await Future.delayed(_duration);
-    final idStr = id.getOrCrash();
-    _items.removeWhere((item) => item.id.getOrCrash() == idStr);
-    return right(unit);
   }
 
   @override

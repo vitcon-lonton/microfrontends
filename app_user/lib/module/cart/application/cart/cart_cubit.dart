@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart' hide Order;
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
@@ -19,9 +19,9 @@ class CartState with _$CartState {
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     required Option<List<CartItem>> itemsOption,
-    required Option<Either<BookingFailure, Unit>> addFailureOrSuccessOption,
-    required Option<Either<BookingFailure, Unit>> removeFailureOrSuccessOption,
-    required Option<Either<BookingFailure, Unit>> submitFailureOrSuccessOption,
+    required Option<Either<CartFailure, Unit>> addFailureOrSuccessOption,
+    required Option<Either<CartFailure, Unit>> removeFailureOrSuccessOption,
+    required Option<Either<CartFailure, Unit>> submitFailureOrSuccessOption,
   }) = _CartState;
 
   List<CartItem> get items {
@@ -48,21 +48,19 @@ class CartState with _$CartState {
 }
 
 class CartCubit extends Cubit<CartState> {
-  final IBookingRepository _repository;
+  final ICartRepository _repository;
 
   CartCubit(this._repository) : super(CartState.init());
 
   @override
   void onChange(Change<CartState> change) {
     super.onChange(change);
-    // ignore: avoid_print
-    // print(change.nextState.items.length);
   }
 
   Future<void> getCartRequested() async {
     emit(state.copyWith(isLoading: true));
 
-    final cartOption = await _repository.getCart();
+    final cartOption = await _repository.all();
 
     emit(state.copyWith(isLoading: false));
     emit(state.copyWith(itemsOption: cartOption));
@@ -73,7 +71,7 @@ class CartCubit extends Cubit<CartState> {
     emit(state.copyWith(isRemoving: true));
     emit(state.copyWith(removeFailureOrSuccessOption: none()));
 
-    final failureOrSuccess = await _repository.removeItem(id);
+    final failureOrSuccess = await _repository.delete(id);
 
     emit(state.copyWith(removingId: null));
     emit(state.copyWith(isRemoving: false));
@@ -86,7 +84,7 @@ class CartCubit extends Cubit<CartState> {
     emit(state.copyWith(isAdding: true));
     emit(state.copyWith(addFailureOrSuccessOption: none()));
 
-    final failureOrSuccess = await _repository.addItem(item: CartItem.random());
+    final failureOrSuccess = await _repository.create(item: CartItem.random());
 
     emit(state.copyWith(isAdding: false));
     emit(state.copyWith(addFailureOrSuccessOption: optionOf(failureOrSuccess)));
@@ -96,7 +94,7 @@ class CartCubit extends Cubit<CartState> {
     emit(state.copyWith(isSubmitting: true));
     emit(state.copyWith(submitFailureOrSuccessOption: none()));
 
-    final failureOrSuccess = await _repository.submitBooking();
+    final failureOrSuccess = await _repository.clear();
 
     emit(state.copyWith(isSubmitting: false));
     emit(state.copyWith(itemsOption: optionOf(null)));

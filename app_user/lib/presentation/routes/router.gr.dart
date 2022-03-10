@@ -15,9 +15,9 @@ import 'package:flutter/material.dart' as _i19;
 
 import '../../module/article/article.dart' as _i20;
 import '../article/article.dart' as _i17;
-import '../booking/cart/cart.dart' as _i14;
-import '../booking/order_detail/order_detail.dart' as _i15;
-import '../booking/order_histories/order_histories.dart' as _i16;
+import '../booking/order_detail/order_detail.dart' as _i14;
+import '../booking/order_histories/order_histories.dart' as _i15;
+import '../cart/cart.dart' as _i16;
 import '../favorites/favorites.dart' as _i10;
 import '../home/home.dart' as _i1;
 import '../notifications/notifications.dart' as _i12;
@@ -98,17 +98,17 @@ class Router extends _i18.RootStackRouter {
       return _i18.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i13.ServiceBookingPage());
     },
-    CartPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i14.CartPage());
-    },
     OrderDetailPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i15.OrderDetailPage());
+          routeData: routeData, child: const _i14.OrderDetailPage());
     },
     OrderHistoriesPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i16.OrderHistoriesPage());
+          routeData: routeData, child: const _i15.OrderHistoriesPage());
+    },
+    CartPageRoute.name: (routeData) {
+      return _i18.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i16.CartPage());
     },
     ArticlesPageRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
@@ -144,10 +144,10 @@ class Router extends _i18.RootStackRouter {
         _i18.RouteConfig(ServicesPageRoute.name, path: '/services-page'),
         _i18.RouteConfig(ServiceBookingPageRoute.name,
             path: '/service-booking-page'),
-        _i18.RouteConfig(CartPageRoute.name, path: '/cart-page'),
         _i18.RouteConfig(OrderDetailPageRoute.name, path: '/order-detail-page'),
         _i18.RouteConfig(OrderHistoriesPageRoute.name,
             path: '/order-histories-page'),
+        _i18.RouteConfig(CartPageRoute.name, path: '/cart-page'),
         _i18.RouteConfig(ArticlesPageRoute.name, path: '/articles-page'),
         _i18.RouteConfig(ArticleDetailPageRoute.name,
             path: '/article-detail-page')
@@ -287,15 +287,7 @@ class ServiceBookingPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.CartPage]
-class CartPageRoute extends _i18.PageRouteInfo<void> {
-  const CartPageRoute() : super(CartPageRoute.name, path: '/cart-page');
-
-  static const String name = 'CartPageRoute';
-}
-
-/// generated route for
-/// [_i15.OrderDetailPage]
+/// [_i14.OrderDetailPage]
 class OrderDetailPageRoute extends _i18.PageRouteInfo<void> {
   const OrderDetailPageRoute()
       : super(OrderDetailPageRoute.name, path: '/order-detail-page');
@@ -304,12 +296,20 @@ class OrderDetailPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.OrderHistoriesPage]
+/// [_i15.OrderHistoriesPage]
 class OrderHistoriesPageRoute extends _i18.PageRouteInfo<void> {
   const OrderHistoriesPageRoute()
       : super(OrderHistoriesPageRoute.name, path: '/order-histories-page');
 
   static const String name = 'OrderHistoriesPageRoute';
+}
+
+/// generated route for
+/// [_i16.CartPage]
+class CartPageRoute extends _i18.PageRouteInfo<void> {
+  const CartPageRoute() : super(CartPageRoute.name, path: '/cart-page');
+
+  static const String name = 'CartPageRoute';
 }
 
 /// generated route for
