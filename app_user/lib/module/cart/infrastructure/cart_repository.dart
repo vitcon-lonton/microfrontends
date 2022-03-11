@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:app_user/core/core.dart';
-import '../domain/entities.dart';
-import '../domain/failure.dart';
-import '../domain/i_repository.dart';
+import '../domain/cart_item.dart';
+import '../domain/cart_failure.dart';
+import '../domain/i_cart_repository.dart';
 
 class CartRepository implements ICartRepository {
   late final List<CartItem> _items;

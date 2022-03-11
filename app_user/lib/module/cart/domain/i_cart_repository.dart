@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart' hide Order;
 import 'package:app_user/core/core.dart';
 
-import 'entities.dart';
-import 'failure.dart';
+import 'cart_item.dart';
+import 'cart_failure.dart';
 
 abstract class ICartRepository {
   Future<Option<List<CartItem>>> all();

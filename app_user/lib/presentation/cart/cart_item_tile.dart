@@ -3,16 +3,16 @@ part of 'cart.dart';
 class CartItemTile extends StatelessWidget {
   final CartItem item;
 
-  const CartItemTile({Key? key, required this.item}) : super(key: key);
+  CartItemTile({required this.item}) : super(key: Key(item.id.getOrCrash()));
 
   @override
   Widget build(BuildContext context) {
+    final id = item.id;
     final name = item.name;
     final price = '${item.price} VND';
     final time = item.time.toIso8601String();
 
     return InkWell(
-      // onTap: () {},
       borderRadius: BorderRadius.circular(4),
       child: Ink(
         color: const Color(0xFFF7F8FA),
@@ -32,17 +32,17 @@ class CartItemTile extends StatelessWidget {
                 Row(children: [
                   Expanded(child: Text(name)),
                   IconButton(
-                    onPressed: () {},
-                    iconSize: 12,
+                    // iconSize: 12,
                     icon: const Icon(Icons.edit),
                     padding: const EdgeInsets.all(0.0),
+                    onPressed: () {},
                   ),
                   IconButton(
-                    iconSize: 12,
-                    padding: const EdgeInsets.all(0.0),
+                    // iconSize: 12,
                     icon: const Icon(Icons.cancel),
+                    padding: const EdgeInsets.all(0.0),
                     onPressed: () {
-                      context.read<CartCubit>().removeItemRequested(item.id);
+                      context.read<CartDeleteCubit>().deleted(id);
                     },
                   )
                   // Text(time),
@@ -64,7 +64,3 @@ class CartItemTile extends StatelessWidget {
     );
   }
 }
-// IconButton(
-// icon: const Icon(Icons.close),
-// onPressed: () =>
-//     context.read<CartCubit>().removeItemRequested(item.id))

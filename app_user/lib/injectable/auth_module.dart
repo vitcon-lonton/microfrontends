@@ -8,28 +8,28 @@ abstract class AuthModule {
   AuthBloc get authBloc;
 
   @Injectable()
-  UserCubit get userCubit;
+  UserCubit get user;
 
   @Injectable()
-  SignInBloc get signInBloc;
+  SignInBloc get signIn;
 
   @Injectable()
-  RegisterCubit get registerCubit;
+  RegisterCubit get register;
 
   @Injectable()
-  OtpConfirmCubit get otpConfirmCubit;
+  OtpConfirmCubit get otpConfirm;
 
   @Injectable()
-  UserUpdateCubit get userUpdateCubit;
+  UserUpdateCubit get userUpdate;
 
   @Injectable()
-  PasswordForgetCubit get passwordForgetCubit;
+  PasswordForgetCubit get passwordForget;
 
   @Injectable()
-  PasswordChangeCubit get passwordChangeCubit;
+  PasswordChangeCubit get passwordChange;
 
   @Injectable()
-  PasswordUpdateCubit get passwordUpdateCubit;
+  PasswordUpdateCubit get passwordUpdate;
 
   @Injectable()
   AuthInterceptors get authInterceptors;

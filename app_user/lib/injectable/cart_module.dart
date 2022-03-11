@@ -5,7 +5,13 @@ import '../module/cart/cart.dart';
 @module
 abstract class CartModule {
   @Injectable()
-  CartCubit get cart;
+  CartAllCubit get all;
+
+  @Injectable()
+  CartDeleteCubit get delete;
+
+  @Injectable()
+  CartCreateCubit get create;
 
   @LazySingleton(as: ICartRepository)
   CartRepository get repository;

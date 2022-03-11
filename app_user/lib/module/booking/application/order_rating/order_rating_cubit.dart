@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart' hide Order;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../domain/failure.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/booking_failure.dart';
+import '../../domain/i_booking_repository.dart';
 part 'order_rating_cubit.freezed.dart';
 
 @freezed

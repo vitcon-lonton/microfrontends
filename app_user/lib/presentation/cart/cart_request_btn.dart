@@ -11,26 +11,18 @@ class CartRequestBtn extends StatefulWidget {
 class _CartRequestBtnState extends State<CartRequestBtn> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, CartState>(buildWhen: (prev, cur) {
-      return prev.isSubmitAvailable != cur.isSubmitAvailable;
-    }, builder: (context, state) {
-      final isSubmitAvailable = state.isSubmitAvailable;
-      final title = isSubmitAvailable ? 'SEND REQUEST' : '...';
-
-      return BottomNav.submit(
-          child: Text(title),
-          onPressed: isSubmitAvailable ? _submitRequest : null);
-    });
+    return BlocBuilder<OrderCreateCubit, OrderCreateState>(
+      builder: (context, state) => state.maybeMap(
+          actionInProgress: (state) {
+            return BottomNav.submit(child: const Text('...'), onPressed: null);
+          },
+          orElse: () => BottomNav.submit(
+              child: const Text('SEND REQUEST'), onPressed: _submitted)),
+    );
   }
 
-  Future _submitRequest() async {
-    final confirmResponse = await _confirm();
-    if (confirmResponse != true) return;
-    context.read<CartCubit>().submitBookingRequested();
-  }
-
-  Future<bool?> _confirm() {
-    return showDialog<bool?>(
+  Future<bool> _confirm() async {
+    await showDialog<bool?>(
       context: context,
       builder: (context) => Material(
         color: Colors.transparent,
@@ -73,5 +65,13 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
         ]),
       ),
     );
+
+    return true;
+  }
+
+  Future<void> _submitted() async {
+    await _confirm();
+
+    return context.read<OrderCreateCubit>().created({});
   }
 }

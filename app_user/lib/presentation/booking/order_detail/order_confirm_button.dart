@@ -10,30 +10,37 @@ class OrderConfirmButton extends StatefulWidget {
 class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderDetailCubit, OrderDetailState>(
-      buildWhen: (prev, cur) =>
-          prev.isCanceling != cur.isCanceling ||
-          prev.isCancelAvailable != cur.isCancelAvailable,
+    return BlocBuilder<CartCreateCubit, CartCreateState>(
       builder: (context, state) {
-        if (!state.isCancelAvailable) return kSpaceZero;
+        String title = 'Confirm';
+        VoidCallback? onPressed = _submitted;
+
+        state.whenOrNull(actionInProgress: () {
+          title = '';
+          onPressed = null;
+        });
 
         return Expanded(
           child: SizedBox(
-            height: 45,
-            child: ElevatedButton(
-              onPressed: state.isCanceling ? null : _confirm,
-              child: Text(state.isCanceling ? '...' : 'Confirm'),
-              style: ElevatedButton.styleFrom(
-                  elevation: 0, shadowColor: Colors.transparent),
-            ),
-          ),
+              height: 45,
+              child: ElevatedButton(
+                  child: Text(title),
+                  onPressed: onPressed,
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0, shadowColor: Colors.transparent))),
         );
       },
     );
   }
 
-  void _confirm() {
-    showDialog(
+  Future<void> _submitted() async {
+    final response = await _showConfirmDialog();
+    if (response != true) return;
+    return context.read<OrderDetailCubit>().deleteOrderRequested(UniqueId());
+  }
+
+  Future<bool?> _showConfirmDialog() {
+    return showDialog<bool>(
       context: context,
       builder: (context) => Material(
         color: Colors.transparent,
@@ -61,7 +68,6 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
                       child: const Text('Cancel'),
                       onPressed: () {
                         Navigator.of(context).pop();
-                        context.read<OrderDetailCubit>().cancelOrderRequested();
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0, shadowColor: Colors.transparent)),

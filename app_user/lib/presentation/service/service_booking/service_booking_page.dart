@@ -16,12 +16,10 @@ class ServiceBookingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => getIt<CartCubit>()),
           BlocProvider(create: (_) => getIt<FavoriteCubit>()),
+          BlocProvider(create: (_) => getIt<CartCreateCubit>()),
+          BlocProvider(create: (_) => getIt<ServiceDetailCubit>()),
           BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
-          BlocProvider(
-            create: (_) => getIt<ServiceDetailCubit>()..getDetailRequested(),
-          ),
         ],
         child: MultiBlocListener(
             listeners: [
@@ -33,22 +31,14 @@ class ServiceBookingPage extends StatelessWidget {
                       .serviceChanged(state.service)),
 
               // LISTEN ADD ITEM TO CART
-              BlocListener<CartCubit, CartState>(
-                listenWhen: (prev, cur) =>
-                    prev.addFailureOrSuccessOption !=
-                    cur.addFailureOrSuccessOption,
-                listener: (context, state) {
-                  state.addFailureOrSuccessOption.fold(() {}, (either) {
-                    either.fold((failure) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Text('Server error')));
-                    }, (_) {
-                      context.router.push(const CartPageRoute());
-                    });
-                  });
-                },
-              ),
+              BlocListener<CartCreateCubit, CartCreateState>(
+                  listener: (context, state) => state.mapOrNull(
+                      createSuccess: (state) =>
+                          context.router.push(const CartPageRoute()),
+                      createFailure: (state) => ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              content: Text('Unexpected error.'))))),
 
               // LISTEN FAVORITE FAILURE
               BlocListener<FavoriteCubit, FavoriteState>(
@@ -132,13 +122,16 @@ class ServiceBookingPage extends StatelessWidget {
               ]),
 
               // NAVIGATION_BAR
-              bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
-                  buildWhen: (prev, cur) => prev.isAdding != cur.isAdding,
-                  builder: (context, state) => BottomNav.submit(
-                      onPressed: state.isAdding
-                          ? null
-                          : context.read<CartCubit>().addItemRequested,
-                      child: Text(state.isAdding ? '...' : 'ADD TO CART'))),
+              bottomNavigationBar:
+                  BlocBuilder<CartCreateCubit, CartCreateState>(
+                      builder: (context, state) => state.maybeMap(
+                          orElse: () => BottomNav.submit(
+                              child: const Text('ADD TO CART'),
+                              onPressed: () => context
+                                  .read<CartCreateCubit>()
+                                  .created(CartItem.random())),
+                          actionInProgress: (state) => BottomNav.submit(
+                              onPressed: null, child: const Text('...')))),
             )));
   }
 }

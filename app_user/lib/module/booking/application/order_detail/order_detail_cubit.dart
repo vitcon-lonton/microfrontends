@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart' hide Order;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
-import '../../domain/entities.dart';
-import '../../domain/failure.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/booking_failure.dart';
+import '../../domain/i_booking_repository.dart';
+import '../../domain/order.dart';
 part 'order_detail_cubit.freezed.dart';
 
 @freezed
@@ -40,19 +40,19 @@ class OrderDetailCubit extends Cubit<OrderDetailState> {
 
   void refreshRequested() => emit(OrderDetailState.init());
 
-  Future<void> getOrderRequested() async {
+  Future<void> getDetailRequested(UniqueId id) async {
     emit(state.copyWith(isSubmitting: true));
 
-    final orderOption = await _repository.getOrder();
+    final orderOption = await _repository.detail(id);
 
     emit(state.copyWith(isSubmitting: false));
     emit(state.copyWith(orderOption: orderOption));
   }
 
-  Future<void> cancelOrderRequested() async {
+  Future<void> deleteOrderRequested(UniqueId id) async {
     emit(state.copyWith(isCanceling: true));
 
-    final orderOption = await _repository.cancel();
+    final orderOption = await _repository.delete(id);
 
     emit(state.copyWith(isCanceling: false));
     emit(state.copyWith(cancelFailureOrSuccessOption: optionOf(orderOption)));

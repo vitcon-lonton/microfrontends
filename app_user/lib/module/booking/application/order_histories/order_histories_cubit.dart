@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart' hide Order;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
-import '../../domain/entities.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/i_booking_repository.dart';
+import '../../domain/order.dart';
 part 'order_histories_cubit.freezed.dart';
 
 @freezed
@@ -45,8 +45,7 @@ class OrderHistoriesCubit extends Cubit<OrderHistoriesState> {
   OrderHistoriesCubit(this._repository) : super(OrderHistoriesState.init());
 
   Future<Option<Pagination<Order>>> _performGetOrders() {
-    return _repository.getOrderHistories(
-        page: state.page, perPage: state.perPage);
+    return _repository.histories(page: state.page, perPage: state.perPage);
   }
 
   Future<void> getOrdersRequested() async {

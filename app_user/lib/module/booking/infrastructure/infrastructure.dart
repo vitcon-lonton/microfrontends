@@ -1,2 +1,2 @@
 export 'api/api.dart';
-export 'repository.dart';
+export 'booking_repository.dart';

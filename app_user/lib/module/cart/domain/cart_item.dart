@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
-part 'entities.freezed.dart';
+
+part 'cart_item.freezed.dart';
 
 @freezed
 class CartItem with _$CartItem {

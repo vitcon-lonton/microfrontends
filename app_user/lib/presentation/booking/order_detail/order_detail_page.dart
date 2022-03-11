@@ -11,8 +11,8 @@ class OrderDetailPage extends StatefulWidget {
 class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<OrderDetailCubit>(
-      create: (context) => getIt<OrderDetailCubit>()..getOrderRequested(),
+    return BlocProvider.value(
+      value: getIt<OrderDetailCubit>()..getDetailRequested(UniqueId()),
       child: BlocListener<OrderDetailCubit, OrderDetailState>(
         listener: (context, state) {},
         child: Scaffold(
@@ -32,9 +32,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 return RefreshLoadmore(
                   isLastPage: true,
                   noMoreWidget: kSpaceZero,
-                  onRefresh: () async => await context
+                  onRefresh: () => context
                       .read<OrderDetailCubit>()
-                      .getOrderRequested(),
+                      .getDetailRequested(UniqueId()),
                   child: ListView(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),

@@ -9,6 +9,9 @@ abstract class BookingModule {
   OrderDetailCubit get detail;
 
   @Injectable()
+  OrderCreateCubit get create;
+
+  @Injectable()
   OrderRatingCubit get rating;
 
   @Injectable()

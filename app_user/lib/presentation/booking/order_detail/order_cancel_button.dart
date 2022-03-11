@@ -37,7 +37,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
   Future _onPressed() async {
     final confirmResponse = await _confirm();
     if (confirmResponse != true) return;
-    context.read<OrderDetailCubit>().cancelOrderRequested();
+    context.read<OrderDetailCubit>().deleteOrderRequested(UniqueId());
   }
 
   Future<bool?> _confirm() {
