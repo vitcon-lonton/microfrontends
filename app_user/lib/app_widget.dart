@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_user/presentation/routes/router.gr.dart' as app_router;
@@ -13,63 +14,75 @@ class AppWidget extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => getIt<UserCubit>()..getUserRequested()),
-        BlocProvider(
-            create: (context) =>
-                getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested())),
-      ],
-      child: MaterialApp.router(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        routeInformationParser: _appRouter.defaultRouteParser(),
-        routerDelegate: _appRouter.delegate(
-          initialRoutes: [
-            // const app_router.SplashPageRoute(),
-            const app_router.HomePageRoute(),
-
-            // const app_router.SignInPageRoute(),
-            // const app_router.RegisterPageRoute(),
-            // const app_router.OtpConfirmPageRoute(),
-            // const app_router.UserUpdatePageRoute(),
-            // const app_router.PasswordUpdatePageRoute(),
-            // const app_router.PasswordForgetPageRoute(),
-            // const app_router.PasswordChangePageRoute(),
-            // const app_router.SettingsPageRoute(),
-
-            /// FAVORITES
-            // const app_router.FavoritesPageRoute(),
-
-            /// SERVICE
-            // const app_router.CategoriesPageRoute(),
-            // const app_router.ServiceBookingPageRoute(),
-
-            /// BOOKING
-            // const app_router.CartPageRoute(),
-            // const app_router.OrderDetailPageRoute(),
-            // const app_router.OrderHistoriesPageRoute(),
-
-            /// NOTIFICATION
-            // const app_router.NotificationsPageRoute(),
-          ],
+        BlocProvider.value(value: getIt<UserCubit>()..getUserRequested()),
+        BlocProvider.value(
+          value: getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
         ),
-        theme: ThemeData.light().copyWith(
-          primaryColor: const Color(0xFFD44541),
-          appBarTheme: AppBarTheme.of(context)
-              .copyWith(centerTitle: false, elevation: 0),
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-              backgroundColor: Color(0xFFD44541)),
-          inputDecorationTheme: InputDecorationTheme(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
+      ],
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+          PointerDeviceKind.invertedStylus
+        }),
+        child: MaterialApp.router(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          routeInformationParser: _appRouter.defaultRouteParser(),
+          routerDelegate: _appRouter.delegate(
+            initialRoutes: [
+              // const app_router.SplashPageRoute(),
+              const app_router.HomePageRoute(),
+
+              // const app_router.SignInPageRoute(),
+              // const app_router.RegisterPageRoute(),
+              // const app_router.OtpConfirmPageRoute(),
+              // const app_router.UserUpdatePageRoute(),
+              // const app_router.PasswordUpdatePageRoute(),
+              // const app_router.PasswordForgetPageRoute(),
+              // const app_router.PasswordChangePageRoute(),
+              // const app_router.SettingsPageRoute(),
+
+              /// FAVORITES
+              // const app_router.FavoritesPageRoute(),
+
+              /// SERVICE
+              // const app_router.CategoriesPageRoute(),
+              // const app_router.ServiceBookingPageRoute(),
+
+              /// BOOKING
+              // const app_router.CartPageRoute(),
+              // const app_router.OrderDetailPageRoute(),
+              // const app_router.OrderHistoriesPageRoute(),
+
+              /// NOTIFICATION
+              // const app_router.NotificationsPageRoute(),
+            ],
           ),
-          colorScheme: const ColorScheme.light(primary: Color(0xFFD44541)),
-          // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red),
-          // primaryColor: Colors.green[800],
-          // colorScheme:
-          //     ColorScheme.fromSwatch().copyWith(secondary: Colors.blueAccent),
-          // floatingActionButtonTheme: FloatingActionButtonThemeData(
-          //   backgroundColor: Colors.blue[900],
-          // ),
+          theme: ThemeData.light().copyWith(
+            primaryColor: const Color(0xFFD44541),
+            appBarTheme: AppBarTheme.of(context)
+                .copyWith(centerTitle: false, elevation: 0),
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                elevation: 0,
+                foregroundColor: Colors.white,
+                backgroundColor: Color(0xFFD44541)),
+            inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
+            ),
+            colorScheme: const ColorScheme.light(primary: Color(0xFFD44541)),
+            // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red),
+            // primaryColor: Colors.green[800],
+            // colorScheme:
+            //     ColorScheme.fromSwatch().copyWith(secondary: Colors.blueAccent),
+            // floatingActionButtonTheme: FloatingActionButtonThemeData(
+            //   backgroundColor: Colors.blue[900],
+            // ),
+          ),
         ),
       ),
     );

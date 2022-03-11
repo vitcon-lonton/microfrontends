@@ -16,6 +16,7 @@ class _OrderHistoriesPageState extends State<CartPage> {
         BlocProvider.value(value: getIt<CartCreateCubit>()),
         BlocProvider.value(value: getIt<CartDeleteCubit>()),
         BlocProvider.value(value: getIt<CartAllCubit>()..getAllRequested()),
+        BlocProvider.value(value: getIt<OrderCreateCubit>()),
       ],
       child: MultiBlocListener(
         // LISTENERS
@@ -83,7 +84,19 @@ class _OrderHistoriesPageState extends State<CartPage> {
               ...[
                 kVSpaceL,
                 const Divider(height: 8, thickness: 8),
-                kVSpaceM,
+                // LOADING INDICATOR
+                BlocBuilder<CartAllCubit, CartAllState>(buildWhen: (prev, cur) {
+                  return prev.isLoading != cur.isLoading;
+                }, builder: (context, state) {
+                  if (state.isLoading) {
+                    return Container(
+                        child: const LinearProgressIndicator(),
+                        margin: const EdgeInsets.only(bottom: kSpaceS));
+                  }
+
+                  return kVSpaceM;
+                }),
+                // kVSpaceM,
                 Row(children: const [kHSpaceM, Text('Detail'), kHSpaceM]),
                 kVSpaceS,
                 BlocBuilder<CartAllCubit, CartAllState>(
@@ -130,8 +143,10 @@ class _OrderHistoriesPageState extends State<CartPage> {
                       onPressed: () => context
                           .read<CartCreateCubit>()
                           .created(CartItem.random())),
-                  actionInProgress: (state) => const FloatingActionButton(
-                      onPressed: null, child: CircularProgressIndicator()))),
+                  actionInProgress: (state) => FloatingActionButton(
+                      onPressed: null,
+                      child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.onPrimary)))),
         ),
       ),
     );

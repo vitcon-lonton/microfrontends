@@ -1,19 +1,19 @@
 part of 'order_detail.dart';
 
-class OrderCancelButton extends StatefulWidget {
-  const OrderCancelButton({Key? key}) : super(key: key);
+class OrderRejectButton extends StatefulWidget {
+  const OrderRejectButton({Key? key}) : super(key: key);
 
   @override
-  State<OrderCancelButton> createState() => _OrderCancelButtonState();
+  State<OrderRejectButton> createState() => _OrderRejectButtonState();
 }
 
-class _OrderCancelButtonState extends State<OrderCancelButton> {
+class _OrderRejectButtonState extends State<OrderRejectButton> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrderDeleteCubit, OrderDeleteState>(
       builder: (context, state) {
         String title = state.maybeWhen(
-            orElse: () => 'Cancel', actionInProgress: () => '...');
+            orElse: () => 'Reject', actionInProgress: () => '...');
         VoidCallback? onPressed = state.maybeWhen(
             orElse: () => _submitted, actionInProgress: () => null);
 
@@ -54,7 +54,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
                 vertical: kSpaceXL, horizontal: kSpaceXXL),
             child: Column(children: [
               kVSpaceL,
-              const Text('Are you want cancel?'),
+              const Text('Are you want reject this order?'),
               kVSpaceXL,
               kVSpaceXL,
               Row(children: [
@@ -62,7 +62,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
                   child: SizedBox(
                     height: 40,
                     child: TextButton(
-                        child: const Text('Cancel'),
+                        child: const Text('Reject'),
                         onPressed: () => Navigator.of(context).pop(false)),
                   ),
                 ),
@@ -71,7 +71,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
                   child: SizedBox(
                     height: 40,
                     child: ElevatedButton(
-                        child: const Text('Confirm'),
+                        child: const Text('Review'),
                         onPressed: () => Navigator.of(context).pop(true),
                         style: ElevatedButton.styleFrom(
                             elevation: 0, shadowColor: Colors.transparent)),

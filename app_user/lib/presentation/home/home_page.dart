@@ -97,8 +97,7 @@ class _HomePageState extends State<HomePage> {
 
       // FLOATING_ACTION_BUTTON
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.shopping_cart,
-              color: Theme.of(context).colorScheme.onPrimary),
+          child: const Icon(Icons.shopping_cart),
           onPressed: () => context.router.push(const CartPageRoute())),
 
       // APP_BAR

@@ -11,26 +11,15 @@ part 'order_detail_cubit.freezed.dart';
 class OrderDetailState with _$OrderDetailState {
   const OrderDetailState._();
 
-  factory OrderDetailState({
-    @Default(STATUS_IDLE) status,
-    @Default(false) bool isCanceling,
-    @Default(false) bool isSubmitting,
-    @Default(true) bool showErrorMessages,
-    required Option<Order> orderOption,
-    required Option<Either<BookingFailure, Unit>> cancelFailureOrSuccessOption,
-  }) = _OrderDetailState;
+  factory OrderDetailState(
+      {@Default(false) bool isLoading,
+      required Option<Order> orderOption}) = _OrderDetailState;
 
   bool get isCancelAvailable => order?.status == OrderStatus.created;
 
   Order? get order => orderOption.foldRight(null, (order, prev) => order);
 
-  OrderDetailState busy() => copyWith(status: STATUS_BUSY);
-  OrderDetailState idle() => copyWith(status: STATUS_IDLE);
-  OrderDetailState failed() => copyWith(status: STATUS_FAILED);
-  OrderDetailState complete() => copyWith(status: STATUS_COMPLETE);
-
-  factory OrderDetailState.init() => OrderDetailState(
-      orderOption: none(), cancelFailureOrSuccessOption: none());
+  factory OrderDetailState.init() => OrderDetailState(orderOption: none());
 }
 
 class OrderDetailCubit extends Cubit<OrderDetailState> {
@@ -40,24 +29,12 @@ class OrderDetailCubit extends Cubit<OrderDetailState> {
 
   void refreshRequested() => emit(OrderDetailState.init());
 
-  Future<void> getDetailRequested(UniqueId id) async {
-    emit(state.copyWith(isSubmitting: true));
+  Future<void> detailRequested(UniqueId id) async {
+    emit(state.copyWith(isLoading: true));
 
     final orderOption = await _repository.detail(id);
 
-    emit(state.copyWith(isSubmitting: false));
+    emit(state.copyWith(isLoading: false));
     emit(state.copyWith(orderOption: orderOption));
-  }
-
-  Future<void> deleteOrderRequested(UniqueId id) async {
-    emit(state.copyWith(isCanceling: true));
-
-    final orderOption = await _repository.delete(id);
-
-    emit(state.copyWith(isCanceling: false));
-    emit(state.copyWith(cancelFailureOrSuccessOption: optionOf(orderOption)));
-    emit(state.copyWith(
-      orderOption: optionOf(state.order!.copyWith(status: OrderStatus.cancel)),
-    ));
   }
 }

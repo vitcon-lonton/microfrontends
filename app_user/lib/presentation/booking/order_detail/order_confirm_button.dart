@@ -10,15 +10,12 @@ class OrderConfirmButton extends StatefulWidget {
 class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCreateCubit, CartCreateState>(
+    return BlocBuilder<OrderConfirmCubit, OrderConfirmState>(
       builder: (context, state) {
-        String title = 'Confirm';
-        VoidCallback? onPressed = _submitted;
-
-        state.whenOrNull(actionInProgress: () {
-          title = '';
-          onPressed = null;
-        });
+        String title = state.maybeWhen(
+            orElse: () => 'Confirm', actionInProgress: () => '...');
+        VoidCallback? onPressed = state.maybeWhen(
+            orElse: () => _submitted, actionInProgress: () => null);
 
         return Expanded(
           child: SizedBox(
@@ -36,7 +33,7 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
     if (response != true) return;
-    return context.read<OrderDetailCubit>().deleteOrderRequested(UniqueId());
+    return context.read<OrderConfirmCubit>().confirmed();
   }
 
   Future<bool?> _showConfirmDialog() {
@@ -53,24 +50,28 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
                 vertical: kSpaceXL, horizontal: kSpaceXXL),
             child: Column(children: [
               kVSpaceL,
-              const Text('Are you want cancel?'),
+              const Text('Confirm this order?'),
               kVSpaceXL,
               kVSpaceXL,
               Row(children: [
                 Expanded(
-                  child: TextButton(
-                      child: const Text('Cancel'),
-                      onPressed: Navigator.of(context).pop),
+                  child: SizedBox(
+                    height: 40,
+                    child: TextButton(
+                        child: const Text('Review'),
+                        onPressed: () => Navigator.of(context).pop(false)),
+                  ),
                 ),
                 kHSpaceL,
                 Expanded(
-                  child: ElevatedButton(
-                      child: const Text('Cancel'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0, shadowColor: Colors.transparent)),
+                  child: SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                        child: const Text('Agree'),
+                        onPressed: () => Navigator.of(context).pop(true),
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0, shadowColor: Colors.transparent)),
+                  ),
                 ),
               ]),
               kVSpaceL,

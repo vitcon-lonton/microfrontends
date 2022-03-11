@@ -29,13 +29,11 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
         child: Column(children: [
           const Spacer(),
           Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: kSpaceXXL * 2),
             padding: const EdgeInsets.symmetric(
                 vertical: kSpaceXL, horizontal: kSpaceXXL),
+            margin: const EdgeInsets.symmetric(horizontal: kSpaceXXL * 2),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(4.0)),
             child: Column(children: [
               kVSpaceL,
               Icon(Icons.check_circle,
@@ -49,13 +47,12 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
               Row(children: [
                 Expanded(
                   child: SizedBox(
-                    height: 40,
-                    child: ElevatedButton(
-                        child: const Text('Accept'),
-                        onPressed: () => Navigator.of(context).pop(true),
-                        style: ElevatedButton.styleFrom(
-                            elevation: 0, shadowColor: Colors.transparent)),
-                  ),
+                      height: 40,
+                      child: ElevatedButton(
+                          child: const Text('Accept'),
+                          style: ElevatedButton.styleFrom(
+                              elevation: 0, shadowColor: Colors.transparent),
+                          onPressed: () => Navigator.of(context).pop(true))),
                 ),
               ]),
               kVSpaceL,
