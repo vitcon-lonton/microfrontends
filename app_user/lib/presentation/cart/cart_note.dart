@@ -12,14 +12,12 @@ class CartNote extends StatelessWidget {
           borderRadius: BorderRadius.circular(4.0),
           color: const Color(0xFFFFF2DF)),
       child: Row(
-        children: const [
-          Icon(Icons.info_outline, color: Color(0xFFC57C39)),
+        children: [
+          const Icon(Icons.info_outline, color: Color(0xFFC57C39)),
           kHSpaceS,
           Expanded(
-            child: Text(
-              'Đây là yêu cầu báo giá, sau khi gửi yêu cầu, nhân viên tư vấn sẽ liên hệ chốt giá và lựa chọn kỹ thuật viên phù hợp sau cho từng dịch vụ',
-              style: TextStyle(color: Color(0xFFC57C39)),
-            ),
+            child: Text(tr(LocaleKeys.msg_1),
+                style: const TextStyle(color: Color(0xFFC57C39))),
           ),
         ],
       ),

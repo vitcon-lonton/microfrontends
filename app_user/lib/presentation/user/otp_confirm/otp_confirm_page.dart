@@ -5,21 +5,11 @@ class OtpConfirmPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const registerTxt = 'OTP Confirmation';
-    // final msgTerm1 = tr(LocaleKeys.msg_term1);
-    // final msgTerm2 = tr(LocaleKeys.msg_term2);
-    // final msgTerm3 = tr(LocaleKeys.msg_term3);
-    // final msgTerm4 = tr(LocaleKeys.msg_term4);
-    // final registerTxt = tr(LocaleKeys.register);
-
     return MultiBlocProvider(
       providers: [
-        BlocProvider<PasswordForgetCubit>(
-          create: (_) => getIt<PasswordForgetCubit>(),
-        ),
-        BlocProvider<OtpRequestNewCubit>(
-          create: (_) => getIt<OtpRequestNewCubit>(),
-        ),
+        BlocProvider.value(value: getIt<OtpConfirmCubit>()),
+        BlocProvider.value(value: getIt<OtpRequestNewCubit>()),
+        BlocProvider.value(value: getIt<PasswordForgetCubit>()),
       ],
       child: BlocListener<PasswordForgetCubit, PasswordForgetState>(
         listenWhen: (prev, cur) =>
@@ -52,7 +42,7 @@ class OtpConfirmPage extends StatelessWidget {
           );
         },
         child: Scaffold(
-          appBar: AppBar(title: const Text(registerTxt)),
+          appBar: AppBar(title: Text(tr(LocaleKeys.txt_activate_account))),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

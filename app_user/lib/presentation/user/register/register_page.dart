@@ -6,17 +6,6 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const registerTxt = 'Register';
-    const msgTerm1 = 'tr(LocaleKeys.msg_term1)';
-    const msgTerm2 = 'tr(LocaleKeys.msg_term2)';
-    const msgTerm3 = 'tr(LocaleKeys.msg_term3)';
-    const msgTerm4 = 'tr(LocaleKeys.msg_term4)';
-    // final msgTerm1 = tr(LocaleKeys.msg_term1);
-    // final msgTerm2 = tr(LocaleKeys.msg_term2);
-    // final msgTerm3 = tr(LocaleKeys.msg_term3);
-    // final msgTerm4 = tr(LocaleKeys.msg_term4);
-    // final registerTxt = tr(LocaleKeys.register);
-
     return BlocProvider<RegisterCubit>(
       create: (_) => getIt<RegisterCubit>(),
       child: BlocListener<RegisterCubit, RegisterState>(
@@ -56,7 +45,7 @@ class RegisterPage extends StatelessWidget {
           );
         },
         child: Scaffold(
-          appBar: AppBar(title: const Text(registerTxt)),
+          appBar: AppBar(title: Text(tr(LocaleKeys.txt_register))),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

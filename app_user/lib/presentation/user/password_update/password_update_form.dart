@@ -5,6 +5,7 @@ class PasswordUpdateForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtConfirm = tr(LocaleKeys.txt_confirm).toUpperCase();
     final mode = context.read<PasswordUpdateCubit>().state.showErrorMessages
         ? AutovalidateMode.always
         : AutovalidateMode.disabled;
@@ -64,7 +65,7 @@ class PasswordUpdateForm extends StatelessWidget {
                 prev.isSubmitting != cur.isSubmitting;
           }, builder: (context, state) {
             return FormSubmitBtn(
-              child: const Text('CONFIRM'),
+              child: Text(txtConfirm),
               isSubmitting: state.isSubmitting,
               onPressed: state.valid
                   ? context.read<PasswordUpdateCubit>().submitted

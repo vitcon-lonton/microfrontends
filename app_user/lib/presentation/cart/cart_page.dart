@@ -11,6 +11,10 @@ class CartPage extends StatefulWidget {
 class _OrderHistoriesPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
+    final txtEdit = tr(LocaleKeys.txt_edit);
+    final txtMyShoppingCart = tr(LocaleKeys.txt_my_shopping_cart);
+    final txtExecutionAddress = tr(LocaleKeys.txt_execution_address);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: getIt<CartCreateCubit>()),
@@ -59,9 +63,9 @@ class _OrderHistoriesPageState extends State<CartPage> {
                 kVSpaceS,
                 Row(children: [
                   kHSpaceM,
-                  const Text('Address'),
+                  Text(txtExecutionAddress),
                   const Spacer(),
-                  Link(text: 'Edit', onTap: () {}),
+                  Link(text: txtEdit, onTap: () {}),
                   kHSpaceM,
                 ]),
                 kVSpaceS,
@@ -133,7 +137,7 @@ class _OrderHistoriesPageState extends State<CartPage> {
           bottomNavigationBar: const CartRequestBtn(),
 
           // APP BAR
-          appBar: AppBar(title: const Text('My Cart')),
+          appBar: AppBar(title: Text(txtMyShoppingCart)),
 
           // FLOATING ACTION
           floatingActionButton: BlocBuilder<CartCreateCubit, CartCreateState>(

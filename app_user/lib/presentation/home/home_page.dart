@@ -1,3 +1,4 @@
+/* spell-checker: disable */
 part of 'home.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +18,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final txtBlogs = tr(LocaleKeys.txt_blogs);
+    final txtWelcomeToSHOME = tr(LocaleKeys.txt_welcome_to_shome);
+
     return Scaffold(
       // BODY
       body: SingleChildScrollView(
@@ -49,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           ...[
             const Divider(height: 8.0, thickness: 8.0),
             kVSpaceM,
-            _title('Blogs', onTapSeeMore: () {
+            _title(txtBlogs, onTapSeeMore: () {
               context.router.push(const ArticlesPageRoute());
             }),
             kVSpaceM,
@@ -70,12 +74,8 @@ class _HomePageState extends State<HomePage> {
           ...[
             const Divider(height: 8.0, thickness: 8.0),
             kVSpaceM,
-            _title('Categories'),
-            kVSpaceM,
-            BlocProvider(
-              child: const Categories(),
-              create: (_) => getIt<CategoriesCubit>(),
-            ),
+            BlocProvider.value(
+                child: const Categories(), value: getIt<CategoriesCubit>()),
             kVSpaceM,
           ],
 
@@ -83,10 +83,9 @@ class _HomePageState extends State<HomePage> {
           ...[
             const Divider(height: 8.0, thickness: 8.0),
             kVSpaceM,
-            BlocProvider(
-              create: (_) => getIt<ServicesCubit>(),
-              child: const Services(isPagination: false),
-            ),
+            BlocProvider.value(
+                value: getIt<ServicesCubit>(),
+                child: const Services(isPagination: false)),
             kVSpaceM,
           ],
 
@@ -132,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                 state.user?.name.value.foldRight(null, (name, prev) => name);
 
             if (userName == null) {
-              return Row(children: const [Text('Welcome to S H O M E')]);
+              return Row(children: [Text(txtWelcomeToSHOME)]);
             }
 
             return Row(children: [Text('Hi, $userName')]);
@@ -169,7 +168,8 @@ class _HomePageState extends State<HomePage> {
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.headlineSmall!),
         const Spacer(),
-        if (onTapSeeMore != null) Link(text: 'See more', onTap: onTapSeeMore),
+        if (onTapSeeMore != null)
+          Link(text: tr(LocaleKeys.txt_view_all), onTap: onTapSeeMore),
         kHSpaceM,
       ],
     );

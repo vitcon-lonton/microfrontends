@@ -27,6 +27,10 @@ class _SignInState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
+    final txtLogin = tr(LocaleKeys.txt_login);
+    final txtPassword = tr(LocaleKeys.txt_password);
+    final txtPhoneNumber = tr(LocaleKeys.txt_phone_number);
+
     return MultiBlocListener(
       listeners: [
         BlocListener<SignInBloc, SignInState>(
@@ -103,15 +107,16 @@ class _SignInState extends State<SignInForm> {
                 return TextFormField(
                   // controller: _phoneController,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                      labelText: 'Phone', prefixIcon: Icon(Icons.phone)),
+                  decoration: InputDecoration(
+                      labelText: txtPhoneNumber,
+                      prefixIcon: const Icon(Icons.phone)),
                   onChanged: (value) => context
                       .read<SignInBloc>()
                       .add(SignInEvent.phoneChanged(value)),
                   initialValue:
                       state.phone.value.foldRight(null, (str, prev) => str),
                   validator: (_) => state.phone.value.fold((failure) {
-                    return 'Invalid Phone Number';
+                    return 'Invalid $txtPhoneNumber';
                   }, (_) => null),
                 );
               },
@@ -173,7 +178,7 @@ class _SignInState extends State<SignInForm> {
                   // controller: _passwordController,
                   obscureText: !state.showPassword,
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    labelText: txtPassword,
                     prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(!state.showPassword
@@ -191,7 +196,7 @@ class _SignInState extends State<SignInForm> {
                       .read<SignInBloc>()
                       .add(SignInEvent.passwordChanged(value)),
                   validator: (_) => state.password.value.fold((failure) {
-                    return 'Short Password';
+                    return 'Short $txtPassword';
                   }, (_) => null),
                 );
               },
@@ -200,7 +205,7 @@ class _SignInState extends State<SignInForm> {
             BlocBuilder<SignInBloc, SignInState>(
               buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
               builder: (context, state) => WSubmitBtn(
-                child: Text(state.isSubmitting ? '...' : 'LOGIN'),
+                child: Text(state.isSubmitting ? '...' : txtLogin),
                 onPressed: !state.isSubmitting
                     ? () => context.read<SignInBloc>().add(
                           const SignInEvent.signInWithPhoneAndPasswordPressed(),

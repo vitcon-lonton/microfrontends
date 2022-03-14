@@ -1,4 +1,3 @@
-// ignore_for_file: unused_local_variable
 part of 'password_update.dart';
 
 class PasswordUpdatePage extends StatelessWidget {
@@ -6,7 +5,9 @@ class PasswordUpdatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const registerTxt = 'Update Password';
+    final txtUpdate = tr(LocaleKeys.txt_update);
+    final txtPassword = tr(LocaleKeys.txt_password).toLowerCase();
+    final txtTitle = '$txtUpdate $txtPassword';
 
     return BlocProvider<PasswordUpdateCubit>(
       create: (_) => getIt<PasswordUpdateCubit>(),
@@ -38,7 +39,7 @@ class PasswordUpdatePage extends StatelessWidget {
           );
         },
         child: Scaffold(
-          appBar: AppBar(title: const Text(registerTxt)),
+          appBar: AppBar(title: Text(txtTitle)),
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(

@@ -10,13 +10,15 @@ class ArticlesPage extends StatefulWidget {
 class _ArticlesPageState extends State<ArticlesPage> {
   @override
   Widget build(BuildContext context) {
+    final txtBlogs = tr(LocaleKeys.txt_blogs);
+
     return BlocProvider<ArticlesCubit>(
       create: (context) => getIt<ArticlesCubit>(),
       child: Scaffold(
+        appBar: AppBar(title: Text(txtBlogs)),
         body: const Articles(
           padding: EdgeInsets.symmetric(horizontal: kSpaceM, vertical: kSpaceM),
         ),
-        appBar: AppBar(title: const Text('Blogs')),
       ),
     );
   }

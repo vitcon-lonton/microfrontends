@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,13 +30,16 @@ class AppWidget extends StatelessWidget {
         }),
         child: MaterialApp.router(
           title: 'Flutter Demo',
+          locale: context.locale,
+          supportedLocales: context.supportedLocales,
+          localizationsDelegates: context.localizationDelegates,
           debugShowCheckedModeBanner: false,
           routeInformationParser: _appRouter.defaultRouteParser(),
           routerDelegate: _appRouter.delegate(
             initialRoutes: [
               // const app_router.SplashPageRoute(),
               // app_router.ImageSelectorRoute(),
-              const app_router.HomePageRoute(),
+              // const app_router.HomePageRoute(),
 
               // const app_router.SignInPageRoute(),
               // const app_router.RegisterPageRoute(),
@@ -54,7 +58,7 @@ class AppWidget extends StatelessWidget {
               // const app_router.ServiceBookingPageRoute(),
 
               /// BOOKING
-              // const app_router.CartPageRoute(),
+              const app_router.CartPageRoute(),
               // const app_router.OrderDetailPageRoute(),
               // const app_router.OrderHistoriesPageRoute(),
 

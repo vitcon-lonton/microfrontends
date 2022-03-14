@@ -1,3 +1,5 @@
+import 'package:app_user/i18n/i18n.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:app_user/module/auth/auth.dart';
@@ -14,16 +16,18 @@ class PhoneInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtPhoneNumber = tr(LocaleKeys.txt_phone_number);
+
     return WTextInput(
-      label: 'Phone',
-      hintText: 'Phone',
+      label: txtPhoneNumber,
+      hintText: txtPhoneNumber,
       onChanged: onChanged,
       keyboardType: TextInputType.phone,
       initialValue: value.value.fold((failure) {
         return failure.failedValue;
       }, (string) => string),
       errorText: value.value.fold((failure) {
-        return 'Invalid phone number';
+        return 'Invalid $txtPhoneNumber';
       }, (_) => null),
     );
     // return Container();
@@ -93,9 +97,11 @@ class PasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtPassword = tr(LocaleKeys.txt_password);
+
     return WTextInput(
-      label: 'Password',
-      hintText: 'Password',
+      label: txtPassword,
+      hintText: txtPassword,
       suffixIcon: IconButton(
         onPressed: onPressShowPassword,
         icon: Icon(!showPassword ? Icons.visibility : Icons.visibility_off),
@@ -106,7 +112,7 @@ class PasswordInput extends StatelessWidget {
         return failure.failedValue;
       }, (string) => string),
       errorText: value.value.fold((failure) {
-        return 'Short Password';
+        return 'Short $txtPassword';
       }, (_) => null),
     );
   }
@@ -148,15 +154,17 @@ class NameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtFirstName = tr(LocaleKeys.txt_first_name);
+
     return WTextInput(
-      label: 'Name',
-      hintText: 'Name',
+      label: txtFirstName,
+      hintText: txtFirstName,
       onChanged: onChanged,
       initialValue: value.value.fold((failure) {
         return failure.failedValue;
       }, (string) => string),
       errorText: value.value.fold((failure) {
-        return 'Invalid First Name';
+        return 'Invalid $txtFirstName';
       }, (_) => null),
     );
   }

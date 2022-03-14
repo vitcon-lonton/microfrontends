@@ -1,8 +1,10 @@
 // ignore_for_file: unused_import
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
+import 'package:app_user/i18n/i18n.dart';
 import 'package:app_user/module/auth/auth.dart';
 import 'package:app_user/presentation/routes/router.gr.dart';
 
@@ -11,6 +13,9 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtVisitFirst = tr(LocaleKeys.txt_visit_first);
+    final txtPhoneNumber = tr(LocaleKeys.txt_phone_number);
+
     return BlocListener<AuthBloc, AuthState>(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -37,9 +42,9 @@ class SplashPage extends StatelessWidget {
                 height: 45,
                 width: double.infinity,
                 child: OutlinedButton(
+                  child: Text(txtVisitFirst),
                   onPressed: () =>
                       context.router.replace(const HomePageRoute()),
-                  child: const Text('Visit'),
                   style: OutlinedButton.styleFrom(
                     elevation: 0,
                     primary: Colors.white,
@@ -59,9 +64,9 @@ class SplashPage extends StatelessWidget {
                 height: 45,
                 width: double.infinity,
                 child: TextButton(
+                  child: Text(txtPhoneNumber),
                   onPressed: () =>
                       context.router.replace(const SignInPageRoute()),
-                  child: const Text('Phone number'),
                   style: TextButton.styleFrom(
                     elevation: 0,
                     backgroundColor: Colors.white,

@@ -12,12 +12,13 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrderCreateCubit, OrderCreateState>(
-      builder: (context, state) => state.maybeMap(
-          actionInProgress: (state) {
-            return BottomNav.submit(child: const Text('...'), onPressed: null);
-          },
-          orElse: () => BottomNav.submit(
-              child: const Text('SEND REQUEST'), onPressed: _submitted)),
+      builder: (context, state) => state.maybeMap(actionInProgress: (state) {
+        return BottomNav.submit(child: const Text('...'), onPressed: null);
+      }, orElse: () {
+        return BottomNav.submit(
+            child: Text(tr(LocaleKeys.txt_send_request).toUpperCase()),
+            onPressed: _submitted);
+      }),
     );
   }
 
@@ -39,9 +40,7 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
               Icon(Icons.check_circle,
                   size: 82, color: Theme.of(context).primaryColor),
               kVSpaceL,
-              const Text(
-                'Nhân viên tư vấn sẽ liên hệ trong vòng 24h, vui lòng giữ máy.',
-              ),
+              Text(tr(LocaleKeys.msg_2)),
               kVSpaceXL,
               kVSpaceXL,
               Row(children: [

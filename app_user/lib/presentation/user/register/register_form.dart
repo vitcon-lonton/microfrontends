@@ -5,6 +5,8 @@ class RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtRegister = tr(LocaleKeys.txt_register);
+
     return Form(
       autovalidateMode: context.read<RegisterCubit>().state.showErrorMessages
           ? AutovalidateMode.always
@@ -61,7 +63,7 @@ class RegisterForm extends StatelessWidget {
           BlocBuilder<RegisterCubit, RegisterState>(
             buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
             builder: (context, state) => FormSubmitBtn(
-              child: const Text('REGISTER'),
+              child: Text(txtRegister),
               isSubmitting: state.isSubmitting,
               onPressed: context.read<RegisterCubit>().submitted,
             ),

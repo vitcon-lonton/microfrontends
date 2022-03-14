@@ -64,7 +64,7 @@ class OtpConfirmForm extends StatelessWidget {
           BlocBuilder<OtpConfirmCubit, OtpConfirmState>(
             buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
             builder: (context, state) => FormSubmitBtn(
-              child: const Text('OK'),
+              child: Text(tr(LocaleKeys.txt_ok)),
               isSubmitting: state.isSubmitting,
               onPressed: context.read<OtpConfirmCubit>().submitted,
             ),

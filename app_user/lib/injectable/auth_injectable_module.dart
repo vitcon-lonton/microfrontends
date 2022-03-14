@@ -20,6 +20,9 @@ abstract class AuthInjectableModule {
   OtpConfirmCubit get otpConfirm;
 
   @Injectable()
+  OtpRequestNewCubit get otpRequestNew;
+
+  @Injectable()
   UserUpdateCubit get userUpdate;
 
   @Injectable()
