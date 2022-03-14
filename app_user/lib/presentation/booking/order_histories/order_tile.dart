@@ -7,6 +7,7 @@ class OrderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtOrder = tr(LocaleKeys.txt_order);
     final name = order.name;
     final status = order.status;
     final price = '${order.price} VND';
@@ -28,7 +29,7 @@ class OrderTile extends StatelessWidget {
               child: Column(children: [
                 // ID, PRICE
                 Row(children: [
-                  const Text('Order ID: '),
+                  Text('$txtOrder: '),
                   Expanded(child: Text(id)),
                   Text(price),
                 ]),

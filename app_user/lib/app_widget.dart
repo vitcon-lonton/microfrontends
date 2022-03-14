@@ -55,10 +55,10 @@ class AppWidget extends StatelessWidget {
 
               /// SERVICE
               // const app_router.CategoriesPageRoute(),
-              // const app_router.ServiceBookingPageRoute(),
+              const app_router.ServiceBookingPageRoute(),
 
               /// BOOKING
-              const app_router.CartPageRoute(),
+              // const app_router.CartPageRoute(),
               // const app_router.OrderDetailPageRoute(),
               // const app_router.OrderHistoriesPageRoute(),
 

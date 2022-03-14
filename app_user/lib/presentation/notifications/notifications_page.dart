@@ -29,7 +29,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Notifications';
+    final txtNotification = tr(LocaleKeys.txt_notification);
 
     return BlocProvider<NotificationsCubit>(
       create: (context) =>
@@ -83,7 +83,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           ),
 
           // APP_BAR
-          appBar: AppBar(title: const Text(title)),
+          appBar: AppBar(title: Text(txtNotification)),
         ),
       ),
     );

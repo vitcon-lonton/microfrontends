@@ -10,10 +10,12 @@ class OrderConfirmButton extends StatefulWidget {
 class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   @override
   Widget build(BuildContext context) {
+    final txtConfirm = tr(LocaleKeys.txt_confirm);
+
     return BlocBuilder<OrderConfirmCubit, OrderConfirmState>(
       builder: (context, state) {
         String title = state.maybeWhen(
-            orElse: () => 'Confirm', actionInProgress: () => '...');
+            orElse: () => txtConfirm, actionInProgress: () => '...');
         VoidCallback? onPressed = state.maybeWhen(
             orElse: () => _submitted, actionInProgress: () => null);
 
@@ -50,7 +52,7 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
                 vertical: kSpaceXL, horizontal: kSpaceXXL),
             child: Column(children: [
               kVSpaceL,
-              const Text('Confirm this order?'),
+              Text(tr(LocaleKeys.msg_8)),
               kVSpaceXL,
               kVSpaceXL,
               Row(children: [
@@ -58,7 +60,7 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
                   child: SizedBox(
                     height: 40,
                     child: TextButton(
-                        child: const Text('Review'),
+                        child: Text(tr(LocaleKeys.txt_review)),
                         onPressed: () => Navigator.of(context).pop(false)),
                   ),
                 ),
@@ -67,7 +69,7 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
                   child: SizedBox(
                     height: 40,
                     child: ElevatedButton(
-                        child: const Text('Agree'),
+                        child: Text(tr(LocaleKeys.txt_agree)),
                         onPressed: () => Navigator.of(context).pop(true),
                         style: ElevatedButton.styleFrom(
                             elevation: 0, shadowColor: Colors.transparent)),

@@ -1,3 +1,5 @@
+import 'package:app_user/i18n/i18n.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
@@ -70,7 +72,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
         Padding(
             child: Column(children: [
               kVSpaceM,
-              const Text('Description'),
+              Text(tr(LocaleKeys.txt_add_description)),
               kVSpaceM,
               Text(description),
               kVSpaceM,

@@ -34,7 +34,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
       child: BlocListener<FavoritesCubit, FavoritesState>(
         listener: (context, state) {},
         child: Scaffold(
-          appBar: AppBar(title: const Text('Wish List')),
+          appBar: AppBar(title: Text(tr(LocaleKeys.txt_favorite_service))),
           body: BlocBuilder<FavoritesCubit, FavoritesState>(
             buildWhen: (prev, cur) =>
                 prev.favorites != cur.favorites ||

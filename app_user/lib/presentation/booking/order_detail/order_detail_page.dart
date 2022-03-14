@@ -13,6 +13,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final txtOrderCode = tr(LocaleKeys.txt_order_code);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: getIt<OrderDetailCubit>()),
@@ -48,8 +50,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           appBar: AppBar(
             title: BlocBuilder<OrderDetailCubit, OrderDetailState>(
                 buildWhen: (prev, cur) => prev.order != cur.order,
-                builder: (context, state) =>
-                    Text('Order ${state.order?.id.getOrCrash() ?? ''}')),
+                builder: (context, state) => Text(
+                    '$txtOrderCode: #${state.order?.id.getOrCrash() ?? ''}')),
           ),
 
           // BODY

@@ -48,7 +48,7 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
                   child: SizedBox(
                       height: 40,
                       child: ElevatedButton(
-                          child: const Text('Accept'),
+                          child: Text(tr(LocaleKeys.txt_agree)),
                           style: ElevatedButton.styleFrom(
                               elevation: 0, shadowColor: Colors.transparent),
                           onPressed: () => Navigator.of(context).pop(true))),

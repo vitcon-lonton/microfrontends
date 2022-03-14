@@ -10,10 +10,12 @@ class OrderRejectButton extends StatefulWidget {
 class _OrderRejectButtonState extends State<OrderRejectButton> {
   @override
   Widget build(BuildContext context) {
+    final txtReject = tr(LocaleKeys.txt_reject);
+
     return BlocBuilder<OrderDeleteCubit, OrderDeleteState>(
       builder: (context, state) {
         String title = state.maybeWhen(
-            orElse: () => 'Reject', actionInProgress: () => '...');
+            orElse: () => txtReject, actionInProgress: () => '...');
         VoidCallback? onPressed = state.maybeWhen(
             orElse: () => _submitted, actionInProgress: () => null);
 
@@ -36,7 +38,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
 
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
-    if (response != true) return;
+    if (response != false) return;
     return context.read<OrderDeleteCubit>().deleted(UniqueId());
   }
 
@@ -54,7 +56,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
                 vertical: kSpaceXL, horizontal: kSpaceXXL),
             child: Column(children: [
               kVSpaceL,
-              const Text('Are you want reject this order?'),
+              Text(tr(LocaleKeys.msg_7)),
               kVSpaceXL,
               kVSpaceXL,
               Row(children: [
@@ -62,7 +64,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
                   child: SizedBox(
                     height: 40,
                     child: TextButton(
-                        child: const Text('Reject'),
+                        child: Text(tr(LocaleKeys.txt_reject)),
                         onPressed: () => Navigator.of(context).pop(false)),
                   ),
                 ),
@@ -71,7 +73,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
                   child: SizedBox(
                     height: 40,
                     child: ElevatedButton(
-                        child: const Text('Review'),
+                        child: Text(tr(LocaleKeys.txt_review)),
                         onPressed: () => Navigator.of(context).pop(true),
                         style: ElevatedButton.styleFrom(
                             elevation: 0, shadowColor: Colors.transparent)),

@@ -8,6 +8,7 @@ class NotificationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtOrder = tr(LocaleKeys.txt_order);
     final name = notification.name;
     final status = notification.status;
     final time = notification.time.toIso8601String();
@@ -30,7 +31,7 @@ class NotificationTile extends StatelessWidget {
             Expanded(
               child: Column(children: [
                 Row(children: [
-                  const Text('Order: '),
+                  Text('$txtOrder: '),
                   Expanded(
                       child: Text(id,
                           style: TextStyle(

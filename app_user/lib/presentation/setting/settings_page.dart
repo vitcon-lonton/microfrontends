@@ -19,6 +19,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final txtNotification = tr(LocaleKeys.txt_notification);
+    final txtOrderHistory = tr(LocaleKeys.txt_order_history);
+
     return BlocProvider(
       create: (context) => context.read<UserCubit>()..getUserRequested(),
       child: Scaffold(
@@ -97,7 +100,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             context.router.push(const UserUpdatePageRoute());
                           },
                         ),
-                        const Text('Update profile'),
+                        Text(tr(LocaleKeys.txt_edit)),
                         const Spacer(),
                       ]);
                     },
@@ -127,32 +130,39 @@ class _SettingsPageState extends State<SettingsPage> {
                           padding: EdgeInsets.symmetric(horizontal: kSpaceXXL),
                         ),
                         itemBuilder: (context, i) {
-                          final item = _options[i];
-                          final title = item['title'] as String;
+                          String title = 'Logout';
+                          VoidCallback? onTap;
 
-                          if (title == 'Logout') {
+                          final item = _options[i];
+                          final key = item['title'] as String;
+                          final icon = item['icon'] as IconData;
+
+                          if (key == 'Logout') {
                             return const LogoutTile();
+                          } else if (key == 'Favorites') {
+                            title = tr(LocaleKeys.txt_favorite_service);
+                            onTap = () {
+                              context.router.push(const FavoritesPageRoute());
+                            };
+                          } else if (key == 'Address') {
+                            title = tr(LocaleKeys.txt_delivery_address);
+                            onTap = () {};
+                          } else if (key == 'Policy') {
+                            title = tr(LocaleKeys.txt_policy);
+                            onTap = () {};
+                          } else if (key == 'About') {
+                            title = tr(LocaleKeys.txt_about_us);
+                            onTap = () {};
+                          } else if (key == 'Update password') {
+                            title = tr(LocaleKeys.txt_change_password);
+                            onTap = () {
+                              context.router
+                                  .push(const PasswordUpdatePageRoute());
+                            };
                           }
 
                           return SettingTile(
-                            item: item,
-                            onTap: () {
-                              if (title == 'Favorites') {
-                                context.router.push(const FavoritesPageRoute());
-                                return;
-                              } else if (title == 'Address') {
-                                return;
-                              } else if (title == 'Policy') {
-                                return;
-                              } else if (title == 'About') {
-                                return;
-                              } else if (title == 'Update password') {
-                                context.router
-                                    .push(const PasswordUpdatePageRoute());
-                                return;
-                              }
-                            },
-                          );
+                              icon: icon, title: title, onTap: onTap);
                         },
                       ),
                     ),
@@ -174,11 +184,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Row(children: [
-                        _button('Order history', Icons.access_time_filled,
+                        _button(txtOrderHistory, Icons.access_time_filled,
                             onPressed: () {
                           context.router.push(const OrderHistoriesPageRoute());
                         }),
-                        _button('Notification', Icons.notifications,
+                        _button(txtNotification, Icons.notifications,
                             onPressed: () {
                           context.router.push(const NotificationsPageRoute());
                         }),

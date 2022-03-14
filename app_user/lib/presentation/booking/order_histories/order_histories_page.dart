@@ -28,12 +28,14 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final txtOrderHistory = tr(LocaleKeys.txt_order_history);
+
     return BlocProvider<OrderHistoriesCubit>(
       create: (context) => getIt<OrderHistoriesCubit>()..getOrdersRequested(),
       child: BlocListener<OrderHistoriesCubit, OrderHistoriesState>(
         listener: (context, state) {},
         child: Scaffold(
-          appBar: AppBar(title: const Text('Order History')),
+          appBar: AppBar(title: Text(txtOrderHistory)),
           body: BlocBuilder<OrderHistoriesCubit, OrderHistoriesState>(
             buildWhen: (prev, cur) => prev.orders != cur.orders,
             builder: (context, state) {

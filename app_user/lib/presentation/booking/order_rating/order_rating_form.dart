@@ -6,6 +6,10 @@ class OrderRatingForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtSkip = tr(LocaleKeys.txt_skip);
+    final txtSubmit = tr(LocaleKeys.txt_submit);
+    final txtYourReview = tr(LocaleKeys.txt_your_review);
+
     return BlocListener<OrderRatingCubit, OrderRatingState>(
       listenWhen: (prev, cur) =>
           prev.failureOrSuccessOption != cur.failureOrSuccessOption,
@@ -51,9 +55,23 @@ class OrderRatingForm extends StatelessWidget {
               text: TextSpan(
                 style: DefaultTextStyle.of(context).style,
                 children: [
-                  const TextSpan(
-                      text:
-                          'Đơn hàng hoàn thành, mời bạn để lại đánh giá về kỹ thuật viên'),
+                  TextSpan(text: tr(LocaleKeys.msg_9)),
+                  TextSpan(
+                      text: ' 30 ngày ',
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
+                ],
+              ),
+            ),
+          ),
+          kVSpaceL,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kSpaceL),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: [
+                  TextSpan(text: tr(LocaleKeys.msg_10)),
                   TextSpan(
                       text: ' Trần Thanh ',
                       style: TextStyle(color: Theme.of(context).primaryColor)),
@@ -92,7 +110,7 @@ class OrderRatingForm extends StatelessWidget {
               builder: (context, state) => WTextInput(
                   height: 100,
                   maxLines: 5,
-                  label: 'Your Review',
+                  hintText: txtYourReview,
                   enabled: state.isSubmitting,
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 8.0))),
@@ -111,7 +129,7 @@ class OrderRatingForm extends StatelessWidget {
                       height: 52,
                       width: double.infinity,
                       child: TextButton(
-                          child: const Text('SKIP'),
+                          child: Text(txtSkip),
                           onPressed: state.isSubmitting
                               ? null
                               : () => Navigator.of(context).pop()))),
@@ -122,7 +140,7 @@ class OrderRatingForm extends StatelessWidget {
                   buildWhen: (prev, cur) =>
                       prev.isSubmitting != cur.isSubmitting,
                   builder: (_, state) => WSubmitBtn(
-                      child: Text(state.isSubmitting ? '...' : 'SEND'),
+                      child: Text(state.isSubmitting ? '...' : txtSubmit),
                       onPressed: state.isSubmitting
                           ? null
                           : context.read<OrderRatingCubit>().submitted)),

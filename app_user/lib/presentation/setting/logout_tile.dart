@@ -5,11 +5,13 @@ class LogoutTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtLogout = tr(LocaleKeys.txt_logout);
+
     return BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           if (state.user != null) {
             return ListTile(
-                title: const Text('Logout'),
+                title: Text(txtLogout),
                 onTap: () => _confirmLogOut(context),
                 leading: const Icon(Icons.exit_to_app),
                 contentPadding:
@@ -38,21 +40,21 @@ class LogoutTile extends StatelessWidget {
               child: Column(
                 children: [
                   kVSpaceL,
-                  const Text('Are you want log out ?'),
+                  Text(tr(LocaleKeys.msg_12)),
                   kVSpaceXL,
                   kVSpaceXL,
                   Row(
                     children: [
                       Expanded(
                         child: TextButton(
-                          child: const Text('Cancel'),
+                          child: Text(tr(LocaleKeys.txt_cancel)),
                           onPressed: Navigator.of(context).pop,
                         ),
                       ),
                       kHSpaceL,
                       Expanded(
                         child: ElevatedButton(
-                          child: const Text('Log out'),
+                          child: Text(tr(LocaleKeys.txt_logout)),
                           style: ElevatedButton.styleFrom(
                               elevation: 0, shadowColor: Colors.transparent),
                           onPressed: () {

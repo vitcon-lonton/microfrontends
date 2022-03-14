@@ -10,10 +10,12 @@ class OrderCancelButton extends StatefulWidget {
 class _OrderCancelButtonState extends State<OrderCancelButton> {
   @override
   Widget build(BuildContext context) {
+    final txtCancel = tr(LocaleKeys.txt_cancel);
+
     return BlocBuilder<OrderDeleteCubit, OrderDeleteState>(
       builder: (context, state) {
         String title = state.maybeWhen(
-            orElse: () => 'Cancel', actionInProgress: () => '...');
+            orElse: () => txtCancel, actionInProgress: () => '...');
         VoidCallback? onPressed = state.maybeWhen(
             orElse: () => _submitted, actionInProgress: () => null);
 
@@ -54,7 +56,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
                 vertical: kSpaceXL, horizontal: kSpaceXXL),
             child: Column(children: [
               kVSpaceL,
-              const Text('Are you want cancel?'),
+              Text(tr(LocaleKeys.msg_6)),
               kVSpaceXL,
               kVSpaceXL,
               Row(children: [
@@ -62,7 +64,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
                   child: SizedBox(
                     height: 40,
                     child: TextButton(
-                        child: const Text('Cancel'),
+                        child: Text(tr(LocaleKeys.txt_cancel)),
                         onPressed: () => Navigator.of(context).pop(false)),
                   ),
                 ),
@@ -71,7 +73,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
                   child: SizedBox(
                     height: 40,
                     child: ElevatedButton(
-                        child: const Text('Confirm'),
+                        child: Text(tr(LocaleKeys.txt_confirm)),
                         onPressed: () => Navigator.of(context).pop(true),
                         style: ElevatedButton.styleFrom(
                             elevation: 0, shadowColor: Colors.transparent)),

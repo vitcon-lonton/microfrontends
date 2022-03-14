@@ -11,6 +11,13 @@ class OrderInfo extends StatefulWidget {
 class _OrderInfoState extends State<OrderInfo> {
   @override
   Widget build(BuildContext context) {
+    final txtPayment = tr(LocaleKeys.txt_payment);
+    final txtCod = tr(LocaleKeys.txt_cod).toUpperCase();
+    final txtTechnician = tr(LocaleKeys.txt_technician);
+    final txtPaymentPrice = tr(LocaleKeys.txt_payment_price);
+    final txtExecutionTime = tr(LocaleKeys.txt_execution_time);
+    final txtExecutionAddress = tr(LocaleKeys.txt_execution_address);
+
     return BlocProvider.value(
       value: context.read<OrderDetailCubit>()..detailRequested(UniqueId()),
       child: Column(
@@ -50,7 +57,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       const Divider(height: 8.0, thickness: 8.0),
                       kVSpaceM,
                       _section(
-                        title: 'Booking Address',
+                        title: txtExecutionAddress,
                         icon: const Icon(Icons.pin_drop_outlined),
                         content: Text(address),
                       ),
@@ -62,7 +69,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       _horizontalPaddingM(const Divider(height: 0)),
                       kVSpaceM,
                       _section(
-                        title: 'Time',
+                        title: txtExecutionTime,
                         icon: const Icon(Icons.calendar_month_outlined),
                         content: Text(date),
                       ),
@@ -74,14 +81,14 @@ class _OrderInfoState extends State<OrderInfo> {
                       _horizontalPaddingM(const Divider(height: 0)),
                       kVSpaceM,
                       _section(
-                        title: 'Technician',
+                        title: txtTechnician,
                         icon: const Icon(Icons.person_outline_rounded),
                         content: Expanded(
                           child: Row(
-                            children: const [
-                              Text('Technician Name | 9999999999'),
-                              Spacer(),
-                              Icon(Icons.phone, size: 16),
+                            children: [
+                              Text('$txtTechnician Name | 9999999999'),
+                              const Spacer(),
+                              const Icon(Icons.phone, size: 16),
                             ],
                           ),
                         ),
@@ -156,16 +163,14 @@ class _OrderInfoState extends State<OrderInfo> {
                       _horizontalPaddingM(
                         RichText(
                           maxLines: 5,
-                          text: const TextSpan(
+                          text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Note: ',
-                                style: TextStyle(color: Color(0xFF009B19)),
+                                text: '${tr(LocaleKeys.txt_note)}: ',
+                                style:
+                                    const TextStyle(color: Color(0xFF009B19)),
                               ),
-                              TextSpan(
-                                text:
-                                    'Giá đã thay đổi, bao gồm phí đi lại, nguyên vật liệu thêm sau quá trình khảo sát',
-                              ),
+                              TextSpan(text: tr(LocaleKeys.note_1)),
                             ],
                           ),
                         ),
@@ -177,10 +182,10 @@ class _OrderInfoState extends State<OrderInfo> {
                     ...[
                       const Divider(height: 8.0, thickness: 8.0),
                       kVSpaceM,
-                      _horizontalPaddingM(Row(children: const [
-                        Text('Payment method'),
-                        Spacer(),
-                        Text('COD'),
+                      _horizontalPaddingM(Row(children: [
+                        Text(txtPayment),
+                        const Spacer(),
+                        Text(txtCod),
                       ])),
                       kVSpaceM,
                     ],
@@ -191,7 +196,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       // kVSpaceL,
                       kVSpaceM,
                       _horizontalPaddingM(Row(children: [
-                        const Text('Last price'),
+                        Text(txtPaymentPrice),
                         const Spacer(),
                         Text(price)
                       ])),
