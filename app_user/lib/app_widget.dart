@@ -34,6 +34,7 @@ class AppWidget extends StatelessWidget {
           routerDelegate: _appRouter.delegate(
             initialRoutes: [
               // const app_router.SplashPageRoute(),
+              // app_router.ImageSelectorRoute(),
               const app_router.HomePageRoute(),
 
               // const app_router.SignInPageRoute(),

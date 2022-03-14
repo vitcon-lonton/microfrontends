@@ -6,6 +6,7 @@ import '../booking/order_histories/order_histories.dart';
 import '../cart/cart.dart';
 import '../favorites/favorites.dart';
 import '../home/home.dart';
+import '../image_selector/image_selector.dart';
 import '../notifications/notifications.dart';
 import '../service/service.dart';
 import '../setting/setting.dart';
@@ -21,6 +22,7 @@ import '../user/user_update/user_update.dart';
 @MaterialAutoRouter(
   routes: <AutoRoute>[
     // HOME
+    MaterialRoute(page: ImageSelector),
     MaterialRoute(page: HomePage, initial: true),
     // MaterialRoute(page: HomePage),
 

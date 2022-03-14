@@ -10,161 +10,176 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i18;
-import 'package:flutter/material.dart' as _i19;
+import 'package:auto_route/auto_route.dart' as _i19;
+import 'package:flutter/material.dart' as _i20;
 
-import '../../module/article/article.dart' as _i20;
-import '../article/article.dart' as _i17;
-import '../booking/order_detail/order_detail.dart' as _i14;
-import '../booking/order_histories/order_histories.dart' as _i15;
-import '../cart/cart.dart' as _i16;
-import '../favorites/favorites.dart' as _i10;
-import '../home/home.dart' as _i1;
-import '../notifications/notifications.dart' as _i12;
-import '../service/service.dart' as _i13;
-import '../setting/setting.dart' as _i11;
-import '../splash/splash_page.dart' as _i8;
-import '../user/otp_confirm/otp_confirm.dart' as _i2;
-import '../user/password_change/password_change.dart' as _i3;
-import '../user/password_forget/password_forget.dart' as _i4;
-import '../user/password_update/password_update.dart' as _i5;
-import '../user/register/register.dart' as _i6;
-import '../user/sign_in/sign_in.dart' as _i7;
-import '../user/user_update/user_update.dart' as _i9;
+import '../../module/article/article.dart' as _i21;
+import '../article/article.dart' as _i18;
+import '../booking/order_detail/order_detail.dart' as _i15;
+import '../booking/order_histories/order_histories.dart' as _i16;
+import '../cart/cart.dart' as _i17;
+import '../favorites/favorites.dart' as _i11;
+import '../home/home.dart' as _i2;
+import '../image_selector/image_selector.dart' as _i1;
+import '../notifications/notifications.dart' as _i13;
+import '../service/service.dart' as _i14;
+import '../setting/setting.dart' as _i12;
+import '../splash/splash_page.dart' as _i9;
+import '../user/otp_confirm/otp_confirm.dart' as _i3;
+import '../user/password_change/password_change.dart' as _i4;
+import '../user/password_forget/password_forget.dart' as _i5;
+import '../user/password_update/password_update.dart' as _i6;
+import '../user/register/register.dart' as _i7;
+import '../user/sign_in/sign_in.dart' as _i8;
+import '../user/user_update/user_update.dart' as _i10;
 
-class Router extends _i18.RootStackRouter {
-  Router([_i19.GlobalKey<_i19.NavigatorState>? navigatorKey])
+class Router extends _i19.RootStackRouter {
+  Router([_i20.GlobalKey<_i20.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i18.PageFactory> pagesMap = {
+  final Map<String, _i19.PageFactory> pagesMap = {
+    ImageSelectorRoute.name: (routeData) {
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i1.ImageSelector());
+    },
     HomePageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.HomePage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i2.HomePage());
     },
     OtpConfirmPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.OtpConfirmPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i3.OtpConfirmPage());
     },
     PasswordChangePageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.PasswordChangePage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i4.PasswordChangePage());
     },
     PasswordForgetPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.PasswordForgetPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i5.PasswordForgetPage());
     },
     PasswordUpdatePageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i5.PasswordUpdatePage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i6.PasswordUpdatePage());
     },
     RegisterPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i6.RegisterPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i7.RegisterPage());
     },
     SignInPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i7.SignInPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i8.SignInPage());
     },
     SplashPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.SplashPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i9.SplashPage());
     },
     UserUpdatePageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i9.UserUpdatePage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i10.UserUpdatePage());
     },
     FavoritesPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i10.FavoritesPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i11.FavoritesPage());
     },
     SettingsPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i11.SettingsPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i12.SettingsPage());
     },
     NotificationsPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i12.NotificationsPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i13.NotificationsPage());
     },
     CategoriesPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i13.CategoriesPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i14.CategoriesPage());
     },
     ServicesPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i13.ServicesPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i14.ServicesPage());
     },
     ServiceBookingPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i13.ServiceBookingPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i14.ServiceBookingPage());
     },
     OrderDetailPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i14.OrderDetailPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i15.OrderDetailPage());
     },
     OrderHistoriesPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i15.OrderHistoriesPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i16.OrderHistoriesPage());
     },
     CartPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i16.CartPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i17.CartPage());
     },
     ArticlesPageRoute.name: (routeData) {
-      return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i17.ArticlesPage());
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i18.ArticlesPage());
     },
     ArticleDetailPageRoute.name: (routeData) {
       final args = routeData.argsAs<ArticleDetailPageRouteArgs>();
-      return _i18.MaterialPageX<dynamic>(
+      return _i19.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i17.ArticleDetailPage(key: args.key, article: args.article));
+          child: _i18.ArticleDetailPage(key: args.key, article: args.article));
     }
   };
 
   @override
-  List<_i18.RouteConfig> get routes => [
-        _i18.RouteConfig(HomePageRoute.name, path: '/'),
-        _i18.RouteConfig(OtpConfirmPageRoute.name, path: '/otp-confirm-page'),
-        _i18.RouteConfig(PasswordChangePageRoute.name,
+  List<_i19.RouteConfig> get routes => [
+        _i19.RouteConfig(ImageSelectorRoute.name, path: '/image-selector'),
+        _i19.RouteConfig(HomePageRoute.name, path: '/'),
+        _i19.RouteConfig(OtpConfirmPageRoute.name, path: '/otp-confirm-page'),
+        _i19.RouteConfig(PasswordChangePageRoute.name,
             path: '/password-change-page'),
-        _i18.RouteConfig(PasswordForgetPageRoute.name,
+        _i19.RouteConfig(PasswordForgetPageRoute.name,
             path: '/password-forget-page'),
-        _i18.RouteConfig(PasswordUpdatePageRoute.name,
+        _i19.RouteConfig(PasswordUpdatePageRoute.name,
             path: '/password-update-page'),
-        _i18.RouteConfig(RegisterPageRoute.name, path: '/register-page'),
-        _i18.RouteConfig(SignInPageRoute.name, path: '/sign-in-page'),
-        _i18.RouteConfig(SplashPageRoute.name, path: '/splash-page'),
-        _i18.RouteConfig(UserUpdatePageRoute.name, path: '/user-update-page'),
-        _i18.RouteConfig(FavoritesPageRoute.name, path: '/favorites-page'),
-        _i18.RouteConfig(SettingsPageRoute.name, path: '/settings-page'),
-        _i18.RouteConfig(NotificationsPageRoute.name,
+        _i19.RouteConfig(RegisterPageRoute.name, path: '/register-page'),
+        _i19.RouteConfig(SignInPageRoute.name, path: '/sign-in-page'),
+        _i19.RouteConfig(SplashPageRoute.name, path: '/splash-page'),
+        _i19.RouteConfig(UserUpdatePageRoute.name, path: '/user-update-page'),
+        _i19.RouteConfig(FavoritesPageRoute.name, path: '/favorites-page'),
+        _i19.RouteConfig(SettingsPageRoute.name, path: '/settings-page'),
+        _i19.RouteConfig(NotificationsPageRoute.name,
             path: '/notifications-page'),
-        _i18.RouteConfig(CategoriesPageRoute.name, path: '/categories-page'),
-        _i18.RouteConfig(ServicesPageRoute.name, path: '/services-page'),
-        _i18.RouteConfig(ServiceBookingPageRoute.name,
+        _i19.RouteConfig(CategoriesPageRoute.name, path: '/categories-page'),
+        _i19.RouteConfig(ServicesPageRoute.name, path: '/services-page'),
+        _i19.RouteConfig(ServiceBookingPageRoute.name,
             path: '/service-booking-page'),
-        _i18.RouteConfig(OrderDetailPageRoute.name, path: '/order-detail-page'),
-        _i18.RouteConfig(OrderHistoriesPageRoute.name,
+        _i19.RouteConfig(OrderDetailPageRoute.name, path: '/order-detail-page'),
+        _i19.RouteConfig(OrderHistoriesPageRoute.name,
             path: '/order-histories-page'),
-        _i18.RouteConfig(CartPageRoute.name, path: '/cart-page'),
-        _i18.RouteConfig(ArticlesPageRoute.name, path: '/articles-page'),
-        _i18.RouteConfig(ArticleDetailPageRoute.name,
+        _i19.RouteConfig(CartPageRoute.name, path: '/cart-page'),
+        _i19.RouteConfig(ArticlesPageRoute.name, path: '/articles-page'),
+        _i19.RouteConfig(ArticleDetailPageRoute.name,
             path: '/article-detail-page')
       ];
 }
 
 /// generated route for
-/// [_i1.HomePage]
-class HomePageRoute extends _i18.PageRouteInfo<void> {
+/// [_i1.ImageSelector]
+class ImageSelectorRoute extends _i19.PageRouteInfo<void> {
+  const ImageSelectorRoute()
+      : super(ImageSelectorRoute.name, path: '/image-selector');
+
+  static const String name = 'ImageSelectorRoute';
+}
+
+/// generated route for
+/// [_i2.HomePage]
+class HomePageRoute extends _i19.PageRouteInfo<void> {
   const HomePageRoute() : super(HomePageRoute.name, path: '/');
 
   static const String name = 'HomePageRoute';
 }
 
 /// generated route for
-/// [_i2.OtpConfirmPage]
-class OtpConfirmPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i3.OtpConfirmPage]
+class OtpConfirmPageRoute extends _i19.PageRouteInfo<void> {
   const OtpConfirmPageRoute()
       : super(OtpConfirmPageRoute.name, path: '/otp-confirm-page');
 
@@ -172,8 +187,8 @@ class OtpConfirmPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.PasswordChangePage]
-class PasswordChangePageRoute extends _i18.PageRouteInfo<void> {
+/// [_i4.PasswordChangePage]
+class PasswordChangePageRoute extends _i19.PageRouteInfo<void> {
   const PasswordChangePageRoute()
       : super(PasswordChangePageRoute.name, path: '/password-change-page');
 
@@ -181,8 +196,8 @@ class PasswordChangePageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.PasswordForgetPage]
-class PasswordForgetPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i5.PasswordForgetPage]
+class PasswordForgetPageRoute extends _i19.PageRouteInfo<void> {
   const PasswordForgetPageRoute()
       : super(PasswordForgetPageRoute.name, path: '/password-forget-page');
 
@@ -190,8 +205,8 @@ class PasswordForgetPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.PasswordUpdatePage]
-class PasswordUpdatePageRoute extends _i18.PageRouteInfo<void> {
+/// [_i6.PasswordUpdatePage]
+class PasswordUpdatePageRoute extends _i19.PageRouteInfo<void> {
   const PasswordUpdatePageRoute()
       : super(PasswordUpdatePageRoute.name, path: '/password-update-page');
 
@@ -199,8 +214,8 @@ class PasswordUpdatePageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.RegisterPage]
-class RegisterPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i7.RegisterPage]
+class RegisterPageRoute extends _i19.PageRouteInfo<void> {
   const RegisterPageRoute()
       : super(RegisterPageRoute.name, path: '/register-page');
 
@@ -208,24 +223,24 @@ class RegisterPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.SignInPage]
-class SignInPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i8.SignInPage]
+class SignInPageRoute extends _i19.PageRouteInfo<void> {
   const SignInPageRoute() : super(SignInPageRoute.name, path: '/sign-in-page');
 
   static const String name = 'SignInPageRoute';
 }
 
 /// generated route for
-/// [_i8.SplashPage]
-class SplashPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i9.SplashPage]
+class SplashPageRoute extends _i19.PageRouteInfo<void> {
   const SplashPageRoute() : super(SplashPageRoute.name, path: '/splash-page');
 
   static const String name = 'SplashPageRoute';
 }
 
 /// generated route for
-/// [_i9.UserUpdatePage]
-class UserUpdatePageRoute extends _i18.PageRouteInfo<void> {
+/// [_i10.UserUpdatePage]
+class UserUpdatePageRoute extends _i19.PageRouteInfo<void> {
   const UserUpdatePageRoute()
       : super(UserUpdatePageRoute.name, path: '/user-update-page');
 
@@ -233,8 +248,8 @@ class UserUpdatePageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.FavoritesPage]
-class FavoritesPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i11.FavoritesPage]
+class FavoritesPageRoute extends _i19.PageRouteInfo<void> {
   const FavoritesPageRoute()
       : super(FavoritesPageRoute.name, path: '/favorites-page');
 
@@ -242,8 +257,8 @@ class FavoritesPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.SettingsPage]
-class SettingsPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i12.SettingsPage]
+class SettingsPageRoute extends _i19.PageRouteInfo<void> {
   const SettingsPageRoute()
       : super(SettingsPageRoute.name, path: '/settings-page');
 
@@ -251,8 +266,8 @@ class SettingsPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.NotificationsPage]
-class NotificationsPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i13.NotificationsPage]
+class NotificationsPageRoute extends _i19.PageRouteInfo<void> {
   const NotificationsPageRoute()
       : super(NotificationsPageRoute.name, path: '/notifications-page');
 
@@ -260,8 +275,8 @@ class NotificationsPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.CategoriesPage]
-class CategoriesPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i14.CategoriesPage]
+class CategoriesPageRoute extends _i19.PageRouteInfo<void> {
   const CategoriesPageRoute()
       : super(CategoriesPageRoute.name, path: '/categories-page');
 
@@ -269,8 +284,8 @@ class CategoriesPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ServicesPage]
-class ServicesPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i14.ServicesPage]
+class ServicesPageRoute extends _i19.PageRouteInfo<void> {
   const ServicesPageRoute()
       : super(ServicesPageRoute.name, path: '/services-page');
 
@@ -278,8 +293,8 @@ class ServicesPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ServiceBookingPage]
-class ServiceBookingPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i14.ServiceBookingPage]
+class ServiceBookingPageRoute extends _i19.PageRouteInfo<void> {
   const ServiceBookingPageRoute()
       : super(ServiceBookingPageRoute.name, path: '/service-booking-page');
 
@@ -287,8 +302,8 @@ class ServiceBookingPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.OrderDetailPage]
-class OrderDetailPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i15.OrderDetailPage]
+class OrderDetailPageRoute extends _i19.PageRouteInfo<void> {
   const OrderDetailPageRoute()
       : super(OrderDetailPageRoute.name, path: '/order-detail-page');
 
@@ -296,8 +311,8 @@ class OrderDetailPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.OrderHistoriesPage]
-class OrderHistoriesPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i16.OrderHistoriesPage]
+class OrderHistoriesPageRoute extends _i19.PageRouteInfo<void> {
   const OrderHistoriesPageRoute()
       : super(OrderHistoriesPageRoute.name, path: '/order-histories-page');
 
@@ -305,16 +320,16 @@ class OrderHistoriesPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.CartPage]
-class CartPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i17.CartPage]
+class CartPageRoute extends _i19.PageRouteInfo<void> {
   const CartPageRoute() : super(CartPageRoute.name, path: '/cart-page');
 
   static const String name = 'CartPageRoute';
 }
 
 /// generated route for
-/// [_i17.ArticlesPage]
-class ArticlesPageRoute extends _i18.PageRouteInfo<void> {
+/// [_i18.ArticlesPage]
+class ArticlesPageRoute extends _i19.PageRouteInfo<void> {
   const ArticlesPageRoute()
       : super(ArticlesPageRoute.name, path: '/articles-page');
 
@@ -322,10 +337,10 @@ class ArticlesPageRoute extends _i18.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.ArticleDetailPage]
+/// [_i18.ArticleDetailPage]
 class ArticleDetailPageRoute
-    extends _i18.PageRouteInfo<ArticleDetailPageRouteArgs> {
-  ArticleDetailPageRoute({_i19.Key? key, required _i20.Article article})
+    extends _i19.PageRouteInfo<ArticleDetailPageRouteArgs> {
+  ArticleDetailPageRoute({_i20.Key? key, required _i21.Article article})
       : super(ArticleDetailPageRoute.name,
             path: '/article-detail-page',
             args: ArticleDetailPageRouteArgs(key: key, article: article));
@@ -336,9 +351,9 @@ class ArticleDetailPageRoute
 class ArticleDetailPageRouteArgs {
   const ArticleDetailPageRouteArgs({this.key, required this.article});
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i20.Article article;
+  final _i21.Article article;
 
   @override
   String toString() {

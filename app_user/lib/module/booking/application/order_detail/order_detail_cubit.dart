@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart' hide Order;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
-import '../../domain/booking_failure.dart';
 import '../../domain/i_booking_repository.dart';
 import '../../domain/order.dart';
 part 'order_detail_cubit.freezed.dart';

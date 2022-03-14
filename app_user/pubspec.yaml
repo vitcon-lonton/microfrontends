@@ -32,6 +32,8 @@ dependencies:
   flutter_html: ^2.2.1
   refresh_loadmore: ^2.0.5
   easy_localization: ^3.0.0
+  image_picker: ^0.8.4+11
+  video_player: ^2.3.0
   theme_manager:
     path: ../theme_manager
 

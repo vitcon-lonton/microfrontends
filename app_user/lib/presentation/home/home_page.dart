@@ -36,6 +36,15 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
 
+          // IMAGE
+          ...[
+            const Divider(height: 8.0, thickness: 8.0),
+            const Padding(
+              child: ImageSelectorSmall(),
+              padding: EdgeInsets.symmetric(horizontal: kSpaceM),
+            ),
+          ],
+
           // BLOGS
           ...[
             const Divider(height: 8.0, thickness: 8.0),
