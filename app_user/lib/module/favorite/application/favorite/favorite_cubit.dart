@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
 import '../../domain/failure.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/i_favorite_repository.dart';
 part 'favorite_cubit.freezed.dart';
 
 @freezed

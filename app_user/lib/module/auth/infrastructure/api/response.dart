@@ -1,5 +1,5 @@
 /* spell-checker: disable */
-part of 'api.dart';
+part of 'account_api.dart';
 
 @freezed
 class Credential with _$Credential {

@@ -3,16 +3,16 @@ import 'package:injectable/injectable.dart';
 import '../module/favorite/favorite.dart';
 
 @module
-abstract class FavoriteModule {
+abstract class FavoriteInjectableModule {
   @Injectable()
-  FavoriteCubit get favoriteCubit;
+  FavoriteCubit get favorite;
 
   @Injectable()
-  FavoritesCubit get favoritesCubit;
-
-  @LazySingleton()
-  FavoriteApi api(Dio dio) => FavoriteApi(dio);
+  FavoritesCubit get favorites;
 
   @LazySingleton(as: IFavoriteRepository)
   FavoriteRepository get repository;
+
+  @LazySingleton()
+  FavoriteApi api(Dio dio) => FavoriteApi(dio);
 }

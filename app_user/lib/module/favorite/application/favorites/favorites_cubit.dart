@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
 import '../../domain/favorite.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/i_favorite_repository.dart';
 
 part 'favorites_cubit.freezed.dart';
 
@@ -16,7 +16,6 @@ class FavoritesState with _$FavoritesState {
     @Default(10) perPage,
     @Default(1) pageCount,
     @Default(0) totalCount,
-    @Default(STATUS_IDLE) status,
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     required Option<List<Favorite>> favoritesOption,
@@ -25,17 +24,12 @@ class FavoritesState with _$FavoritesState {
 
   bool get isLastPage => page == pageCount;
 
-  List<Favorite> get favorites =>
-      favoritesOption.foldRight(<Favorite>[], (favorites, prev) => favorites);
-
-  FavoritesState busy() => copyWith(status: STATUS_BUSY);
-  FavoritesState idle() => copyWith(status: STATUS_IDLE);
-  FavoritesState failed() => copyWith(status: STATUS_FAILED);
-  FavoritesState complete() => copyWith(status: STATUS_COMPLETE);
-
-  factory FavoritesState.init() {
-    return FavoritesState(favoritesOption: none());
+  List<Favorite> get favorites {
+    return List.of(favoritesOption
+        .foldRight(<Favorite>[], (favorites, prev) => favorites));
   }
+
+  factory FavoritesState.init() => FavoritesState(favoritesOption: none());
 }
 
 class FavoritesCubit extends Cubit<FavoritesState> {
@@ -52,7 +46,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
     final page = state.page;
     final perPage = state.perPage;
-    final resultOption = await _repository.get(page: page, perPage: perPage);
+    final resultOption = await _repository.all(page: page, perPage: perPage);
 
     resultOption.fold(() {}, (pagination) {
       final favoritesOption = state.favoritesOption;

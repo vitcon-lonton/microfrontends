@@ -1,6 +1,6 @@
 import '../domain/user.dart';
 import '../domain/value_objects.dart';
-import 'api/api.dart';
+import 'api/account_api.dart';
 
 extension UserDomainX on Credential {
   User toDomain() {

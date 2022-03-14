@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../module/article/article.dart';
 
 @module
-abstract class ArticleModule {
+abstract class ArticleInjectableModule {
   @Injectable()
   ArticlesCubit get articlesCubit;
 

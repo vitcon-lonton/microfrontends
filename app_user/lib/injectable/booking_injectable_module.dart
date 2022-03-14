@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../module/booking/booking.dart';
 
 @module
-abstract class BookingModule {
+abstract class BookingInjectableModule {
   @Injectable()
   OrderDetailCubit get detail;
 

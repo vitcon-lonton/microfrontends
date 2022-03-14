@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../module/cart/cart.dart';
 
 @module
-abstract class CartModule {
+abstract class CartInjectableModule {
   @Injectable()
   CartAllCubit get all;
 

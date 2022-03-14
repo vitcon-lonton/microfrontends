@@ -3,12 +3,12 @@ import 'package:injectable/injectable.dart';
 import '../module/notification/notification.dart';
 
 @module
-abstract class NotificationModule {
+abstract class NotificationInjectableModule {
+  @Injectable()
+  NotificationsCubit get notifications;
+
   @LazySingleton(as: INotificationRepository)
   NotificationRepository get repository;
-
-  @Injectable()
-  NotificationsCubit get notificationsCubit;
 
   @LazySingleton()
   NotificationApi api(Dio dio) => NotificationApi(dio);

@@ -4,8 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
 
-part 'api.freezed.dart';
-part 'api.g.dart';
+part 'account_api.freezed.dart';
+part 'account_api.g.dart';
 part 'request.dart';
 part 'response.dart';
 

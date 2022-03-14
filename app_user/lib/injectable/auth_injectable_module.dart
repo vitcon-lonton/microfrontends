@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:app_user/module/auth/auth.dart';
 
 @module
-abstract class AuthModule {
+abstract class AuthInjectableModule {
   @Injectable()
   AuthBloc get authBloc;
 
