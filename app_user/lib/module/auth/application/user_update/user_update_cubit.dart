@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,6 +12,7 @@ part 'user_update_cubit.freezed.dart';
 class UserUpdateState with _$UserUpdateState {
   const UserUpdateState._();
   factory UserUpdateState({
+    File? image,
     Name? name,
     Phone? phone,
     Street? street,
@@ -99,6 +101,7 @@ class UserUpdateCubit extends Cubit<UserUpdateState> {
     final gender = state.gender;
     final birthDay = state.birthDay;
     final emailAddress = state.emailAddress;
+    final image = state.image;
 
     return _authFacade.updateUser(
         name: name,
@@ -106,8 +109,11 @@ class UserUpdateCubit extends Cubit<UserUpdateState> {
         street: street,
         gender: gender,
         birthDay: birthDay,
-        emailAddress: emailAddress);
+        emailAddress: emailAddress,
+        image: image);
   }
+
+  imageChanged(File value) => emit(state.copyWith(image: value));
 
   genderChanged(Gender value) => emit(state.copyWith(gender: value));
 

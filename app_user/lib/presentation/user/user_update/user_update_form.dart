@@ -8,41 +8,29 @@ class UserUpdateForm extends StatefulWidget {
 }
 
 class _UserUpdateFormState extends State<UserUpdateForm> {
-  late final TextEditingController _emailController;
-  late final TextEditingController _phoneController;
-  late final TextEditingController _fullNameController;
-  late final TextEditingController _birthdayController;
-
-  @override
-  void initState() {
-    super.initState();
-    _emailController = TextEditingController();
-    _phoneController = TextEditingController();
-    _fullNameController = TextEditingController();
-    _birthdayController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _fullNameController.dispose();
-    _birthdayController.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final txtEmail = tr(LocaleKeys.txt_email);
+    final txtUpdate = tr(LocaleKeys.txt_update);
+    final txtFullName = tr(LocaleKeys.txt_full_name);
+    final txtDateOfBirth = tr(LocaleKeys.txt_date_of_birth);
+    final txtPhoneNumber = tr(LocaleKeys.txt_phone_number);
+
     final user = context.read<UserCubit>().state.user;
-    final name = user?.name.getOrCrash();
-    final phone = user?.phone.getOrCrash();
-    final birthDay = user?.birthDay.getOrCrash();
-    final emailAddress = user?.emailAddress.getOrCrash();
+    final userName = user?.name.getOrCrash();
+    final userPhone = user?.phone.getOrCrash();
+    final userBirthDay = user?.birthDay.getOrCrash().toString();
+    final userEmailAddress = user?.emailAddress.getOrCrash();
+
+    final AutovalidateMode autovalidateMode;
+    if (context.read<UserUpdateCubit>().state.showErrorMessages) {
+      autovalidateMode = AutovalidateMode.always;
+    } else {
+      autovalidateMode = AutovalidateMode.disabled;
+    }
 
     return Form(
-      autovalidateMode: context.read<UserUpdateCubit>().state.showErrorMessages
-          ? AutovalidateMode.always
-          : AutovalidateMode.disabled,
+      autovalidateMode: autovalidateMode,
       child: Column(
         children: [
           // Container(
@@ -60,47 +48,52 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
           kVSpaceM,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.name != cur.name,
-            builder: (context, state) => WTextInput(
-              initialValue: name,
-              label: 'Full Name',
-              hintText: 'Full Name',
-              errorText: state.name?.value
-                  .fold((failure) => 'Invalid Name', (_) => null),
-              onChanged: context.read<UserUpdateCubit>().nameChanged,
-            ),
+            builder: (context, state) {
+              return TextFormField(
+                  initialValue: userName,
+                  decoration: InputDecoration(labelText: txtFullName),
+                  onChanged: context.read<UserUpdateCubit>().nameChanged,
+                  validator: (_) => state.name?.value
+                      .fold((failure) => '$txtFullName Invalid', (_) => null));
+            },
           ),
           kVSpaceM,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.birthDay != cur.birthDay,
-            builder: (context, state) => WTextInput(
-              enabled: false,
-              label: 'Birthday',
-              hintText: 'Birthday',
-              initialValue: birthDay.toString(),
-              suffixIcon: const Icon(Icons.calendar_today_outlined),
-            ),
+            builder: (context, state) {
+              return TextFormField(
+                enabled: false,
+                initialValue: userBirthDay,
+                decoration: InputDecoration(
+                  labelText: txtDateOfBirth,
+                  suffixIcon: const Icon(Icons.calendar_today_outlined),
+                ),
+              );
+            },
           ),
           kVSpaceM,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.phone != cur.phone,
-            builder: (context, state) => WTextInput(
-              enabled: false,
-              label: 'Phone',
-              hintText: 'Phone',
-              initialValue: phone,
-            ),
+            builder: (context, state) {
+              return TextFormField(
+                  enabled: false,
+                  initialValue: userPhone,
+                  decoration: InputDecoration(labelText: txtPhoneNumber));
+            },
           ),
           kVSpaceM,
+
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
-            builder: (context, state) => WTextInput(
-              label: 'Email',
-              hintText: 'Email',
-              initialValue: emailAddress,
-              errorText: state.emailAddress?.value
-                  .fold((failure) => 'Invalid Email', (_) => null),
-              onChanged: context.read<UserUpdateCubit>().emailAddressChanged,
-            ),
+            builder: (context, state) {
+              return TextFormField(
+                initialValue: userEmailAddress,
+                decoration: InputDecoration(labelText: txtEmail),
+                onChanged: context.read<UserUpdateCubit>().emailAddressChanged,
+                validator: (_) => state.emailAddress?.value
+                    .fold((failure) => '$txtEmail Invalid', (_) => null),
+              );
+            },
           ),
           kVSpaceXXL,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
@@ -108,7 +101,7 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
                   prev.isAvailable != cur.isAvailable ||
                   prev.isSubmitting != cur.isSubmitting,
               builder: (context, state) => FormSubmitBtn(
-                  child: const Text('UPDATE'),
+                  child: Text(txtUpdate),
                   isSubmitting: state.isSubmitting,
                   onPressed: !state.isAvailable
                       ? null
@@ -118,51 +111,3 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
     );
   }
 }
-
-
-// BlocListener<UserUpdateCubit, UserUpdateState>(
-//   listenWhen: (prev, cur) => prev.name != cur.name,
-//   listener: (context, state) {
-//     final nameStr = state.name.value.foldRight('', (value, previous) {
-//       return value;
-//     });
-
-//     if (_fullNameController.text != nameStr) {
-//       _fullNameController.text = nameStr;
-//     }
-//   },
-// ),
-// BlocListener<UserUpdateCubit, UserUpdateState>(
-//   listenWhen: (prev, cur) => prev.phone != cur.phone,
-//   listener: (context, state) {
-//     final phoneStr = state.phone.value.foldRight('', (value, previous) {
-//       return value;
-//     });
-
-//     if (_phoneController.text != phoneStr) {
-//       _phoneController.text = phoneStr;
-//     }
-//   },
-// ),
-// BlocListener<UserUpdateCubit, UserUpdateState>(
-//   listenWhen: (prev, cur) => prev.birthDay != cur.birthDay,
-//   listener: (context, state) {
-//     final birthDayStr = state.birthDay.value
-//         .foldRight('', (value, previous) => value.toIso8601String());
-
-//     if (_birthdayController.text != birthDayStr) {
-//       _birthdayController.text = birthDayStr;
-//     }
-//   },
-// ),
-// BlocListener<UserUpdateCubit, UserUpdateState>(
-//   listenWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
-//   listener: (context, state) {
-//     final emailStr = state.emailAddress.value
-//         .foldRight('', (value, previous) => value);
-
-//     if (_emailController.text != emailStr) {
-//       _emailController.text = emailStr;
-//     }
-//   },
-// ),

@@ -1,18 +1,16 @@
-part of 'order_histories.dart';
+part of 'booking_histories.dart';
 
-class OrderTile extends StatelessWidget {
-  final Order order;
+class BookingTile extends StatelessWidget {
+  final Booking item;
 
-  const OrderTile({Key? key, required this.order}) : super(key: key);
+  const BookingTile({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final txtOrder = tr(LocaleKeys.txt_order);
-    final name = order.name;
-    final status = order.status;
-    final price = '${order.price} VND';
-    final time = order.time.toIso8601String();
-    final id = order.id.value.foldRight('', (id, previous) => '#$id');
+    final id = '#${item.sku}';
+    final name = item.fullName;
+    final status = item.status ?? '';
+    final time = item.timeBoxingEnd?.toIso8601String() ?? '';
 
     return InkWell(
       onTap: () => _showRatingForm(context),
@@ -29,9 +27,8 @@ class OrderTile extends StatelessWidget {
               child: Column(children: [
                 // ID, PRICE
                 Row(children: [
-                  Text('$txtOrder: '),
+                  Text('${tr(LocaleKeys.txt_order)}: '),
                   Expanded(child: Text(id)),
-                  Text(price),
                 ]),
 
                 // NAME, TIME

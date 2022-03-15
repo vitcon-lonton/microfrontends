@@ -4,7 +4,7 @@ import 'package:app_user/core/core.dart';
 import '../domain/entities.dart';
 import '../domain/failure.dart';
 import '../domain/i_repository.dart';
-import 'api.dart';
+import 'service_api.dart';
 import 'models.dart';
 
 const _fakeCategories = [

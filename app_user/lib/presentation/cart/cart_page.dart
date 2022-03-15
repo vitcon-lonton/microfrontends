@@ -5,10 +5,10 @@ class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
   @override
-  State<CartPage> createState() => _OrderHistoriesPageState();
+  State<CartPage> createState() => _BookingHistoriesPageState();
 }
 
-class _OrderHistoriesPageState extends State<CartPage> {
+class _BookingHistoriesPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     final txtEdit = tr(LocaleKeys.txt_edit);

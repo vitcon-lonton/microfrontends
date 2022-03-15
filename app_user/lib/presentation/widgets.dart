@@ -153,17 +153,17 @@ class NameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final txtFirstName = tr(LocaleKeys.txt_first_name);
+    final txtFullName = tr(LocaleKeys.txt_full_name);
 
     return WTextInput(
-      label: txtFirstName,
-      hintText: txtFirstName,
+      label: txtFullName,
+      hintText: txtFullName,
       onChanged: onChanged,
       initialValue: value.value.fold((failure) {
         return failure.failedValue;
       }, (string) => string),
       errorText: value.value.fold((failure) {
-        return 'Invalid $txtFirstName';
+        return 'Invalid $txtFullName';
       }, (_) => null),
     );
   }

@@ -1,6 +1,6 @@
 /* spell-checker: disable */
 // ignore_for_file: unused_local_variable
-
+import 'dart:io';
 import 'package:app_user/module/auth/auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
@@ -10,8 +10,6 @@ import 'package:logger/logger.dart';
 const String tokenKey = 'token';
 
 class AuthFacade implements IAuthFacade {
-  User? _user;
-
   final Logger _logger;
   final AccountApi _api;
   final FlutterSecureStorage _storage;
@@ -49,11 +47,11 @@ class AuthFacade implements IAuthFacade {
       final responseData = response.data!;
       final token = responseData.tokenUser!;
 
-      _user = responseData.toDomain();
       _storage.write(key: tokenKey, value: token);
 
       return right(unit);
     } catch (e) {
+      _logger.e(e);
       return left(const AuthFailure.invalidEmailAndPasswordCombination());
     }
 
@@ -185,7 +183,8 @@ class AuthFacade implements IAuthFacade {
       Street? street,
       Gender? gender,
       BirthDay? birthDay,
-      EmailAddress? emailAddress}) async {
+      EmailAddress? emailAddress,
+      File? image}) async {
     final genderStr = gender?.toStr();
     final nameStr = name?.getOrCrash();
     final phoneStr = phone?.getOrCrash();
@@ -199,7 +198,8 @@ class AuthFacade implements IAuthFacade {
           phone: phoneStr,
           gender: genderStr,
           birthDate: birthDayStr,
-          email: emailAddressStr);
+          email: emailAddressStr,
+          img: image);
 
       if (!response.valid) return left(const AuthFailure.serverError());
 

@@ -6,5 +6,5 @@ import 'package:app_user/i18n/i18n.dart';
 import 'package:app_user/injection.dart';
 import 'package:app_user/module/booking/booking.dart';
 import 'package:app_user/presentation/booking/order_rating/order_rating.dart';
-part 'order_histories_page.dart';
-part 'order_tile.dart';
+part 'booking_histories_page.dart';
+part 'booking_tile.dart';

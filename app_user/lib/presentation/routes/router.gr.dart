@@ -15,8 +15,8 @@ import 'package:flutter/material.dart' as _i20;
 
 import '../../module/article/article.dart' as _i21;
 import '../article/article.dart' as _i18;
+import '../booking/booking_histories/booking_histories.dart' as _i16;
 import '../booking/order_detail/order_detail.dart' as _i15;
-import '../booking/order_histories/order_histories.dart' as _i16;
 import '../cart/cart.dart' as _i17;
 import '../favorites/favorites.dart' as _i11;
 import '../home/home.dart' as _i2;
@@ -107,9 +107,9 @@ class Router extends _i19.RootStackRouter {
       return _i19.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i15.OrderDetailPage());
     },
-    OrderHistoriesPageRoute.name: (routeData) {
+    BookingHistoriesPageRoute.name: (routeData) {
       return _i19.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i16.OrderHistoriesPage());
+          routeData: routeData, child: const _i16.BookingHistoriesPage());
     },
     CartPageRoute.name: (routeData) {
       return _i19.MaterialPageX<dynamic>(
@@ -151,8 +151,8 @@ class Router extends _i19.RootStackRouter {
         _i19.RouteConfig(ServiceBookingPageRoute.name,
             path: '/service-booking-page'),
         _i19.RouteConfig(OrderDetailPageRoute.name, path: '/order-detail-page'),
-        _i19.RouteConfig(OrderHistoriesPageRoute.name,
-            path: '/order-histories-page'),
+        _i19.RouteConfig(BookingHistoriesPageRoute.name,
+            path: '/booking-histories-page'),
         _i19.RouteConfig(CartPageRoute.name, path: '/cart-page'),
         _i19.RouteConfig(ArticlesPageRoute.name, path: '/articles-page'),
         _i19.RouteConfig(ArticleDetailPageRoute.name,
@@ -311,12 +311,12 @@ class OrderDetailPageRoute extends _i19.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.OrderHistoriesPage]
-class OrderHistoriesPageRoute extends _i19.PageRouteInfo<void> {
-  const OrderHistoriesPageRoute()
-      : super(OrderHistoriesPageRoute.name, path: '/order-histories-page');
+/// [_i16.BookingHistoriesPage]
+class BookingHistoriesPageRoute extends _i19.PageRouteInfo<void> {
+  const BookingHistoriesPageRoute()
+      : super(BookingHistoriesPageRoute.name, path: '/booking-histories-page');
 
-  static const String name = 'OrderHistoriesPageRoute';
+  static const String name = 'BookingHistoriesPageRoute';
 }
 
 /// generated route for

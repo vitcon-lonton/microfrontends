@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 
 import '../article/article.dart';
+import '../booking/booking_histories/booking_histories.dart';
 import '../booking/order_detail/order_detail.dart';
-import '../booking/order_histories/order_histories.dart';
 import '../cart/cart.dart';
 import '../favorites/favorites.dart';
 import '../home/home.dart';
@@ -54,7 +54,7 @@ import '../user/user_update/user_update.dart';
 
     // BOOKING
     MaterialRoute(page: OrderDetailPage),
-    MaterialRoute(page: OrderHistoriesPage),
+    MaterialRoute(page: BookingHistoriesPage),
 
     // CART
     MaterialRoute(page: CartPage),

@@ -1,5 +1,5 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
-
 import 'auth_failure.dart';
 import 'user.dart';
 import 'value_objects.dart';
@@ -30,5 +30,6 @@ abstract class IAuthFacade {
       Street? street,
       Gender? gender,
       BirthDay? birthDay,
-      EmailAddress? emailAddress});
+      EmailAddress? emailAddress,
+      File? image});
 }

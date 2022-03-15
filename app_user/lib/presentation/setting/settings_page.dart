@@ -184,7 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Row(children: [
                       _button(txtOrderHistory, Icons.access_time_filled,
                           onPressed: () {
-                        context.router.push(const OrderHistoriesPageRoute());
+                        context.router.push(const BookingHistoriesPageRoute());
                       }),
                       _button(txtNotification, Icons.notifications,
                           onPressed: () {

@@ -1,45 +1,45 @@
 // ignore_for_file: unused_element
-part of 'order_histories.dart';
+part of 'booking_histories.dart';
 
-class OrderHistoriesPage extends StatefulWidget {
-  const OrderHistoriesPage({Key? key}) : super(key: key);
+class BookingHistoriesPage extends StatefulWidget {
+  const BookingHistoriesPage({Key? key}) : super(key: key);
 
   @override
-  State<OrderHistoriesPage> createState() => _OrderHistoriesPageState();
+  State<BookingHistoriesPage> createState() => _BookingHistoriesPageState();
 }
 
-class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
+class _BookingHistoriesPageState extends State<BookingHistoriesPage> {
   Future<void> _onRefresh() async {
-    context.read<OrderHistoriesCubit>().refreshRequested();
-    await context.read<OrderHistoriesCubit>().getOrdersRequested();
+    context.read<BookingHistoriesCubit>().refreshRequested();
+    await context.read<BookingHistoriesCubit>().getOrdersRequested();
   }
 
   Future<void> _onLoadMore() async {
-    final state = context.read<OrderHistoriesCubit>().state;
+    final state = context.read<BookingHistoriesCubit>().state;
     final currentPage = state.page;
     final totalPage = state.pageCount;
     final nextPage = currentPage + 1;
 
     if (nextPage > totalPage) return;
 
-    context.read<OrderHistoriesCubit>().pageNumberChanged(nextPage);
-    await context.read<OrderHistoriesCubit>().getOrdersRequested();
+    context.read<BookingHistoriesCubit>().pageNumberChanged(nextPage);
+    await context.read<BookingHistoriesCubit>().getOrdersRequested();
   }
 
   @override
   Widget build(BuildContext context) {
     final txtOrderHistory = tr(LocaleKeys.txt_order_history);
 
-    return BlocProvider<OrderHistoriesCubit>(
-      create: (context) => getIt<OrderHistoriesCubit>()..getOrdersRequested(),
-      child: BlocListener<OrderHistoriesCubit, OrderHistoriesState>(
+    return BlocProvider<BookingHistoriesCubit>(
+      create: (context) => getIt<BookingHistoriesCubit>()..getOrdersRequested(),
+      child: BlocListener<BookingHistoriesCubit, BookingHistoriesState>(
         listener: (context, state) {},
         child: Scaffold(
           appBar: AppBar(title: Text(txtOrderHistory)),
-          body: BlocBuilder<OrderHistoriesCubit, OrderHistoriesState>(
-            buildWhen: (prev, cur) => prev.orders != cur.orders,
+          body: BlocBuilder<BookingHistoriesCubit, BookingHistoriesState>(
+            buildWhen: (prev, cur) => prev.bookings != cur.bookings,
             builder: (context, state) {
-              final orders = state.orders;
+              final bookings = state.bookings;
 
               return RefreshLoadmore(
                 // onRefresh: _onRefresh,
@@ -49,20 +49,20 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
                     style: TextStyle(color: Theme.of(context).disabledColor)),
                 child: ListView.separated(
                   shrinkWrap: true,
-                  itemCount: orders.length,
+                  itemCount: bookings.length,
                   separatorBuilder: (_, index) => kVSpaceM,
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
-                  itemBuilder: (_, index) => OrderTile(order: orders[index]),
+                  itemBuilder: (_, index) => BookingTile(item: bookings[index]),
                 ),
                 onRefresh: () async {
-                  context.read<OrderHistoriesCubit>().refreshRequested();
+                  context.read<BookingHistoriesCubit>().refreshRequested();
                   await context
-                      .read<OrderHistoriesCubit>()
+                      .read<BookingHistoriesCubit>()
                       .getOrdersRequested();
                 },
                 onLoadmore: () async {
-                  final state = context.read<OrderHistoriesCubit>().state;
+                  final state = context.read<BookingHistoriesCubit>().state;
                   final currentPage = state.page;
                   final totalPage = state.pageCount;
                   final nextPage = currentPage + 1;
@@ -70,10 +70,10 @@ class _OrderHistoriesPageState extends State<OrderHistoriesPage> {
                   if (nextPage > totalPage) return;
 
                   context
-                      .read<OrderHistoriesCubit>()
+                      .read<BookingHistoriesCubit>()
                       .pageNumberChanged(nextPage);
                   await context
-                      .read<OrderHistoriesCubit>()
+                      .read<BookingHistoriesCubit>()
                       .getOrdersRequested();
                 },
               );

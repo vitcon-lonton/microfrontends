@@ -1,9 +1,9 @@
 /* spell-checker: disable */
+import 'dart:io';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
-
 part 'account_api.freezed.dart';
 part 'account_api.g.dart';
 part 'request.dart';
@@ -47,7 +47,7 @@ abstract class AccountApi {
       @Part(name: 'gender') String? gender,
       @Part(name: 'birthdate') String? birthDate,
       @Part(name: 'address') String? address,
-      @Part(name: 'img') String? img,
+      @Part(name: 'img') File? img,
       @Part(name: 'img_format') String? imgFormat,
       @Part(name: 'district') String? district,
       @Part(name: 'district_id') String? districtId,

@@ -1,4 +1,4 @@
 library article;
 
-export 'api.dart';
+export 'article_api.dart';
 export 'articles_cubit.dart';

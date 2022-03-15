@@ -21,7 +21,7 @@ abstract class BookingInjectableModule {
   OrderConfirmCubit get confirm;
 
   @Injectable()
-  OrderHistoriesCubit get histories;
+  BookingHistoriesCubit get histories;
 
   @LazySingleton(as: IBookingRepository)
   BookingRepository get repository;

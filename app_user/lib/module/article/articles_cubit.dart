@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
-import 'api.dart';
+import 'article_api.dart';
 part 'articles_cubit.freezed.dart';
 
 @freezed

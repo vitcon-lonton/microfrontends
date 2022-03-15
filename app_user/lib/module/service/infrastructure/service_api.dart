@@ -4,7 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
 import '../domain/entities.dart';
 import 'models.dart';
-part 'api.g.dart';
+part 'service_api.g.dart';
 
 @RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/catalogues')
 abstract class CatalogueApi {
