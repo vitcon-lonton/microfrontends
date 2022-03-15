@@ -1,5 +1,4 @@
 import 'package:app_user/i18n/i18n.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:app_user/module/auth/auth.dart';

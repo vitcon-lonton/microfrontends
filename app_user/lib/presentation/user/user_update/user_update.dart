@@ -1,8 +1,13 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:theme_manager/theme_manager.dart';
-import 'package:app_user/module/auth/auth.dart';
+import 'package:app_user/i18n/i18n.dart';
 import 'package:app_user/injection.dart';
+import 'package:app_user/module/auth/auth.dart';
 import 'package:app_user/presentation/widgets.dart';
+part 'user_img_selector.dart';
 part 'user_update_form.dart';
 part 'user_update_page.dart';

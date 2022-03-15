@@ -2,6 +2,14 @@ import '../domain/user.dart';
 import '../domain/value_objects.dart';
 import 'api/account_api.dart';
 
+// extension GenderX on String {
+//   Gender toGender() => this == 'Male' ? Gender.male : Gender.female;
+// }
+
+extension GenderX on Gender {
+  String toStr() => this == Gender.male ? 'Male' : 'Female';
+}
+
 extension UserDomainX on Credential {
   User toDomain() {
     const image = '';

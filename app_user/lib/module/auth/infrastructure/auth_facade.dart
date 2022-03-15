@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 /* spell-checker: disable */
 // ignore_for_file: unused_local_variable
 
@@ -7,48 +5,32 @@ import 'package:app_user/module/auth/auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:logger/logger.dart';
 
 const String tokenKey = 'token';
 
 class AuthFacade implements IAuthFacade {
   User? _user;
 
+  final Logger _logger;
   final AccountApi _api;
   final FlutterSecureStorage _storage;
 
-  AuthFacade(this._api, this._storage);
+  AuthFacade(this._logger, this._api, this._storage);
 
   @override
   Future<Option<User>> getSignedInUser() async {
     try {
-      if (_user != null) return optionOf(_user!);
       final response = await _api.info();
+
       if (!response.valid) return none();
+
       return optionOf(response.data!.toDomain());
-
-      // const image = '';
-      // const gender = Gender.male;
-      // final responseData = response.data!;
-      // final id = responseData['id'];
-      // final phone = Phone('9999999999');
-      // final name = Name(responseData['name']);
-      // final birthDay = BirthDay(DateTime(1997, 01, 29));
-      // final emailAddress = EmailAddress(responseData['email']);
-      // final street =
-      //     Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City');
-
-      // return optionOf(User(
-      //     id: id,
-      //     image: image,
-      //     name: name,
-      //     phone: phone,
-      //     street: street,
-      //     gender: gender,
-      //     birthDay: birthDay,
-      //     emailAddress: emailAddress));
     } catch (e) {
-      return none();
+      _logger.e(e);
     }
+
+    return none();
   }
 
   @override
@@ -198,28 +180,35 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<Either<AuthFailure, Unit>> updateUser(
-      {required Name name,
-      required Phone phone,
-      required Street street,
-      required Gender gender,
-      required BirthDay birthDay,
-      required EmailAddress emailAddress}) async {
-    final nameStr = name.getOrCrash();
-    final phoneStr = phone.getOrCrash();
-    final streetStr = street.getOrCrash();
-    final birthDayStr = birthDay.getOrCrash();
-    final emailAddressStr = emailAddress.getOrCrash();
+      {Name? name,
+      Phone? phone,
+      Street? street,
+      Gender? gender,
+      BirthDay? birthDay,
+      EmailAddress? emailAddress}) async {
+    final genderStr = gender?.toStr();
+    final nameStr = name?.getOrCrash();
+    final phoneStr = phone?.getOrCrash();
+    final streetStr = street?.getOrCrash();
+    final emailAddressStr = emailAddress?.getOrCrash();
+    final birthDayStr = birthDay?.getOrCrash().toString();
 
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      final response = await _api.update(
+          name: nameStr,
+          phone: phoneStr,
+          gender: genderStr,
+          birthDate: birthDayStr,
+          email: emailAddressStr);
+
+      if (!response.valid) return left(const AuthFailure.serverError());
+
       return right(unit);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
-        return left(const AuthFailure.emailAlreadyInUse());
-      } else {
-        return left(const AuthFailure.serverError());
-      }
+    } catch (e) {
+      _logger.e(e);
     }
+
+    return left(const AuthFailure.serverError());
   }
 }
 

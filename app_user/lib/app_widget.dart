@@ -39,7 +39,7 @@ class AppWidget extends StatelessWidget {
             initialRoutes: [
               // const app_router.SplashPageRoute(),
               // app_router.ImageSelectorRoute(),
-              // const app_router.HomePageRoute(),
+              const app_router.HomePageRoute(),
 
               // const app_router.SignInPageRoute(),
               // const app_router.RegisterPageRoute(),
@@ -55,7 +55,7 @@ class AppWidget extends StatelessWidget {
 
               /// SERVICE
               // const app_router.CategoriesPageRoute(),
-              const app_router.ServiceBookingPageRoute(),
+              // const app_router.ServiceBookingPageRoute(),
 
               /// BOOKING
               // const app_router.CartPageRoute(),

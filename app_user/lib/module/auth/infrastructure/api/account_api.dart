@@ -37,4 +37,20 @@ abstract class AccountApi {
   @Headers(authHeader)
   Future<BaseResponse<dynamic>> changeCurrentPassword(
       @Body() ChangeCurrentPasswordData data);
+
+  @POST('/update_user')
+  @Headers(authHeader)
+  Future<BaseResponse<dynamic>> update(
+      {@Part() String? email,
+      @Part(name: 'name') String? name,
+      @Part(name: 'phone') String? phone,
+      @Part(name: 'gender') String? gender,
+      @Part(name: 'birthdate') String? birthDate,
+      @Part(name: 'address') String? address,
+      @Part(name: 'img') String? img,
+      @Part(name: 'img_format') String? imgFormat,
+      @Part(name: 'district') String? district,
+      @Part(name: 'district_id') String? districtId,
+      @Part(name: 'city_id') String? cityId,
+      @Part(name: 'city') String? city});
 }

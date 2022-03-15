@@ -25,10 +25,10 @@ abstract class IAuthFacade {
       required Password currentPassword,
       required Password confirmPassword});
   Future<Either<AuthFailure, Unit>> updateUser(
-      {required Name name,
-      required Phone phone,
-      required Street street,
-      required Gender gender,
-      required BirthDay birthDay,
-      required EmailAddress emailAddress});
+      {Name? name,
+      Phone? phone,
+      Street? street,
+      Gender? gender,
+      BirthDay? birthDay,
+      EmailAddress? emailAddress});
 }
