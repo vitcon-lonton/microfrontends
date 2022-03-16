@@ -53,16 +53,16 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Future<void> _onSignInWithGooglePressed(
       SignInWithGooglePressed event, Emitter<SignInState> emit) async {
-    emit(state.copyWith(
-      isSubmitting: true,
-      authFailureOrSuccessOption: none(),
-    ));
+    // emit(state.copyWith(
+    //   isSubmitting: true,
+    //   authFailureOrSuccessOption: none(),
+    // ));
 
-    final failureOrSuccess = await _authFacade.signInWithGoogle();
-    emit(state.copyWith(
-      isSubmitting: false,
-      authFailureOrSuccessOption: some(failureOrSuccess),
-    ));
+    // final failureOrSuccess = await _authFacade.signInWithGoogle();
+    // emit(state.copyWith(
+    //   isSubmitting: false,
+    //   authFailureOrSuccessOption: some(failureOrSuccess),
+    // ));
   }
 
   _performActionOnAuthFacadeWithPhoneAndPassword(

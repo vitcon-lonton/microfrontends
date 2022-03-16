@@ -19,21 +19,21 @@ class UserUpdatePage extends StatelessWidget {
                 () {},
                 (either) => either.fold(
                   (failure) {
-                    final snackBar = SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text(
-                        failure.map(
-                          cancelledByUser: (_) => 'Cancelled',
-                          serverError: (_) => 'Server error',
-                          emailAlreadyInUse: (_) => 'Email already in use',
-                          invalidEmailAndPasswordCombination: (_) =>
-                              'Invalid email and password combination',
-                        ),
-                      ),
-                      action: SnackBarAction(label: 'Action', onPressed: () {}),
-                    );
+                    // final snackBar = SnackBar(
+                    //   behavior: SnackBarBehavior.floating,
+                    //   content: Text(
+                    //     failure.map(
+                    //       cancelledByUser: (_) => 'Cancelled',
+                    //       serverError: (_) => 'Server error',
+                    //       emailAlreadyInUse: (_) => 'Email already in use',
+                    //       invalidEmailAndPasswordCombination: (_) =>
+                    //           'Invalid email and password combination',
+                    //     ),
+                    //   ),
+                    //   action: SnackBarAction(label: 'Action', onPressed: () {}),
+                    // );
 
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   (_) {
                     final snackBar = SnackBar(

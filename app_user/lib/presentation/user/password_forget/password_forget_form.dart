@@ -15,7 +15,7 @@ class PasswordForgetForm extends StatelessWidget {
           BlocBuilder<PasswordForgetCubit, PasswordForgetState>(
             buildWhen: (prev, cur) => prev.phone != cur.phone,
             builder: (context, state) => PhoneInput(
-              value: state.phone,
+              phone: state.phone,
               onChanged: context.read<PasswordForgetCubit>().phoneChanged,
             ),
           ),

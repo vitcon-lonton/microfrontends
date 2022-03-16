@@ -7,18 +7,24 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final txtRegister = tr(LocaleKeys.txt_register);
 
+    final AutovalidateMode autovalidateMode;
+    if (context.read<RegisterCubit>().state.showErrorMessages) {
+      autovalidateMode = AutovalidateMode.always;
+    } else {
+      autovalidateMode = AutovalidateMode.disabled;
+    }
+
     return Form(
-      autovalidateMode: context.read<RegisterCubit>().state.showErrorMessages
-          ? AutovalidateMode.always
-          : AutovalidateMode.disabled,
+      autovalidateMode: autovalidateMode,
       child: Column(
         children: [
           kVSpaceM,
           BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.name != cur.name,
-            builder: (context, state) => NameInput(
-              value: state.name,
-              onChanged: context.read<RegisterCubit>().nameChanged,
+            buildWhen: (prev, cur) => prev.fullName != cur.fullName,
+            builder: (context, state) => FullNameInput(
+              initialValue: '9999999999',
+              name: state.fullName,
+              onChanged: context.read<RegisterCubit>().fullNameChanged,
             ),
           ),
           kVSpaceM,
@@ -26,10 +32,20 @@ class RegisterForm extends StatelessWidget {
             buildWhen: (prev, cur) => prev.phone != cur.phone,
             builder: (context, state) {
               return PhoneInput(
-                value: state.phone,
+                initialValue: '9999999999',
+                phone: state.phone,
                 onChanged: context.read<RegisterCubit>().phoneChanged,
               );
             },
+          ),
+          kVSpaceM,
+          BlocBuilder<RegisterCubit, RegisterState>(
+            buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
+            builder: (context, state) => EmailAddressInput(
+              initialValue: '9999999999@gmail.com',
+              emailAddress: state.emailAddress,
+              onChanged: context.read<RegisterCubit>().emailAddressChanged,
+            ),
           ),
           kVSpaceM,
           BlocBuilder<RegisterCubit, RegisterState>(
@@ -37,7 +53,8 @@ class RegisterForm extends StatelessWidget {
                 prev.password != cur.password ||
                 prev.displayPassword != cur.displayPassword,
             builder: (context, state) => PasswordInput(
-              value: state.password,
+              initialValue: '123123123',
+              password: state.password,
               showPassword: state.displayPassword,
               onPressShowPassword: () => context
                   .read<RegisterCubit>()
@@ -51,22 +68,50 @@ class RegisterForm extends StatelessWidget {
                 prev.confirmPassword != cur.confirmPassword ||
                 prev.displayConfirmPassword != cur.displayConfirmPassword,
             builder: (context, state) => PasswordInput(
-              value: state.confirmPassword,
+              initialValue: '123123123',
+              password: state.confirmPassword,
               showPassword: state.displayConfirmPassword,
               onPressShowPassword: () => context
                   .read<RegisterCubit>()
                   .displayConfirmPasswordChanged(!state.displayConfirmPassword),
-              onChanged: context.read<RegisterCubit>().passwordChanged,
+              onChanged: context.read<RegisterCubit>().confirmPasswordChanged,
             ),
+          ),
+          kVSpaceXXS,
+          BlocBuilder<RegisterCubit, RegisterState>(
+            buildWhen: (prev, cur) =>
+                prev.password != cur.password ||
+                prev.confirmPassword != cur.confirmPassword ||
+                prev.isPasswordMatch != cur.isPasswordMatch,
+            builder: (context, state) {
+              if (!state.password.isValid() ||
+                  !state.confirmPassword.isValid() ||
+                  state.isPasswordMatch) {
+                return kSpaceZero;
+              }
+
+              return Row(
+                children: [
+                  Text('Password and confirm password not match',
+                      style: const TextStyle(fontSize: 12.5)
+                          .copyWith(color: Theme.of(context).errorColor))
+                ],
+              );
+            },
           ),
           kVSpaceM,
           BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
-            builder: (context, state) => FormSubmitBtn(
-              child: Text(txtRegister),
-              isSubmitting: state.isSubmitting,
-              onPressed: context.read<RegisterCubit>().submitted,
-            ),
+            buildWhen: (prev, cur) =>
+                prev.isValid != cur.isValid ||
+                prev.isSubmitting != cur.isSubmitting,
+            builder: (context, state) {
+              return FormSubmitBtn(
+                  child: Text(txtRegister),
+                  isSubmitting: state.isSubmitting,
+                  onPressed: !state.isValid
+                      ? null
+                      : context.read<RegisterCubit>().registered);
+            },
           ),
         ],
       ),

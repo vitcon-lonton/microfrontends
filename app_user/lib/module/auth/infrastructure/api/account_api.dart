@@ -30,7 +30,7 @@ abstract class AccountApi {
 
   @POST('/register')
   @FormUrlEncoded()
-  Future<BaseResponse<dynamic>> register(@Body() RegisterData data);
+  Future<BaseResponse<Credential>> register(@Body() RegisterData data);
 
   @POST('/change_current_password')
   @FormUrlEncoded()

@@ -34,7 +34,7 @@ class OtpConfirmForm extends StatelessWidget {
           BlocBuilder<OtpConfirmCubit, OtpConfirmState>(
             buildWhen: (prev, cur) => prev.phone != cur.phone,
             builder: (context, state) => PhoneInput(
-              value: state.phone,
+              phone: state.phone,
               onChanged: context.read<OtpConfirmCubit>().phoneChanged,
             ),
           ),

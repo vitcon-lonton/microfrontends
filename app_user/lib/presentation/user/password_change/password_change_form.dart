@@ -18,7 +18,7 @@ class PasswordChangeForm extends StatelessWidget {
                 prev.password != cur.password ||
                 prev.displayPassword != cur.displayPassword,
             builder: (context, state) => PasswordInput(
-              value: state.password,
+              password: state.password,
               showPassword: state.displayPassword,
               onPressShowPassword: () => context
                   .read<PasswordChangeCubit>()
@@ -32,7 +32,7 @@ class PasswordChangeForm extends StatelessWidget {
                 prev.confirmPassword != cur.confirmPassword ||
                 prev.displayConfirmPassword != cur.displayConfirmPassword,
             builder: (context, state) => PasswordInput(
-              value: state.confirmPassword,
+              password: state.confirmPassword,
               showPassword: state.displayConfirmPassword,
               onPressShowPassword: () => context
                   .read<PasswordChangeCubit>()

@@ -1,6 +1,7 @@
 /* spell-checker: disable */
 // ignore_for_file: unused_local_variable
 import 'dart:io';
+import 'package:app_user/core/core.dart';
 import 'package:app_user/module/auth/auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
@@ -20,9 +21,7 @@ class AuthFacade implements IAuthFacade {
   Future<Option<User>> getSignedInUser() async {
     try {
       final response = await _api.info();
-
       if (!response.valid) return none();
-
       return optionOf(response.data!.toDomain());
     } catch (e) {
       _logger.e(e);
@@ -39,45 +38,21 @@ class AuthFacade implements IAuthFacade {
 
     try {
       final response = await _api.login(phoneStr, passwordStr);
-
-      if (!response.valid) {
-        return left(const AuthFailure.invalidEmailAndPasswordCombination());
-      }
-
       final responseData = response.data!;
       final token = responseData.tokenUser!;
 
       _storage.write(key: tokenKey, value: token);
 
       return right(unit);
-    } catch (e) {
-      _logger.e(e);
-      return left(const AuthFailure.invalidEmailAndPasswordCombination());
-    }
+    } catch (exception) {
+      _logger.e(exception);
+      if (exception is ResponseDataError) {
+        if (exception.errors?.isNotEmpty ?? false) {
+          return left(AuthFailure.unableSignIn(exception.errors!));
+        }
+      }
 
-    // return left(const AuthFailure.serverError());
-  }
-
-  @override
-  Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
-    await Future.delayed(const Duration(seconds: 1));
-    try {
-      // final googleUser = await _googleSignIn.signIn();
-      // if (googleUser == null) {
-      //   return left(const AuthFailure.cancelledByUser());
-      // }
-
-      // final googleAuthentication = await googleUser.authentication;
-
-      // final authCredential = GoogleAuthProvider.credential(
-      //   idToken: googleAuthentication.idToken,
-      //   accessToken: googleAuthentication.accessToken,
-      // );
-
-      // await _firebaseAuth.signInWithCredential(authCredential);
-      return right(unit);
-    } on FirebaseAuthException catch (_) {
-      return left(const AuthFailure.serverError());
+      return left(const AuthFailure.unexpected());
     }
   }
 
@@ -114,43 +89,40 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
-      {required Name name,
-      required Phone phone,
-      required Street street,
-      required Gender gender,
-      required BirthDay birthDay,
+      {required Phone phone,
+      required FullName fullName,
       required Password password,
       required Password confirmPassword,
-      required EmailAddress emailAddress}) async {
-    final nameStr = name.getOrCrash();
+      EmailAddress? emailAddress}) async {
+    final fullNameStr = fullName.getOrCrash();
     final phoneStr = phone.getOrCrash();
-    final streetStr = street.getOrCrash();
     final passwordStr = password.getOrCrash();
-    final birthDayValue = birthDay.getOrCrash();
-    final emailAddressStr = emailAddress.getOrCrash();
+    final emailAddressStr = emailAddress?.getOrCrash();
     final confirmPasswordStr = confirmPassword.getOrCrash();
+
     try {
-      // Male
-      // 1/1/1993
       final data = RegisterData(
-          name: nameStr,
           phone: phoneStr,
-          address: streetStr,
-          password: passwordStr,
+          name: fullNameStr,
           email: emailAddressStr,
-          gender: gender.toString(),
-          birthdate: birthDayValue.toString(),
+          password: passwordStr,
           passwordConfirmation: confirmPasswordStr);
 
       final response = await _api.register(data);
 
-      if (response.valid) return right(unit);
+      _storage.write(key: tokenKey, value: response.data!.tokenUser!);
+
+      return right(unit);
+    } catch (exception) {
+      _logger.e(exception);
+      if (exception is ResponseDataError) {
+        if (exception.errors?.isNotEmpty ?? false) {
+          return left(AuthFailure.unableRegister(exception.errors!));
+        }
+      }
 
       return left(const AuthFailure.serverError());
-    } catch (e) {
-      return left(const AuthFailure.emailAlreadyInUse());
     }
-    // return left(const AuthFailure.serverError());
   }
 
   @override

@@ -4,9 +4,11 @@ part 'auth_failure.freezed.dart';
 
 @freezed
 class AuthFailure with _$AuthFailure {
-  const factory AuthFailure.cancelledByUser() = CancelledByUser;
-  const factory AuthFailure.serverError() = ServerError;
-  const factory AuthFailure.emailAlreadyInUse() = EmailAlreadyInUse;
-  const factory AuthFailure.invalidEmailAndPasswordCombination() =
-      InvalidEmailAndPasswordCombination;
+  const factory AuthFailure.unexpected() = _Unexpected;
+  const factory AuthFailure.serverError() = _ServerError;
+  const factory AuthFailure.cancelledByUser() = _CancelledByUser;
+  const factory AuthFailure.emailAlreadyInUse() = _EmailAlreadyInUse;
+  const factory AuthFailure.unableSignIn(List<String> errors) = _UnableSignIn;
+  const factory AuthFailure.unableRegister(List<String> errors) =
+      _UnableRegister;
 }

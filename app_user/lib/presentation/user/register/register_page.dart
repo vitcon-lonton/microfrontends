@@ -10,36 +10,23 @@ class RegisterPage extends StatelessWidget {
       create: (_) => getIt<RegisterCubit>(),
       child: BlocListener<RegisterCubit, RegisterState>(
         listenWhen: (prev, cur) =>
-            prev.registerFailureOrSuccessOption !=
-            cur.registerFailureOrSuccessOption,
+            prev.failureOrSuccessOption != cur.failureOrSuccessOption,
         listener: (context, state) {
-          state.registerFailureOrSuccessOption.fold(
+          state.failureOrSuccessOption.fold(
             () {},
             (either) => either.fold(
               (failure) {
-                final snackBar = SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  content: Text(
-                    failure.map(
-                      cancelledByUser: (_) => 'Cancelled',
-                      serverError: (_) => 'Server error',
-                      emailAlreadyInUse: (_) => 'Email already in use',
-                      invalidEmailAndPasswordCombination: (_) =>
-                          'Invalid email and password combination',
-                    ),
-                  ),
-                  action: SnackBarAction(label: 'Action', onPressed: () {}),
-                );
+                final message = failure.maybeWhen(
+                    orElse: () => 'Unable register',
+                    unableRegister: (errors) => errors.join(', '));
 
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(message)));
               },
               (_) {
-                final snackBar = SnackBar(
-                    content: const Text('Success'),
-                    behavior: SnackBarBehavior.floating,
-                    action: SnackBarAction(label: 'Action', onPressed: () {}));
-
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Success'),
+                    behavior: SnackBarBehavior.floating));
               },
             ),
           );

@@ -1,7 +1,7 @@
 /* spell-checker: disable */
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
-
+import 'errors.dart';
 part 'api.g.dart';
 
 const authHeader = {'requires-token': 'true'};
@@ -18,6 +18,16 @@ class BaseResponse<T> {
   BaseResponse({this.msg, this.data, this.success});
 
   factory BaseResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$BaseResponseFromJson(json, fromJsonT);
+      Map<String, dynamic> json, T Function(Object? json) fromJsonT) {
+    try {
+      return _$BaseResponseFromJson(json, fromJsonT);
+    } catch (e) {
+      throw ResponseDataError.fromJson(json['data']);
+    }
+  }
+
+  // factory BaseResponse.fromJson(
+  //     Map<String, dynamic> json, T Function(Object? json) fromJsonT) {
+  //   return _$BaseResponseFromJson(json, fromJsonT);
+  // }
 }

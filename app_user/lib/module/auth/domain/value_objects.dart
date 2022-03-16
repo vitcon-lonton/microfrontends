@@ -47,7 +47,7 @@ class Password extends ValueObject<String> {
 
 class Phone extends ValueObject<String> {
   static const minLength = 0;
-  static const maxLength = 15;
+  static const maxLength = 10;
 
   @override
   final Either<ValueFailure<String>, String> value;

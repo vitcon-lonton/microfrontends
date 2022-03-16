@@ -6,5 +6,6 @@ import 'package:app_user/i18n/i18n.dart';
 import 'package:app_user/injection.dart';
 import 'package:app_user/module/auth/auth.dart';
 import 'package:app_user/presentation/routes/router.gr.dart';
+import 'package:app_user/presentation/widgets.dart';
 part 'sign_in_form.dart';
 part 'sign_in_page.dart';

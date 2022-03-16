@@ -14,12 +14,12 @@ class LoginData with _$LoginData {
 class RegisterData with _$RegisterData {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory RegisterData(
-      {required String name,
-      required String email,
+      {String? email,
+      String? gender,
+      String? address,
+      String? birthdate,
+      required String name,
       required String phone,
-      required String gender,
-      required String address,
-      required String birthdate,
       required String password,
       required String passwordConfirmation}) = _RegisterData;
 
