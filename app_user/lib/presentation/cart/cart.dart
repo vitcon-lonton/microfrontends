@@ -6,7 +6,10 @@ import 'package:app_user/i18n/i18n.dart';
 import 'package:app_user/injection.dart';
 import 'package:app_user/module/booking/booking.dart';
 import 'package:app_user/module/cart/cart.dart';
-part 'cart_item_tile.dart';
+import 'cart_item/cart_item.dart';
+export 'cart_item_update/cart_item_update.dart';
+
 part 'cart_note.dart';
 part 'cart_page.dart';
 part 'cart_request_btn.dart';
+// export 'cart_item/cart_item.dart';

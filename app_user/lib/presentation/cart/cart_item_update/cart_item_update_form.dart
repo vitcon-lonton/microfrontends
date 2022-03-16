@@ -1,18 +1,13 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:theme_manager/theme_manager.dart';
-import 'package:app_user/module/service/service.dart';
-import 'time_frame_selector.dart';
+part of 'cart_item_update.dart';
 
-class ServiceBookingForm extends StatefulWidget {
-  const ServiceBookingForm({Key? key}) : super(key: key);
+class CartItemUpdateForm extends StatefulWidget {
+  const CartItemUpdateForm({Key? key}) : super(key: key);
 
   @override
-  State<ServiceBookingForm> createState() => _ServiceBookingFormState();
+  State<CartItemUpdateForm> createState() => _CartItemUpdateFormState();
 }
 
-class _ServiceBookingFormState extends State<ServiceBookingForm> {
+class _CartItemUpdateFormState extends State<CartItemUpdateForm> {
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,
@@ -125,36 +120,6 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
                     ),
                     const Text('Select Time'),
                     kVSpaceM,
-                    const TimeFrameSelector(),
-                    // const _DatePickerItem(
-                    //   children: [
-                    //     // BlocBuilder<ServiceCheckingCubit, ServiceCheckingState>(
-                    //     //   buildWhen: (prev, cur) => prev.time != cur.time,
-                    //     //   builder: (context, state) {
-                    //     //     final time = state.time;
-
-                    //     //     return CupertinoButton(
-                    //     //       // Display a CupertinoDatePicker in date picker mode.
-                    //     //       onPressed: () => _showDialog(
-                    //     //         CupertinoDatePicker(
-                    //     //           initialDateTime: time,
-                    //     //           mode: CupertinoDatePickerMode.time,
-                    //     //           use24hFormat: true,
-                    //     //           // This is called when the user changes the time.
-                    //     //           onDateTimeChanged: context
-                    //     //               .read<ServiceCheckingCubit>()
-                    //     //               .timeChanged,
-                    //     //         ),
-                    //     //       ),
-                    //     //       child: Text(
-                    //     //         '${time.hour}:${time.minute}',
-                    //     //         style: const TextStyle(fontSize: 22.0),
-                    //     //       ),
-                    //     //     );
-                    //     //   },
-                    //     // ),
-                    //   ],
-                    // ),
                     kVSpaceL,
                   ],
                 ),

@@ -58,6 +58,7 @@ import '../user/user_update/user_update.dart';
 
     // CART
     MaterialRoute(page: CartPage),
+    MaterialRoute(page: CartItemUpdatePage),
 
     // ARTICLES
     MaterialRoute(page: ArticlesPage),

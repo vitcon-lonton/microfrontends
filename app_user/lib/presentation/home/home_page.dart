@@ -12,8 +12,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance!.addPostFrameCallback(
-    //     (_) => context.router.push(const ServiceBookingPageRoute()));
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => context.router.push(const ServiceBookingPageRoute()));
     // WidgetsBinding.instance!.addPostFrameCallback(
     //     (_) => context.router.push(const UserUpdatePageRoute()));
   }

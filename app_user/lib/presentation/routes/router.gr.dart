@@ -115,6 +115,10 @@ class Router extends _i19.RootStackRouter {
       return _i19.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i17.CartPage());
     },
+    CartItemUpdatePageRoute.name: (routeData) {
+      return _i19.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i17.CartItemUpdatePage());
+    },
     ArticlesPageRoute.name: (routeData) {
       return _i19.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i18.ArticlesPage());
@@ -154,6 +158,8 @@ class Router extends _i19.RootStackRouter {
         _i19.RouteConfig(BookingHistoriesPageRoute.name,
             path: '/booking-histories-page'),
         _i19.RouteConfig(CartPageRoute.name, path: '/cart-page'),
+        _i19.RouteConfig(CartItemUpdatePageRoute.name,
+            path: '/cart-item-update-page'),
         _i19.RouteConfig(ArticlesPageRoute.name, path: '/articles-page'),
         _i19.RouteConfig(ArticleDetailPageRoute.name,
             path: '/article-detail-page')
@@ -325,6 +331,15 @@ class CartPageRoute extends _i19.PageRouteInfo<void> {
   const CartPageRoute() : super(CartPageRoute.name, path: '/cart-page');
 
   static const String name = 'CartPageRoute';
+}
+
+/// generated route for
+/// [_i17.CartItemUpdatePage]
+class CartItemUpdatePageRoute extends _i19.PageRouteInfo<void> {
+  const CartItemUpdatePageRoute()
+      : super(CartItemUpdatePageRoute.name, path: '/cart-item-update-page');
+
+  static const String name = 'CartItemUpdatePageRoute';
 }
 
 /// generated route for
