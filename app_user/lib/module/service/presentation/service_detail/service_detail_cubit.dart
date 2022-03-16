@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/entities.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/i_service_repository.dart';
 part 'service_detail_cubit.freezed.dart';
 
 @freezed
@@ -25,10 +25,10 @@ class ServiceDetailCubit extends Cubit<ServiceDetailState> {
 
   ServiceDetailCubit(this._repository) : super(ServiceDetailState.init());
 
-  Future<void> getDetailRequested() async {
+  Future<void> getDetailRequested(int id) async {
     emit(state.copyWith(isSubmitting: true));
 
-    final detailOption = await _repository.getServiceDetail();
+    final detailOption = await _repository.detail(id);
 
     emit(state.copyWith(detailOption: detailOption));
     emit(state.copyWith(isSubmitting: false));

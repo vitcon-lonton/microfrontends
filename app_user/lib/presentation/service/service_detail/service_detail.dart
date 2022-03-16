@@ -1,11 +1,13 @@
-import 'package:app_user/i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
+import 'package:app_user/i18n/i18n.dart';
 import 'package:app_user/module/service/service.dart';
 
 class ServiceDetail extends StatefulWidget {
-  const ServiceDetail({Key? key}) : super(key: key);
+  final int id;
+
+  const ServiceDetail({Key? key, required this.id}) : super(key: key);
 
   @override
   State<ServiceDetail> createState() => _ServiceDetailState();
@@ -15,7 +17,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ServiceDetailCubit>.value(
-      value: context.read<ServiceDetailCubit>()..getDetailRequested(),
+      value: context.read<ServiceDetailCubit>()..getDetailRequested(widget.id),
       child: Column(
         children: [
           // LOADING INDICATOR
@@ -43,6 +45,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
     final description = service.description;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // HEADER
         // kVSpaceM,
@@ -71,7 +74,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
         Padding(
             child: Column(children: [
               kVSpaceM,
-              Text(tr(LocaleKeys.txt_add_description)),
+              Text(tr(LocaleKeys.txt_description)),
               kVSpaceM,
               Text(description),
               kVSpaceM,

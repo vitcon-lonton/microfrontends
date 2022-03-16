@@ -3,22 +3,9 @@ import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
 import '../domain/entities.dart';
 import '../domain/failure.dart';
-import '../domain/i_repository.dart';
-import 'service_api.dart';
+import '../domain/i_service_repository.dart';
 import 'models.dart';
-
-const _fakeCategories = [
-  Catalogue(id: 1, name: 'Pet care'),
-  Catalogue(id: 2, name: 'Babysitting'),
-  Catalogue(id: 4, name: 'Furnishing'),
-  Catalogue(id: 5, name: 'Washing'),
-  Catalogue(id: 6, name: 'Cleaning'),
-  // Catalogue(id: 7, name: 'Best Services'),
-  // Catalogue(id: 8, name: 'Pet care'),
-  // Catalogue(id: 9, name: 'Pet care'),
-  // Catalogue(id: 10, name: 'Pet care'),
-  // Catalogue(id: 11, name: 'Pet care'),
-];
+import 'service_api.dart';
 
 class ServiceRepository implements IServiceRepository {
   final Logger _logger;
@@ -39,21 +26,12 @@ class ServiceRepository implements IServiceRepository {
   }
 
   @override
-  Future<Option<Service>> getServiceDetail({int? id}) async {
-    // try {
-    //   await Future.delayed(const Duration(milliseconds: 400));
-    //   return optionOf(Service.random());
-    // } catch (_) {
-    //   return optionOf(null);
-    // }
-    // return Future.delayed(const Duration(milliseconds: 400))
-    //     .then((_) => optionOf(Service.random()));
+  Future<Option<Service>> detail(int id) async {
     try {
-      final response = await _serviceApi.getDetail(1);
-
+      final response = await _serviceApi.getDetail(id);
       if (!response.valid) return none();
-
-      return optionOf(Service.random());
+      return optionOf(response.data!);
+      // return optionOf(Service.random());
     } catch (e) {
       _logger.e(e);
     }
@@ -101,7 +79,10 @@ class ServiceRepository implements IServiceRepository {
   }
 }
 
-// if (!response.valid) return left(const ServiceFailure.serverError());
-// return optionOf(catalogues);
-// return right(catalogues..addAll(_fakeCategories));
-// return left(const ServiceFailure.serverError());
+const _fakeCategories = [
+  Catalogue(id: 1, name: 'Pet care'),
+  Catalogue(id: 2, name: 'Babysitting'),
+  Catalogue(id: 4, name: 'Furnishing'),
+  Catalogue(id: 5, name: 'Washing'),
+  Catalogue(id: 6, name: 'Cleaning'),
+];

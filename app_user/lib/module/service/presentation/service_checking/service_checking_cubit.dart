@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/entities.dart';
 import '../../domain/failure.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/i_service_repository.dart';
 part 'service_checking_cubit.freezed.dart';
 
 @freezed
