@@ -11,9 +11,10 @@ class CartItemUpdatePage extends StatelessWidget {
         providers: [
           BlocProvider(create: (_) => getIt<FavoriteCubit>()),
           BlocProvider(create: (_) => getIt<CartUpdateCubit>()),
-          BlocProvider(create: (_) {
-            return getIt<ServiceDetailCubit>()..getDetailRequested(1);
-          }),
+          BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
+          BlocProvider(
+            create: (_) => getIt<ServiceDetailCubit>()..getDetailRequested(1),
+          ),
         ],
         child: MultiBlocListener(
             listeners: [
@@ -47,62 +48,44 @@ class CartItemUpdatePage extends StatelessWidget {
             child: Scaffold(
               // BODY
               body: ListView(children: [
+                // DETAIL LOADING
+                BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
+                    builder: (context, state) => !state.isSubmitting
+                        ? kSpaceZero
+                        : const LinearProgressIndicator(),
+                    buildWhen: (prev, cur) =>
+                        prev.isSubmitting != cur.isSubmitting),
+
                 // DETAIL
                 BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
-                    buildWhen: (prev, cur) =>
-                        prev.service != cur.service ||
-                        prev.isSubmitting != cur.isSubmitting,
-                    builder: (context, state) {
-                      if (state.isSubmitting) {
-                        return IconButton(
-                            onPressed: null,
-                            icon: CircularProgressIndicator(
-                                strokeWidth: 2.0,
-                                color:
-                                    Theme.of(context).colorScheme.onPrimary));
-                      }
+                    buildWhen: (prev, cur) => prev.service != cur.service,
+                    builder: (context, state) => state.service != null
+                        ? ServiceTile(service: state.service!)
+                        : kSpaceZero),
 
-                      if (state.service == null) {
-                        return IconButton(
-                            onPressed: null,
-                            icon: CircularProgressIndicator(
-                                strokeWidth: 2.0,
-                                color:
-                                    Theme.of(context).colorScheme.onPrimary));
-                      }
-
-                      return ServiceTile(service: state.service!);
-                    }),
+                // NOTE EDIT
                 kVSpaceL,
                 Padding(
                   child: TextFormField(
+                      maxLines: 8,
                       onChanged: (value) {},
                       initialValue: '123123',
                       validator: (_) => null,
                       decoration: InputDecoration(labelText: txtDescription)),
                   padding: const EdgeInsets.symmetric(horizontal: kSpaceS),
                 ),
+
+                // IMAGES SELECTOR
                 kVSpaceL,
-
                 const Padding(
-                  child: CartImagesSelector(),
-                  padding: EdgeInsets.symmetric(horizontal: kSpaceS),
-                ),
-
-                // Row(children: const [
-                //   kHSpaceM,
-                //   Text('Pick your time'),
-                //   kHSpaceM
-                // ]),
+                    child: CartImagesSelector(),
+                    padding: EdgeInsets.symmetric(horizontal: kSpaceS)),
 
                 // BOOKING FORM
                 kVSpaceL,
                 // const ServiceBookingForm(),
                 kVSpaceL,
               ]),
-
-              // APP BAR
-              appBar: AppBar(title: Text(tr(LocaleKeys.txt_update))),
 
               // NAVIGATION_BAR
               bottomNavigationBar:
@@ -115,6 +98,9 @@ class CartItemUpdatePage extends StatelessWidget {
                                   .updated(CartItem.random())),
                           actionInProgress: (state) => BottomNav.submit(
                               onPressed: null, child: const Text('...')))),
+
+              // APP BAR
+              appBar: AppBar(title: Text(tr(LocaleKeys.txt_update))),
             )));
   }
 }

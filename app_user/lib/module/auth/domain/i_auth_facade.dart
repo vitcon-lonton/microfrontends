@@ -28,6 +28,6 @@ abstract class IAuthFacade {
       BirthDay? birthDay,
       EmailAddress? emailAddress,
       File? image});
-
-  // Future<Either<AuthFailure, Unit>> signInWithGoogle();
 }
+
+// Future<Either<AuthFailure, Unit>> signInWithGoogle();

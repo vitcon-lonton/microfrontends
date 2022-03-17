@@ -37,7 +37,9 @@ class CartItemTile extends StatelessWidget {
                         // iconSize: 12,
                         icon: const Icon(Icons.edit),
                         padding: const EdgeInsets.all(0.0),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.router.push(const CartItemUpdatePageRoute());
+                        },
                       ),
                       IconButton(
                         // iconSize: 12,

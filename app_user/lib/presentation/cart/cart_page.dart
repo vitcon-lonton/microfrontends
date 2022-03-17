@@ -19,8 +19,8 @@ class _BookingHistoriesPageState extends State<CartPage> {
       providers: [
         BlocProvider.value(value: getIt<CartCreateCubit>()),
         BlocProvider.value(value: getIt<CartDeleteCubit>()),
-        BlocProvider.value(value: getIt<CartAllCubit>()..getAllRequested()),
         BlocProvider.value(value: getIt<OrderCreateCubit>()),
+        BlocProvider.value(value: getIt<CartAllCubit>()..getAllRequested()),
       ],
       child: MultiBlocListener(
         // LISTENERS

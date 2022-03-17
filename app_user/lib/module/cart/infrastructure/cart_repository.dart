@@ -1,57 +1,125 @@
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
-import '../domain/cart_item.dart';
 import '../domain/cart_failure.dart';
+import '../domain/cart_item.dart';
 import '../domain/i_cart_repository.dart';
+import 'cart_item_dto.dart';
+import 'cart_item_mapper.dart';
 
 class CartRepository implements ICartRepository {
-  late final List<CartItem> _items;
+  static const cartKey = 'CART';
 
-  CartRepository() {
-    _items = [];
-    _items.add(CartItem.random());
-    _items.add(CartItem.random());
-    _items.add(CartItem.random());
+  final Logger _logger;
+  final FlutterSecureStorage _storage;
+
+  CartRepository(this._logger, this._storage) {
+    // _writeToStorage(
+    //   [CartItem.random(), CartItem.random(), CartItem.random()],
+    // );
+  }
+
+  Future<void> _clearStorage() => _storage.delete(key: cartKey);
+
+  Future<void> _writeToStorage(List<CartItem> items) {
+    final itemsDto = items.map((item) => item.toDto()).toList();
+    final itemsJson = itemsDto.map((item) => item.toJson()).toList();
+    final itemsEncode = jsonEncode(itemsJson);
+
+    return _storage.write(key: cartKey, value: itemsEncode);
+  }
+
+  Future<List<CartItem>?> _readFromStorage() async {
+    final itemsEncode = await _storage.read(key: cartKey);
+    final itemsDecode = (jsonDecode(itemsEncode!) as List<dynamic>?);
+    final items = itemsDecode?.map((itemJson) {
+      return CartItemDto.fromJson(itemJson).toDomain();
+    }).toList();
+
+    return items;
   }
 
   @override
   Future<Option<List<CartItem>>> all() async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    return optionOf(_items);
+    try {
+      final cachedItems = await _readFromStorage();
+      if (cachedItems != null) return optionOf(cachedItems);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return none();
   }
 
   @override
   Future<Either<CartFailure, Unit>> clear() async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    _items = [];
-    return right(unit);
+    try {
+      await _clearStorage();
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const CartFailure.unexpected());
   }
 
   @override
   Future<Either<CartFailure, Unit>> delete(UniqueId id) async {
-    await Future.delayed(const Duration(milliseconds: 700));
     final idStr = id.getOrCrash();
-    _items.removeWhere((item) => item.id.getOrCrash() == idStr);
-    return right(unit);
+
+    try {
+      final cachedItems = await _readFromStorage();
+
+      cachedItems?.removeWhere((item) => item.id.getOrCrash() == idStr);
+
+      _writeToStorage(cachedItems!);
+
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const CartFailure.unableDelete());
   }
 
   @override
   Future<Either<CartFailure, Unit>> create({required CartItem item}) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    _items.add(item);
-    return right(unit);
+    try {
+      final cachedItems = await _readFromStorage() ?? <CartItem>[];
+
+      cachedItems.add(item);
+
+      _writeToStorage(cachedItems);
+
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const CartFailure.unableCreate());
   }
 
   @override
   Future<Either<CartFailure, Unit>> update({required CartItem item}) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    final idStr = item.id.getOrCrash();
-    final index = _items.indexWhere((element) {
-      return idStr == element.id.getOrCrash();
-    });
+    try {
+      final cachedItems = await _readFromStorage() ?? <CartItem>[];
 
-    _items[index] = item;
+      final idStr = item.id.getOrCrash();
+      final index = cachedItems.indexWhere((element) {
+        return idStr == element.id.getOrCrash();
+      });
 
-    return right(unit);
+      cachedItems[index] = item;
+
+      _writeToStorage(cachedItems);
+
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const CartFailure.unableUpdate());
   }
 }
