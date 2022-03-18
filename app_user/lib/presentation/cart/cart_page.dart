@@ -17,16 +17,16 @@ class _BookingHistoriesPageState extends State<CartPage> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: getIt<CartCreateCubit>()),
-        BlocProvider.value(value: getIt<CartDeleteCubit>()),
         BlocProvider.value(value: getIt<OrderCreateCubit>()),
+        BlocProvider.value(value: getIt<CartItemCreateCubit>()),
+        BlocProvider.value(value: getIt<CartItemDeleteCubit>()),
         BlocProvider.value(value: getIt<CartAllCubit>()..getAllRequested()),
       ],
       child: MultiBlocListener(
         // LISTENERS
         listeners: [
           // LISTEN CREATE
-          BlocListener<CartCreateCubit, CartCreateState>(
+          BlocListener<CartItemCreateCubit, CartItemCreateState>(
               listener: (context, state) => state.mapOrNull(
                   createSuccess: (state) =>
                       context.read<CartAllCubit>().getAllRequested(),
@@ -36,7 +36,7 @@ class _BookingHistoriesPageState extends State<CartPage> {
                           content: Text('Unexpected error.'))))),
 
           // LISTEN DELETE
-          BlocListener<CartDeleteCubit, CartDeleteState>(
+          BlocListener<CartItemDeleteCubit, CartItemDeleteState>(
               listener: (context, state) => state.mapOrNull(
                   deleteSuccess: (state) =>
                       context.read<CartAllCubit>().getAllRequested(),
@@ -106,7 +106,7 @@ class _BookingHistoriesPageState extends State<CartPage> {
                 BlocBuilder<CartAllCubit, CartAllState>(
                   buildWhen: (prev, cur) => prev.items != cur.items,
                   builder: (context, state) {
-                    final items = state.items;
+                    final items = state.items.asList();
 
                     return ListView.separated(
                       shrinkWrap: true,
@@ -140,17 +140,19 @@ class _BookingHistoriesPageState extends State<CartPage> {
           appBar: AppBar(title: Text(txtMyShoppingCart)),
 
           // FLOATING ACTION
-          floatingActionButton: BlocBuilder<CartCreateCubit, CartCreateState>(
-              builder: (context, state) => state.maybeMap(
-                  orElse: () => FloatingActionButton(
-                      child: const Icon(Icons.add),
-                      onPressed: () => context
-                          .read<CartCreateCubit>()
-                          .created(CartItem.random())),
-                  actionInProgress: (state) => FloatingActionButton(
-                      onPressed: null,
-                      child: CircularProgressIndicator(
-                          color: Theme.of(context).colorScheme.onPrimary)))),
+          floatingActionButton:
+              BlocBuilder<CartItemCreateCubit, CartItemCreateState>(
+                  builder: (context, state) => state.maybeMap(
+                      orElse: () => FloatingActionButton(
+                          child: const Icon(Icons.add),
+                          onPressed: () => context
+                              .read<CartItemCreateCubit>()
+                              .created(CartItem.random())),
+                      actionInProgress: (state) => FloatingActionButton(
+                          onPressed: null,
+                          child: CircularProgressIndicator(
+                              color:
+                                  Theme.of(context).colorScheme.onPrimary)))),
         ),
       ),
     );

@@ -7,8 +7,8 @@ class CartItemDto with _$CartItemDto {
   const CartItemDto._();
 
   const factory CartItemDto({
+    String? note,
     List<String>? images,
-    String? description,
     required String id,
     required int serviceId,
     required DateTime time,

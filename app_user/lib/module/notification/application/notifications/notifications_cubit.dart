@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart' hide Order;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
-import '../../domain/i_repository.dart';
+import '../../domain/i_notification_repository.dart';
 import '../../domain/notification.dart';
 part 'notifications_cubit.freezed.dart';
 

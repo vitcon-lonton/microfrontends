@@ -2,7 +2,7 @@
 import 'package:dartz/dartz.dart' hide Order;
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
-import '../domain/i_repository.dart';
+import '../domain/i_notification_repository.dart';
 import '../domain/notification.dart';
 
 class NotificationRepository implements INotificationRepository {

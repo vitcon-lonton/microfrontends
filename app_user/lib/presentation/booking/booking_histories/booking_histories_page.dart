@@ -12,7 +12,7 @@ class _BookingHistoriesPageState extends State<BookingHistoriesPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((duration) {});
+    WidgetsBinding.instance?.addPostFrameCallback((duration) {});
   }
 
   Future<void> _onRefresh() async {

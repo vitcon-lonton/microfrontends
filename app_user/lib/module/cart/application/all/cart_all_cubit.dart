@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kt_dart/kt.dart';
 import '../../domain/cart_item.dart';
 import '../../domain/i_cart_repository.dart';
 part 'cart_all_cubit.freezed.dart';
@@ -11,11 +12,11 @@ class CartAllState with _$CartAllState {
   factory CartAllState({
     @Default(false) bool isLoading,
     @Default(true) bool showErrorMessages,
-    required Option<List<CartItem>> itemsOption,
+    required Option<KtList<CartItem>> itemsOption,
   }) = _CartAllState;
 
-  List<CartItem> get items {
-    return List.of(itemsOption.foldRight(<CartItem>[], (items, prev) => items));
+  KtList<CartItem> get items {
+    return itemsOption.foldRight(emptyList(), (items, prev) => items);
   }
 
   factory CartAllState.init() => CartAllState(itemsOption: none());

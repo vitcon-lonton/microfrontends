@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_user/presentation/routes/router.gr.dart' as app_router;
+import 'package:app_user/presentation/routes/routes.dart' as app_router;
 import 'injection.dart' show getIt;
 import 'module/auth/auth.dart';
 
@@ -58,8 +58,8 @@ class AppWidget extends StatelessWidget {
               // const app_router.ServiceBookingPageRoute(),
 
               /// BOOKING
-              const app_router.CartItemUpdatePageRoute(),
-              // const app_router.CartPageRoute(),
+              // app_router.CartItemFormPageRoute(),
+              const app_router.CartPageRoute(),
               // const app_router.OrderDetailPageRoute(),
               // const app_router.BookingHistoriesPageRoute(),
 

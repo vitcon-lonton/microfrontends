@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
@@ -7,7 +6,7 @@ import 'package:app_user/injection.dart';
 import 'package:app_user/module/cart/cart.dart';
 import 'package:app_user/module/favorite/favorite.dart';
 import 'package:app_user/module/service/service.dart';
-import 'package:app_user/presentation/routes/router.gr.dart';
+import 'package:app_user/presentation/routes/routes.dart';
 import 'package:app_user/presentation/service/service.dart';
 
 class ServiceBookingPage extends StatelessWidget {
@@ -18,7 +17,7 @@ class ServiceBookingPage extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => getIt<FavoriteCubit>()),
-          BlocProvider(create: (_) => getIt<CartCreateCubit>()),
+          BlocProvider(create: (_) => getIt<CartItemCreateCubit>()),
           BlocProvider(create: (_) => getIt<ServiceDetailCubit>()),
           BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
         ],
@@ -32,7 +31,7 @@ class ServiceBookingPage extends StatelessWidget {
                       .serviceChanged(state.service)),
 
               // LISTEN ADD ITEM TO CART
-              BlocListener<CartCreateCubit, CartCreateState>(
+              BlocListener<CartItemCreateCubit, CartItemCreateState>(
                   listener: (context, state) => state.mapOrNull(
                       createSuccess: (state) =>
                           context.router.push(const CartPageRoute()),
@@ -124,12 +123,12 @@ class ServiceBookingPage extends StatelessWidget {
 
               // NAVIGATION_BAR
               bottomNavigationBar:
-                  BlocBuilder<CartCreateCubit, CartCreateState>(
+                  BlocBuilder<CartItemCreateCubit, CartItemCreateState>(
                       builder: (context, state) => state.maybeMap(
                           orElse: () => BottomNav.submit(
                               child: Text(tr(LocaleKeys.txt_add_to_cart)),
                               onPressed: () => context
-                                  .read<CartCreateCubit>()
+                                  .read<CartItemCreateCubit>()
                                   .created(CartItem.random())),
                           actionInProgress: (state) => BottomNav.submit(
                               onPressed: null, child: const Text('...')))),

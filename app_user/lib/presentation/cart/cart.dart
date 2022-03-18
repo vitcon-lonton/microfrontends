@@ -7,7 +7,7 @@ import 'package:app_user/injection.dart';
 import 'package:app_user/module/booking/booking.dart';
 import 'package:app_user/module/cart/cart.dart';
 import 'cart_item/cart_item.dart';
-export 'cart_item_update/cart_item_update.dart';
+export 'cart_item_form/cart_item_form.dart';
 
 part 'cart_note.dart';
 part 'cart_page.dart';

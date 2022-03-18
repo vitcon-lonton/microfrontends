@@ -1,4 +1,5 @@
-import 'dart:io';
+/* spell-checker: disable */
+import 'package:dartz/dartz.dart' hide id;
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:app_user/core/core.dart';
@@ -11,11 +12,11 @@ class CartItem with _$CartItem {
   const CartItem._();
 
   const factory CartItem({
-    List6<File>? images,
-    String? description,
     required UniqueId id,
     required DateTime time,
     required TimeOfDay timeOfDay,
+    ItemNote? note,
+    List6<String>? base64Images,
   }) = _CartItem;
 
   int get serviceId => 1;
@@ -28,4 +29,30 @@ class CartItem with _$CartItem {
       id: UniqueId(),
       time: DateTime.now(),
       timeOfDay: const TimeOfDay(hour: 0, minute: 0));
+
+  Option<ValueFailure<dynamic>> get failureOption {
+    if (note != null && note!.isValid() == false) {
+      return note!.failureOrUnit.fold(some, (_) => none());
+    }
+
+    if (base64Images != null && base64Images!.isValid() == false) {
+      return base64Images!.failureOrUnit.fold(some, (_) => none());
+    }
+
+    // return body.failureOrUnit
+    //     .andThen(todos.failureOrUnit)
+    //     .andThen(
+    //       todos
+    //           .getOrCrash()
+    //           // Getting the failureOption from the TodoItem ENTITY - NOT a failureOrUnit from a VALUE OBJECT
+    //           .map((todoItem) => todoItem.failureOption)
+    //           .filter((o) => o.isSome())
+    //           // If we can't get the 0th element, the list is empty. In such a case, it's valid.
+    //           .getOrElse(0, (_) => none())
+    //           .fold(() => right(unit), (f) => left(f)),
+    //     )
+    //     .fold((f) => some(f), (_) => none());
+
+    return none();
+  }
 }

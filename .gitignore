@@ -51,12 +51,15 @@ app.*.map.json
 .flutter-plugins-dependencies
 pubspec.lock
 .metadata
+.fvm
 
 *.g.dart
 *.freezed.dart
 *.config.dart
+*.gr.dart
 
 */example/ios/
 */example/android/
 */example/web/
 */example/windows/
+flutter_sdk

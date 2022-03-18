@@ -17,7 +17,6 @@ import '../user/password_update/password_update.dart';
 import '../user/register/register.dart';
 import '../user/sign_in/sign_in.dart';
 import '../user/user_update/user_update.dart';
-export 'package:auto_route/auto_route.dart';
 
 @MaterialAutoRouter(
   routes: <AutoRoute>[
@@ -58,7 +57,7 @@ export 'package:auto_route/auto_route.dart';
 
     // CART
     MaterialRoute(page: CartPage),
-    MaterialRoute(page: CartItemUpdatePage),
+    MaterialRoute(page: CartItemFormPage),
 
     // ARTICLES
     MaterialRoute(page: ArticlesPage),

@@ -1,2 +1,2 @@
-export 'i_repository.dart';
+export 'i_notification_repository.dart';
 export 'notification.dart';
