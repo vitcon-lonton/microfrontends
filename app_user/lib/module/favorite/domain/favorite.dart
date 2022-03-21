@@ -1,23 +1,24 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:app_user/core/core.dart';
 part 'favorite.freezed.dart';
+part 'favorite.g.dart';
 
 @freezed
 class Favorite with _$Favorite {
-  const factory Favorite(
-      {required UniqueId id,
-      required String name,
-      required double price,
-      required DateTime time}) = _Favorite;
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory Favorite({
+    required int id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    required int parent,
+    required String name,
+    String? description,
+    double? priceApprox,
+    String? image,
+    dynamic deletedAt,
+    int? warrantyPeriod,
+    dynamic status,
+  }) = _Favorite;
 
-  factory Favorite.random() {
-    final _id = UniqueId();
-
-    return Favorite(
-      id: _id,
-      price: 2000000,
-      time: DateTime.now(),
-      name: 'Service name ${_id.value.foldRight('', (id, previous) => id)}',
-    );
-  }
+  factory Favorite.fromJson(Map<String, dynamic> json) =>
+      _$FavoriteFromJson(json);
 }

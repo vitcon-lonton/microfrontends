@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:app_user/core/core.dart';
 import '../../domain/failure.dart';
 import '../../domain/i_favorite_repository.dart';
 part 'favorite_cubit.freezed.dart';
@@ -11,7 +10,6 @@ class FavoriteState with _$FavoriteState {
   const FavoriteState._();
 
   factory FavoriteState({
-    required UniqueId id,
     @Default(false) bool isLoading,
     required Option<bool> likedOption,
     required Option<FavoriteFailure> failureOption,
@@ -20,15 +18,14 @@ class FavoriteState with _$FavoriteState {
   bool get isLiked => likedOption.fold(() => false, (value) => value);
 
   factory FavoriteState.init() {
-    return FavoriteState(
-        likedOption: none(), failureOption: none(), id: UniqueId());
+    return FavoriteState(likedOption: none(), failureOption: none());
   }
 }
 
 class FavoriteCubit extends Cubit<FavoriteState> {
-  final IFavoriteRepository _repository;
+  final IFavoriteRepository _favoriteRepository;
 
-  FavoriteCubit(this._repository) : super(FavoriteState.init());
+  FavoriteCubit(this._favoriteRepository) : super(FavoriteState.init());
 
   Future<void> _performAdd() async {
     emit(state.copyWith(isLoading: true));
@@ -39,7 +36,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     Option<FavoriteFailure> failureOption;
     Either<FavoriteFailure, Unit> failureOrSuccess;
 
-    failureOrSuccess = await _repository.create(state.id);
+    failureOrSuccess = await _favoriteRepository.create(1);
     failureOption = failureOrSuccess.fold(optionOf, (_) => none());
     isLiked = failureOrSuccess.fold((failure) => false, (_) => true);
 
@@ -57,7 +54,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     Option<FavoriteFailure> failureOption;
     Either<FavoriteFailure, Unit> failureOrSuccess;
 
-    failureOrSuccess = await _repository.delete(state.id);
+    failureOrSuccess = await _favoriteRepository.delete(1);
     failureOption = failureOrSuccess.fold(optionOf, (_) => none());
     isLiked = failureOrSuccess.fold((failure) => true, (_) => false);
 
@@ -66,7 +63,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     emit(state.copyWith(likedOption: optionOf(isLiked)));
   }
 
-  Future<void> toggleFavoriteRequested() {
+  Future<void> toggled() {
     if (state.isLiked) {
       return _performRemove();
     }

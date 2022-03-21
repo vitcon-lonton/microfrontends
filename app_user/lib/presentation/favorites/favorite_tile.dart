@@ -14,11 +14,11 @@ class _FavoriteTileState extends State<FavoriteTile> {
   Widget build(BuildContext context) {
     final id = widget.favorite.id;
     final name = widget.favorite.name;
-    final price = '${widget.favorite.price} vnd';
+    final price = '${widget.favorite.priceApprox} vnd';
 
     return InkWell(
       borderRadius: BorderRadius.circular(8),
-      onTap: () => context.router.push(const ServiceBookingPageRoute()),
+      onTap: () => context.router.push(ServiceBookingPageRoute(serviceId: 1)),
       child: Ink(
         padding: const EdgeInsets.all(kSpaceS),
         decoration: BoxDecoration(
@@ -78,10 +78,7 @@ class _FavoriteTileState extends State<FavoriteTile> {
                       icon: const Icon(Icons.favorite, color: Colors.red));
                 }
 
-                final idStr = id.getOrCrash();
-                final removingIdStr = removingId.getOrCrash();
-
-                if (idStr == removingIdStr) {
+                if (id == removingId) {
                   return const IconButton(
                       onPressed: null, icon: CircularProgressIndicator());
                 }

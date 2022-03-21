@@ -15,7 +15,9 @@ class ServiceTile extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(8),
-      onTap: () => context.router.push(const ServiceBookingPageRoute()),
+      onTap: () {
+        context.router.push(ServiceBookingPageRoute(serviceId: service.id));
+      },
       child: Ink(
         padding: const EdgeInsets.all(kSpaceS),
         decoration: BoxDecoration(

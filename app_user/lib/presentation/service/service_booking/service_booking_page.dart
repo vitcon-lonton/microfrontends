@@ -10,15 +10,18 @@ import 'package:app_user/presentation/routes/routes.dart';
 import 'package:app_user/presentation/service/service.dart';
 
 class ServiceBookingPage extends StatelessWidget {
-  const ServiceBookingPage({Key? key}) : super(key: key);
+  final int serviceId;
+
+  const ServiceBookingPage({Key? key, required this.serviceId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => getIt<FavoriteCubit>()),
-          BlocProvider(create: (_) => getIt<CartItemCreateCubit>()),
           BlocProvider(create: (_) => getIt<ServiceDetailCubit>()),
+          BlocProvider(create: (_) => getIt<CartItemCreateCubit>()),
           BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
         ],
         child: MultiBlocListener(
@@ -42,6 +45,8 @@ class ServiceBookingPage extends StatelessWidget {
 
               // LISTEN FAVORITE FAILURE
               BlocListener<FavoriteCubit, FavoriteState>(
+                  listenWhen: (prev, cur) =>
+                      prev.failureOption != cur.failureOption,
                   listener: (context, state) =>
                       state.failureOption.fold(() {}, (failure) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -71,7 +76,7 @@ class ServiceBookingPage extends StatelessWidget {
             child: Scaffold(
               // BODY
               body: ListView(children: [
-                // APP_BAR
+                // APP BAR
                 AppBar(
                   backgroundColor: Theme.of(context).primaryColor,
                   actionsIconTheme: const IconThemeData.fallback()
@@ -94,19 +99,18 @@ class ServiceBookingPage extends StatelessWidget {
                             }
 
                             return IconButton(
+                                onPressed:
+                                    context.read<FavoriteCubit>().toggled,
                                 icon: Icon(state.isLiked
                                     ? Icons.favorite
-                                    : Icons.favorite_border_outlined),
-                                onPressed: context
-                                    .read<FavoriteCubit>()
-                                    .toggleFavoriteRequested);
+                                    : Icons.favorite_border_outlined));
                           }),
                     ])
                   ],
                 ),
 
                 // DETAIL
-                const ServiceDetail(id: 1),
+                ServiceDetail(id: serviceId),
                 kVSpaceL,
                 kVSpaceL,
                 Row(children: const [

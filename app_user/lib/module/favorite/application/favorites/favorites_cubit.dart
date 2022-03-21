@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart' hide Order;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:app_user/core/core.dart';
 import '../../domain/favorite.dart';
 import '../../domain/i_favorite_repository.dart';
 
@@ -19,7 +18,7 @@ class FavoritesState with _$FavoritesState {
     @Default(false) bool isSubmitting,
     @Default(true) bool showErrorMessages,
     required Option<List<Favorite>> favoritesOption,
-    UniqueId? removingId,
+    int? removingId,
   }) = _FavoritesState;
 
   bool get isLastPage => page == pageCount;
@@ -65,7 +64,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(state.copyWith(isSubmitting: false));
   }
 
-  Future<void> unlikeRequested(UniqueId id) async {
+  Future<void> unlikeRequested(int id) async {
     emit(state.copyWith(removingId: id));
 
     await Future.delayed(const Duration(milliseconds: 1500));
@@ -74,7 +73,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       final newFavorites = List<Favorite>.from(favorites);
 
       newFavorites.removeWhere((favorite) {
-        return favorite.id.getOrCrash().compareTo(id.getOrCrash()) == 0;
+        return favorite.id.compareTo(id) == 0;
       });
 
       emit(state.copyWith(favoritesOption: optionOf(newFavorites)));
