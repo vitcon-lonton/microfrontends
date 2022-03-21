@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart' hide Order;
+import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
 import '../domain/booking_entities.dart';
@@ -40,11 +41,9 @@ class BookingRepository implements IBookingRepository {
           description: 'description',
           bookingImages: null);
 
-      if (!response.valid) {
-        return left(const BookingFailure.unableCreate());
+      if (response.valid) {
+        return right(unit);
       }
-
-      return right(unit);
     } catch (e) {
       _logger.e(e);
     }
@@ -75,18 +74,16 @@ class BookingRepository implements IBookingRepository {
       {required int page, required int perPage}) async {
     try {
       final response = await _api.bookings();
-      if (!response.valid) return none();
+      final bookings = KtList.from(response.data!).map((item) {
+        return item.toDomain();
+      });
 
-      final responseData = response.data!;
-      final bookings = responseData.map((item) => item.toDomain()).toList();
-      final result = Pagination<Booking>(
-          data: bookings,
+      return optionOf(Pagination<Booking>(
           page: 1,
           pageCount: 1,
-          perPage: bookings.length,
-          totalCount: bookings.length);
-
-      return optionOf(result);
+          data: bookings,
+          perPage: bookings.size,
+          totalCount: bookings.size));
     } catch (e) {
       _logger.e(e);
     }

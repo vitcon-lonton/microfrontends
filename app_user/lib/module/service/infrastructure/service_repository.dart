@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
 import '../domain/entities.dart';
@@ -40,15 +41,14 @@ class ServiceRepository implements IServiceRepository {
   }
 
   @override
-  Future<Option<List<Catalogue>>> getCatalogues() async {
+  Future<Option<KtList<Catalogue>>> allCatalogue() async {
     try {
       final response = await _catalogueApi.getCatalogues();
-      if (!response.valid) return none();
-      final catalogues = response.data!.map((catalogue) {
+      final catalogues = KtList.from(response.data!.map((catalogue) {
         return catalogue.toDomain();
-      }).toList();
+      })).plus(_fakeCategories);
 
-      return optionOf(catalogues..addAll(_fakeCategories));
+      return optionOf(catalogues.plus(catalogues));
     } catch (e) {
       _logger.e(e);
     }
@@ -57,20 +57,17 @@ class ServiceRepository implements IServiceRepository {
   }
 
   @override
-  Future<Option<Pagination<Service>>> getServices(
+  Future<Option<Pagination<Service>>> allService(
       {required int page, required int perPage}) async {
     try {
       final response = await _serviceApi.getServices();
-      if (!response.valid) return none();
-      final services = response.data!;
-      final result = Pagination<Service>(
+      final services = KtList.from(response.data!);
+      return optionOf(Pagination<Service>(
+          page: page,
           pageCount: 1,
           totalCount: 1,
-          page: page,
           perPage: perPage,
-          data: [...services, ...services]);
-
-      return optionOf(result);
+          data: services.plus(services)));
     } catch (e) {
       _logger.e(e);
     }
@@ -79,10 +76,9 @@ class ServiceRepository implements IServiceRepository {
   }
 }
 
-const _fakeCategories = [
-  Catalogue(id: 1, name: 'Pet care'),
-  Catalogue(id: 2, name: 'Babysitting'),
-  Catalogue(id: 4, name: 'Furnishing'),
-  Catalogue(id: 5, name: 'Washing'),
-  Catalogue(id: 6, name: 'Cleaning'),
-];
+final _fakeCategories = KtList.of(
+    const Catalogue(id: 1, name: 'Pet care'),
+    const Catalogue(id: 2, name: 'Babysitting'),
+    const Catalogue(id: 4, name: 'Furnishing'),
+    const Catalogue(id: 5, name: 'Washing'),
+    const Catalogue(id: 6, name: 'Cleaning'));

@@ -15,8 +15,8 @@ Future<void> main() async {
 
   configureInjection(Environment.prod);
 
-  getIt<Dio>().interceptors.add(getIt<AuthInterceptors>());
   getIt<Dio>().interceptors.add(PrettyDioLogger());
+  getIt<Dio>().interceptors.add(getIt<AuthInterceptors>());
   // getIt<Dio>()
   //     .interceptors
   //     .add(PrettyDioLogger(requestHeader: false, responseHeader: false));

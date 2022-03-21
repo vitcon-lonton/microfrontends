@@ -1,5 +1,3 @@
-// ignore_for_file: unused_element
-
 part of 'favorites.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -10,72 +8,74 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  Future<void> _onRefresh() async {
-    context.read<FavoritesCubit>().refreshRequested();
-    await context.read<FavoritesCubit>().getFavoritesRequested();
-  }
-
-  Future<void> _onLoadMore() async {
-    final state = context.read<FavoritesCubit>().state;
-    final currentPage = state.page;
-    final totalPage = state.pageCount;
-    final nextPage = currentPage + 1;
-
-    if (nextPage > totalPage) return;
-
-    context.read<FavoritesCubit>().pageNumberChanged(nextPage);
-    await context.read<FavoritesCubit>().getFavoritesRequested();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FavoritesCubit>(
-      create: (context) => getIt<FavoritesCubit>()..getFavoritesRequested(),
-      child: BlocListener<FavoritesCubit, FavoritesState>(
-        listener: (context, state) {},
-        child: Scaffold(
-          appBar: AppBar(title: Text(tr(LocaleKeys.txt_favorite_service))),
-          body: BlocBuilder<FavoritesCubit, FavoritesState>(
-            buildWhen: (prev, cur) =>
-                prev.favorites != cur.favorites ||
-                prev.removingId != cur.removingId,
-            builder: (context, state) {
-              final favorites = state.favorites;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: getIt<FavoriteDeleteCubit>()),
+        BlocProvider.value(value: getIt<FavoriteCreateCubit>()),
+        BlocProvider.value(value: getIt<FavoriteAllCubit>()..getAllRequested()),
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          // LISTEN CREATE
+          BlocListener<FavoriteDeleteCubit, FavoriteDeleteState>(
+              listener: (context, state) => state.mapOrNull(
+                  deleteFailure: (state) => ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                              'Unexpected error occurred while deleting.'))))),
 
-              return RefreshLoadmore(
-                // onRefresh: _onRefresh,
-                // onLoadmore: _onLoadMore,
+          // LISTEN DELETE
+          BlocListener<FavoriteCreateCubit, FavoriteCreateState>(
+              listener: (context, state) => state.mapOrNull(
+                  createSuccess: (state) =>
+                      context.read<FavoriteAllCubit>().getAllRequested(),
+                  createFailure: (state) => ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text('Unexpected error.'))))),
+        ],
+        child: Scaffold(
+          // BODY
+          body: BlocBuilder<FavoriteAllCubit, FavoriteAllState>(
+            buildWhen: (prev, cur) => prev.favorites != cur.favorites,
+            builder: (context, state) => RefreshLoadmore(
+                isLastPage: state.isLastPage,
                 onRefresh: () async {
-                  context.read<FavoritesCubit>().refreshRequested();
-                  await context.read<FavoritesCubit>().getFavoritesRequested();
+                  context.read<FavoriteAllCubit>().refreshRequested();
+                  await context.read<FavoriteAllCubit>().getAllRequested();
                 },
                 onLoadmore: () async {
-                  final state = context.read<FavoritesCubit>().state;
+                  final state = context.read<FavoriteAllCubit>().state;
                   final currentPage = state.page;
                   final totalPage = state.pageCount;
                   final nextPage = currentPage + 1;
 
                   if (nextPage > totalPage) return;
 
-                  context.read<FavoritesCubit>().pageNumberChanged(nextPage);
-                  await context.read<FavoritesCubit>().getFavoritesRequested();
+                  context.read<FavoriteAllCubit>().pageNumberChanged(nextPage);
+
+                  await context.read<FavoriteAllCubit>().getAllRequested();
                 },
-                isLastPage: state.isLastPage,
-                noMoreWidget: Text('No more data, you are at the end',
-                    style: TextStyle(color: Theme.of(context).disabledColor)),
                 child: ListView.separated(
                   shrinkWrap: true,
-                  itemCount: favorites.length,
+                  itemCount: state.favorites.size,
                   separatorBuilder: (_, index) => kVSpaceM,
                   physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (_, index) {
+                    return FavoriteTile(favorite: state.favorites[index]);
+                  },
                   padding: const EdgeInsets.symmetric(
                       horizontal: kSpaceM, vertical: kSpaceM),
-                  itemBuilder: (_, index) =>
-                      FavoriteTile(favorite: favorites[index]),
                 ),
-              );
-            },
+                noMoreWidget: Text('No more data, you are at the end',
+                    style: TextStyle(color: Theme.of(context).disabledColor))),
           ),
+
+          // APP BAR
+          appBar: AppBar(title: Text(tr(LocaleKeys.txt_favorite_service))),
         ),
       ),
     );

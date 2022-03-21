@@ -1,12 +1,17 @@
 /* spell-checker: disable */
 // ignore_for_file: unused_local_variable
 import 'dart:io';
-import 'package:app_user/core/core.dart';
-import 'package:app_user/module/auth/auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
+import 'package:app_user/core/core.dart';
+import '../domain/auth_failure.dart';
+import '../domain/i_auth_facade.dart';
+import '../domain/user.dart';
+import '../domain/value_objects.dart';
+import 'api/account_api.dart';
+import 'user_mapper.dart';
 
 const String tokenKey = 'token';
 
@@ -21,7 +26,7 @@ class AuthFacade implements IAuthFacade {
   Future<Option<User>> getSignedInUser() async {
     try {
       final response = await _api.info();
-      if (!response.valid) return none();
+      // if (!response.valid) return none();
       return optionOf(response.data!.toDomain());
     } catch (e) {
       _logger.e(e);
@@ -166,16 +171,16 @@ class AuthFacade implements IAuthFacade {
 
     try {
       final response = await _api.update(
+          img: image,
           name: nameStr,
           phone: phoneStr,
           gender: genderStr,
           birthDate: birthDayStr,
-          email: emailAddressStr,
-          img: image);
+          email: emailAddressStr);
 
-      if (!response.valid) return left(const AuthFailure.serverError());
-
-      return right(unit);
+      if (!response.valid) {
+        return right(unit);
+      }
     } catch (e) {
       _logger.e(e);
     }

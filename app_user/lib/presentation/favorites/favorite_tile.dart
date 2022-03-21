@@ -10,15 +10,19 @@ class FavoriteTile extends StatefulWidget {
 }
 
 class _FavoriteTileState extends State<FavoriteTile> {
+  bool isLiked = true;
+
   @override
   Widget build(BuildContext context) {
-    final id = widget.favorite.id;
-    final name = widget.favorite.name;
-    final price = '${widget.favorite.priceApprox} vnd';
+    final favorite = widget.favorite;
+    final id = favorite.id;
+    final name = favorite.name;
+    final priceApprox = favorite.priceApprox;
+    final priceText = priceApprox == null ? 'Contact' : '$priceApprox vnd';
 
     return InkWell(
       borderRadius: BorderRadius.circular(8),
-      onTap: () => context.router.push(ServiceBookingPageRoute(serviceId: 1)),
+      onTap: () => context.router.push(ServiceBookingPageRoute(serviceId: id)),
       child: Ink(
         padding: const EdgeInsets.all(kSpaceS),
         decoration: BoxDecoration(
@@ -29,19 +33,14 @@ class _FavoriteTileState extends State<FavoriteTile> {
           size: const Size.fromHeight(60),
           child: Row(children: [
             SizedBox(
-              width: 60,
-              height: 60,
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 0.25),
-                    borderRadius: BorderRadius.circular(2)),
-                child: Icon(
-                  Icons.medical_services,
-                  size: 60,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-            ),
+                width: 60,
+                height: 60,
+                child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.25),
+                        borderRadius: BorderRadius.circular(2)),
+                    child: Icon(Icons.medical_services,
+                        size: 60, color: Theme.of(context).primaryColor))),
             kHSpaceM,
             Expanded(
               flex: 2,
@@ -57,7 +56,7 @@ class _FavoriteTileState extends State<FavoriteTile> {
                         kVSpaceXS,
                         Text(name, maxLines: 2),
                         kVSpaceXS,
-                        Text(price,
+                        Text(priceText,
                             maxLines: 1,
                             style: Theme.of(context)
                                 .textTheme
@@ -67,27 +66,30 @@ class _FavoriteTileState extends State<FavoriteTile> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start)),
             ),
-            BlocBuilder<FavoritesCubit, FavoritesState>(
-              buildWhen: (prev, cur) => prev.removingId != cur.removingId,
-              builder: (context, state) {
-                final removingId = state.removingId;
+            IconTheme(
+              data: const IconThemeData.fallback()
+                  .copyWith(color: Theme.of(context).primaryColor),
+              child: BlocBuilder<FavoriteAllCubit, FavoriteAllState>(
+                buildWhen: (prev, cur) => prev.removingId != cur.removingId,
+                builder: (context, state) {
+                  final removingId = state.removingId;
 
-                if (removingId == null) {
+                  if (id == removingId) {
+                    return const IconButton(
+                        onPressed: null, icon: CircularProgressIndicator());
+                  }
+
+                  if (isLiked) {
+                    return IconButton(
+                        onPressed: _onPressedUnlike,
+                        icon: const Icon(Icons.favorite));
+                  }
+
                   return IconButton(
-                      onPressed: _onPressedUnlike,
-                      icon: const Icon(Icons.favorite, color: Colors.red));
-                }
-
-                if (id == removingId) {
-                  return const IconButton(
-                      onPressed: null, icon: CircularProgressIndicator());
-                }
-
-                return const IconButton(
-                  onPressed: null,
-                  icon: Icon(Icons.favorite, color: Colors.red),
-                );
-              },
+                      onPressed: _onPressedLike,
+                      icon: const Icon(Icons.favorite_border_outlined));
+                },
+              ),
             )
           ]),
         ),
@@ -95,12 +97,16 @@ class _FavoriteTileState extends State<FavoriteTile> {
     );
   }
 
+  Future<void> _onPressedLike() {
+    return context.read<FavoriteCreateCubit>().created(widget.favorite.id);
+  }
+
   Future<void> _onPressedUnlike() async {
-    final res = await _confirm();
+    final isAccepted = await _confirm();
 
-    if (res != true) return;
+    if (isAccepted != true) return;
 
-    return context.read<FavoritesCubit>().unlikeRequested(widget.favorite.id);
+    return context.read<FavoriteDeleteCubit>().deleted(widget.favorite.id);
   }
 
   Future<bool?> _confirm() {

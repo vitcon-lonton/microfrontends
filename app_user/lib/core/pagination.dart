@@ -1,27 +1,25 @@
-import 'package:flutter/foundation.dart';
+import 'package:kt_dart/collection.dart';
 
 class Pagination<T> {
   final int page;
   final int perPage;
   final int pageCount;
   final int totalCount;
-  final List<T> data;
+  final KtList<T> data;
 
-  Pagination({
-    required this.page,
-    required this.perPage,
-    required this.pageCount,
-    required this.totalCount,
-    required this.data,
-  });
+  Pagination(
+      {required this.page,
+      required this.perPage,
+      required this.pageCount,
+      required this.totalCount,
+      required this.data});
 
-  Pagination<T> copyWith({
-    int? page,
-    int? perPage,
-    int? pageCount,
-    int? totalCount,
-    List<T>? data,
-  }) {
+  Pagination<T> copyWith(
+      {int? page,
+      int? perPage,
+      int? pageCount,
+      int? totalCount,
+      KtList<T>? data}) {
     return Pagination<T>(
       page: page ?? this.page,
       perPage: perPage ?? this.perPage,
@@ -45,7 +43,7 @@ class Pagination<T> {
         other.perPage == perPage &&
         other.pageCount == pageCount &&
         other.totalCount == totalCount &&
-        listEquals(other.data, data);
+        other.data == data;
   }
 
   @override

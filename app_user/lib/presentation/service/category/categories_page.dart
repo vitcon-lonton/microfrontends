@@ -6,7 +6,7 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CategoriesCubit>.value(
-      value: getIt<CategoriesCubit>()..getCataloguesRequested(),
+      value: getIt<CategoriesCubit>()..getAllRequested(),
       child: BlocListener<CategoriesCubit, CategoriesState>(
         listener: (context, state) {},
         child: Scaffold(

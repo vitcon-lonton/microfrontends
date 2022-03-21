@@ -46,7 +46,7 @@ class _ServicesState extends State<Services> {
                   kVSpaceS,
                   ListView.separated(
                     shrinkWrap: true,
-                    itemCount: services.length,
+                    itemCount: services.size,
                     separatorBuilder: (_, index) => kVSpaceS,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
@@ -81,7 +81,7 @@ class _ServicesState extends State<Services> {
                   kVSpaceS,
                   ListView.separated(
                     shrinkWrap: true,
-                    itemCount: services.length,
+                    itemCount: services.size,
                     separatorBuilder: (_, index) => kVSpaceS,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: kSpaceM),

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:app_user/core/core.dart';
-import 'failure.dart';
+import 'favorite_failure.dart';
 import 'favorite.dart';
 
 abstract class IFavoriteRepository {

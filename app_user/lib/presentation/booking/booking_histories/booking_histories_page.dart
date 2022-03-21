@@ -53,7 +53,7 @@ class _BookingHistoriesPageState extends State<BookingHistoriesPage> {
                   style: TextStyle(color: Theme.of(context).disabledColor)),
               child: ListView.separated(
                 shrinkWrap: true,
-                itemCount: bookings.length,
+                itemCount: bookings.size,
                 separatorBuilder: (_, index) => kVSpaceM,
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: kSpaceM),

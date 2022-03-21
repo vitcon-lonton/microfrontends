@@ -21,8 +21,8 @@ class EnvConfig {
   static BaseOptions get options {
     return BaseOptions(
         baseUrl: DOMAIN,
-        connectTimeout: 5000,
         sendTimeout: 5000,
+        connectTimeout: 5000,
         receiveTimeout: 5000);
   }
 }

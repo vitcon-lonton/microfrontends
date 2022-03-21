@@ -71,7 +71,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                     style: TextStyle(color: Theme.of(context).disabledColor)),
                 child: ListView.separated(
                   shrinkWrap: true,
-                  itemCount: notifications.length,
+                  itemCount: notifications.size,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, index) => const Divider(height: 0),
                   itemBuilder: (_, index) {

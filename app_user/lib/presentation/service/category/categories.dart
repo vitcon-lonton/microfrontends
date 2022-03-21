@@ -6,37 +6,29 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CategoriesCubit>.value(
-      value: context.read<CategoriesCubit>()..getCataloguesRequested(),
-      child: BlocListener<CategoriesCubit, CategoriesState>(
-        listener: (context, state) {},
-        child: BlocBuilder<CategoriesCubit, CategoriesState>(
-          buildWhen: (prev, cur) {
-            return prev.catalogues != cur.catalogues ||
-                prev.isSubmitting != cur.isSubmitting;
-          },
+      value: context.read<CategoriesCubit>()..getAllRequested(),
+      child: BlocBuilder<CategoriesCubit, CategoriesState>(
           builder: (context, state) {
-            final catalogues = state.catalogues;
-            final isSubmitting = state.isSubmitting;
+        final isLoading = state.isLoading;
+        final catalogues = state.catalogues;
 
-            if (isSubmitting) return const LinearProgressIndicator();
+        if (isLoading) return const LinearProgressIndicator();
+        if (catalogues.isEmpty()) return kSpaceZero;
 
-            return SizedBox(
-              height: 125,
-              child: ListView.separated(
-                itemCount: catalogues.length,
-                // separatorBuilder: (_, i) => kSpaceZero,
-                separatorBuilder: (_, i) => kHSpaceM,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return CategoryTile(
-                    catalogue: catalogues[index],
-                  );
-                },
-              ),
-            );
-          },
-        ),
-      ),
+        return SizedBox(
+          height: 125,
+          child: ListView.separated(
+            itemCount: catalogues.size,
+            // separatorBuilder: (_, i) => kSpaceZero,
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (_, i) => kHSpaceM,
+            itemBuilder: (_, i) => CategoryTile(catalogue: catalogues[i]),
+          ),
+        );
+      }, buildWhen: (prev, cur) {
+        return prev.catalogues != cur.catalogues ||
+            prev.isLoading != cur.isLoading;
+      }),
     );
   }
 }

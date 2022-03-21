@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:app_user/core/core.dart';
+import 'package:kt_dart/kt.dart';
 import '../../domain/entities.dart';
 import '../../domain/i_service_repository.dart';
 part 'categories_cubit.freezed.dart';
@@ -9,39 +9,23 @@ part 'categories_cubit.freezed.dart';
 @freezed
 class CategoriesState with _$CategoriesState {
   const CategoriesState._();
-
-  factory CategoriesState(
-      {@Default(false) bool isSubmitting,
-      @Default(true) bool showErrorMessages,
-      @Default(STATUS_IDLE) ProcessingStatus status,
-      required Option<List<Catalogue>> cataloguesOption}) = _CategoriesState;
-
-  List<Catalogue> get catalogues =>
-      cataloguesOption.getOrElse(() => <Catalogue>[]);
-
   factory CategoriesState.init() => CategoriesState(cataloguesOption: none());
+  factory CategoriesState(
+      {@Default(false) bool isLoading,
+      required Option<KtList<Catalogue>> cataloguesOption}) = _CategoriesState;
 
-  CategoriesState busy() => copyWith(status: STATUS_BUSY);
-  CategoriesState idle() => copyWith(status: STATUS_IDLE);
-  CategoriesState failed() => copyWith(status: STATUS_FAILED);
-  CategoriesState complete() => copyWith(status: STATUS_COMPLETE);
+  KtList<Catalogue> get catalogues => cataloguesOption.getOrElse(emptyList);
 }
 
 class CategoriesCubit extends Cubit<CategoriesState> {
-  final IServiceRepository _repository;
-
   CategoriesCubit(this._repository) : super(CategoriesState.init());
 
-  Future<void> getCataloguesRequested() async {
-    emit(state.copyWith(isSubmitting: true));
+  final IServiceRepository _repository;
 
-    final resultOption = await _repository.getCatalogues();
-
-    final currentCatalogues = state.catalogues;
-    final resultCatalogues = resultOption.getOrElse(() => <Catalogue>[]);
-    final newCatalogues = currentCatalogues..addAll(resultCatalogues);
-
-    emit(state.copyWith(isSubmitting: false));
-    emit(state.copyWith(cataloguesOption: optionOf(newCatalogues)));
+  Future<void> getAllRequested() async {
+    emit(state.copyWith(isLoading: true));
+    Option<KtList<Catalogue>> possibleData = await _repository.allCatalogue();
+    emit(state.copyWith(isLoading: false));
+    emit(state.copyWith(cataloguesOption: possibleData));
   }
 }

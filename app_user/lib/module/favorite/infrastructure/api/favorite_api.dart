@@ -15,7 +15,7 @@ abstract class FavoriteApi {
   @Headers(authHeader)
   Future<BaseResponse<List<Favorite>>> all();
 
-  @DELETE('')
+  @PUT('')
   @Headers(authHeader)
   Future<BaseResponse<dynamic>> delete(@Part(name: 'service_id') int serviceId);
 
@@ -23,8 +23,3 @@ abstract class FavoriteApi {
   @Headers(authHeader)
   Future<BaseResponse<dynamic>> create(@Part(name: 'service_id') int serviceId);
 }
-
-
-// part 'favorite_api.freezed.dart';
-// Future<BaseResponse<List<Favorite>>> all(
-//     {@Field() int? page, @Field() int? limit});
