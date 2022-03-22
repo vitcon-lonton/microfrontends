@@ -12,18 +12,17 @@ part 'password_update_cubit.freezed.dart';
 class PasswordUpdateState with _$PasswordUpdateState {
   const PasswordUpdateState._();
 
-  factory PasswordUpdateState({
-    required Password password,
-    required Password newPassword,
-    required Password confirmPassword,
-    @Default(false) bool isSubmitting,
-    @Default(true) bool showErrorMessages,
-    @Default(false) bool displayPassword,
-    @Default(false) bool displayNewPassword,
-    @Default(false) bool displayConfirmPassword,
-    @Default(STATUS_IDLE) ProcessingStatus status,
-    required Option<Either<AuthFailure, Unit>> failureOrSuccessOption,
-  }) = _PasswordUpdateState;
+  factory PasswordUpdateState(
+          {required Password password,
+          required Password newPassword,
+          required Password confirmPassword,
+          @Default(false) bool isSubmitting,
+          @Default(true) bool showErrorMessages,
+          @Default(false) bool displayPassword,
+          @Default(false) bool displayNewPassword,
+          @Default(false) bool displayConfirmPassword,
+          required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) =
+      _PasswordUpdateState;
 
   bool get valid {
     final isPasswordValid = password.isValid();
@@ -50,16 +49,12 @@ class PasswordUpdateState with _$PasswordUpdateState {
     // );
     return PasswordUpdateState(
       password: Password('123456789'),
+      // password: Password('123456789'),
       newPassword: Password('123456789'),
       confirmPassword: Password('123456789'),
       failureOrSuccessOption: none(),
     );
   }
-
-  PasswordUpdateState busy() => copyWith(status: STATUS_BUSY);
-  PasswordUpdateState idle() => copyWith(status: STATUS_IDLE);
-  PasswordUpdateState failed() => copyWith(status: STATUS_FAILED);
-  PasswordUpdateState complete() => copyWith(status: STATUS_COMPLETE);
 }
 
 class PasswordUpdateCubit extends Cubit<PasswordUpdateState> {
@@ -67,59 +62,50 @@ class PasswordUpdateCubit extends Cubit<PasswordUpdateState> {
 
   PasswordUpdateCubit(this._authFacade) : super(PasswordUpdateState.init());
 
+  Future<Either<AuthFailure, Unit>> _performUpdate() {
+    return _authFacade.updatePassword(
+        newPassword: state.newPassword,
+        currentPassword: state.password,
+        confirmPassword: state.confirmPassword);
+  }
+
   submitted() async {
     Either<AuthFailure, Unit> failureOrSuccess =
         const Right<AuthFailure, Unit>(unit);
 
-    final isValid = state.valid;
-    final phone = Phone('9999999999');
-    // final password = state.password;
-    // final newPassword = state.newPassword;
-    // final confirmPassword = state.confirmPassword;
-    // final isPhoneValid = phone.isValid();
-    // final isPasswordValid = password.isValid();
-    // final isNewPasswordValid = newPassword.isValid();
-    // final isConfirmPasswordValid = confirmPassword.isValid();
-    // final passwordStr = password.getOrCrash();
-    // final confirmPasswordStr = confirmPassword.getOrCrash();
-    // final isMatch = passwordStr.compareTo(confirmPasswordStr) == 0;
-
-    if (isValid) {
-      emit(state.busy());
+    if (state.valid) {
       emit(state.copyWith(isSubmitting: true, failureOrSuccessOption: none()));
 
-      failureOrSuccess = await _authFacade.forgetPassword(phone: phone);
+      failureOrSuccess = await _performUpdate();
     }
 
-    emit(state.idle());
     emit(state.copyWith(
       isSubmitting: false,
-      showErrorMessages: true,
       failureOrSuccessOption: optionOf(failureOrSuccess),
     ));
   }
 
-  passwordChanged(String value) {
+  void passwordChanged(String value) {
     emit(state.copyWith(password: Password(value)));
   }
 
-  newPasswordChanged(String value) {
+  void newPasswordChanged(String value) {
     emit(state.copyWith(newPassword: Password(value)));
   }
 
-  confirmPasswordChanged(String value) {
+  void confirmPasswordChanged(String value) {
     emit(state.copyWith(confirmPassword: Password(value)));
   }
 
-  displayPasswordChanged(bool value) {
+  void displayPasswordChanged(bool value) {
     emit(state.copyWith(displayPassword: value));
   }
 
-  displayNewPasswordChanged(bool value) {
+  void displayNewPasswordChanged(bool value) {
     emit(state.copyWith(displayNewPassword: value));
   }
 
-  displayConfirmPasswordChanged(bool value) {
+  void displayConfirmPasswordChanged(bool value) {
     emit(state.copyWith(displayConfirmPassword: value));
   }
 }

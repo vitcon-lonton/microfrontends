@@ -11,4 +11,6 @@ class AuthFailure with _$AuthFailure {
   const factory AuthFailure.unableSignIn(List<String> errors) = _UnableSignIn;
   const factory AuthFailure.unableRegister(List<String> errors) =
       _UnableRegister;
+  const factory AuthFailure.unableUpdatePassword(List<String> errors) =
+      _UnableUpdatePassword;
 }

@@ -35,7 +35,7 @@ abstract class AccountApi {
   @POST('/change_current_password')
   @FormUrlEncoded()
   @Headers(authHeader)
-  Future<BaseResponse<dynamic>> changeCurrentPassword(
+  Future<BaseResponse<Credential>> changeCurrentPassword(
       @Body() ChangeCurrentPasswordData data);
 
   @POST('/update_user')

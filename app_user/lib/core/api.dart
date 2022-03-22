@@ -20,6 +20,7 @@ class BaseResponse<T> {
   factory BaseResponse.fromJson(
       Map<String, dynamic> json, T Function(Object? json) fromJsonT) {
     try {
+      if (json['success'] != true) throw Exception();
       return _$BaseResponseFromJson(json, fromJsonT);
     } catch (e) {
       throw ResponseDataError.fromJson(json['data']);

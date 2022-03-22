@@ -17,15 +17,15 @@ const String tokenKey = 'token';
 
 class AuthFacade implements IAuthFacade {
   final Logger _logger;
-  final AccountApi _api;
+  final AccountApi _accountApi;
   final FlutterSecureStorage _storage;
 
-  AuthFacade(this._logger, this._api, this._storage);
+  AuthFacade(this._logger, this._accountApi, this._storage);
 
   @override
   Future<Option<User>> getSignedInUser() async {
     try {
-      final response = await _api.info();
+      final response = await _accountApi.info();
       // if (!response.valid) return none();
       return optionOf(response.data!.toDomain());
     } catch (e) {
@@ -42,11 +42,11 @@ class AuthFacade implements IAuthFacade {
     final passwordStr = password.getOrCrash();
 
     try {
-      final response = await _api.login(phoneStr, passwordStr);
+      final response = await _accountApi.login(phoneStr, passwordStr);
       final responseData = response.data!;
       final token = responseData.tokenUser!;
 
-      _storage.write(key: tokenKey, value: token);
+      await _storage.write(key: tokenKey, value: token);
 
       return right(unit);
     } catch (exception) {
@@ -63,7 +63,7 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<void> signOut() {
-    return Future.wait([_api.logout(), _storage.delete(key: tokenKey)]);
+    return Future.wait([_accountApi.logout(), _storage.delete(key: tokenKey)]);
   }
 
   @override
@@ -113,9 +113,9 @@ class AuthFacade implements IAuthFacade {
           password: passwordStr,
           passwordConfirmation: confirmPasswordStr);
 
-      final response = await _api.register(data);
+      final response = await _accountApi.register(data);
 
-      _storage.write(key: tokenKey, value: response.data!.tokenUser!);
+      await _storage.write(key: tokenKey, value: response.data!.tokenUser!);
 
       return right(unit);
     } catch (exception) {
@@ -135,22 +135,34 @@ class AuthFacade implements IAuthFacade {
       {required Password newPassword,
       required Password currentPassword,
       required Password confirmPassword}) async {
-    final newPasswordStr = newPassword.getOrCrash();
-    final currentPasswordStr = currentPassword.getOrCrash();
-    final confirmPasswordStr = confirmPassword.getOrCrash();
-    final valid = newPasswordStr.compareTo(confirmPasswordStr) == 0;
-    if (!valid) return left(const AuthFailure.serverError());
+    String newPasswordStr = newPassword.getOrCrash();
+    String currentPasswordStr = currentPassword.getOrCrash();
+    String confirmPasswordStr = confirmPassword.getOrCrash();
+    bool isMatch = newPasswordStr.compareTo(confirmPasswordStr) == 0;
+    if (!isMatch) return left(const AuthFailure.serverError());
 
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      BaseResponse<Credential> response;
+
+      response = await _accountApi.changeCurrentPassword(
+          ChangeCurrentPasswordData(
+              password: newPasswordStr,
+              currentPassword: currentPasswordStr,
+              passwordConfirmation: confirmPasswordStr));
+
+      await _storage.write(key: tokenKey, value: response.data!.tokenUser!);
+
       return right(unit);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
-        return left(const AuthFailure.emailAlreadyInUse());
-      } else {
-        return left(const AuthFailure.serverError());
+    } catch (e) {
+      _logger.e(e);
+      if (e is ResponseDataError) {
+        if (e.errors?.isNotEmpty ?? false) {
+          return left(AuthFailure.unableUpdatePassword(e.errors!));
+        }
       }
     }
+
+    return left(const AuthFailure.serverError());
   }
 
   @override
@@ -170,7 +182,7 @@ class AuthFacade implements IAuthFacade {
     final birthDayStr = birthDay?.getOrCrash().toString();
 
     try {
-      final response = await _api.update(
+      final response = await _accountApi.update(
           img: image,
           name: nameStr,
           phone: phoneStr,

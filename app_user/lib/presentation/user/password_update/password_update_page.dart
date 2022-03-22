@@ -19,21 +19,17 @@ class PasswordUpdatePage extends StatelessWidget {
             () {},
             (either) => either.fold(
               (failure) {
-                final snackBar = SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  content: const Text('Server error'),
-                  action: SnackBarAction(label: 'Action', onPressed: () {}),
-                );
+                final message = failure.maybeWhen(
+                    orElse: () => 'Unable update password',
+                    unableUpdatePassword: (errors) => errors.join(', '));
 
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(message)));
               },
               (_) {
-                final snackBar = SnackBar(
-                    content: const Text('Success'),
-                    behavior: SnackBarBehavior.floating,
-                    action: SnackBarAction(label: 'Action', onPressed: () {}));
-
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Success'),
+                    behavior: SnackBarBehavior.floating));
               },
             ),
           );
