@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:app_user/core/core.dart';
 import '../../domain/auth_failure.dart';
 import '../../domain/i_auth_facade.dart';
 import '../../domain/value_objects.dart';
-
 part 'password_update_cubit.freezed.dart';
 
 @freezed
@@ -58,9 +56,9 @@ class PasswordUpdateState with _$PasswordUpdateState {
 }
 
 class PasswordUpdateCubit extends Cubit<PasswordUpdateState> {
-  final IAuthFacade _authFacade;
-
   PasswordUpdateCubit(this._authFacade) : super(PasswordUpdateState.init());
+
+  final IAuthFacade _authFacade;
 
   Future<Either<AuthFailure, Unit>> _performUpdate() {
     return _authFacade.updatePassword(

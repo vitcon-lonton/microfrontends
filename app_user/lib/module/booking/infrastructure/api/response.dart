@@ -48,7 +48,7 @@ class BookingDto with _$BookingDto {
     DateTime? timeboxingStart,
     dynamic verifyByAdmin,
     dynamic adminNote,
-    required int serviceId,
+    int? serviceId,
     String? latitude,
     String? longitude,
     dynamic deletedAt,

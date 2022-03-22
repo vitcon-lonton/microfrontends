@@ -43,6 +43,7 @@ dev_dependencies:
   mockito: any
   lint: ^1.5.3
   freezed: ^1.1.1
+  postman_dio: ^1.0.2
   pretty_dio_logger: ^1.1.1
   build_runner: ^2.1.7
   flutter_lints: ^1.0.0

@@ -65,7 +65,7 @@ class Booking with _$Booking {
     DateTime? timeBoxingStart,
     dynamic verifyByAdmin,
     dynamic adminNote,
-    required int serviceId,
+    int? serviceId,
     String? latitude,
     String? longitude,
     dynamic deletedAt,

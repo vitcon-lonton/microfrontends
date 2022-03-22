@@ -1,6 +1,8 @@
 /* spell-checker: disable */
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:logger/logger.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:app_user/injection.dart';
 import 'errors.dart';
 part 'api.g.dart';
 
@@ -23,6 +25,7 @@ class BaseResponse<T> {
       if (json['success'] != true) throw Exception();
       return _$BaseResponseFromJson(json, fromJsonT);
     } catch (e) {
+      getIt<Logger>().e(e);
       throw ResponseDataError.fromJson(json['data']);
     }
   }

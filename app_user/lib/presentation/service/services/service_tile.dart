@@ -1,78 +1,121 @@
 part of 'services.dart';
 
-class ServiceTile extends StatelessWidget {
+class ServiceTile extends StatefulWidget {
   final Service service;
 
   const ServiceTile({Key? key, required this.service}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final name = service.name;
-    final price = service.priceApprox.toString();
+  State<ServiceTile> createState() => _ServiceTileState();
+}
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
-      onTap: () {
-        context.router.push(ServiceBookingPageRoute(serviceId: service.id));
+// create: (context) =>
+//     getIt<FavoriteAlreadyExistCubit>().initialized(optionOf(serviceId)),
+class _ServiceTileState extends State<ServiceTile> {
+  @override
+  Widget build(BuildContext context) {
+    final name = widget.service.name;
+    final serviceId = widget.service.id;
+    final price = widget.service.priceApprox.toString();
+
+    return BlocProvider(
+      create: (context) {
+        return getIt<FavoriteAlreadyExistCubit>()
+          ..initialized(optionOf(serviceId))
+          ..findItemRequested();
       },
-      child: Ink(
-        padding: const EdgeInsets.all(kSpaceS),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF7F8FA),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: SizedBox.fromSize(
-          size: const Size.fromHeight(60),
-          child: Row(children: [
-            SizedBox(
-              width: 60,
-              height: 60,
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 0.25),
-                    borderRadius: BorderRadius.circular(2)),
-                child: Icon(
-                  Icons.medical_services,
-                  size: 60,
-                  color: Theme.of(context).primaryColor,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: () {
+          context.router.push(ServiceBookingPageRoute(serviceId: serviceId));
+        },
+        child: Ink(
+          padding: const EdgeInsets.all(kSpaceS),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF7F8FA),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: SizedBox.fromSize(
+            size: const Size.fromHeight(60),
+            child: Row(children: [
+              SizedBox(
+                width: 60,
+                height: 60,
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 0.25),
+                      borderRadius: BorderRadius.circular(2)),
+                  child: Icon(
+                    Icons.medical_services,
+                    size: 60,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ),
-            ),
-            kHSpaceM,
-            Expanded(
-              flex: 2,
-              child: DefaultTextStyle(
-                  maxLines: 2,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(fontSize: 14),
-                  overflow: TextOverflow.ellipsis,
-                  child: Column(
-                      children: [
-                        kVSpaceXS,
-                        Text(name, maxLines: 2),
-                        kVSpaceXS,
-                        Text(price,
-                            maxLines: 1,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(fontSize: 16))
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start)),
-            ),
-            IconButton(
-                onPressed: () => _confirm(context),
-                icon: const Icon(Icons.favorite, color: Colors.red)),
-          ]),
+              kHSpaceM,
+              Expanded(
+                flex: 2,
+                child: DefaultTextStyle(
+                    maxLines: 2,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontSize: 14),
+                    overflow: TextOverflow.ellipsis,
+                    child: Column(
+                        children: [
+                          kVSpaceXS,
+                          Text(name, maxLines: 2),
+                          kVSpaceXS,
+                          Text(price,
+                              maxLines: 1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(fontSize: 16))
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start)),
+              ),
+              IconTheme(
+                data: const IconThemeData.fallback()
+                    .copyWith(color: Theme.of(context).primaryColor),
+                child: BlocBuilder<FavoriteAlreadyExistCubit,
+                    FavoriteAlreadyExistState>(buildWhen: (prev, cur) {
+                  return prev.isLoading != cur.isLoading ||
+                      prev.isAlreadyExist != cur.isAlreadyExist;
+                }, builder: (context, state) {
+                  if (state.isLoading) {
+                    return const IconButton(
+                        onPressed: null,
+                        icon: CircularProgressIndicator(strokeWidth: 2.0));
+                  }
+
+                  return state.isAlreadyExist
+                      ? IconButton(
+                          onPressed: () => context
+                              .read<FavoriteDeleteCubit>()
+                              .deleted(serviceId),
+                          icon: const Icon(Icons.favorite))
+                      : IconButton(
+                          onPressed: () => context
+                              .read<FavoriteCreateCubit>()
+                              .created(serviceId),
+                          icon: const Icon(Icons.favorite_border_outlined));
+                }),
+              ),
+              // IconButton(
+              //     onPressed: () => _confirm(context),
+              //     icon: const Icon(Icons.favorite, color: Colors.red)),
+            ]),
+          ),
         ),
       ),
     );
   }
 
-  void _confirm(BuildContext context) {
+  // ignore: unused_element
+  void _confirm() {
     showDialog(
       context: context,
       builder: (context) => Material(
@@ -88,7 +131,7 @@ class ServiceTile extends StatelessWidget {
               child: Column(
                 children: [
                   kVSpaceL,
-                  Text('Are you want unlike ${service.name}?'),
+                  Text('Are you want unlike ${widget.service.name}?'),
                   kVSpaceXL,
                   kVSpaceXL,
                   Row(

@@ -18,16 +18,13 @@ class FavoriteRepository implements IFavoriteRepository {
       {required int page, required int perPage}) async {
     try {
       final response = await _favoriteApi.all();
-      final responseData = response.data!;
-
-      final result = Pagination<Favorite>(
+      final favorites = KtList.from(response.data!);
+      return optionOf(Pagination<Favorite>(
           page: 1,
           pageCount: 1,
-          perPage: responseData.length,
-          totalCount: responseData.length,
-          data: KtList.from(responseData));
-
-      return optionOf(result);
+          data: favorites,
+          perPage: favorites.size,
+          totalCount: favorites.size));
     } catch (e) {
       _logger.e(e);
     }
@@ -38,11 +35,8 @@ class FavoriteRepository implements IFavoriteRepository {
   @override
   Future<Either<FavoriteFailure, Unit>> create(int serviceId) async {
     try {
-      final response = await _favoriteApi.create(serviceId);
-
-      if (response.success == true) {
-        return right(unit);
-      }
+      await _favoriteApi.create(serviceId);
+      return right(unit);
     } catch (e) {
       _logger.e(e);
     }
@@ -53,11 +47,8 @@ class FavoriteRepository implements IFavoriteRepository {
   @override
   Future<Either<FavoriteFailure, Unit>> delete(int serviceId) async {
     try {
-      final response = await _favoriteApi.delete(serviceId);
-
-      if (response.success == true) {
-        return right(unit);
-      }
+      await _favoriteApi.delete(serviceId);
+      return right(unit);
     } catch (e) {
       _logger.e(e);
     }
