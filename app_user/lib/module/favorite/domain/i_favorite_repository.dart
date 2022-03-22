@@ -8,4 +8,5 @@ abstract class IFavoriteRepository {
       {required int page, required int perPage});
   Future<Either<FavoriteFailure, Unit>> create(int serviceId);
   Future<Either<FavoriteFailure, Unit>> delete(int serviceId);
+  Future<Option<Favorite>> findByServiceId(int serviceId);
 }

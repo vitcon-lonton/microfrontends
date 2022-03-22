@@ -9,6 +9,16 @@ class CartPage extends StatefulWidget {
 }
 
 class _BookingHistoriesPageState extends State<CartPage> {
+  final CartAllCubit _allCubit = getIt<CartAllCubit>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+        Future.delayed(const Duration(seconds: 1))
+            .then((value) => _allCubit.getAllRequested()));
+  }
+
   @override
   Widget build(BuildContext context) {
     final txtEdit = tr(LocaleKeys.txt_edit);
@@ -17,10 +27,10 @@ class _BookingHistoriesPageState extends State<CartPage> {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider.value(value: _allCubit),
         BlocProvider.value(value: getIt<OrderCreateCubit>()),
         BlocProvider.value(value: getIt<CartItemCreateCubit>()),
         BlocProvider.value(value: getIt<CartItemDeleteCubit>()),
-        BlocProvider.value(value: getIt<CartAllCubit>()..getAllRequested()),
       ],
       child: MultiBlocListener(
         // LISTENERS
@@ -103,23 +113,20 @@ class _BookingHistoriesPageState extends State<CartPage> {
                 // kVSpaceM,
                 Row(children: const [kHSpaceM, Text('Detail'), kHSpaceM]),
                 kVSpaceS,
-                BlocBuilder<CartAllCubit, CartAllState>(
-                  buildWhen: (prev, cur) => prev.items != cur.items,
-                  builder: (context, state) {
-                    final items = state.items.asList();
-
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: items.length,
-                      separatorBuilder: (_, index) => kVSpaceXS,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
-                      itemBuilder: (_, index) {
-                        return CartItemTile(item: items[index]);
-                      },
-                    );
-                  },
-                )
+                BlocBuilder<CartAllCubit, CartAllState>(buildWhen: (prev, cur) {
+                  return prev.items != cur.items;
+                }, builder: (context, state) {
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: state.items.size,
+                    separatorBuilder: (_, index) => kVSpaceXS,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, index) {
+                      return CartItemTile(state.items[index]);
+                    },
+                    padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
+                  );
+                })
               ],
 
               // NOTE

@@ -8,13 +8,13 @@ abstract class FavoriteInjectableModule {
   FavoriteAllCubit get all;
 
   @Injectable()
-  FavoriteCubit get favorite;
-
-  @Injectable()
   FavoriteCreateCubit get create;
 
   @Injectable()
   FavoriteDeleteCubit get delete;
+
+  @Injectable()
+  FavoriteAlreadyExistCubit get alreadyExist;
 
   @LazySingleton()
   FavoriteApi api(Dio dio) => FavoriteApi(dio);

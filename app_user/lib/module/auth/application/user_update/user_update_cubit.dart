@@ -11,18 +11,21 @@ part 'user_update_cubit.freezed.dart';
 @freezed
 class UserUpdateState with _$UserUpdateState {
   const UserUpdateState._();
-  factory UserUpdateState({
-    File? image,
-    Name? name,
-    Phone? phone,
-    Street? street,
-    Gender? gender,
-    BirthDay? birthDay,
-    EmailAddress? emailAddress,
-    @Default(false) bool isSubmitting,
-    @Default(true) bool showErrorMessages,
-    required Option<Either<AuthFailure, Unit>> failureOrSuccessOption,
-  }) = _UserUpdateState;
+  factory UserUpdateState(
+          {File? image,
+          Name? name,
+          Phone? phone,
+          Street? street,
+          Gender? gender,
+          BirthDay? birthDay,
+          EmailAddress? emailAddress,
+          @Default(false) bool isSubmitting,
+          @Default(true) bool showErrorMessages,
+          required Option<Either<AuthFailure, Unit>> failureOrSuccessOption}) =
+      _UserUpdateState;
+  factory UserUpdateState.init() {
+    return UserUpdateState(failureOrSuccessOption: none());
+  }
 
   bool get isAvailable {
     if (name != null) {
@@ -40,10 +43,6 @@ class UserUpdateState with _$UserUpdateState {
     }
 
     return false;
-  }
-
-  factory UserUpdateState.init() {
-    return UserUpdateState(failureOrSuccessOption: none());
   }
 }
 
@@ -67,7 +66,7 @@ class UserUpdateCubit extends Cubit<UserUpdateState> {
     // final isNameValid = name.isValid();
     // final isPhoneValid = phone.isValid();
     // final isStreetValid = street.isValid();
-    // // final isGenderValid = gender.isValid();
+    // final isGenderValid = gender.isValid();
     // final isBirthDayValid = birthDay.isValid();
     // final isEmailValid = emailAddress.isValid();
 

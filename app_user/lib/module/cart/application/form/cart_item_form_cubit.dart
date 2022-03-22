@@ -11,20 +11,21 @@ part 'cart_item_form_cubit.freezed.dart';
 @freezed
 class CartItemFormState with _$CartItemFormState {
   const CartItemFormState._();
-  const factory CartItemFormState({
-    required CartItem cartItem,
-    @Default(false) bool isSaving,
-    @Default(false) bool isEditing,
-    @Default(true) bool showErrorMessages,
-    required Option<Either<CartFailure, Unit>> saveFailureOrSuccessOption,
-  }) = _CartItemFormState;
-
-  bool get isValid => cartItem.failureOption.fold(() => true, (f) => false);
+  const factory CartItemFormState(
+      {required CartItem cartItem,
+      @Default(false) bool isSaving,
+      @Default(false) bool isEditing,
+      @Default(true) bool showErrorMessages,
+      required Option<Either<CartFailure, Unit>>
+          saveFailureOrSuccessOption}) = _CartItemFormState;
+  factory CartItemFormState.initial() {
+    return CartItemFormState(
+        cartItem: CartItem.random(), saveFailureOrSuccessOption: none());
+  }
 
   List6<String>? get base64Images => cartItem.base64Images;
 
-  factory CartItemFormState.initial() => CartItemFormState(
-      cartItem: CartItem.random(), saveFailureOrSuccessOption: none());
+  bool get isValid => cartItem.failureOption.fold(() => true, (f) => false);
 }
 
 class CartItemFormCubit extends Cubit<CartItemFormState> {

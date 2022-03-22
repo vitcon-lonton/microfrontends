@@ -103,9 +103,8 @@ class _FavoriteTileState extends State<FavoriteTile> {
 
   Future<void> _onPressedUnlike() async {
     final isAccepted = await _confirm();
-
     if (isAccepted != true) return;
-
+    setState(() => isLiked = false);
     return context.read<FavoriteDeleteCubit>().deleted(widget.favorite.id);
   }
 

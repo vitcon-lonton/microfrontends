@@ -64,4 +64,23 @@ class FavoriteRepository implements IFavoriteRepository {
 
     return left(const FavoriteFailure.unableDelete());
   }
+
+  @override
+  Future<Option<Favorite>> findByServiceId(int serviceId) async {
+    try {
+      Favorite? item;
+      KtList<Favorite> favorites;
+      BaseResponse<List<Favorite>> response;
+
+      response = await _favoriteApi.all();
+      favorites = (KtList.from(response.data!));
+      item = favorites.singleOrNull((element) => element.id == serviceId);
+
+      return optionOf(item);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return none();
+  }
 }

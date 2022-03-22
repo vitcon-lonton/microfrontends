@@ -13,6 +13,7 @@ import 'package:app_user/module/cart/cart.dart';
 import 'package:app_user/module/favorite/favorite.dart';
 import 'package:app_user/module/service/service.dart';
 import 'package:app_user/presentation/routes/routes.dart';
-import '../../service/services/service_tile.dart';
+
+import '../../service/service.dart';
 part 'cart_item_form_page.dart';
 part 'cart_item_images_selector.dart';

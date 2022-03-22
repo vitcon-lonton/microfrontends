@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:theme_manager/theme_manager.dart';
-import 'package:app_user/module/service/service.dart';
-import 'package:app_user/presentation/routes/routes.dart';
+part of 'services.dart';
 
 class ServiceTile extends StatelessWidget {
   final Service service;

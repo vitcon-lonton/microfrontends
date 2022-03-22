@@ -1,9 +1,9 @@
 part of 'cart_item.dart';
 
 class CartItemTile extends StatelessWidget {
-  final CartItem item;
+  CartItemTile(this.item) : super(key: Key(item.id.getOrCrash()));
 
-  CartItemTile({required this.item}) : super(key: Key(item.id.getOrCrash()));
+  final CartItem item;
 
   @override
   Widget build(BuildContext context) {

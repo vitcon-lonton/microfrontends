@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
             kVSpaceM,
             BlocProvider.value(
                 value: getIt<ServicesCubit>(),
-                child: const Services(isPagination: false)),
+                child: const ServicesWidget(isPagination: false)),
             kVSpaceM,
           ],
 
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
             kVSpaceM,
             BlocProvider(
               create: (_) => getIt<ServicesCubit>(),
-              child: const Services(isPagination: false),
+              child: const ServicesWidget(isPagination: false),
             ),
             kVSpaceM,
             kVSpaceL,
