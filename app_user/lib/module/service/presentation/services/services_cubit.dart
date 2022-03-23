@@ -54,6 +54,6 @@ class ServicesCubit extends Cubit<ServicesState> {
   void pageNumberChanged(int value) => emit(state.copyWith(page: value));
 
   Future<Option<Pagination<Service>>> _performGetServices() {
-    return _repository.allService(page: state.page, perPage: state.perPage);
+    return _repository.all(page: state.page, perPage: state.perPage);
   }
 }

@@ -6,14 +6,12 @@ import '../domain/entities.dart';
 import '../domain/failure.dart';
 import '../domain/i_service_repository.dart';
 import 'api/api.dart';
-import 'service_mapper.dart';
 
 class ServiceRepository implements IServiceRepository {
   final Logger _logger;
   final ServiceApi _serviceApi;
-  final CatalogueApi _catalogueApi;
 
-  ServiceRepository(this._logger, this._serviceApi, this._catalogueApi);
+  ServiceRepository(this._logger, this._serviceApi);
 
   @override
   Future<Either<ServiceFailure, Unit>> check(Service service) async {
@@ -41,24 +39,7 @@ class ServiceRepository implements IServiceRepository {
   }
 
   @override
-  Future<Option<KtList<Catalogue>>> allCatalogue() async {
-    try {
-      final response = await _catalogueApi.all();
-      final catalogues = KtList.from(response.data!.map((catalogue) {
-        return catalogue.toDomain();
-      })).plus(_fakeCategories);
-
-      return optionOf(catalogues.plus(catalogues));
-    } catch (e) {
-      _logger.e(e);
-    }
-
-    return none();
-  }
-
-  @override
-  Future<Option<Pagination<Service>>> allService(
-      {int? page, int? perPage}) async {
+  Future<Option<Pagination<Service>>> all({int? page, int? perPage}) async {
     try {
       final response = await _serviceApi.all();
       final totalPages = response.data!.meta.totalPages;
@@ -85,10 +66,3 @@ class ServiceRepository implements IServiceRepository {
     return none();
   }
 }
-
-final _fakeCategories = KtList.of(
-    const Catalogue(id: 1, name: 'Pet care'),
-    const Catalogue(id: 2, name: 'Babysitting'),
-    const Catalogue(id: 4, name: 'Furnishing'),
-    const Catalogue(id: 5, name: 'Washing'),
-    const Catalogue(id: 6, name: 'Cleaning'));

@@ -77,7 +77,8 @@ class _HomePageState extends State<HomePage> {
             const Divider(height: 8.0, thickness: 8.0),
             kVSpaceM,
             BlocProvider.value(
-                child: const Categories(), value: getIt<CategoriesCubit>()),
+                child: const CategoriesWidget(),
+                value: getIt<CategoriesCubit>()),
             kVSpaceM,
           ],
 

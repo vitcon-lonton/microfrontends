@@ -11,7 +11,7 @@ class CategoriesPage extends StatelessWidget {
         listener: (context, state) {},
         child: Scaffold(
           appBar: AppBar(title: const Text('Categories')),
-          body: ListView(children: const [Categories()]),
+          body: ListView(children: const [CategoriesWidget()]),
         ),
       ),
     );

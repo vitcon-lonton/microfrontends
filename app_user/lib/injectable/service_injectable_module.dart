@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../module/service/service.dart';
+import 'package:app_user/module/service/service.dart';
 
 @module
 abstract class ServiceInjectableModule {
@@ -8,20 +8,14 @@ abstract class ServiceInjectableModule {
   ServicesCubit get services;
 
   @Injectable()
-  CategoriesCubit get categories;
+  ServiceDetailCubit get detail;
 
   @Injectable()
-  ServiceDetailCubit get serviceDetail;
-
-  @Injectable()
-  ServiceCheckingCubit get serviceChecking;
+  ServiceCheckingCubit get checking;
 
   @LazySingleton(as: IServiceRepository)
   ServiceRepository get repository;
 
   @LazySingleton()
   ServiceApi serviceApi(Dio dio) => ServiceApi(dio);
-
-  @LazySingleton()
-  CatalogueApi catalogueApi(Dio dio) => CatalogueApi(dio);
 }
