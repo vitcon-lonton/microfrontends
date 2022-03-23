@@ -14,16 +14,18 @@ class FavoriteRepository implements IFavoriteRepository {
   FavoriteRepository(this._logger, this._favoriteApi);
 
   @override
-  Future<Option<Pagination<Favorite>>> all(
-      {required int page, required int perPage}) async {
+  Future<Option<Pagination<Favorite>>> all({int? page, int? perPage}) async {
     try {
       final response = await _favoriteApi.all();
-      final favorites = KtList.from(response.data!);
+      final totalPages = response.data!.meta.totalPages;
+      final currentPage = response.data!.meta.currentPage;
+      final favorites = KtList.from(response.data!.favorites);
+
       return optionOf(Pagination<Favorite>(
-          page: 1,
-          pageCount: 1,
+          page: currentPage,
+          pageCount: totalPages,
           data: favorites,
-          perPage: favorites.size,
+          perPage: perPage ?? favorites.size,
           totalCount: favorites.size));
     } catch (e) {
       _logger.e(e);
@@ -61,10 +63,10 @@ class FavoriteRepository implements IFavoriteRepository {
     try {
       Favorite? item;
       KtList<Favorite> favorites;
-      BaseResponse<List<Favorite>> response;
+      BaseResponse<GetAllData> response;
 
       response = await _favoriteApi.all();
-      favorites = (KtList.from(response.data!));
+      favorites = (KtList.from(response.data!.favorites));
       item = favorites.singleOrNull((element) => element.id == serviceId);
 
       return optionOf(item);

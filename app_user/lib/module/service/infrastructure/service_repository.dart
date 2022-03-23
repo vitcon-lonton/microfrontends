@@ -5,8 +5,8 @@ import 'package:app_user/core/core.dart';
 import '../domain/entities.dart';
 import '../domain/failure.dart';
 import '../domain/i_service_repository.dart';
-import 'models.dart';
-import 'service_api.dart';
+import 'api/api.dart';
+import 'service_mapper.dart';
 
 class ServiceRepository implements IServiceRepository {
   final Logger _logger;
@@ -29,7 +29,7 @@ class ServiceRepository implements IServiceRepository {
   @override
   Future<Option<Service>> detail(int id) async {
     try {
-      final response = await _serviceApi.getDetail(id);
+      final response = await _serviceApi.detail(id);
       if (!response.valid) return none();
       return optionOf(response.data!);
       // return optionOf(Service.random());
@@ -43,7 +43,7 @@ class ServiceRepository implements IServiceRepository {
   @override
   Future<Option<KtList<Catalogue>>> allCatalogue() async {
     try {
-      final response = await _catalogueApi.getCatalogues();
+      final response = await _catalogueApi.all();
       final catalogues = KtList.from(response.data!.map((catalogue) {
         return catalogue.toDomain();
       })).plus(_fakeCategories);
@@ -58,16 +58,26 @@ class ServiceRepository implements IServiceRepository {
 
   @override
   Future<Option<Pagination<Service>>> allService(
-      {required int page, required int perPage}) async {
+      {int? page, int? perPage}) async {
     try {
-      final response = await _serviceApi.getServices();
-      final services = KtList.from(response.data!);
+      final response = await _serviceApi.all();
+      final totalPages = response.data!.meta.totalPages;
+      final currentPage = response.data!.meta.currentPage;
+      final services = KtList.from(response.data!.services);
+
       return optionOf(Pagination<Service>(
-          page: page,
-          pageCount: 1,
-          totalCount: 1,
-          perPage: perPage,
-          data: services.plus(services)));
+          data: services,
+          page: currentPage,
+          pageCount: totalPages,
+          totalCount: services.size,
+          perPage: perPage ?? services.size));
+
+      // return optionOf(Pagination<Service>(
+      //     page: page,
+      //     pageCount: 1,
+      //     totalCount: 1,
+      //     perPage: perPage,
+      //     data: services.plus(services)));
     } catch (e) {
       _logger.e(e);
     }

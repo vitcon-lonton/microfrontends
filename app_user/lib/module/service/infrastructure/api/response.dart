@@ -1,12 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+part of 'api.dart';
 
-import '../domain/entities.dart';
+@freezed
+class GetAllData with _$GetAllData {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory GetAllData(
+      {required Meta meta, required List<Service> services}) = _GetAllData;
 
-part 'models.freezed.dart';
-part 'models.g.dart';
+  factory GetAllData.fromJson(Map<String, dynamic> json) =>
+      _$GetAllDataFromJson(json);
+}
 
-extension CatalogueDtoExt on CatalogueDto {
-  Catalogue toDomain() => Catalogue.fromJson(toJson());
+@freezed
+class Meta with _$Meta {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory Meta(
+      {required int totalPages,
+      required int currentPage,
+      dynamic nextPage,
+      dynamic prevPage}) = _Meta;
+
+  factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
 }
 
 @freezed

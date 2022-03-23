@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart' hide Headers;
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
-
 import '../../domain/favorite.dart';
-
+part 'favorite_api.freezed.dart';
 part 'favorite_api.g.dart';
-part 'models.dart';
+part 'response.dart';
 
 @RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/favorites')
 abstract class FavoriteApi {
@@ -13,7 +13,7 @@ abstract class FavoriteApi {
 
   @GET('')
   @Headers(authHeader)
-  Future<BaseResponse<List<Favorite>>> all();
+  Future<BaseResponse<GetAllData>> all();
 
   @PUT('')
   @Headers(authHeader)

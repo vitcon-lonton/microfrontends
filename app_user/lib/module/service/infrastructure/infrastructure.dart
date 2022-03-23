@@ -1,3 +1,3 @@
-export 'models.dart';
-export 'service_api.dart';
+export 'api/api.dart';
+export 'service_mapper.dart';
 export 'service_repository.dart';
