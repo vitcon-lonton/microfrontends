@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kt_dart/kt.dart';
 import 'package:logger/logger.dart';
 import 'article_api.dart';
 part 'articles_cubit.freezed.dart';
@@ -9,32 +10,25 @@ part 'articles_cubit.freezed.dart';
 @freezed
 class ArticlesState with _$ArticlesState {
   const ArticlesState._();
-
-  factory ArticlesState({
-    @Default(1) page,
-    @Default(10) perPage,
-    @Default(1) pageCount,
-    @Default(0) totalCount,
-    @Default(false) bool isSubmitting,
-    @Default(true) bool showErrorMessages,
-    required Option<List<Article>> articlesOption,
-  }) = _ArticlesState;
+  factory ArticlesState(
+      {@Default(1) page,
+      @Default(10) perPage,
+      @Default(1) pageCount,
+      @Default(0) totalCount,
+      @Default(false) bool isSubmitting,
+      required Option<KtList<Article>> articlesOption}) = _ArticlesState;
+  factory ArticlesState.init() => ArticlesState(articlesOption: none());
 
   bool get isLastPage => page == pageCount;
 
-  List<Article> get articles {
-    return List.of(articlesOption
-        .foldRight(<Article>[], (articles, previous) => articles));
-  }
-
-  factory ArticlesState.init() => ArticlesState(articlesOption: none());
+  KtList<Article> get articles => articlesOption.getOrElse(emptyList);
 }
 
 class ArticlesCubit extends Cubit<ArticlesState> {
   final Logger _logger;
-  final ArticleApi _api;
+  final ArticleApi _articleApi;
 
-  ArticlesCubit(this._logger, this._api) : super(ArticlesState.init());
+  ArticlesCubit(this._logger, this._articleApi) : super(ArticlesState.init());
 
   void refreshRequested() => emit(ArticlesState.init());
 
@@ -43,25 +37,24 @@ class ArticlesCubit extends Cubit<ArticlesState> {
   Future<void> getArticlesRequested() async {
     emit(state.copyWith(isSubmitting: true));
 
-    final result = await _getArticles();
+    Option<KtList<Article>> possibleData = await _performGetArticles();
 
-    result.fold(() {}, (articles) {
-      final newArticles = state.articles
-        ..addAll(articles)
-        ..addAll(articles)
-        ..addAll(articles)
-        ..addAll(articles);
-
-      emit(state.copyWith(articlesOption: optionOf(newArticles)));
+    possibleData.fold(() {}, (articles) {
+      emit(state.copyWith(
+          articlesOption: optionOf(state.articles
+              .plus(articles)
+              .plus(articles)
+              .plus(articles)
+              .plus(articles))));
     });
 
     emit(state.copyWith(isSubmitting: false));
   }
 
-  Future<Option<List<Article>>> _getArticles() async {
+  Future<Option<KtList<Article>>> _performGetArticles() async {
     try {
-      final response = await _api.getArticles();
-      if (response.valid) return optionOf(response.data);
+      final response = await _articleApi.all();
+      return optionOf(KtList.from(response.data!));
     } catch (e) {
       _logger.e(e);
     }

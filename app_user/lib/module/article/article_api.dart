@@ -5,15 +5,15 @@ import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
 part 'article_api.g.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/articles')
+@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1')
 abstract class ArticleApi {
   factory ArticleApi(Dio dio, {String baseUrl}) = _ArticleApi;
 
-  @GET('')
-  Future<BaseResponse<List<Article>>> getArticles();
+  @GET('/articles')
+  Future<BaseResponse<List<Article>>> all();
 
-  @GET('/{id}')
-  Future<BaseResponse<Article>> getArticleDetail(@Path() int id);
+  @GET('/articles/{id}')
+  Future<BaseResponse<Article>> detail(@Path() int id);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)

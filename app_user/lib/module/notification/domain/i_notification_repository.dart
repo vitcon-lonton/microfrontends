@@ -1,6 +1,5 @@
-import 'package:dartz/dartz.dart' hide Order;
+import 'package:dartz/dartz.dart';
 import 'package:app_user/core/core.dart';
-
 import 'notification.dart';
 
 abstract class INotificationRepository {

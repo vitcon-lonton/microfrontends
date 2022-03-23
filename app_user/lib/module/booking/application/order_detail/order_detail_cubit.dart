@@ -1,23 +1,26 @@
-import 'package:dartz/dartz.dart' hide Order;
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:app_user/core/core.dart';
-import '../../domain/booking_entities.dart';
+import '../../domain/booking.dart';
 import '../../domain/i_booking_repository.dart';
 part 'order_detail_cubit.freezed.dart';
 
 @freezed
 class OrderDetailState with _$OrderDetailState {
   const OrderDetailState._();
+
+  factory OrderDetailState.init() => OrderDetailState(bookingOption: none());
+
   factory OrderDetailState(
       {@Default(false) bool isLoading,
-      required Option<Order> orderOption}) = _OrderDetailState;
+      required Option<Booking> bookingOption}) = _OrderDetailState;
 
-  bool get isCancelAvailable => order?.status == OrderStatus.created;
+  bool get isCancelAvailable => booking?.status == 'created';
 
-  Order? get order => orderOption.foldRight(null, (order, prev) => order);
+  Booking? get booking => bookingOption.fold(() => null, (item) => item);
 
-  factory OrderDetailState.init() => OrderDetailState(orderOption: none());
+  // bool get isCancelAvailable => booking?.status == OrderStatus.created;
+
 }
 
 class OrderDetailCubit extends Cubit<OrderDetailState> {
@@ -25,14 +28,14 @@ class OrderDetailCubit extends Cubit<OrderDetailState> {
 
   OrderDetailCubit(this._repository) : super(OrderDetailState.init());
 
-  void refreshRequested() => emit(OrderDetailState.init());
-
-  Future<void> detailRequested(UniqueId id) async {
+  Future<void> detailRequested(int id) async {
     emit(state.copyWith(isLoading: true));
 
-    final orderOption = await _repository.detail(id);
+    Option<Booking> possibleData = await _repository.detail(id);
 
     emit(state.copyWith(isLoading: false));
-    emit(state.copyWith(orderOption: orderOption));
+    emit(state.copyWith(bookingOption: possibleData));
   }
+
+  void refreshRequested() => emit(OrderDetailState.init());
 }

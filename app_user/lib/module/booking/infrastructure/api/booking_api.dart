@@ -1,25 +1,27 @@
 /* spell-checker: disable */
 import 'dart:io';
-
 import 'package:dio/dio.dart' hide Headers;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
-
 part 'booking_api.freezed.dart';
 part 'booking_api.g.dart';
 part 'request.dart';
 part 'response.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/bookings')
+@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/')
 abstract class BookingApi {
   factory BookingApi(Dio dio, {String baseUrl}) = _BookingApi;
 
-  @DELETE('/{id}')
+  @DELETE('/bookings/{id}')
   @Headers(authHeader)
   Future<BaseResponse<dynamic>> delete(@Path() int id);
 
-  @POST('')
+  @GET('/bookings/{id}')
+  @Headers(authHeader)
+  Future<BaseResponse<BookingDto>> detail(@Path() int id);
+
+  @POST('/bookings')
   @Headers(authHeader)
   Future<BaseResponse<BookingDto>> create(
       {@Part(name: 'service_id') required int serviceId,
@@ -33,9 +35,9 @@ abstract class BookingApi {
       @Part(name: 'phonenumber') String? phoneNumber,
       @Part(name: 'booking_images') List<File>? bookingImages});
 
-  @PUT('')
+  @PUT('/bookings/{id}')
   @Headers(authHeader)
-  Future<BaseResponse<BookingDto>> update(
+  Future<BaseResponse<BookingDto>> update(@Path() int id,
       {@Part(name: 'service_id') required int serviceId,
       @Part(name: 'fullname') required String fullName,
       @Part(name: 'timeboxing_start') String? timeBoxingStart,
@@ -47,7 +49,7 @@ abstract class BookingApi {
       @Part(name: 'phonenumber') String? phoneNumber,
       @Part(name: 'booking_images') List<File>? bookingImages});
 
-  @GET('')
+  @GET('/bookings')
   @Headers(authHeader)
   Future<BaseResponse<List<BookingDto>>> bookings(
       {@Field() int? page, @Field() int? limit});

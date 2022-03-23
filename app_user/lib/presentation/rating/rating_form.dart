@@ -1,8 +1,8 @@
 /* spell-checker: disable */
-part of 'order_rating.dart';
+part of 'rating.dart';
 
-class OrderRatingForm extends StatelessWidget {
-  const OrderRatingForm({Key? key}) : super(key: key);
+class RatingForm extends StatelessWidget {
+  const RatingForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class OrderRatingForm extends StatelessWidget {
     final txtSubmit = tr(LocaleKeys.txt_submit);
     final txtYourReview = tr(LocaleKeys.txt_your_review);
 
-    return BlocListener<OrderRatingCubit, OrderRatingState>(
+    return BlocListener<RatingFormCubit, RatingFormState>(
       listenWhen: (prev, cur) =>
           prev.failureOrSuccessOption != cur.failureOrSuccessOption,
       listener: (context, state) {
@@ -43,7 +43,7 @@ class OrderRatingForm extends StatelessWidget {
       },
       child: Form(
         autovalidateMode:
-            context.read<OrderRatingCubit>().state.showErrorMessages
+            context.read<RatingFormCubit>().state.showErrorMessages
                 ? AutovalidateMode.always
                 : AutovalidateMode.disabled,
         child: Column(children: [
@@ -85,7 +85,7 @@ class OrderRatingForm extends StatelessWidget {
           ),
 
           kVSpaceL,
-          BlocBuilder<OrderRatingCubit, OrderRatingState>(
+          BlocBuilder<RatingFormCubit, RatingFormState>(
               buildWhen: (prev, cur) =>
                   prev.point != cur.point ||
                   prev.isSubmitting != cur.isSubmitting,
@@ -94,7 +94,7 @@ class OrderRatingForm extends StatelessWidget {
                   initialRating: state.point,
                   direction: Axis.horizontal,
                   // allowHalfRating: true,
-                  onRatingUpdate: context.read<OrderRatingCubit>().pointChanged,
+                  onRatingUpdate: context.read<RatingFormCubit>().pointChanged,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   ratingWidget: RatingWidget(
                       half: Icon(Icons.star_half_rounded,
@@ -105,7 +105,7 @@ class OrderRatingForm extends StatelessWidget {
                           color: Colors.amber.shade400)))),
 
           kVSpaceXL,
-          BlocBuilder<OrderRatingCubit, OrderRatingState>(
+          BlocBuilder<RatingFormCubit, RatingFormState>(
               buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
               builder: (context, state) => WTextInput(
                   height: 100,
@@ -115,14 +115,14 @@ class OrderRatingForm extends StatelessWidget {
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 8.0))),
 
-          // onChanged: context.read<OrderRatingCubit>().phoneChanged,
+          // onChanged: context.read<RatingFormCubit>().phoneChanged,
           kVSpaceM,
           kVSpaceM,
           kVSpaceM,
           Row(children: [
             kVSpaceM,
             Expanded(
-              child: BlocBuilder<OrderRatingCubit, OrderRatingState>(
+              child: BlocBuilder<RatingFormCubit, RatingFormState>(
                   buildWhen: (prev, cur) =>
                       prev.isSubmitting != cur.isSubmitting,
                   builder: (_, state) => SizedBox(
@@ -136,14 +136,14 @@ class OrderRatingForm extends StatelessWidget {
             ),
             kHSpaceL,
             Expanded(
-              child: BlocBuilder<OrderRatingCubit, OrderRatingState>(
+              child: BlocBuilder<RatingFormCubit, RatingFormState>(
                   buildWhen: (prev, cur) =>
                       prev.isSubmitting != cur.isSubmitting,
                   builder: (_, state) => WSubmitBtn(
                       child: Text(state.isSubmitting ? '...' : txtSubmit),
                       onPressed: state.isSubmitting
                           ? null
-                          : context.read<OrderRatingCubit>().submitted)),
+                          : context.read<RatingFormCubit>().submitted)),
             ),
             kVSpaceM,
           ])

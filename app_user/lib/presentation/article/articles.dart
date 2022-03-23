@@ -47,7 +47,7 @@ class _ArticlesState extends State<Articles> {
           if (!widget.isPagination) {
             return ListView.separated(
               padding: widget.padding,
-              itemCount: articles.length,
+              itemCount: articles.size,
               separatorBuilder: (_, i) => kHSpaceM,
               scrollDirection: widget.scrollDirection,
               itemBuilder: (context, index) {
@@ -66,7 +66,7 @@ class _ArticlesState extends State<Articles> {
             isLastPage: state.isLastPage,
             child: ListView.separated(
               shrinkWrap: true,
-              itemCount: articles.length,
+              itemCount: articles.size,
               scrollDirection: widget.scrollDirection,
               separatorBuilder: (_, index) => kVSpaceM,
               physics: const NeverScrollableScrollPhysics(),

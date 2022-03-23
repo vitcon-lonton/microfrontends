@@ -52,7 +52,7 @@ import '../user/user_update/user_update.dart';
     // MaterialRoute(page: ServiceDetail),
 
     // BOOKING
-    MaterialRoute(page: OrderDetailPage),
+    MaterialRoute(page: BookingDetailPage),
     MaterialRoute(page: BookingHistoriesPage),
 
     // CART

@@ -1,6 +1,5 @@
 /* spell-checker: disable */
-
-import '../domain/booking_entities.dart';
+import '../domain/booking.dart';
 import 'api/booking_api.dart';
 
 extension BookingDomainX on BookingDto {

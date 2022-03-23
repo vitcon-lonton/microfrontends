@@ -1,18 +1,19 @@
 /* spell-checker: disable */
 part of 'order_detail.dart';
 
-class OrderDetailPage extends StatefulWidget {
-  const OrderDetailPage({Key? key}) : super(key: key);
+class BookingDetailPage extends StatefulWidget {
+  final int id;
+
+  const BookingDetailPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<OrderDetailPage> createState() => _OrderDetailPageState();
+  State<BookingDetailPage> createState() => _BookingDetailPageState();
 }
 
-class _OrderDetailPageState extends State<OrderDetailPage> {
-  final UniqueId id = UniqueId();
-
+class _BookingDetailPageState extends State<BookingDetailPage> {
   @override
   Widget build(BuildContext context) {
+    final id = widget.id;
     final txtOrderCode = tr(LocaleKeys.txt_order_code);
 
     return MultiBlocProvider(
@@ -49,15 +50,15 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           // APP BAR
           appBar: AppBar(
             title: BlocBuilder<OrderDetailCubit, OrderDetailState>(
-                buildWhen: (prev, cur) => prev.order != cur.order,
-                builder: (context, state) => Text(
-                    '$txtOrderCode: #${state.order?.id.getOrCrash() ?? ''}')),
+                buildWhen: (prev, cur) => prev.booking != cur.booking,
+                builder: (context, state) =>
+                    Text('$txtOrderCode: #${state.booking?.sku ?? ''}')),
           ),
 
           // BODY
           body: RefreshLoadmore(
             isLastPage: true,
-            child: const OrderInfo(),
+            child: OrderInfo(id: id),
             noMoreWidget: kSpaceZero,
             onRefresh: () =>
                 context.read<OrderDetailCubit>().detailRequested(id),

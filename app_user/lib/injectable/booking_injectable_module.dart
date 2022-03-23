@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-
-import '../module/booking/booking.dart';
+import 'package:app_user/module/booking/booking.dart';
 
 @module
 abstract class BookingInjectableModule {
@@ -13,9 +12,6 @@ abstract class BookingInjectableModule {
 
   @Injectable()
   OrderDeleteCubit get delete;
-
-  @Injectable()
-  OrderRatingCubit get rating;
 
   @Injectable()
   OrderConfirmCubit get confirm;

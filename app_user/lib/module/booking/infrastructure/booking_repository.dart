@@ -1,8 +1,8 @@
-import 'package:dartz/dartz.dart' hide Order;
+import 'package:dartz/dartz.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
-import '../domain/booking_entities.dart';
+import '../domain/booking.dart';
 import '../domain/booking_failure.dart';
 import '../domain/i_booking_repository.dart';
 import 'api/booking_api.dart';
@@ -10,14 +10,20 @@ import 'booking_mapper.dart';
 
 class BookingRepository implements IBookingRepository {
   final Logger _logger;
-  final BookingApi _api;
+  final BookingApi _bookingApi;
 
-  BookingRepository(this._logger, this._api);
+  BookingRepository(this._logger, this._bookingApi);
 
   @override
-  Future<Option<Order>> detail(UniqueId id) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    return optionOf(Order.random());
+  Future<Option<Booking>> detail(int id) async {
+    try {
+      final response = await _bookingApi.detail(id);
+      return optionOf(response.data!.toDomain());
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return none();
   }
 
   @override
@@ -29,7 +35,7 @@ class BookingRepository implements IBookingRepository {
   @override
   Future<Either<BookingFailure, Unit>> create(order) async {
     try {
-      final response = await _api.create(
+      await _bookingApi.create(
           serviceId: 1,
           address: 'address',
           fullName: 'fullName',
@@ -41,9 +47,7 @@ class BookingRepository implements IBookingRepository {
           description: 'description',
           bookingImages: null);
 
-      if (response.valid) {
-        return right(unit);
-      }
+      return right(unit);
     } catch (e) {
       _logger.e(e);
     }
@@ -58,22 +62,10 @@ class BookingRepository implements IBookingRepository {
   }
 
   @override
-  Future<Either<BookingFailure, Unit>> rating(
-      {UniqueId? id, required double point}) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-
-    if (point < 0.0 || point > 5.0) {
-      return left(const BookingFailure.unexpected());
-    }
-
-    return right(unit);
-  }
-
-  @override
   Future<Option<Pagination<Booking>>> histories(
       {required int page, required int perPage}) async {
     try {
-      final response = await _api.bookings();
+      final response = await _bookingApi.bookings();
       final bookings = KtList.from(response.data!).map((item) {
         return item.toDomain();
       });

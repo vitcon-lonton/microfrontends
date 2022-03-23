@@ -1,5 +1,5 @@
 /* spell-checker: disable */
-import 'package:dartz/dartz.dart' hide Order;
+import 'package:dartz/dartz.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';

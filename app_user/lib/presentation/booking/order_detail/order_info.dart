@@ -2,7 +2,9 @@
 part of 'order_detail.dart';
 
 class OrderInfo extends StatefulWidget {
-  const OrderInfo({Key? key}) : super(key: key);
+  final int id;
+
+  const OrderInfo({Key? key, required this.id}) : super(key: key);
 
   @override
   State<OrderInfo> createState() => _OrderInfoState();
@@ -19,7 +21,7 @@ class _OrderInfoState extends State<OrderInfo> {
     final txtExecutionAddress = tr(LocaleKeys.txt_execution_address);
 
     return BlocProvider.value(
-      value: context.read<OrderDetailCubit>()..detailRequested(UniqueId()),
+      value: context.read<OrderDetailCubit>()..detailRequested(widget.id),
       child: Column(
         children: [
           // PROGRESS INDICATOR
@@ -35,14 +37,14 @@ class _OrderInfoState extends State<OrderInfo> {
           // INFO
           BlocBuilder<OrderDetailCubit, OrderDetailState>(
             builder: (context, state) {
-              if (state.order == null) return kSpaceZero;
+              if (state.booking == null) return kSpaceZero;
 
-              final order = state.order!;
-              final name = order.name;
+              Booking booking = state.booking!;
+              String name = booking.fullName;
               // final status = order.status;
-              final address = order.address;
-              final price = '${order.price} VND';
-              final date = order.time.toIso8601String();
+              String address = booking.address ?? '';
+              String price = '${booking.priceTotal} VND';
+              String date = booking.timeBoxingStart?.toIso8601String() ?? '';
 
               return Column(
                   children: [
@@ -206,7 +208,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start);
             },
-            buildWhen: (prev, cur) => prev.order != cur.order,
+            buildWhen: (prev, cur) => prev.booking != cur.booking,
           ),
         ],
       ),

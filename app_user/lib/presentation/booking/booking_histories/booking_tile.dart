@@ -7,13 +7,16 @@ class BookingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final id = '#${item.sku}';
+    final id = item.id;
     final name = item.fullName;
+    final code = '#${item.sku}';
     final status = item.status ?? '';
     final time = item.timeBoxingEnd?.toIso8601String() ?? '';
 
     return InkWell(
-      onTap: () => _showRatingForm(context),
+      onTap: () {
+        context.router.push(BookingDetailPageRoute(id: id));
+      },
       borderRadius: BorderRadius.circular(8),
       child: Ink(
         color: const Color(0xFFF7F8FA),
@@ -28,7 +31,7 @@ class BookingTile extends StatelessWidget {
                 // ID, PRICE
                 Row(children: [
                   Text('${tr(LocaleKeys.txt_order)}: '),
-                  Expanded(child: Text(id)),
+                  Expanded(child: Text(code)),
                 ]),
 
                 // NAME, TIME
@@ -55,27 +58,27 @@ class BookingTile extends StatelessWidget {
     );
   }
 
-  void _showRatingForm(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => BlocProvider(
-        create: (_) => getIt<OrderRatingCubit>(),
-        child: Material(
-          color: Colors.transparent,
-          child: Column(children: [
-            const Spacer(),
-            Container(
-              child: const OrderRatingForm(),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: kSpaceXXL, vertical: kSpaceM),
-              decoration: const BoxDecoration(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(16.0)),
-                  color: Colors.white),
-            ),
-          ]),
-        ),
-      ),
-    );
-  }
+  // void _showRatingForm(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => BlocProvider(
+  //       create: (_) => getIt<RatingFormCubit>(),
+  //       child: Material(
+  //         color: Colors.transparent,
+  //         child: Column(children: [
+  //           const Spacer(),
+  //           Container(
+  //             child: const RatingForm(),
+  //             padding: const EdgeInsets.symmetric(
+  //                 horizontal: kSpaceXXL, vertical: kSpaceM),
+  //             decoration: const BoxDecoration(
+  //                 borderRadius:
+  //                     BorderRadius.vertical(top: Radius.circular(16.0)),
+  //                 color: Colors.white),
+  //           ),
+  //         ]),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

@@ -1,9 +1,9 @@
-import 'package:dartz/dartz.dart' hide Order;
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:app_user/core/core.dart';
 import 'package:kt_dart/kt.dart';
-import '../../domain/booking_entities.dart';
+import 'package:app_user/core/core.dart';
+import '../../domain/booking.dart';
 import '../../domain/i_booking_repository.dart';
 part 'booking_histories_cubit.freezed.dart';
 
