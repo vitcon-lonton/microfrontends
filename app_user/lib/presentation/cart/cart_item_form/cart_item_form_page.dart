@@ -11,7 +11,6 @@ class CartItemFormPage extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<FavoriteAlreadyExistCubit>()),
         BlocProvider(create: (_) {
           if (cartItem == null) {
             return getIt<ServiceDetailCubit>();
@@ -44,15 +43,6 @@ class CartItemFormPage extends StatelessWidget {
                         .showSnackBar(const SnackBar(
                             behavior: SnackBarBehavior.floating,
                             content: Text('Unexpected error.'))))),
-
-            // LISTEN FAVORITE FAILURE
-            // BlocListener<FavoriteAlreadyExistCubit, FavoriteAlreadyExistState>(
-            //     listener: (context, state) =>
-            //         state.failureOption.fold(() {}, (failure) {
-            //           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            //               behavior: SnackBarBehavior.floating,
-            //               content: Text('Server error')));
-            //         })),
 
             // LISTEN CART ITEM SERVICE ID
             BlocListener<CartItemFormCubit, CartItemFormState>(

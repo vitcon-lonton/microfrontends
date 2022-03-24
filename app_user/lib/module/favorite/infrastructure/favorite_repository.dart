@@ -22,11 +22,11 @@ class FavoriteRepository implements IFavoriteRepository {
       final favorites = KtList.from(response.data!.favorites);
 
       return optionOf(Pagination<Favorite>(
+          data: favorites,
           page: currentPage,
           pageCount: totalPages,
-          data: favorites,
-          perPage: perPage ?? favorites.size,
-          totalCount: favorites.size));
+          totalCount: favorites.size,
+          perPage: perPage ?? favorites.size));
     } catch (e) {
       _logger.e(e);
     }
@@ -59,17 +59,10 @@ class FavoriteRepository implements IFavoriteRepository {
   }
 
   @override
-  Future<Option<Favorite>> findByServiceId(int serviceId) async {
+  Future<Option<Favorite>> find(int serviceId) async {
     try {
-      Favorite? item;
-      KtList<Favorite> favorites;
-      BaseResponse<GetAllData> response;
-
-      response = await _favoriteApi.all();
-      favorites = (KtList.from(response.data!.favorites));
-      item = favorites.singleOrNull((element) => element.id == serviceId);
-
-      return optionOf(item);
+      final response = await _favoriteApi.check(serviceId);
+      return optionOf(response.data);
     } catch (e) {
       _logger.e(e);
     }

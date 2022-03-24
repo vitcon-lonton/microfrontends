@@ -8,17 +8,17 @@ abstract class FavoriteInjectableModule {
   FavoriteAllCubit get all;
 
   @Injectable()
+  FavoriteFindCubit get find;
+
+  @Injectable()
   FavoriteCreateCubit get create;
 
   @Injectable()
   FavoriteDeleteCubit get delete;
 
-  @Injectable()
-  FavoriteAlreadyExistCubit get alreadyExist;
+  @LazySingleton(as: IFavoriteRepository)
+  FavoriteRepository get repository;
 
   @LazySingleton()
   FavoriteApi api(Dio dio) => FavoriteApi(dio);
-
-  @LazySingleton(as: IFavoriteRepository)
-  FavoriteRepository get repository;
 }

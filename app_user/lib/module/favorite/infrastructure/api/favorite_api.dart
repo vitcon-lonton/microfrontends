@@ -7,19 +7,23 @@ part 'favorite_api.freezed.dart';
 part 'favorite_api.g.dart';
 part 'response.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/favorites')
+@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/')
 abstract class FavoriteApi {
   factory FavoriteApi(Dio dio, {String baseUrl}) = _FavoriteApi;
 
-  @GET('')
+  @GET('/favorites')
   @Headers(authHeader)
   Future<BaseResponse<GetAllData>> all();
 
-  @PUT('')
+  @GET('/favorites/service_check')
+  @Headers(authHeader)
+  Future<BaseResponse<Favorite>> check(@Query('service_id') int serviceId);
+
+  @PUT('/favorites')
   @Headers(authHeader)
   Future<BaseResponse<dynamic>> delete(@Part(name: 'service_id') int serviceId);
 
-  @POST('')
+  @POST('/favorites')
   @Headers(authHeader)
   Future<BaseResponse<dynamic>> create(@Part(name: 'service_id') int serviceId);
 }

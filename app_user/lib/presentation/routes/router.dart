@@ -4,7 +4,6 @@ import '../booking/booking_histories/booking_histories.dart';
 import '../booking/order_detail/order_detail.dart';
 import '../cart/cart.dart';
 import '../category/category.dart';
-import '../favorites/favorites.dart';
 import '../home/home.dart';
 import '../image_selector/image_selector.dart';
 import '../notifications/notifications.dart';

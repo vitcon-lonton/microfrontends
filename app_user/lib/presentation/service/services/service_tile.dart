@@ -9,8 +9,6 @@ class ServiceTile extends StatefulWidget {
   State<ServiceTile> createState() => _ServiceTileState();
 }
 
-// create: (context) =>
-//     getIt<FavoriteAlreadyExistCubit>().initialized(optionOf(serviceId)),
 class _ServiceTileState extends State<ServiceTile> {
   @override
   Widget build(BuildContext context) {
@@ -20,9 +18,7 @@ class _ServiceTileState extends State<ServiceTile> {
 
     return BlocProvider(
       create: (context) {
-        return getIt<FavoriteAlreadyExistCubit>()
-          ..initialized(optionOf(serviceId))
-          ..findItemRequested();
+        return getIt<FavoriteFindCubit>()..findRequested(serviceId);
       },
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
@@ -78,35 +74,10 @@ class _ServiceTileState extends State<ServiceTile> {
                         crossAxisAlignment: CrossAxisAlignment.start)),
               ),
               IconTheme(
+                child: FavoriteButton(serviceId: serviceId),
                 data: const IconThemeData.fallback()
                     .copyWith(color: Theme.of(context).primaryColor),
-                child: BlocBuilder<FavoriteAlreadyExistCubit,
-                    FavoriteAlreadyExistState>(buildWhen: (prev, cur) {
-                  return prev.isLoading != cur.isLoading ||
-                      prev.isAlreadyExist != cur.isAlreadyExist;
-                }, builder: (context, state) {
-                  if (state.isLoading) {
-                    return const IconButton(
-                        onPressed: null,
-                        icon: CircularProgressIndicator(strokeWidth: 2.0));
-                  }
-
-                  return state.isAlreadyExist
-                      ? IconButton(
-                          onPressed: () => context
-                              .read<FavoriteDeleteCubit>()
-                              .deleted(serviceId),
-                          icon: const Icon(Icons.favorite))
-                      : IconButton(
-                          onPressed: () => context
-                              .read<FavoriteCreateCubit>()
-                              .created(serviceId),
-                          icon: const Icon(Icons.favorite_border_outlined));
-                }),
               ),
-              // IconButton(
-              //     onPressed: () => _confirm(context),
-              //     icon: const Icon(Icons.favorite, color: Colors.red)),
             ]),
           ),
         ),
@@ -134,25 +105,23 @@ class _ServiceTileState extends State<ServiceTile> {
                   Text('Are you want unlike ${widget.service.name}?'),
                   kVSpaceXL,
                   kVSpaceXL,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          child: const Text('Cancel'),
-                          onPressed: Navigator.of(context).pop,
-                        ),
+                  Row(children: [
+                    Expanded(
+                      child: TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: Navigator.of(context).pop,
                       ),
-                      kHSpaceL,
-                      Expanded(
-                        child: ElevatedButton(
-                          child: const Text('Unlike'),
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0, shadowColor: Colors.transparent),
-                          onPressed: Navigator.of(context).pop,
-                        ),
+                    ),
+                    kHSpaceL,
+                    Expanded(
+                      child: ElevatedButton(
+                        child: const Text('Unlike'),
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0, shadowColor: Colors.transparent),
+                        onPressed: Navigator.of(context).pop,
                       ),
-                    ],
-                  ),
+                    ),
+                  ]),
                   kVSpaceL,
                 ],
               ),
