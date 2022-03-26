@@ -19,6 +19,9 @@ abstract class BookingInjectableModule {
   @Injectable()
   BookingHistoriesCubit get histories;
 
+  @Injectable()
+  TechnicianInfoCubit get technicianInfo;
+
   @LazySingleton(as: IBookingRepository)
   BookingRepository get repository;
 

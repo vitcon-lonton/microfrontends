@@ -1,5 +1,5 @@
 /* spell-checker: disable */
-part of 'order_detail.dart';
+part of 'booking_detail.dart';
 
 class BookingDetailPage extends StatefulWidget {
   final int id;
@@ -30,8 +30,7 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
 
           // LISTENER DELETE
           BlocListener<OrderDeleteCubit, OrderDeleteState>(
-              listener: (context, state) => state.maybeWhen(
-                  orElse: () => null,
+              listener: (context, state) => state.whenOrNull(
                   deleteSuccess: () =>
                       context.read<OrderDetailCubit>().detailRequested(id),
                   deleteFailure: (failure) =>
@@ -39,8 +38,7 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
 
           // LISTENER CONFIRM
           BlocListener<OrderConfirmCubit, OrderConfirmState>(
-              listener: (context, state) => state.maybeWhen(
-                  orElse: () => null,
+              listener: (context, state) => state.whenOrNull(
                   confirmSuccess: () =>
                       context.read<OrderDetailCubit>().detailRequested(id),
                   confirmFailure: (failure) =>
@@ -58,10 +56,11 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
           // BODY
           body: RefreshLoadmore(
             isLastPage: true,
-            child: OrderInfo(id: id),
+            child: BookingInfo(id),
             noMoreWidget: kSpaceZero,
-            onRefresh: () =>
-                context.read<OrderDetailCubit>().detailRequested(id),
+            onRefresh: () {
+              return context.read<OrderDetailCubit>().detailRequested(id);
+            },
           ),
 
           // // BOTTOM NAVIGATION BAR

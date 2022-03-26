@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import '../article/article.dart';
+import '../booking/booking_detail/booking_detail.dart';
 import '../booking/booking_histories/booking_histories.dart';
-import '../booking/order_detail/order_detail.dart';
 import '../cart/cart.dart';
 import '../category/category.dart';
 import '../home/home.dart';

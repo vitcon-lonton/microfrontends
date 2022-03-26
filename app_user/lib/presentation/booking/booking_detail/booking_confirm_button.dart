@@ -1,36 +1,32 @@
-part of 'order_detail.dart';
+part of 'booking_detail.dart';
 
-class OrderRejectButton extends StatefulWidget {
-  const OrderRejectButton({Key? key}) : super(key: key);
+class OrderConfirmButton extends StatefulWidget {
+  const OrderConfirmButton({Key? key}) : super(key: key);
 
   @override
-  State<OrderRejectButton> createState() => _OrderRejectButtonState();
+  State<OrderConfirmButton> createState() => _OrderConfirmButtonState();
 }
 
-class _OrderRejectButtonState extends State<OrderRejectButton> {
+class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   @override
   Widget build(BuildContext context) {
-    final txtReject = tr(LocaleKeys.txt_reject);
+    final txtConfirm = tr(LocaleKeys.txt_confirm);
 
-    return BlocBuilder<OrderDeleteCubit, OrderDeleteState>(
+    return BlocBuilder<OrderConfirmCubit, OrderConfirmState>(
       builder: (context, state) {
         String title = state.maybeWhen(
-            orElse: () => txtReject, actionInProgress: () => '...');
+            orElse: () => txtConfirm, actionInProgress: () => '...');
         VoidCallback? onPressed = state.maybeWhen(
             orElse: () => _submitted, actionInProgress: () => null);
 
         return Expanded(
           child: SizedBox(
-            height: 45,
-            child: ElevatedButton(
-              child: Text(title),
-              onPressed: onPressed,
-              style: TextButton.styleFrom(
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  backgroundColor: const Color(0xFFB5B5B5)),
-            ),
-          ),
+              height: 45,
+              child: ElevatedButton(
+                  child: Text(title),
+                  onPressed: onPressed,
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0, shadowColor: Colors.transparent))),
         );
       },
     );
@@ -38,8 +34,8 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
 
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
-    if (response != false) return;
-    return context.read<OrderDeleteCubit>().deleted(UniqueId());
+    if (response != true) return;
+    return context.read<OrderConfirmCubit>().confirmed();
   }
 
   Future<bool?> _showConfirmDialog() {
@@ -56,7 +52,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
                 vertical: kSpaceXL, horizontal: kSpaceXXL),
             child: Column(children: [
               kVSpaceL,
-              Text(tr(LocaleKeys.msg_7)),
+              Text(tr(LocaleKeys.msg_8)),
               kVSpaceXL,
               kVSpaceXL,
               Row(children: [
@@ -64,7 +60,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
                   child: SizedBox(
                     height: 40,
                     child: TextButton(
-                        child: Text(tr(LocaleKeys.txt_reject)),
+                        child: Text(tr(LocaleKeys.txt_review)),
                         onPressed: () => Navigator.of(context).pop(false)),
                   ),
                 ),
@@ -73,7 +69,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
                   child: SizedBox(
                     height: 40,
                     child: ElevatedButton(
-                        child: Text(tr(LocaleKeys.txt_review)),
+                        child: Text(tr(LocaleKeys.txt_agree)),
                         onPressed: () => Navigator.of(context).pop(true),
                         style: ElevatedButton.styleFrom(
                             elevation: 0, shadowColor: Colors.transparent)),

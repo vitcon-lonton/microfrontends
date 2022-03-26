@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
-import '../domain/entities.dart';
 import '../domain/failure.dart';
 import '../domain/i_service_repository.dart';
+import '../domain/service.dart';
 import 'api/api.dart';
 
 class ServiceRepository implements IServiceRepository {

@@ -15,12 +15,11 @@ class OrderDetailState with _$OrderDetailState {
       {@Default(false) bool isLoading,
       required Option<Booking> bookingOption}) = _OrderDetailState;
 
-  bool get isCancelAvailable => booking?.status == 'created';
+  Booking? get booking => bookingOption.toNullable();
 
-  Booking? get booking => bookingOption.fold(() => null, (item) => item);
+  bool get isCancelAvailable => booking?.status != BookingStatus.cancelled;
 
   // bool get isCancelAvailable => booking?.status == OrderStatus.created;
-
 }
 
 class OrderDetailCubit extends Cubit<OrderDetailState> {

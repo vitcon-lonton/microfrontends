@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'booking.freezed.dart';
 
-enum BookingStatus { created, processing, waitingConfirm, doing, done, cancel }
+enum BookingStatus { pending, accepted, process, doing, complete, cancelled }
 
 @freezed
 class Booking with _$Booking {
@@ -30,7 +30,7 @@ class Booking with _$Booking {
     dynamic transactionName,
     dynamic paidTransaction,
     dynamic paidStatus,
-    String? status,
+    required BookingStatus status,
     dynamic remark,
     String? statusInvestigate,
     String? statusPayment,

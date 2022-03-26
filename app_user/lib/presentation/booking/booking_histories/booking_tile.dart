@@ -10,7 +10,7 @@ class BookingTile extends StatelessWidget {
     final id = item.id;
     final name = item.fullName;
     final code = '#${item.sku}';
-    final status = item.status ?? '';
+    final status = item.status;
     final time = item.timeBoxingEnd?.toIso8601String() ?? '';
 
     return InkWell(
@@ -46,7 +46,7 @@ class BookingTile extends StatelessWidget {
                 Row(children: [
                   const Text('Status'),
                   const Spacer(),
-                  Text(status.toString()),
+                  Text(statusLabels[status]!),
                 ])
               ], crossAxisAlignment: CrossAxisAlignment.start),
             ),
@@ -57,28 +57,28 @@ class BookingTile extends StatelessWidget {
       ),
     );
   }
-
-  // void _showRatingForm(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => BlocProvider(
-  //       create: (_) => getIt<RatingFormCubit>(),
-  //       child: Material(
-  //         color: Colors.transparent,
-  //         child: Column(children: [
-  //           const Spacer(),
-  //           Container(
-  //             child: const RatingForm(),
-  //             padding: const EdgeInsets.symmetric(
-  //                 horizontal: kSpaceXXL, vertical: kSpaceM),
-  //             decoration: const BoxDecoration(
-  //                 borderRadius:
-  //                     BorderRadius.vertical(top: Radius.circular(16.0)),
-  //                 color: Colors.white),
-  //           ),
-  //         ]),
-  //       ),
-  //     ),
-  //   );
-  // }
 }
+
+// void _showRatingForm(BuildContext context) {
+//   showDialog(
+//     context: context,
+//     builder: (context) => BlocProvider(
+//       create: (_) => getIt<RatingFormCubit>(),
+//       child: Material(
+//         color: Colors.transparent,
+//         child: Column(children: [
+//           const Spacer(),
+//           Container(
+//             child: const RatingForm(),
+//             padding: const EdgeInsets.symmetric(
+//                 horizontal: kSpaceXXL, vertical: kSpaceM),
+//             decoration: const BoxDecoration(
+//                 borderRadius:
+//                     BorderRadius.vertical(top: Radius.circular(16.0)),
+//                 color: Colors.white),
+//           ),
+//         ]),
+//       ),
+//     ),
+//   );
+// }

@@ -4,6 +4,22 @@ import 'api/booking_api.dart';
 
 extension BookingDomainX on BookingDto {
   Booking toDomain() {
+    BookingStatus bookingStatus;
+
+    if (status == 'process') {
+      bookingStatus = BookingStatus.process;
+    } else if (status == 'accepted') {
+      bookingStatus = BookingStatus.accepted;
+    } else if (status == 'doing') {
+      bookingStatus = BookingStatus.doing;
+    } else if (status == 'complete') {
+      bookingStatus = BookingStatus.complete;
+    } else if (status == 'cancelled') {
+      bookingStatus = BookingStatus.cancelled;
+    } else {
+      bookingStatus = BookingStatus.pending;
+    }
+
     return Booking(
         id: id,
         userId: userId,
@@ -28,7 +44,7 @@ extension BookingDomainX on BookingDto {
         transactionName: transactionName,
         paidTransaction: paidTransaction,
         paidStatus: paidStatus,
-        status: status,
+        status: bookingStatus,
         remark: remark,
         statusInvestigate: statusInvestigate,
         statusPayment: statusPayment,

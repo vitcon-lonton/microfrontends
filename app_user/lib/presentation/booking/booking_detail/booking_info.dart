@@ -1,21 +1,20 @@
 /* spell-checker: disable */
-part of 'order_detail.dart';
+part of 'booking_detail.dart';
 
-class OrderInfo extends StatefulWidget {
+class BookingInfo extends StatefulWidget {
   final int id;
 
-  const OrderInfo({Key? key, required this.id}) : super(key: key);
+  const BookingInfo(this.id, {Key? key}) : super(key: key);
 
   @override
-  State<OrderInfo> createState() => _OrderInfoState();
+  State<BookingInfo> createState() => _BookingInfoState();
 }
 
-class _OrderInfoState extends State<OrderInfo> {
+class _BookingInfoState extends State<BookingInfo> {
   @override
   Widget build(BuildContext context) {
     final txtPayment = tr(LocaleKeys.txt_payment);
     final txtCod = tr(LocaleKeys.txt_cod).toUpperCase();
-    final txtTechnician = tr(LocaleKeys.txt_technician);
     final txtPaymentPrice = tr(LocaleKeys.txt_payment_price);
     final txtExecutionTime = tr(LocaleKeys.txt_execution_time);
     final txtExecutionAddress = tr(LocaleKeys.txt_execution_address);
@@ -41,7 +40,7 @@ class _OrderInfoState extends State<OrderInfo> {
 
               Booking booking = state.booking!;
               String name = booking.fullName;
-              // final status = order.status;
+              BookingStatus status = booking.status;
               String address = booking.address ?? '';
               String price = '${booking.priceTotal} VND';
               String date = booking.timeBoxingStart?.toIso8601String() ?? '';
@@ -50,7 +49,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   children: [
                     // STATUS
                     ...[
-                      _horizontalPaddingM(const StatusTimeline()),
+                      _horizontalPaddingM(StatusTimeline(status)),
                       kVSpaceM,
                     ],
 
@@ -79,24 +78,7 @@ class _OrderInfoState extends State<OrderInfo> {
                     ],
 
                     // KTV
-                    ...[
-                      _horizontalPaddingM(const Divider(height: 0)),
-                      kVSpaceM,
-                      _section(
-                        title: txtTechnician,
-                        icon: const Icon(Icons.person_outline_rounded),
-                        content: Expanded(
-                          child: Row(
-                            children: [
-                              Text('$txtTechnician Name | 9999999999'),
-                              const Spacer(),
-                              const Icon(Icons.phone, size: 16),
-                            ],
-                          ),
-                        ),
-                      ),
-                      kVSpaceM,
-                    ],
+                    BookingTechInfo(widget.id),
 
                     // INFO
                     ...[

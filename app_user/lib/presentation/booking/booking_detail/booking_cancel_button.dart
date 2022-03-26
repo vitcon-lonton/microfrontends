@@ -1,4 +1,4 @@
-part of 'order_detail.dart';
+part of 'booking_detail.dart';
 
 class OrderCancelButton extends StatefulWidget {
   const OrderCancelButton({Key? key}) : super(key: key);

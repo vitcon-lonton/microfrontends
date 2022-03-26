@@ -72,39 +72,37 @@ class _AppWidgetState extends State<AppWidget> {
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             routeInformationParser: _appRouter.defaultRouteParser(),
-            routerDelegate: _appRouter.delegate(
-              initialRoutes: [
-                // const app_router.SplashPageRoute(),
-                // app_router.ImageSelectorRoute(),
-                const app_router.HomePageRoute(),
+            routerDelegate: _appRouter.delegate(initialRoutes: [
+              // const app_router.SplashPageRoute(),
+              // app_router.ImageSelectorRoute(),
+              // const app_router.HomePageRoute(),
 
-                // const app_router.SignInPageRoute(),
-                // const app_router.RegisterPageRoute(),
-                // const app_router.OtpConfirmPageRoute(),
-                // const app_router.UserUpdatePageRoute(),
-                // const app_router.PasswordUpdatePageRoute(),
-                // const app_router.PasswordForgetPageRoute(),
-                // const app_router.PasswordChangePageRoute(),
-                // const app_router.SettingsPageRoute(),
+              // const app_router.SignInPageRoute(),
+              // const app_router.RegisterPageRoute(),
+              // const app_router.OtpConfirmPageRoute(),
+              // const app_router.UserUpdatePageRoute(),
+              // const app_router.PasswordUpdatePageRoute(),
+              // const app_router.PasswordForgetPageRoute(),
+              // const app_router.PasswordChangePageRoute(),
+              // const app_router.SettingsPageRoute(),
 
-                /// FAVORITES
-                // const app_router.FavoritesPageRoute(),
+              /// FAVORITES
+              // const app_router.FavoritesPageRoute(),
 
-                /// SERVICE
-                // const app_router.CategoriesPageRoute(),
-                // app_router.ServiceBookingPageRoute(serviceId: 15),
-                // const app_router.ServicesPageRoute(),
+              /// SERVICE
+              // const app_router.CategoriesPageRoute(),
+              // app_router.ServiceBookingPageRoute(serviceId: 15),
+              // const app_router.ServicesPageRoute(),
 
-                /// BOOKING
-                // app_router.CartItemFormPageRoute(),
-                // const app_router.CartPageRoute(),
-                // const app_router.BookingDetailPageRoute(),
-                // const app_router.BookingHistoriesPageRoute(),
+              /// BOOKING
+              // app_router.CartItemFormPageRoute(),
+              // const app_router.CartPageRoute(),
+              // app_router.BookingDetailPageRoute(id: 211),
+              const app_router.BookingHistoriesPageRoute(),
 
-                /// NOTIFICATION
-                // const app_router.NotificationsPageRoute(),
-              ],
-            ),
+              /// NOTIFICATION
+              // const app_router.NotificationsPageRoute(),
+            ]),
             theme: ThemeData.light().copyWith(
               primaryColor: const Color(0xFFD44541),
               appBarTheme: AppBarTheme.of(context)

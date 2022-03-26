@@ -53,4 +53,9 @@ abstract class BookingApi {
   @Headers(authHeader)
   Future<BaseResponse<List<BookingDto>>> bookings(
       {@Field() int? page, @Field() int? limit});
+
+  @GET('/bookings/technician_info')
+  @Headers(authHeader)
+  Future<BaseResponse<TechnicianDto>> technicianInfo(
+      @Query('booking_id') int id);
 }

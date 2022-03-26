@@ -59,3 +59,35 @@ class BookingDto with _$BookingDto {
   factory BookingDto.fromJson(Map<String, dynamic> json) =>
       _$BookingDtoFromJson(json);
 }
+
+@freezed
+class TechnicianDto with _$TechnicianDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory TechnicianDto(
+      {required int id,
+      DateTime? createdAt,
+      DateTime? updatedAt,
+      String? longitude,
+      String? latitude,
+      required String username,
+      String? description,
+      required String name,
+      required String email,
+      required int status,
+      String? image,
+      required String gender,
+      required int verify,
+      required String tokenTechnician,
+      required String verifyCode,
+      required DateTime birthdate,
+      required String phone,
+      dynamic deletedAt,
+      required String passwordDigest,
+      required int avgRatingScore,
+      String? address,
+      String? currentAddress,
+      int? bookingsCount}) = _TechnicianDto;
+
+  factory TechnicianDto.fromJson(Map<String, dynamic> json) =>
+      _$TechnicianDtoFromJson(json);
+}

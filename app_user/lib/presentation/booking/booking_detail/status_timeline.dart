@@ -1,23 +1,11 @@
-part of 'order_detail.dart';
+part of 'booking_detail.dart';
 
 const kTileHeight = 50.0;
-const todoColor = Color(0xffd1d2d7);
-const completeColor = Color(0xff5e6172);
-const inProgressColor = Color(0xff5ec792);
-final _processes = [
-  'Created',
-  'Processing',
-  'Waiting Confirm',
-  'Doing',
-  'Done',
-  'Cancel'
-];
 
 class StatusTimeline extends StatelessWidget {
-  const StatusTimeline({Key? key}) : super(key: key);
+  final BookingStatus status;
 
-  String capitalize(String str) =>
-      "${str[0].toUpperCase()}${str.substring(1).toLowerCase()}";
+  const StatusTimeline(this.status, {Key? key, required}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +23,20 @@ class StatusTimeline extends StatelessWidget {
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: _processes.map((status) {
+            children: BookingStatus.values.map((item) {
               return Column(children: [
                 Icon(Icons.check_circle_rounded,
-                    color: status == _processes[3]
+                    color: status == item
                         ? const Color(0xFF009B19)
                         : Colors.blueGrey.shade100,
                     size: 22),
                 kVSpaceS,
                 DefaultTextStyle(
                     style: TextStyle(
-                        color: status == _processes[3]
+                        color: status == item
                             ? const Color(0xFF009B19)
                             : Colors.blueGrey.shade100),
-                    child: Text(capitalize(status))),
+                    child: Text(statusLabels[item]!)),
               ]);
             }).toList()),
       ],

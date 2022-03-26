@@ -1,8 +1,8 @@
 /* spell-checker: disable */
 import 'dart:math';
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'entities.freezed.dart';
-part 'entities.g.dart';
+part 'service.freezed.dart';
+part 'service.g.dart';
 
 const _kImg =
     'https://www.strategiesonline.net/wp-content/uploads/2014/09/laundry-service.png';
@@ -12,7 +12,6 @@ const _kDescription =
 @freezed
 class Service with _$Service {
   const Service._();
-
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Service({
     String? image,

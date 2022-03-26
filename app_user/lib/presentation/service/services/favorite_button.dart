@@ -19,9 +19,17 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       providers: [
         BlocProvider.value(value: getIt<FavoriteDeleteCubit>()),
         BlocProvider.value(value: getIt<FavoriteCreateCubit>()),
-        BlocProvider.value(
-          value: getIt<FavoriteFindCubit>()..findRequested(serviceId),
-        ),
+        BlocProvider(create: (context) {
+          final authState = context.read<AuthBloc>().state;
+          final isAuthenticated = authState.maybeWhen(
+              orElse: () => false, authenticated: () => true);
+
+          if (!isAuthenticated) {
+            return getIt<FavoriteFindCubit>();
+          }
+
+          return getIt<FavoriteFindCubit>()..findRequested(serviceId);
+        }),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -48,18 +56,21 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         ],
         child: BlocBuilder<FavoriteFindCubit, FavoriteFindState>(
             builder: (context, state) {
-          return state.maybeMap(
-              founded: (state) => IconButton(
-                  onPressed: () =>
-                      context.read<FavoriteDeleteCubit>().deleted(serviceId),
-                  icon: const Icon(Icons.favorite)),
-              orElse: () => IconButton(
-                  onPressed: () =>
-                      context.read<FavoriteCreateCubit>().created(serviceId),
-                  icon: const Icon(Icons.favorite_border_outlined)),
-              actionInProgress: (state) => const IconButton(
-                  onPressed: null,
-                  icon: CircularProgressIndicator(strokeWidth: 2.0)));
+          return state.maybeWhen(actionInProgress: () {
+            return const IconButton(
+                onPressed: null,
+                icon: CircularProgressIndicator(strokeWidth: 2.0));
+          }, founded: (serviceId) {
+            return IconButton(
+                onPressed: () =>
+                    context.read<FavoriteDeleteCubit>().deleted(serviceId),
+                icon: const Icon(Icons.favorite));
+          }, orElse: () {
+            return IconButton(
+                onPressed: () =>
+                    context.read<FavoriteCreateCubit>().created(serviceId),
+                icon: const Icon(Icons.favorite_border_outlined));
+          });
         }),
       ),
     );
