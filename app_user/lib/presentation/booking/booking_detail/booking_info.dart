@@ -21,24 +21,22 @@ class _BookingInfoState extends State<BookingInfo> {
 
     return BlocProvider.value(
       value: context.read<OrderDetailCubit>()..detailRequested(widget.id),
-      child: Column(
-        children: [
-          // PROGRESS INDICATOR
-          ...[
-            BlocBuilder<OrderDetailCubit, OrderDetailState>(
-                builder: (context, state) => state.isLoading
-                    ? const LinearProgressIndicator()
-                    : kVSpaceXXS,
-                buildWhen: (prev, cur) => prev.isLoading != cur.isLoading),
-            kVSpaceS,
-          ],
-
-          // INFO
+      child: Column(children: [
+        // PROGRESS INDICATOR
+        ...[
           BlocBuilder<OrderDetailCubit, OrderDetailState>(
-            builder: (context, state) {
-              if (state.booking == null) return kSpaceZero;
+              builder: (context, state) {
+            return state.maybeWhen(
+                orElse: () => kVSpaceXXS,
+                inProgress: () => const LinearProgressIndicator());
+          }),
+          kVSpaceS,
+        ],
 
-              Booking booking = state.booking!;
+        // INFO
+        BlocBuilder<OrderDetailCubit, OrderDetailState>(
+          builder: (context, state) {
+            return state.maybeWhen(founded: (booking) {
               String name = booking.fullName;
               BookingStatus status = booking.status;
               String address = booking.address ?? '';
@@ -101,38 +99,35 @@ class _BookingInfoState extends State<BookingInfo> {
                                   border: Border.all(width: 0.25),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
-                                child: const Icon(
-                                  Icons.room_service,
-                                  size: 60,
-                                ),
+                                child: const Icon(Icons.room_service, size: 60),
                               ),
                             ),
                             kHSpaceM,
                             Expanded(
                               flex: 2,
                               child: DefaultTextStyle(
-                                  maxLines: 2,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .copyWith(fontSize: 14),
-                                  overflow: TextOverflow.ellipsis,
-                                  child: Column(
-                                      children: [
-                                        kVSpaceXS,
-                                        Text(name, maxLines: 1),
-                                        kVSpaceXS,
-                                        Text(price,
-                                            maxLines: 1,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineLarge!
-                                                .copyWith(fontSize: 16))
-                                      ],
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start)),
+                                maxLines: 2,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(fontSize: 14),
+                                overflow: TextOverflow.ellipsis,
+                                child: Column(
+                                    children: [
+                                      kVSpaceXS,
+                                      Text(name, maxLines: 1),
+                                      kVSpaceXS,
+                                      Text(price,
+                                          maxLines: 1,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineLarge!
+                                              .copyWith(fontSize: 16))
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start),
+                              ),
                             )
                           ]),
                         ),
@@ -144,21 +139,7 @@ class _BookingInfoState extends State<BookingInfo> {
                     ...[
                       const Divider(height: 8.0, thickness: 8.0),
                       kVSpaceM,
-                      _horizontalPaddingM(
-                        RichText(
-                          maxLines: 5,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${tr(LocaleKeys.txt_note)}: ',
-                                style:
-                                    const TextStyle(color: Color(0xFF009B19)),
-                              ),
-                              TextSpan(text: tr(LocaleKeys.note_1)),
-                            ],
-                          ),
-                        ),
-                      ),
+                      _horizontalPaddingM(BookingStatusInfo(status)),
                       kVSpaceM,
                     ],
 
@@ -189,11 +170,12 @@ class _BookingInfoState extends State<BookingInfo> {
                   ],
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start);
-            },
-            buildWhen: (prev, cur) => prev.booking != cur.booking,
-          ),
-        ],
-      ),
+            }, orElse: () {
+              return kSpaceZero;
+            });
+          },
+        ),
+      ]),
     );
   }
 

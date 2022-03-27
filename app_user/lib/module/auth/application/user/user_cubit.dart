@@ -7,31 +7,24 @@ part 'user_cubit.freezed.dart';
 
 @freezed
 class UserState with _$UserState {
-  const UserState._();
-
-  factory UserState(
-      {@Default(false) bool isLoading,
-      required Option<User> userOption}) = _UserState;
-
-  User? get user => userOption.fold(() => null, (user) => user);
-
-  factory UserState.init() => UserState(userOption: none());
+  const factory UserState.initial() = _Initial;
+  const factory UserState.notFound() = _NotFound;
+  const factory UserState.inProgress() = _InProgress;
+  const factory UserState.founded(User user) = _Founded;
 }
 
 class UserCubit extends Cubit<UserState> {
-  final IAuthFacade _authFacade;
-
-  UserCubit(this._authFacade) : super(UserState.init()) {
+  UserCubit(this._authFacade) : super(const UserState.initial()) {
     getUserRequested();
   }
 
-  getUserRequested() async {
-    emit(state.copyWith(isLoading: true));
-    emit(state.copyWith(userOption: none()));
+  final IAuthFacade _authFacade;
 
+  Future<void> getUserRequested() async {
+    emit(const UserState.inProgress());
     Option<User> userOption = await _authFacade.getSignedInUser();
-
-    emit(state.copyWith(isLoading: false));
-    emit(state.copyWith(userOption: userOption));
+    emit(userOption.fold(() {
+      return const UserState.notFound();
+    }, (user) => UserState.founded(user)));
   }
 }

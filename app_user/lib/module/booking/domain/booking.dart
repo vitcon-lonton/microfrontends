@@ -1,7 +1,28 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'booking.freezed.dart';
 
-enum BookingStatus { pending, accepted, process, doing, complete, cancelled }
+// enum BookingStatus { pending, accepted, process, doing, complete, cancelled }
+
+@freezed
+class BookingStatus with _$BookingStatus {
+  const factory BookingStatus.pending() = _Pending;
+  const factory BookingStatus.process() = _Process;
+  const factory BookingStatus.confirm() = _Confirm;
+  const factory BookingStatus.doing() = _Doing;
+  const factory BookingStatus.cancelled() = _Cancelled;
+  const factory BookingStatus.complete() = _Complete;
+
+  static List<BookingStatus> get values {
+    return [
+      const BookingStatus.pending(),
+      const BookingStatus.process(),
+      const BookingStatus.confirm(),
+      const BookingStatus.doing(),
+      const BookingStatus.cancelled(),
+      const BookingStatus.complete(),
+    ];
+  }
+}
 
 @freezed
 class Booking with _$Booking {

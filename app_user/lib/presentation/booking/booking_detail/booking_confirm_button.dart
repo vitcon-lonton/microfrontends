@@ -1,7 +1,9 @@
 part of 'booking_detail.dart';
 
 class OrderConfirmButton extends StatefulWidget {
-  const OrderConfirmButton({Key? key}) : super(key: key);
+  final int bookingId;
+
+  const OrderConfirmButton(this.bookingId, {Key? key}) : super(key: key);
 
   @override
   State<OrderConfirmButton> createState() => _OrderConfirmButtonState();

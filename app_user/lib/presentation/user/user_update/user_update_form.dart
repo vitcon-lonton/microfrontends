@@ -10,13 +10,15 @@ class UserUpdateForm extends StatefulWidget {
 class _UserUpdateFormState extends State<UserUpdateForm> {
   @override
   Widget build(BuildContext context) {
+    final user = context.read<UserCubit>().state.whenOrNull(founded: (user) {
+      return user;
+    });
     final txtEmail = tr(LocaleKeys.txt_email);
     final txtUpdate = tr(LocaleKeys.txt_update);
     final txtFullName = tr(LocaleKeys.txt_full_name);
     final txtDateOfBirth = tr(LocaleKeys.txt_date_of_birth);
     final txtPhoneNumber = tr(LocaleKeys.txt_phone_number);
 
-    final user = context.read<UserCubit>().state.user;
     final userName = user?.name.getOrCrash();
     final userPhone = user?.phone.getOrCrash();
     final userBirthDay = user?.birthDay.getOrCrash().toString();
@@ -45,6 +47,7 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
           //   ),
           // ),
           const UserImgSelector(),
+
           kVSpaceM,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.name != cur.name,
@@ -57,6 +60,7 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
                       .fold((failure) => '$txtFullName Invalid', (_) => null));
             },
           ),
+
           kVSpaceM,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.birthDay != cur.birthDay,
@@ -71,6 +75,7 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
               );
             },
           ),
+
           kVSpaceM,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.phone != cur.phone,
@@ -81,8 +86,8 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
                   decoration: InputDecoration(labelText: txtPhoneNumber));
             },
           ),
-          kVSpaceM,
 
+          kVSpaceM,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
             buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
             builder: (context, state) {
@@ -95,6 +100,7 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
               );
             },
           ),
+
           kVSpaceXXL,
           BlocBuilder<UserUpdateCubit, UserUpdateState>(
               buildWhen: (prev, cur) =>

@@ -28,10 +28,13 @@ class ServiceBookingPage extends StatelessWidget {
             listeners: [
               // LISTEN LOADING SERVICE DETAIL
               BlocListener<ServiceDetailCubit, ServiceDetailState>(
-                  listenWhen: (prev, cur) => prev.service != cur.service,
-                  listener: (context, state) => context
+                  listener: (context, state) {
+                state.whenOrNull(founded: (service) {
+                  return context
                       .read<ServiceCheckingCubit>()
-                      .serviceChanged(state.service)),
+                      .serviceChanged(service);
+                });
+              }),
 
               // LISTEN ADD ITEM TO CART
               BlocListener<CartItemCreateCubit, CartItemCreateState>(

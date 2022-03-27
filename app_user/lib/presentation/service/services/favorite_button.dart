@@ -22,7 +22,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         BlocProvider(create: (context) {
           final authState = context.read<AuthBloc>().state;
           final isAuthenticated = authState.maybeWhen(
-              orElse: () => false, authenticated: () => true);
+              orElse: () => false, authenticated: (user) => true);
 
           if (!isAuthenticated) {
             return getIt<FavoriteFindCubit>();

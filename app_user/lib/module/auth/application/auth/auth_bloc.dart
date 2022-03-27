@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/i_auth_facade.dart';
+import '../../domain/user.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
@@ -23,9 +24,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onAuthCheckRequested(
       AuthCheckRequested event, Emitter<AuthState> emit) async {
     final userOption = await _authFacade.getSignedInUser();
-
     emit(userOption.fold(() {
       return const AuthState.unauthenticated();
-    }, (_) => const AuthState.authenticated()));
+    }, (user) => AuthState.authenticated(user)));
   }
 }

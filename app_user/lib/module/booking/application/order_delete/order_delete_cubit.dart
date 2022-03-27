@@ -1,4 +1,3 @@
-import 'package:app_user/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/booking_failure.dart';
@@ -19,7 +18,7 @@ class OrderDeleteCubit extends Cubit<OrderDeleteState> {
 
   final IBookingRepository _repository;
 
-  Future<void> deleted(UniqueId id) async {
+  Future<void> deleted(int id) async {
     emit(const OrderDeleteState.actionInProgress());
     final possibleFailure = await _repository.delete(id);
     emit(possibleFailure.fold(OrderDeleteState.deleteFailure,

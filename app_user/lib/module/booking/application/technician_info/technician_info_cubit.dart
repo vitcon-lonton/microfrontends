@@ -9,7 +9,7 @@ part 'technician_info_cubit.freezed.dart';
 class TechnicianInfoState with _$TechnicianInfoState {
   const factory TechnicianInfoState.initial() = _Initial;
   const factory TechnicianInfoState.notFound() = _NotFound;
-  const factory TechnicianInfoState.actionInProgress() = _ActionInProgress;
+  const factory TechnicianInfoState.inProgress() = _InProgress;
   const factory TechnicianInfoState.founded(TechnicianDto technician) =
       _Founded;
 }
@@ -22,7 +22,7 @@ class TechnicianInfoCubit extends Cubit<TechnicianInfoState> {
   final BookingApi _bookingApi;
 
   Future<void> getTechnicianRequested(int bookingId) async {
-    emit(const TechnicianInfoState.actionInProgress());
+    emit(const TechnicianInfoState.inProgress());
     Option<TechnicianDto> possibleData = await _performGetTechnician(bookingId);
     emit(possibleData.fold(() {
       return const TechnicianInfoState.notFound();

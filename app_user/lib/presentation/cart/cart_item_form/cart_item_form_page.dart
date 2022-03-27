@@ -19,20 +19,23 @@ class CartItemFormPage extends StatelessWidget {
           return getIt<ServiceDetailCubit>()
             ..getDetailRequested(cartItem!.serviceId);
         }),
-        BlocProvider(create: (_) => getIt<CartItemUpdateCubit>()),
-        BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
-        BlocProvider(create: (_) {
-          return getIt<CartItemFormCubit>()..initialized(optionOf(cartItem));
-        }),
+        BlocProvider.value(value: getIt<CartItemUpdateCubit>()),
+        BlocProvider.value(value: getIt<ServiceCheckingCubit>()),
+        BlocProvider.value(
+          value: getIt<CartItemFormCubit>()..initialized(optionOf(cartItem)),
+        ),
       ],
       child: MultiBlocListener(
           listeners: [
             // LISTEN LOADING SERVICE DETAIL
             BlocListener<ServiceDetailCubit, ServiceDetailState>(
-                listenWhen: (prev, cur) => prev.service != cur.service,
-                listener: (context, state) => context
+                listener: (context, state) {
+              state.whenOrNull(founded: (service) {
+                return context
                     .read<ServiceCheckingCubit>()
-                    .serviceChanged(state.service)),
+                    .serviceChanged(service);
+              });
+            }),
 
             // LISTEN UPDATE CART ITEM
             BlocListener<CartItemUpdateCubit, CartItemUpdateState>(
@@ -59,18 +62,19 @@ class CartItemFormPage extends StatelessWidget {
               child: ListView(children: [
                 // DETAIL LOADING
                 BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
-                    builder: (context, state) => !state.isSubmitting
-                        ? kSpaceZero
-                        : const LinearProgressIndicator(),
-                    buildWhen: (prev, cur) =>
-                        prev.isSubmitting != cur.isSubmitting),
+                    builder: (context, state) {
+                  return state.maybeWhen(
+                      inProgress: () => const LinearProgressIndicator(),
+                      orElse: () => kSpaceZero);
+                }),
 
                 // DETAIL
                 BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
-                    buildWhen: (prev, cur) => prev.service != cur.service,
-                    builder: (context, state) => state.service != null
-                        ? ServiceTile(service: state.service!)
-                        : kSpaceZero),
+                    builder: (context, state) {
+                  return state.maybeWhen(
+                      orElse: () => kSpaceZero,
+                      founded: (service) => ServiceTile(service: service));
+                }),
 
                 // NOTE EDITOR
                 kVSpaceL,

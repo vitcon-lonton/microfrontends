@@ -1,4 +1,3 @@
-/* spell-checker: disable */
 part of 'booking_detail.dart';
 
 class BookingDetailPage extends StatefulWidget {
@@ -13,7 +12,7 @@ class BookingDetailPage extends StatefulWidget {
 class _BookingDetailPageState extends State<BookingDetailPage> {
   @override
   Widget build(BuildContext context) {
-    final id = widget.id;
+    final bookingId = widget.id;
     final txtOrderCode = tr(LocaleKeys.txt_order_code);
 
     return MultiBlocProvider(
@@ -30,36 +29,51 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
 
           // LISTENER DELETE
           BlocListener<OrderDeleteCubit, OrderDeleteState>(
-              listener: (context, state) => state.whenOrNull(
-                  deleteSuccess: () =>
-                      context.read<OrderDetailCubit>().detailRequested(id),
-                  deleteFailure: (failure) =>
-                      context.read<OrderDetailCubit>().detailRequested(id))),
+              listener: (context, state) {
+            state.whenOrNull(deleteSuccess: () {
+              return context
+                  .read<OrderDetailCubit>()
+                  .detailRequested(bookingId);
+            }, deleteFailure: (failure) {
+              return context
+                  .read<OrderDetailCubit>()
+                  .detailRequested(bookingId);
+            });
+          }),
 
           // LISTENER CONFIRM
           BlocListener<OrderConfirmCubit, OrderConfirmState>(
-              listener: (context, state) => state.whenOrNull(
-                  confirmSuccess: () =>
-                      context.read<OrderDetailCubit>().detailRequested(id),
-                  confirmFailure: (failure) =>
-                      context.read<OrderDetailCubit>().detailRequested(id))),
+              listener: (context, state) {
+            state.whenOrNull(confirmSuccess: () {
+              return context
+                  .read<OrderDetailCubit>()
+                  .detailRequested(bookingId);
+            }, confirmFailure: (failure) {
+              return context
+                  .read<OrderDetailCubit>()
+                  .detailRequested(bookingId);
+            });
+          }),
         ],
         child: Scaffold(
           // APP BAR
-          appBar: AppBar(
-            title: BlocBuilder<OrderDetailCubit, OrderDetailState>(
-                buildWhen: (prev, cur) => prev.booking != cur.booking,
-                builder: (context, state) =>
-                    Text('$txtOrderCode: #${state.booking?.sku ?? ''}')),
-          ),
+          appBar: AppBar(title: BlocBuilder<OrderDetailCubit, OrderDetailState>(
+              builder: (context, state) {
+            return state.maybeWhen(
+                founded: (booking) =>
+                    Text('$txtOrderCode: #${booking.sku ?? ''}'),
+                orElse: () => kSpaceZero);
+          })),
 
           // BODY
           body: RefreshLoadmore(
             isLastPage: true,
-            child: BookingInfo(id),
             noMoreWidget: kSpaceZero,
+            child: BookingInfo(bookingId),
             onRefresh: () {
-              return context.read<OrderDetailCubit>().detailRequested(id);
+              return context
+                  .read<OrderDetailCubit>()
+                  .detailRequested(bookingId);
             },
           ),
 
@@ -69,13 +83,26 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
           //     padding: const EdgeInsets.all(kSpaceM)),
 
           // BOTTOM NAVIGATION BAR
-          bottomNavigationBar: Padding(
-              child: Row(children: const [
-                OrderRejectButton(),
-                kHSpaceM,
-                OrderConfirmButton(),
-              ]),
-              padding: const EdgeInsets.all(kSpaceM)),
+          bottomNavigationBar: BlocBuilder<OrderDetailCubit, OrderDetailState>(
+              builder: (context, state) {
+            return state.maybeWhen(founded: (booking) {
+              return Padding(
+                  child: booking.status.maybeWhen(pending: () {
+                    return Row(children: [OrderCancelButton(bookingId)]);
+                  }, confirm: () {
+                    return Row(children: [
+                      OrderRejectButton(bookingId),
+                      kHSpaceM,
+                      OrderConfirmButton(bookingId),
+                    ]);
+                  }, orElse: () {
+                    return kSpaceZero;
+                  }),
+                  padding: const EdgeInsets.all(kSpaceM));
+            }, orElse: () {
+              return kSpaceZero;
+            });
+          }),
 
           backgroundColor: Colors.white,
         ),

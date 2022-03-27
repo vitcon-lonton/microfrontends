@@ -82,9 +82,10 @@
   "note": {
     "1": "Hệ thống đang chọn kỹ thuật viên phù hợp",
     "2": "Giá sẽ thay đổi sau khi chúng tôi khảo sát",
-    "3": "Kỹ thuật viên đang thực hiện dịch vụ",
-    "4": "Các dịch vụ của bạn đã được hủy. Cảm ơn bạn đã tham gia dịch vụ và hẹn gặp lại",
-    "5": "Kỹ thuật viên đã hoàn thành nhiệm vụ, chờ khách hàng kiểm tra, xác nhận và thanh toán."
+    "3": "Đang chờ khách hàng xác nhận chi phí thực hiện",
+    "4": "Kỹ thuật viên đang thực hiện dịch vụ",
+    "5": "Các dịch vụ của bạn đã được hủy. Cảm ơn bạn đã tham gia dịch vụ và hẹn gặp lại",
+    "6": "Kỹ thuật viên đã hoàn thành nhiệm vụ, chờ khách hàng kiểm tra, xác nhận và thanh toán."
   },
   "msg": {
     "1": "Đây là yêu cầu báo giá, sau khi gửi yêu cầu, nhân viên tư vấn sẽ liên hệ chốt giá và lựa chọn kỹ thuật viên phù hợp sau cho từng dịch vụ",

@@ -1,7 +1,9 @@
 part of 'booking_detail.dart';
 
 class OrderCancelButton extends StatefulWidget {
-  const OrderCancelButton({Key? key}) : super(key: key);
+  final int bookingId;
+
+  const OrderCancelButton(this.bookingId, {Key? key}) : super(key: key);
 
   @override
   State<OrderCancelButton> createState() => _OrderCancelButtonState();
@@ -39,7 +41,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
     if (response != true) return;
-    return context.read<OrderDeleteCubit>().deleted(UniqueId());
+    return context.read<OrderDeleteCubit>().deleted(widget.bookingId);
   }
 
   Future<bool?> _showConfirmDialog() {

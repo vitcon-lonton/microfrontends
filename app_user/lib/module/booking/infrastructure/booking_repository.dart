@@ -27,9 +27,15 @@ class BookingRepository implements IBookingRepository {
   }
 
   @override
-  Future<Either<BookingFailure, Unit>> delete(UniqueId id) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    return right(unit);
+  Future<Either<BookingFailure, Unit>> delete(int id) async {
+    try {
+      await _bookingApi.delete(id);
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const BookingFailure.unableDelete());
   }
 
   @override

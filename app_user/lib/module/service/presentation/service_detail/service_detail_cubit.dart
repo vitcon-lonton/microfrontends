@@ -8,58 +8,40 @@ part 'service_detail_cubit.freezed.dart';
 @freezed
 class ServiceDetailState with _$ServiceDetailState {
   const ServiceDetailState._();
-
-  factory ServiceDetailState.init() => ServiceDetailState(detailOption: none());
-
-  factory ServiceDetailState(
-      {@Default(false) bool isSubmitting,
-      required Option<Service> detailOption}) = _ServiceDetailState;
-
-  Service? get service {
-    return detailOption.foldRight(null, (detail, previous) => detail);
-  }
+  const factory ServiceDetailState.initial() = _Initial;
+  const factory ServiceDetailState.notFound() = _NotFound;
+  const factory ServiceDetailState.inProgress() = _InProgress;
+  const factory ServiceDetailState.founded(Service service) = _Founded;
 }
 
 class ServiceDetailCubit extends Cubit<ServiceDetailState> {
+  ServiceDetailCubit(this._repository)
+      : super(const ServiceDetailState.initial());
+
   final IServiceRepository _repository;
 
-  ServiceDetailCubit(this._repository) : super(ServiceDetailState.init());
-
   Future<void> getDetailRequested(int id) async {
-    emit(state.copyWith(isSubmitting: true));
-
-    final detailOption = await _repository.detail(id);
-
-    emit(state.copyWith(detailOption: detailOption));
-    emit(state.copyWith(isSubmitting: false));
+    emit(const ServiceDetailState.inProgress());
+    Option<Service> possibleData = await _repository.detail(id);
+    emit(possibleData.fold(() {
+      return const ServiceDetailState.notFound();
+    }, (service) => ServiceDetailState.founded(service)));
   }
 }
 
 
-// Future<void> unlikeRequested() async {
-//   emit(state.copyWith(isSubmittingLike: true));
-
-//   if (!state.isLiked) {
-//     emit(state.copyWith(isSubmittingLike: false));
-//     return;
-//   }
-
-//   await _repository.getServiceDetail();
-//   emit(state.copyWith(isLiked: false));
-//   emit(state.copyWith(isSubmittingLike: false));
-//   return;
+// @freezed
+// class ServiceDetailState with _$ServiceDetailState {
+//   const ServiceDetailState._();
+//   factory ServiceDetailState.init() => ServiceDetailState(detailOption: none());
+//   factory ServiceDetailState(
+//       {@Default(false) bool isLoading,
+//       required Option<Service> detailOption}) = _ServiceDetailState;
+//   Service? get service => detailOption.toNullable();
 // }
-
-// Future<void> likeRequested() async {
-//   emit(state.copyWith(isSubmittingLike: true));
-
-//   if (state.isLiked) {
-//     emit(state.copyWith(isSubmittingLike: false));
-//     return;
-//   }
-
-//   await _repository.getServiceDetail();
-//   emit(state.copyWith(isLiked: true));
-//   emit(state.copyWith(isSubmittingLike: false));
-//   return;
+// Future<void> getDetailRequested(int id) async {
+// emit(state.copyWith(isLoading: true));
+// final detailOption = await _repository.detail(id);
+// emit(state.copyWith(detailOption: detailOption));
+// emit(state.copyWith(isLoading: false));
 // }

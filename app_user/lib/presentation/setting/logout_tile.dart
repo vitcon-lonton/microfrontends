@@ -5,22 +5,17 @@ class LogoutTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final txtLogout = tr(LocaleKeys.txt_logout);
-
-    return BlocBuilder<UserCubit, UserState>(
-        builder: (context, state) {
-          if (state.user != null) {
-            return ListTile(
-                title: Text(txtLogout),
-                onTap: () => _confirmLogOut(context),
-                leading: const Icon(Icons.exit_to_app),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: kSpaceXXL));
-          }
-
-          return kSpaceZero;
-        },
-        buildWhen: (prev, cur) => prev.user != cur.user);
+    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+      return state.maybeWhen(founded: (user) {
+        return ListTile(
+            title: Text(tr(LocaleKeys.txt_logout)),
+            onTap: () => _confirmLogOut(context),
+            leading: const Icon(Icons.exit_to_app),
+            contentPadding: const EdgeInsets.symmetric(horizontal: kSpaceXXL));
+      }, orElse: () {
+        return kSpaceZero;
+      });
+    });
   }
 
   void _confirmLogOut(BuildContext context) {

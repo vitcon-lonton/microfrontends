@@ -111,43 +111,30 @@ class _HomePageState extends State<HomePage> {
           child: const Icon(Icons.shopping_cart),
           onPressed: () => context.router.push(const CartPageRoute())),
 
-      // APP_BAR
+      // APP BAR
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: kSpaceXS),
-          child: BlocBuilder<UserCubit, UserState>(
-            builder: (context, state) => IconButton(
+          child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+            return IconButton(
               icon: const CircleAvatar(
                   backgroundColor: Color(0xFFE6E6E6),
                   child: Icon(Icons.person, size: 20, color: Colors.grey)),
               onPressed: () => context.router.push(const SettingsPageRoute()),
-            ),
-          ),
+            );
+          }),
         ),
-        title: BlocBuilder<UserCubit, UserState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const CircularProgressIndicator();
-            }
-
-            final userName =
-                state.user?.name.value.foldRight(null, (name, prev) => name);
-
-            if (userName == null) {
-              return Row(children: [Text(txtWelcomeToSHOME)]);
-            }
-
-            return Row(children: [Text('Hi, $userName')]);
-          },
-        ),
-        // title: BlocBuilder<AuthBloc, AuthState>(
-        //   builder: (context, state) {
-        //     return state.maybeMap(
-        //       orElse: () => kSpaceZero,
-        //       authenticated: (_) => Row(children: const [Text('Alvin')]),
-        //     );
-        //   },
-        // ),
+        title: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+          return state.maybeWhen(inProgress: () {
+            return const CircularProgressIndicator();
+          }, founded: (user) {
+            return Row(children: [
+              Text('Hi, ${user.name.value.getOrElse(() => '')}'),
+            ]);
+          }, orElse: () {
+            return Row(children: [Text(txtWelcomeToSHOME)]);
+          });
+        }),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications),
