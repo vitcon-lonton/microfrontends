@@ -35,7 +35,7 @@ class _SignInState extends State<SignInForm> {
                   context
                       .read<AuthBloc>()
                       .add(const AuthEvent.authCheckRequested());
-
+                  context.read<UserCubit>().getUserRequested();
                   context.router.replace(const HomePageRoute());
                 },
               ),

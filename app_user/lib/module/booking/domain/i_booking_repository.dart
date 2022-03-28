@@ -6,6 +6,8 @@ import 'booking_failure.dart';
 abstract class IBookingRepository {
   Future<Option<Booking>> detail(int id);
   Future<Either<BookingFailure, Unit>> delete(int id);
+  Future<Either<BookingFailure, Unit>> cancel(int id);
+  Future<Either<BookingFailure, Unit>> confirm(int id);
   Future<Either<BookingFailure, Unit>> create(dynamic order);
   Future<Either<BookingFailure, Unit>> update(dynamic order);
   Future<Option<Pagination<Booking>>> histories(

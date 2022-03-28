@@ -14,12 +14,12 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   Widget build(BuildContext context) {
     final txtConfirm = tr(LocaleKeys.txt_confirm);
 
-    return BlocBuilder<OrderConfirmCubit, OrderConfirmState>(
+    return BlocBuilder<BookingConfirmCubit, BookingConfirmState>(
       builder: (context, state) {
-        String title = state.maybeWhen(
-            orElse: () => txtConfirm, actionInProgress: () => '...');
-        VoidCallback? onPressed = state.maybeWhen(
-            orElse: () => _submitted, actionInProgress: () => null);
+        String title =
+            state.maybeWhen(orElse: () => txtConfirm, inProgress: () => '...');
+        VoidCallback? onPressed =
+            state.maybeWhen(orElse: () => _submitted, inProgress: () => null);
 
         return Expanded(
           child: SizedBox(
@@ -37,7 +37,7 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
     if (response != true) return;
-    return context.read<OrderConfirmCubit>().confirmed();
+    return context.read<BookingConfirmCubit>().confirmed();
   }
 
   Future<bool?> _showConfirmDialog() {

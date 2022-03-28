@@ -9,10 +9,10 @@ import 'api/booking_api.dart';
 import 'booking_mapper.dart';
 
 class BookingRepository implements IBookingRepository {
+  BookingRepository(this._logger, this._bookingApi);
+
   final Logger _logger;
   final BookingApi _bookingApi;
-
-  BookingRepository(this._logger, this._bookingApi);
 
   @override
   Future<Option<Booking>> detail(int id) async {
@@ -39,19 +39,46 @@ class BookingRepository implements IBookingRepository {
   }
 
   @override
+  Future<Either<BookingFailure, Unit>> cancel(int id) async {
+    try {
+      await _bookingApi.cancelled(id);
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const BookingFailure.unableCancel());
+  }
+
+  @override
+  Future<Either<BookingFailure, Unit>> confirm(int id) async {
+    try {
+      await _bookingApi.confirm(id);
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const BookingFailure.unableConfirm());
+  }
+
+  @override
   Future<Either<BookingFailure, Unit>> create(order) async {
     try {
+      final startTime = DateTime.now().add(const Duration(days: 1));
+      final endTime = startTime.add(const Duration(hours: 4));
+
       await _bookingApi.create(
-          serviceId: 1,
+          serviceIds: '16,15',
           address: 'address',
           fullName: 'fullName',
           latitude: '10.7571445',
           longitude: '106.6880843',
           phoneNumber: '9999999999',
-          timeBoxingEnd: '15/3/2022',
-          timeBoxingStart: '1/3/2022',
           description: 'description',
-          bookingImages: null);
+          timeBoxingEnd: endTime.toIso8601String(),
+          timeBoxingStart: startTime.toIso8601String(),
+          images: null);
 
       return right(unit);
     } catch (e) {

@@ -11,8 +11,8 @@ class CartRequestBtn extends StatefulWidget {
 class _CartRequestBtnState extends State<CartRequestBtn> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderCreateCubit, OrderCreateState>(
-      builder: (context, state) => state.maybeMap(actionInProgress: (state) {
+    return BlocBuilder<BookingCreateCubit, BookingCreateState>(
+      builder: (context, state) => state.maybeWhen(inProgress: () {
         return BottomNav.submit(child: const Text('...'), onPressed: null);
       }, orElse: () {
         return BottomNav.submit(
@@ -68,6 +68,6 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
   Future<void> _submitted() async {
     await _confirm();
 
-    return context.read<OrderCreateCubit>().created({});
+    return context.read<BookingCreateCubit>().created({});
   }
 }

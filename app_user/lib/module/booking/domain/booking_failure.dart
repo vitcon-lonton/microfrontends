@@ -8,4 +8,6 @@ class BookingFailure with _$BookingFailure {
   const factory BookingFailure.unableCreate() = _UnableCreate;
   const factory BookingFailure.unableDelete() = _UnableDelete;
   const factory BookingFailure.unableUpdate() = _UnableUpdate;
+  const factory BookingFailure.unableCancel() = _UnableCancel;
+  const factory BookingFailure.unableConfirm() = _UnableConfirm;
 }

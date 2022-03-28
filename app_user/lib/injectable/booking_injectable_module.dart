@@ -5,16 +5,16 @@ import 'package:app_user/module/booking/booking.dart';
 @module
 abstract class BookingInjectableModule {
   @Injectable()
-  OrderDetailCubit get detail;
+  BookingDetailCubit get detail;
 
   @Injectable()
-  OrderCreateCubit get create;
+  BookingCreateCubit get create;
 
   @Injectable()
-  OrderDeleteCubit get delete;
+  BookingDeleteCubit get delete;
 
   @Injectable()
-  OrderConfirmCubit get confirm;
+  BookingConfirmCubit get confirm;
 
   @Injectable()
   BookingHistoriesCubit get histories;

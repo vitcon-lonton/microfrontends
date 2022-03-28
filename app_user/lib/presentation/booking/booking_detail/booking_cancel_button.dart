@@ -14,12 +14,12 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
   Widget build(BuildContext context) {
     final txtCancel = tr(LocaleKeys.txt_cancel);
 
-    return BlocBuilder<OrderDeleteCubit, OrderDeleteState>(
+    return BlocBuilder<BookingDeleteCubit, BookingDeleteState>(
       builder: (context, state) {
-        String title = state.maybeWhen(
-            orElse: () => txtCancel, actionInProgress: () => '...');
-        VoidCallback? onPressed = state.maybeWhen(
-            orElse: () => _submitted, actionInProgress: () => null);
+        String title =
+            state.maybeWhen(orElse: () => txtCancel, inProgress: () => '...');
+        VoidCallback? onPressed =
+            state.maybeWhen(orElse: () => _submitted, inProgress: () => null);
 
         return Expanded(
           child: SizedBox(
@@ -41,7 +41,7 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
     if (response != true) return;
-    return context.read<OrderDeleteCubit>().deleted(widget.bookingId);
+    return context.read<BookingDeleteCubit>().deleted(widget.bookingId);
   }
 
   Future<bool?> _showConfirmDialog() {

@@ -20,11 +20,11 @@ class _BookingInfoState extends State<BookingInfo> {
     final txtExecutionAddress = tr(LocaleKeys.txt_execution_address);
 
     return BlocProvider.value(
-      value: context.read<OrderDetailCubit>()..detailRequested(widget.id),
+      value: context.read<BookingDetailCubit>()..detailRequested(widget.id),
       child: Column(children: [
         // PROGRESS INDICATOR
         ...[
-          BlocBuilder<OrderDetailCubit, OrderDetailState>(
+          BlocBuilder<BookingDetailCubit, BookingDetailState>(
               builder: (context, state) {
             return state.maybeWhen(
                 orElse: () => kVSpaceXXS,
@@ -34,7 +34,7 @@ class _BookingInfoState extends State<BookingInfo> {
         ],
 
         // INFO
-        BlocBuilder<OrderDetailCubit, OrderDetailState>(
+        BlocBuilder<BookingDetailCubit, BookingDetailState>(
           builder: (context, state) {
             return state.maybeWhen(founded: (booking) {
               String name = booking.fullName;

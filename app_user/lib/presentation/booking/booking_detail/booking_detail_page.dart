@@ -17,48 +17,49 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: getIt<OrderDetailCubit>()),
-        BlocProvider.value(value: getIt<OrderDeleteCubit>()),
-        BlocProvider.value(value: getIt<OrderConfirmCubit>()),
+        BlocProvider.value(value: getIt<BookingDetailCubit>()),
+        BlocProvider.value(value: getIt<BookingDeleteCubit>()),
+        BlocProvider.value(value: getIt<BookingConfirmCubit>()),
       ],
       child: MultiBlocListener(
         listeners: [
           // LISTENER DETAIL
-          BlocListener<OrderDetailCubit, OrderDetailState>(
+          BlocListener<BookingDetailCubit, BookingDetailState>(
               listener: (context, state) {}),
 
           // LISTENER DELETE
-          BlocListener<OrderDeleteCubit, OrderDeleteState>(
+          BlocListener<BookingDeleteCubit, BookingDeleteState>(
               listener: (context, state) {
             state.whenOrNull(deleteSuccess: () {
               return context
-                  .read<OrderDetailCubit>()
+                  .read<BookingDetailCubit>()
                   .detailRequested(bookingId);
             }, deleteFailure: (failure) {
               return context
-                  .read<OrderDetailCubit>()
+                  .read<BookingDetailCubit>()
                   .detailRequested(bookingId);
             });
           }),
 
           // LISTENER CONFIRM
-          BlocListener<OrderConfirmCubit, OrderConfirmState>(
+          BlocListener<BookingConfirmCubit, BookingConfirmState>(
               listener: (context, state) {
             state.whenOrNull(confirmSuccess: () {
               return context
-                  .read<OrderDetailCubit>()
+                  .read<BookingDetailCubit>()
                   .detailRequested(bookingId);
             }, confirmFailure: (failure) {
               return context
-                  .read<OrderDetailCubit>()
+                  .read<BookingDetailCubit>()
                   .detailRequested(bookingId);
             });
           }),
         ],
         child: Scaffold(
           // APP BAR
-          appBar: AppBar(title: BlocBuilder<OrderDetailCubit, OrderDetailState>(
-              builder: (context, state) {
+          appBar: AppBar(title:
+              BlocBuilder<BookingDetailCubit, BookingDetailState>(
+                  builder: (context, state) {
             return state.maybeWhen(
                 founded: (booking) =>
                     Text('$txtOrderCode: #${booking.sku ?? ''}'),
@@ -72,7 +73,7 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
             child: BookingInfo(bookingId),
             onRefresh: () {
               return context
-                  .read<OrderDetailCubit>()
+                  .read<BookingDetailCubit>()
                   .detailRequested(bookingId);
             },
           ),
@@ -83,8 +84,9 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
           //     padding: const EdgeInsets.all(kSpaceM)),
 
           // BOTTOM NAVIGATION BAR
-          bottomNavigationBar: BlocBuilder<OrderDetailCubit, OrderDetailState>(
-              builder: (context, state) {
+          bottomNavigationBar:
+              BlocBuilder<BookingDetailCubit, BookingDetailState>(
+                  builder: (context, state) {
             return state.maybeWhen(founded: (booking) {
               return Padding(
                   child: booking.status.maybeWhen(pending: () {

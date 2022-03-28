@@ -23,8 +23,8 @@ abstract class BookingApi {
 
   @POST('/bookings')
   @Headers(authHeader)
-  Future<BaseResponse<BookingDto>> create(
-      {@Part(name: 'service_id') required int serviceId,
+  Future<BaseResponse<List<BookingDto>>> create(
+      {@Part(name: 'service_ids') required String serviceIds,
       @Part(name: 'fullname') required String fullName,
       @Part(name: 'timeboxing_start') String? timeBoxingStart,
       @Part(name: 'timeboxing_end') String? timeBoxingEnd,
@@ -33,7 +33,7 @@ abstract class BookingApi {
       @Part(name: 'longitude') String? longitude,
       @Part(name: 'latitude') String? latitude,
       @Part(name: 'phonenumber') String? phoneNumber,
-      @Part(name: 'booking_images') List<File>? bookingImages});
+      @Part(name: 'images') String? images});
 
   @PUT('/bookings/{id}')
   @Headers(authHeader)
@@ -58,4 +58,14 @@ abstract class BookingApi {
   @Headers(authHeader)
   Future<BaseResponse<TechnicianDto>> technicianInfo(
       @Query('booking_id') int id);
+
+  @PUT('/bookings/booking_confirm/{id}')
+  @Headers(authHeader)
+  Future<BaseResponse<dynamic>> confirm(@Path() int id,
+      {@Part(name: 'status_kh', value: 'kh_accepted') String? statusKh});
+
+  @PUT('/bookings/booking_cancelled/{id}')
+  @Headers(authHeader)
+  Future<BaseResponse<dynamic>> cancelled(@Path() int id,
+      {@Part(name: 'status', value: 'cancelled') String? status});
 }
