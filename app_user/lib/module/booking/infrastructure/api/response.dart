@@ -79,7 +79,7 @@ class TechnicianDto with _$TechnicianDto {
       required int verify,
       required String tokenTechnician,
       required String verifyCode,
-      required DateTime birthdate,
+      DateTime? birthdate,
       required String phone,
       dynamic deletedAt,
       required String passwordDigest,

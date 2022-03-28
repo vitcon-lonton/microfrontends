@@ -76,7 +76,7 @@ class _BookingInfoState extends State<BookingInfo> {
                     ],
 
                     // KTV
-                    BookingTechInfo(widget.id),
+                    BookingTechnicianInfo(widget.id),
 
                     // INFO
                     ...[
@@ -139,7 +139,7 @@ class _BookingInfoState extends State<BookingInfo> {
                     ...[
                       const Divider(height: 8.0, thickness: 8.0),
                       kVSpaceM,
-                      _horizontalPaddingM(BookingStatusInfo(status)),
+                      BookingStatusInfo(status),
                       kVSpaceM,
                     ],
 

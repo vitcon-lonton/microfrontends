@@ -19,9 +19,9 @@ class BookingConfirmCubit extends Cubit<BookingConfirmState> {
 
   final IBookingRepository _repository;
 
-  Future<void> confirmed() async {
+  Future<void> confirmed(int id) async {
     emit(const BookingConfirmState.inProgress());
-    final possibleFailure = await _repository.update({});
+    final possibleFailure = await _repository.confirm(id);
     emit(possibleFailure.fold((failure) {
       return BookingConfirmState.confirmFailure(failure);
     }, (_) => const BookingConfirmState.confirmSuccess()));

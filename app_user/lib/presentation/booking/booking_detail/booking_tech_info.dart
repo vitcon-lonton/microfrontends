@@ -1,56 +1,50 @@
 /* spell-checker: disable */
 part of 'booking_detail.dart';
 
-class BookingTechInfo extends StatefulWidget {
-  final int id;
+class BookingTechnicianInfo extends StatefulWidget {
+  final int bookingId;
 
-  const BookingTechInfo(this.id, {Key? key}) : super(key: key);
+  const BookingTechnicianInfo(this.bookingId, {Key? key}) : super(key: key);
 
   @override
-  State<BookingTechInfo> createState() => BookingTechInfoState();
+  State<BookingTechnicianInfo> createState() => BookingTechnicianInfoState();
 }
 
-class BookingTechInfoState extends State<BookingTechInfo> {
+class BookingTechnicianInfoState extends State<BookingTechnicianInfo> {
   @override
   Widget build(BuildContext context) {
     final txtTechnician = tr(LocaleKeys.txt_technician);
 
     return BlocProvider.value(
-      value: getIt<TechnicianInfoCubit>()..getTechnicianRequested(widget.id),
-      child: BlocBuilder<TechnicianInfoCubit, TechnicianInfoState>(
-          builder: (context, state) {
-        return state.maybeWhen(
-            orElse: () => const LinearProgressIndicator(),
-            founded: (technician) {
-              final name = technician.name;
-              final phone = technician.phone;
-
-              return Column(
-                  children: [
-                    // KTV
-                    ...[
-                      _horizontalPaddingM(const Divider(height: 0)),
-                      kVSpaceM,
-                      _section(
-                        title: txtTechnician,
-                        icon: const Icon(Icons.person_outline_rounded),
-                        content: Expanded(
-                          child: Row(
-                            children: [
-                              Text('$txtTechnician $name | $phone'),
-                              const Spacer(),
-                              const Icon(Icons.phone, size: 16),
-                            ],
-                          ),
-                        ),
-                      ),
-                      kVSpaceM,
-                    ],
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start);
-            });
-      }),
+      value: getIt<TechnicianInfoCubit>()
+        ..getTechnicianRequested(widget.bookingId),
+      child: Column(
+        children: [
+          _horizontalPaddingM(const Divider(height: 0)),
+          kVSpaceM,
+          _section(
+            title: txtTechnician,
+            icon: const Icon(Icons.person_outline_rounded),
+            content: Expanded(
+              child: BlocBuilder<TechnicianInfoCubit, TechnicianInfoState>(
+                  builder: (context, state) {
+                return state.maybeWhen(founded: (technician) {
+                  return Row(children: [
+                    Text(
+                      '$txtTechnician ${technician.name} | ${technician.phone}',
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.phone, size: 16),
+                  ]);
+                }, orElse: () {
+                  return Row(children: const [Text('Finding ...')]);
+                });
+              }),
+            ),
+          ),
+          kVSpaceM,
+        ],
+      ),
     );
   }
 

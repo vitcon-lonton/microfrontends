@@ -18,7 +18,7 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: getIt<BookingDetailCubit>()),
-        BlocProvider.value(value: getIt<BookingDeleteCubit>()),
+        BlocProvider.value(value: getIt<BookingCancelCubit>()),
         BlocProvider.value(value: getIt<BookingConfirmCubit>()),
       ],
       child: MultiBlocListener(
@@ -27,14 +27,14 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
           BlocListener<BookingDetailCubit, BookingDetailState>(
               listener: (context, state) {}),
 
-          // LISTENER DELETE
-          BlocListener<BookingDeleteCubit, BookingDeleteState>(
+          // LISTENER CANCEL
+          BlocListener<BookingCancelCubit, BookingCancelState>(
               listener: (context, state) {
-            state.whenOrNull(deleteSuccess: () {
+            state.whenOrNull(cancelSuccess: () {
               return context
                   .read<BookingDetailCubit>()
                   .detailRequested(bookingId);
-            }, deleteFailure: (failure) {
+            }, cancelFailure: (failure) {
               return context
                   .read<BookingDetailCubit>()
                   .detailRequested(bookingId);

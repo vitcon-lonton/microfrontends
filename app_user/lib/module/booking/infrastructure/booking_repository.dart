@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
+import 'package:app_user/module/auth/domain/value_objects.dart';
+import 'package:app_user/module/cart/domain/value_objects.dart';
 import '../domain/booking.dart';
 import '../domain/booking_failure.dart';
 import '../domain/i_booking_repository.dart';
@@ -63,32 +65,6 @@ class BookingRepository implements IBookingRepository {
   }
 
   @override
-  Future<Either<BookingFailure, Unit>> create(order) async {
-    try {
-      final startTime = DateTime.now().add(const Duration(days: 1));
-      final endTime = startTime.add(const Duration(hours: 4));
-
-      await _bookingApi.create(
-          serviceIds: '16,15',
-          address: 'address',
-          fullName: 'fullName',
-          latitude: '10.7571445',
-          longitude: '106.6880843',
-          phoneNumber: '9999999999',
-          description: 'description',
-          timeBoxingEnd: endTime.toIso8601String(),
-          timeBoxingStart: startTime.toIso8601String(),
-          images: null);
-
-      return right(unit);
-    } catch (e) {
-      _logger.e(e);
-    }
-
-    return left(const BookingFailure.unableCreate());
-  }
-
-  @override
   Future<Either<BookingFailure, Unit>> update(order) async {
     await Future.delayed(const Duration(milliseconds: 700));
     return right(unit);
@@ -115,4 +91,57 @@ class BookingRepository implements IBookingRepository {
 
     return none();
   }
+
+  @override
+  Future<Either<BookingFailure, Unit>> create(
+      {required KtList<int> servicesId,
+      required Name fullName,
+      required Phone phoneNumber,
+      required DateTime startTime,
+      required String address,
+      String? latitude,
+      String? longitude,
+      String? description,
+      List6<String>? images}) async {
+    final addressStr = address;
+    final fullNameStr = fullName.getOrCrash();
+    final phoneStr = phoneNumber.getOrCrash();
+    final latitudeStr = latitude ?? '10.7571445';
+    final longitudeStr = longitude ?? '106.6880843';
+    final startTimeStr = startTime.toIso8601String();
+    final descriptionStr = description ?? 'Description';
+    final servicesIdStr = servicesId.joinToString(separator: ',');
+    final imagesStr = images?.getOrCrash().joinToString(separator: ',');
+
+    try {
+      await _bookingApi.create(
+          serviceIds: servicesIdStr,
+          address: addressStr,
+          phoneNumber: phoneStr,
+          fullName: fullNameStr,
+          latitude: latitudeStr,
+          longitude: longitudeStr,
+          description: descriptionStr,
+          timeBoxingStart: startTimeStr,
+          images: imagesStr);
+
+      return right(unit);
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return left(const BookingFailure.unableCreate());
+  }
 }
+
+// await _bookingApi.create(
+//     serviceIds: '16,15',
+//     address: 'address',
+//     fullName: 'fullName',
+//     latitude: '10.7571445',
+//     longitude: '106.6880843',
+//     phoneNumber: '9999999999',
+//     description: 'description',
+//     timeBoxingEnd: endTime.toIso8601String(),
+//     timeBoxingStart: startTime.toIso8601String(),
+//     images: null);

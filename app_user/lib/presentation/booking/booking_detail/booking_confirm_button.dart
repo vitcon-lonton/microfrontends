@@ -37,7 +37,7 @@ class _OrderConfirmButtonState extends State<OrderConfirmButton> {
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
     if (response != true) return;
-    return context.read<BookingConfirmCubit>().confirmed();
+    return context.read<BookingConfirmCubit>().confirmed(widget.bookingId);
   }
 
   Future<bool?> _showConfirmDialog() {

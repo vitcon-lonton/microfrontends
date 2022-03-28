@@ -14,34 +14,33 @@ class _OrderCancelButtonState extends State<OrderCancelButton> {
   Widget build(BuildContext context) {
     final txtCancel = tr(LocaleKeys.txt_cancel);
 
-    return BlocBuilder<BookingDeleteCubit, BookingDeleteState>(
-      builder: (context, state) {
-        String title =
-            state.maybeWhen(orElse: () => txtCancel, inProgress: () => '...');
-        VoidCallback? onPressed =
-            state.maybeWhen(orElse: () => _submitted, inProgress: () => null);
+    return BlocBuilder<BookingCancelCubit, BookingCancelState>(
+        builder: (context, state) {
+      String title =
+          state.maybeWhen(orElse: () => txtCancel, inProgress: () => '...');
+      VoidCallback? onPressed =
+          state.maybeWhen(orElse: () => _submitted, inProgress: () => null);
 
-        return Expanded(
-          child: SizedBox(
-            height: 45,
-            child: ElevatedButton(
-              child: Text(title),
-              onPressed: onPressed,
-              style: TextButton.styleFrom(
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  backgroundColor: const Color(0xFFB5B5B5)),
-            ),
+      return Expanded(
+        child: SizedBox(
+          height: 45,
+          child: ElevatedButton(
+            child: Text(title),
+            onPressed: onPressed,
+            style: TextButton.styleFrom(
+                elevation: 0,
+                shadowColor: Colors.transparent,
+                backgroundColor: const Color(0xFFB5B5B5)),
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
     if (response != true) return;
-    return context.read<BookingDeleteCubit>().deleted(widget.bookingId);
+    return context.read<BookingCancelCubit>().canceled(widget.bookingId);
   }
 
   Future<bool?> _showConfirmDialog() {

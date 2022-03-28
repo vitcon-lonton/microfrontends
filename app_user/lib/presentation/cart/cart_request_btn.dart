@@ -67,7 +67,6 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
 
   Future<void> _submitted() async {
     await _confirm();
-
-    return context.read<BookingCreateCubit>().created({});
+    return context.read<BookingCreateCubit>().created();
   }
 }

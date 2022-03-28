@@ -19,20 +19,23 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       providers: [
         BlocProvider.value(value: getIt<FavoriteDeleteCubit>()),
         BlocProvider.value(value: getIt<FavoriteCreateCubit>()),
-        BlocProvider(create: (context) {
-          final authState = context.read<AuthBloc>().state;
-          final isAuthenticated = authState.maybeWhen(
-              orElse: () => false, authenticated: (user) => true);
-
-          if (!isAuthenticated) {
+        BlocProvider.value(
+          value: context.read<AuthBloc>().state.maybeWhen(orElse: () {
             return getIt<FavoriteFindCubit>();
-          }
-
-          return getIt<FavoriteFindCubit>()..findRequested(serviceId);
-        }),
+          }, authenticated: (user) {
+            return getIt<FavoriteFindCubit>()..findRequested(serviceId);
+          }),
+        ),
       ],
       child: MultiBlocListener(
         listeners: [
+          // LISTEN AUTHENTICATION
+          BlocListener<AuthBloc, AuthState>(listener: (context, state) {
+            state.whenOrNull(authenticated: (user) {
+              return context.read<FavoriteFindCubit>().findRequested(serviceId);
+            });
+          }),
+
           // LISTEN CREATE
           BlocListener<FavoriteCreateCubit, FavoriteCreateState>(
             listener: (context, state) => state.whenOrNull(
@@ -54,24 +57,36 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                             'Unexpected error occurred while deleting.')))),
           ),
         ],
-        child: BlocBuilder<FavoriteFindCubit, FavoriteFindState>(
-            builder: (context, state) {
-          return state.maybeWhen(actionInProgress: () {
-            return const IconButton(
-                onPressed: null,
-                icon: CircularProgressIndicator(strokeWidth: 2.0));
-          }, founded: (serviceId) {
-            return IconButton(
-                onPressed: () =>
-                    context.read<FavoriteDeleteCubit>().deleted(serviceId),
-                icon: const Icon(Icons.favorite));
-          }, orElse: () {
-            return IconButton(
-                onPressed: () =>
-                    context.read<FavoriteCreateCubit>().created(serviceId),
-                icon: const Icon(Icons.favorite_border_outlined));
-          });
-        }),
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return state.maybeMap(orElse: () {
+              return IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.favorite_border_outlined));
+            }, authenticated: (user) {
+              return BlocBuilder<FavoriteFindCubit, FavoriteFindState>(
+                  builder: (context, state) {
+                return state.maybeWhen(actionInProgress: () {
+                  return const IconButton(
+                      onPressed: null,
+                      icon: CircularProgressIndicator(strokeWidth: 2.0));
+                }, founded: (serviceId) {
+                  return IconButton(
+                      onPressed: () => context
+                          .read<FavoriteDeleteCubit>()
+                          .deleted(serviceId),
+                      icon: const Icon(Icons.favorite));
+                }, orElse: () {
+                  return IconButton(
+                      onPressed: () => context
+                          .read<FavoriteCreateCubit>()
+                          .created(serviceId),
+                      icon: const Icon(Icons.favorite_border_outlined));
+                });
+              });
+            });
+          },
+        ),
       ),
     );
   }

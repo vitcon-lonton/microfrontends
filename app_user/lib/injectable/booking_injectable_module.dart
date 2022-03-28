@@ -11,7 +11,7 @@ abstract class BookingInjectableModule {
   BookingCreateCubit get create;
 
   @Injectable()
-  BookingDeleteCubit get delete;
+  BookingCancelCubit get cancel;
 
   @Injectable()
   BookingConfirmCubit get confirm;

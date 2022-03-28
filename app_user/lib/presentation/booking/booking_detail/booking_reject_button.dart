@@ -14,7 +14,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
   Widget build(BuildContext context) {
     final txtReject = tr(LocaleKeys.txt_reject);
 
-    return BlocBuilder<BookingDeleteCubit, BookingDeleteState>(
+    return BlocBuilder<BookingCancelCubit, BookingCancelState>(
       builder: (context, state) {
         String title =
             state.maybeWhen(orElse: () => txtReject, inProgress: () => '...');
@@ -41,7 +41,7 @@ class _OrderRejectButtonState extends State<OrderRejectButton> {
   Future<void> _submitted() async {
     final response = await _showConfirmDialog();
     if (response != false) return;
-    return context.read<BookingDeleteCubit>().deleted(widget.bookingId);
+    return context.read<BookingCancelCubit>().canceled(widget.bookingId);
   }
 
   Future<bool?> _showConfirmDialog() {
