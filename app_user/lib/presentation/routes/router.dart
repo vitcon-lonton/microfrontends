@@ -7,6 +7,7 @@ import '../category/category.dart';
 import '../home/home.dart';
 import '../image_selector/image_selector.dart';
 import '../notifications/notifications.dart';
+import '../rating/rating.dart';
 import '../service/service.dart';
 import '../setting/setting.dart';
 import '../splash/splash_page.dart';
@@ -62,6 +63,9 @@ import '../user/user_update/user_update.dart';
     // ARTICLES
     MaterialRoute(page: ArticlesPage),
     MaterialRoute(page: ArticleDetailPage),
+
+    // RATING
+    MaterialRoute(page: RatingPage),
   ],
 )
 class $Router {}

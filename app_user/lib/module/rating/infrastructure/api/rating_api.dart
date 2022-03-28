@@ -1,4 +1,5 @@
 /* spell-checker: disable */
+import 'package:app_user/module/rating/rating.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
@@ -15,17 +16,17 @@ abstract class RatingApi {
 
   @POST('/ratings')
   @Headers(authHeader)
-  Future<BaseResponse<dynamic>> create(
-      {@Part(name: 'content') required String content,
+  Future<BaseResponse<Rating>> create(
+      {@Part(name: 'technician_id') required int technicianId,
       @Part(name: 'rating_score') required double ratingScore,
-      @Part(name: 'technician_id') required int technicianId});
+      @Part(name: 'content') String? content});
 
   @PUT('/ratings/{technicianId}')
   @Headers(authHeader)
-  Future<BaseResponse<dynamic>> update(
-      {@Path() required int technicianId,
-      @Part(name: 'content') required String content,
-      @Part(name: 'rating_score') required double ratingScore});
+  Future<BaseResponse<Rating>> update(
+      {@Part(name: 'technician_id') required int technicianId,
+      @Part(name: 'rating_score') required double ratingScore,
+      @Part(name: 'content') String? content});
 
   @DELETE('/ratings/{technicianId}')
   @Headers(authHeader)

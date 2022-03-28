@@ -75,7 +75,7 @@ class _AppWidgetState extends State<AppWidget> {
             routerDelegate: _appRouter.delegate(initialRoutes: [
               // const app_router.SplashPageRoute(),
               // app_router.ImageSelectorRoute(),
-              // const app_router.HomePageRoute(),
+              const app_router.HomePageRoute(),
 
               // const app_router.SignInPageRoute(),
               // const app_router.RegisterPageRoute(),
@@ -98,10 +98,13 @@ class _AppWidgetState extends State<AppWidget> {
               // app_router.CartItemFormPageRoute(),
               // const app_router.CartPageRoute(),
               // app_router.BookingDetailPageRoute(id: 211),
-              const app_router.BookingHistoriesPageRoute(),
+              // const app_router.BookingHistoriesPageRoute(),
 
               /// NOTIFICATION
               // const app_router.NotificationsPageRoute(),
+
+              /// RATING
+              // const app_router.RatingPageRoute(),
             ]),
             theme: ThemeData.light().copyWith(
               primaryColor: const Color(0xFFD44541),

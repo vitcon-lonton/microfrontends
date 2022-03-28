@@ -3,38 +3,55 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/i_rating_repository.dart';
 import '../../domain/rating_failure.dart';
+import '../../domain/value_objects.dart';
 part 'rating_form_cubit.freezed.dart';
 
 @freezed
 class RatingFormState with _$RatingFormState {
   const RatingFormState._();
 
+  factory RatingFormState.init() =>
+      RatingFormState(failureOrSuccessOption: none());
+
   factory RatingFormState(
-      {@Default(5.0) double point,
+      {RatingContent? content,
+      @Default(5.0) double point,
       @Default(false) bool isSubmitting,
-      @Default(true) bool showErrorMessages,
       required Option<Either<RatingFailure, Unit>>
           failureOrSuccessOption}) = _RatingFormState;
 
-  factory RatingFormState.init() =>
-      RatingFormState(failureOrSuccessOption: none());
+  bool get isValid => isContentValid;
+  bool get isContentValid => content?.isValid() ?? true;
 }
 
 class RatingFormCubit extends Cubit<RatingFormState> {
-  final IRatingRepository _repository;
-
   RatingFormCubit(this._repository) : super(RatingFormState.init());
 
-  void pointChanged(double value) => emit(state.copyWith(point: value));
+  final IRatingRepository _repository;
 
   Future<void> submitted() async {
-    emit(state.copyWith(isSubmitting: true));
-    Either<RatingFailure, Unit> failureOrSuccess = await _performCreate();
-    emit(state.copyWith(isSubmitting: false));
-    emit(state.copyWith(failureOrSuccessOption: optionOf(failureOrSuccess)));
+    Either<RatingFailure, Unit> failureOrSuccess =
+        const Right<RatingFailure, Unit>(unit);
+
+    if (state.isValid) {
+      emit(state.copyWith(isSubmitting: true, failureOrSuccessOption: none()));
+      failureOrSuccess = await _performCreate();
+    }
+
+    emit(state.copyWith(
+      isSubmitting: false,
+      failureOrSuccessOption: optionOf(failureOrSuccess),
+    ));
   }
 
   Future<Either<RatingFailure, Unit>> _performCreate() {
-    return _repository.create(technicianId: 1, point: state.point);
+    return _repository.create(
+        technicianId: 24, point: state.point, content: state.content);
   }
+
+  void contentChanged(String value) {
+    emit(state.copyWith(content: RatingContent(value)));
+  }
+
+  void pointChanged(double value) => emit(state.copyWith(point: value));
 }

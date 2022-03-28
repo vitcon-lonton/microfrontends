@@ -10,42 +10,24 @@ class RatingForm extends StatelessWidget {
     final txtSubmit = tr(LocaleKeys.txt_submit);
     final txtYourReview = tr(LocaleKeys.txt_your_review);
 
-    return BlocListener<RatingFormCubit, RatingFormState>(
-      listenWhen: (prev, cur) =>
-          prev.failureOrSuccessOption != cur.failureOrSuccessOption,
-      listener: (context, state) {
-        state.failureOrSuccessOption.fold(() {}, (either) {
-          state.failureOrSuccessOption.fold(
-            () {},
-            (either) => either.fold(
-              (failure) {
-                final snackBar = SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  content: const Text('Server error'),
-                  action: SnackBarAction(label: 'Action', onPressed: () {}),
-                );
-
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-              (_) {
-                Navigator.of(context).pop();
-
-                final snackBar = SnackBar(
-                    content: const Text('Success'),
-                    behavior: SnackBarBehavior.floating,
-                    action: SnackBarAction(label: 'Action', onPressed: () {}));
-
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-            ),
-          );
-        });
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RatingFormCubit, RatingFormState>(listenWhen: (prev, cur) {
+          return prev.failureOrSuccessOption != cur.failureOrSuccessOption;
+        }, listener: (context, state) {
+          state.failureOrSuccessOption.fold(() {}, (either) {
+            return either.fold((failure) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Server error')));
+            }, (_) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Success')));
+            });
+          });
+        }),
+      ],
       child: Form(
-        autovalidateMode:
-            context.read<RatingFormCubit>().state.showErrorMessages
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
+        autovalidateMode: AutovalidateMode.always,
         child: Column(children: [
           kVSpaceL,
           Padding(
@@ -84,6 +66,7 @@ class RatingForm extends StatelessWidget {
             ),
           ),
 
+          // POINT
           kVSpaceL,
           BlocBuilder<RatingFormCubit, RatingFormState>(
               buildWhen: (prev, cur) =>
@@ -104,46 +87,71 @@ class RatingForm extends StatelessWidget {
                       full: Icon(Icons.star_rate_rounded,
                           color: Colors.amber.shade400)))),
 
+          // CONTENT
           kVSpaceXL,
-          BlocBuilder<RatingFormCubit, RatingFormState>(
-              buildWhen: (prev, cur) => prev.isSubmitting != cur.isSubmitting,
-              builder: (context, state) => WTextInput(
-                  height: 100,
-                  maxLines: 5,
-                  hintText: txtYourReview,
-                  enabled: state.isSubmitting,
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 8.0))),
+          BlocBuilder<RatingFormCubit, RatingFormState>(buildWhen: (prev, cur) {
+            return prev.isSubmitting != cur.isSubmitting;
+          }, builder: (context, state) {
+            return SizedBox(
+              height: 100,
+              child: TextFormField(
+                maxLines: 5,
+                enabled: !state.isSubmitting,
+                validator: (_) => context
+                    .read<RatingFormCubit>()
+                    .state
+                    .content
+                    ?.value
+                    .fold((failure) {
+                  return '// Invalid';
+                }, (_) => null),
+                decoration: InputDecoration(labelText: txtYourReview),
+                onChanged: context.read<RatingFormCubit>().contentChanged,
+              ),
+            );
+          }),
 
-          // onChanged: context.read<RatingFormCubit>().phoneChanged,
-          kVSpaceM,
-          kVSpaceM,
-          kVSpaceM,
+          // BUTTON
+          kVSpaceXXL,
           Row(children: [
             kVSpaceM,
             Expanded(
-              child: BlocBuilder<RatingFormCubit, RatingFormState>(
-                  buildWhen: (prev, cur) =>
-                      prev.isSubmitting != cur.isSubmitting,
-                  builder: (_, state) => SizedBox(
-                      height: 52,
-                      width: double.infinity,
-                      child: TextButton(
-                          child: Text(txtSkip),
-                          onPressed: state.isSubmitting
-                              ? null
-                              : () => Navigator.of(context).pop()))),
+              child: SizedBox(
+                height: 52,
+                width: double.infinity,
+                child: BlocBuilder<RatingFormCubit, RatingFormState>(
+                    builder: (context, state) {
+                  if (state.isSubmitting) {
+                    return TextButton(child: Text(txtSkip), onPressed: null);
+                  }
+
+                  return TextButton(
+                      child: Text(txtSkip),
+                      onPressed: Navigator.of(context).pop);
+                }, buildWhen: (prev, cur) {
+                  return prev.isSubmitting != cur.isSubmitting;
+                }),
+              ),
             ),
             kHSpaceL,
             Expanded(
               child: BlocBuilder<RatingFormCubit, RatingFormState>(
-                  buildWhen: (prev, cur) =>
-                      prev.isSubmitting != cur.isSubmitting,
-                  builder: (_, state) => WSubmitBtn(
-                      child: Text(state.isSubmitting ? '...' : txtSubmit),
-                      onPressed: state.isSubmitting
-                          ? null
-                          : context.read<RatingFormCubit>().submitted)),
+                  buildWhen: (prev, cur) {
+                return prev.isValid != cur.isValid ||
+                    prev.isSubmitting != cur.isSubmitting;
+              }, builder: (context, state) {
+                if (state.isSubmitting) {
+                  return const WSubmitBtn(child: Text('...'), onPressed: null);
+                }
+
+                if (state.isValid) {
+                  return WSubmitBtn(
+                      onPressed: context.read<RatingFormCubit>().submitted,
+                      child: Text(txtSubmit));
+                }
+
+                return WSubmitBtn(onPressed: null, child: Text(txtSubmit));
+              }),
             ),
             kVSpaceM,
           ])
