@@ -28,6 +28,7 @@ class _BookingHistoriesPageState extends State<CartPage> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: _allCubit),
+        BlocProvider.value(value: getIt<SyncCubit>()),
         BlocProvider.value(value: getIt<BookingCreateCubit>()),
         BlocProvider.value(value: getIt<CartItemCreateCubit>()),
         BlocProvider.value(value: getIt<CartItemDeleteCubit>()),
@@ -153,7 +154,7 @@ class _BookingHistoriesPageState extends State<CartPage> {
                 //   });
                 // }),
                 BlocBuilder<CartAllCubit, CartAllState>(buildWhen: (prev, cur) {
-                  return prev.items != cur.items;
+                  return prev.items != cur.items && cur.items.isEmpty() != true;
                 }, builder: (context, state) {
                   return ListView.separated(
                     shrinkWrap: true,

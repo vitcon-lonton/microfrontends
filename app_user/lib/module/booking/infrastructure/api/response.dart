@@ -91,3 +91,13 @@ class TechnicianDto with _$TechnicianDto {
   factory TechnicianDto.fromJson(Map<String, dynamic> json) =>
       _$TechnicianDtoFromJson(json);
 }
+
+@freezed
+class GetServiceIdsResponse with _$GetServiceIdsResponse {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory GetServiceIdsResponse(List<int> serviceIds) =
+      _GetServiceIdsResponse;
+
+  factory GetServiceIdsResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetServiceIdsResponseFromJson(json);
+}

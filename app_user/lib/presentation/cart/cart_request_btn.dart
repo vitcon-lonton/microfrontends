@@ -11,15 +11,25 @@ class CartRequestBtn extends StatefulWidget {
 class _CartRequestBtnState extends State<CartRequestBtn> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookingCreateCubit, BookingCreateState>(
-      builder: (context, state) => state.maybeWhen(inProgress: () {
-        return BottomNav.submit(child: const Text('...'), onPressed: null);
-      }, orElse: () {
+    return BlocBuilder<CartAllCubit, CartAllState>(buildWhen: (prev, cur) {
+      return prev.items != cur.items && cur.items.isEmpty() != true;
+    }, builder: (context, state) {
+      if (state.items.isEmpty()) {
         return BottomNav.submit(
             child: Text(tr(LocaleKeys.txt_send_request).toUpperCase()),
-            onPressed: _submitted);
-      }),
-    );
+            onPressed: null);
+      }
+
+      return BlocBuilder<SyncCubit, SyncState>(
+        builder: (context, state) => state.maybeWhen(inProgress: () {
+          return BottomNav.submit(child: const Text('...'), onPressed: null);
+        }, orElse: () {
+          return BottomNav.submit(
+              child: Text(tr(LocaleKeys.txt_send_request).toUpperCase()),
+              onPressed: _submitted);
+        }),
+      );
+    });
   }
 
   Future<bool> _confirm() async {
@@ -67,6 +77,6 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
 
   Future<void> _submitted() async {
     await _confirm();
-    return context.read<BookingCreateCubit>().created();
+    return context.read<SyncCubit>().synced();
   }
 }

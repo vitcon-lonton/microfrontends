@@ -5,6 +5,12 @@ import 'package:app_user/module/booking/booking.dart';
 @module
 abstract class BookingInjectableModule {
   @Injectable()
+  BookingHistoriesCubit get histories;
+
+  @Injectable()
+  BookingServicesFindCubit get servicesFind;
+
+  @Injectable()
   BookingDetailCubit get detail;
 
   @Injectable()
@@ -16,15 +22,12 @@ abstract class BookingInjectableModule {
   @Injectable()
   BookingConfirmCubit get confirm;
 
-  @Injectable()
-  BookingHistoriesCubit get histories;
-
-  @Injectable()
-  TechnicianInfoCubit get technicianInfo;
-
   @LazySingleton(as: IBookingRepository)
   BookingRepository get repository;
 
   @LazySingleton()
   BookingApi api(Dio dio) => BookingApi(dio);
+
+  @Injectable()
+  BookingTechnicianFindCubit get technicianFind;
 }

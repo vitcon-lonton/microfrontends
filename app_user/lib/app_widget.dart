@@ -97,7 +97,7 @@ class _AppWidgetState extends State<AppWidget> {
               /// BOOKING
               // app_router.CartItemFormPageRoute(),
               // const app_router.CartPageRoute(),
-              // app_router.BookingDetailPageRoute(id: 211),
+              // app_router.BookingDetailPageRoute(id: 322),
               // const app_router.BookingHistoriesPageRoute(),
 
               /// NOTIFICATION

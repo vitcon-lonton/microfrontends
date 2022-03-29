@@ -58,6 +58,10 @@ abstract class BookingApi {
   Future<BaseResponse<TechnicianDto>> technicianInfo(
       @Query('booking_id') int id);
 
+  @GET('/bookings/get_service_ids/{id}')
+  @Headers(authHeader)
+  Future<BaseResponse<GetServiceIdsResponse>> getServiceIds(@Path() int id);
+
   @PUT('/bookings/booking_confirm/{id}')
   @Headers(authHeader)
   Future<BaseResponse<String>> confirm(@Path() int id,

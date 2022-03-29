@@ -14,34 +14,28 @@ class _SignInState extends State<SignInForm> {
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<SignInBloc, SignInState>(
-          listenWhen: (prev, cur) {
-            return prev.authFailureOrSuccessOption !=
-                cur.authFailureOrSuccessOption;
-          },
-          listener: (context, state) {
-            state.authFailureOrSuccessOption.fold(
-              () {},
-              (either) => either.fold(
-                (failure) {
-                  final message = failure.maybeWhen(
-                      orElse: () => 'Unable login',
-                      unableSignIn: (errors) => errors.join('\n'));
+        BlocListener<SignInBloc, SignInState>(listenWhen: (prev, cur) {
+          return prev.authFailureOrSuccessOption !=
+              cur.authFailureOrSuccessOption;
+        }, listener: (context, state) {
+          state.authFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold((failure) {
+              final message = failure.maybeWhen(
+                  orElse: () => 'Unable login',
+                  unableSignIn: (errors) => errors.join('\n'));
 
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(message)));
-                },
-                (_) {
-                  context
-                      .read<AuthBloc>()
-                      .add(const AuthEvent.authCheckRequested());
-                  context.read<UserCubit>().getUserRequested();
-                  context.router.replace(const HomePageRoute());
-                },
-              ),
-            );
-          },
-        ),
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(message)));
+            }, (_) {
+              context
+                  .read<AuthBloc>()
+                  .add(const AuthEvent.authCheckRequested());
+              context.read<UserCubit>().getUserRequested();
+              context.router.replace(const HomePageRoute());
+            }),
+          );
+        }),
       ],
       child: Form(
         autovalidateMode: context.read<SignInBloc>().state.showErrorMessages

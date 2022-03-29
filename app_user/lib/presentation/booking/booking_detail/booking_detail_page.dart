@@ -60,28 +60,24 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
           appBar: AppBar(title:
               BlocBuilder<BookingDetailCubit, BookingDetailState>(
                   builder: (context, state) {
-            return state.maybeWhen(
-                founded: (booking) =>
-                    Text('$txtOrderCode: #${booking.sku ?? ''}'),
-                orElse: () => kSpaceZero);
+            return state.maybeWhen(founded: (booking) {
+              return Text('$txtOrderCode: #${booking.sku ?? ''}');
+            }, orElse: () {
+              return kSpaceZero;
+            });
           })),
 
           // BODY
           body: RefreshLoadmore(
             isLastPage: true,
             noMoreWidget: kSpaceZero,
-            child: BookingInfo(bookingId),
+            child: BookingInfoWidget(bookingId),
             onRefresh: () {
               return context
                   .read<BookingDetailCubit>()
                   .detailRequested(bookingId);
             },
           ),
-
-          // // BOTTOM NAVIGATION BAR
-          // bottomNavigationBar: Padding(
-          //     child: Row(children: const [OrderCancelButton()]),
-          //     padding: const EdgeInsets.all(kSpaceM)),
 
           // BOTTOM NAVIGATION BAR
           bottomNavigationBar:
@@ -106,7 +102,13 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
             });
           }),
 
+          // BACKGROUND COLOR
           backgroundColor: Colors.white,
+
+          // BOTTOM NAVIGATION BAR
+          // bottomNavigationBar: Padding(
+          //     child: Row(children: const [OrderCancelButton()]),
+          //     padding: const EdgeInsets.all(kSpaceM)),
         ),
       ),
     );

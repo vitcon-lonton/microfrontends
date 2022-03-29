@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app_user/core/api.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
@@ -12,8 +13,9 @@ part 'upload_files_cubit.freezed.dart';
 class UploadFilesState with _$UploadFilesState {
   const factory UploadFilesState.initial() = _Initial;
   const factory UploadFilesState.inProgress() = _InProgress;
-  const factory UploadFilesState.uploadSuccess() = _UploadSuccess;
   const factory UploadFilesState.uploadFailure() = _UploadFailure;
+  const factory UploadFilesState.uploadSuccess(KtList<String> urls) =
+      _UploadSuccess;
 }
 
 class UploadFilesCubit extends Cubit<UploadFilesState> {
@@ -28,13 +30,23 @@ class UploadFilesCubit extends Cubit<UploadFilesState> {
     Option<KtList<String>> possibleFailure = await _performUpload(files);
     emit(possibleFailure.fold(() {
       return const UploadFilesState.uploadFailure();
-    }, (urls) => const UploadFilesState.uploadSuccess()));
+    }, (urls) => UploadFilesState.uploadSuccess(urls)));
   }
 
   Future<Option<KtList<String>>> _performUpload(List<File> files) async {
     try {
-      final response = await _fileApi.upload(files);
-      return optionOf(KtList.from(response.data!));
+      KtList<String> urls;
+      BaseResponse<dynamic> response;
+      Map<String, dynamic> responseData;
+
+      urls = emptyList();
+      response = await _fileApi.upload(files);
+      responseData = Map<String, dynamic>.from(response.data!);
+      responseData.forEach((String key, dynamic value) {
+        urls.plusElement(Image.fromJson(Map<String, dynamic>.from(value)).img);
+      });
+
+      return optionOf(urls);
     } catch (e) {
       _logger.e(e);
     }
