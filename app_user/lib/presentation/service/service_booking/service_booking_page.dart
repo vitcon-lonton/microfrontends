@@ -96,14 +96,20 @@ class ServiceBookingPage extends StatelessWidget {
               // NAVIGATION_BAR
               bottomNavigationBar:
                   BlocBuilder<CartItemCreateCubit, CartItemCreateState>(
-                      builder: (context, state) => state.maybeMap(
-                          orElse: () => BottomNav.submit(
-                              child: Text(tr(LocaleKeys.txt_add_to_cart)),
-                              onPressed: () => context
-                                  .read<CartItemCreateCubit>()
-                                  .created(CartItem.random())),
-                          actionInProgress: (state) => BottomNav.submit(
-                              onPressed: null, child: const Text('...')))),
+                      builder: (context, state) {
+                return state.maybeWhen(orElse: () {
+                  return BottomNav.submit(
+                      child: Text(tr(LocaleKeys.txt_add_to_cart)),
+                      onPressed: () {
+                        context
+                            .read<CartItemCreateCubit>()
+                            .created(CartItem.random(serviceId: serviceId));
+                      });
+                }, actionInProgress: () {
+                  return BottomNav.submit(
+                      onPressed: null, child: const Text('...'));
+                });
+              }),
             )));
   }
 }

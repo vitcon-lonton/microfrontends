@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
@@ -13,23 +12,24 @@ import 'cart_item_mapper.dart';
 const cartKey = 'CART';
 
 class CartRepository implements ICartRepository {
-  CartRepository(this._logger, this._storage);
+  CartRepository(this._logger, this._box);
 
   final Logger _logger;
-  final FlutterSecureStorage _storage;
-
-  Future<KtList<CartItem>?> get _cachedItems => _readFromStorage();
+  final Box<CartItemDto> _box;
 
   @override
-  Future<void> clear() => Future.wait([_clearStorage()]);
+  Future<void> clear() => _box.clear();
 
   @override
-  Future<Option<KtList<CartItem>>> all() async {
+  Option<KtList<CartItem>> all() {
     try {
-      return optionOf(await _cachedItems);
+      return optionOf(
+        KtList.from(_box.values.map((item) => item.toDomain()).toList()),
+      );
     } catch (e) {
       _logger.e(e);
     }
+
     return none();
   }
 
@@ -37,14 +37,8 @@ class CartRepository implements ICartRepository {
   Future<Either<CartFailure, Unit>> delete(UniqueId id) async {
     final idStr = id.getOrCrash();
 
-    // cachedItems?.removeWhere((item) => item.id.getOrCrash() == idStr);
     try {
-      final cachedItems = await _cachedItems;
-      final newItems =
-          cachedItems?.filterNot((item) => item.id.getOrCrash() == idStr);
-
-      await _writeToStorage(newItems!);
-
+      await _box.delete(idStr);
       return right(unit);
     } catch (e) {
       _logger.e(e);
@@ -55,10 +49,11 @@ class CartRepository implements ICartRepository {
 
   @override
   Future<Either<CartFailure, Unit>> create(CartItem item) async {
-    try {
-      final cachedItems = await _cachedItems ?? emptyList();
-      await _writeToStorage(cachedItems.plusElement(item));
+    final dto = item.toDto();
+    final idStr = item.id.getOrCrash();
 
+    try {
+      await _box.put(idStr, dto);
       return right(unit);
     } catch (e) {
       _logger.e(e);
@@ -69,16 +64,11 @@ class CartRepository implements ICartRepository {
 
   @override
   Future<Either<CartFailure, Unit>> update(CartItem item) async {
+    final dto = item.toDto();
     final idStr = item.id.getOrCrash();
 
     try {
-      final cachedItems = await _cachedItems;
-      final newItems = cachedItems!.map((element) {
-        return idStr == element.id.getOrCrash() ? item : element;
-      });
-
-      await _writeToStorage(newItems);
-
+      await _box.put(idStr, dto);
       return right(unit);
     } catch (e) {
       _logger.e(e);
@@ -87,30 +77,14 @@ class CartRepository implements ICartRepository {
     return left(const CartFailure.unableUpdate());
   }
 
-  Future<void> _clearStorage() => _storage.delete(key: cartKey);
+  @override
+  Stream<Either<CartFailure, KtList<CartItem>>> watchAll() {
+    return _box.watch().map((event) {
+      final list = all();
 
-  Future<void> _writeToStorage(KtList<CartItem> items) {
-    final itemsDto = items.map((item) => item.toDto()).toList();
-    final itemsJson = itemsDto.map((item) => item.toJson()).asList();
-    final itemsEncode = jsonEncode(itemsJson);
-
-    return _storage.write(key: cartKey, value: itemsEncode);
-  }
-
-  Future<KtList<CartItem>?> _readFromStorage() async {
-    final itemsEncode = await _storage.read(key: cartKey);
-
-    _logger.i(itemsEncode);
-
-    if (itemsEncode != null) {
-      final itemsDecode = (jsonDecode(itemsEncode) as List<dynamic>?);
-      final items = itemsDecode?.map((itemJson) {
-        return CartItemDto.fromJson(itemJson).toDomain();
-      }).toList();
-
-      return KtList.from(items!);
-    }
-
-    return null;
+      return list.fold(() {
+        return left(const CartFailure.unableCreate());
+      }, (items) => right(items));
+    });
   }
 }

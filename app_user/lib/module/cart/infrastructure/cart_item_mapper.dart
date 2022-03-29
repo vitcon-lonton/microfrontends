@@ -9,6 +9,7 @@ extension CartItemDtoX on CartItemDto {
   CartItem toDomain() {
     return CartItem(
       time: time,
+      serviceId: serviceId,
       id: UniqueId.fromUniqueString(id),
       note: note == null ? null : ItemNote(note!),
       timeOfDay: const TimeOfDay(hour: 0, minute: 0),

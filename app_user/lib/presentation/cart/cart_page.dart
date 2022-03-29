@@ -31,6 +31,7 @@ class _BookingHistoriesPageState extends State<CartPage> {
         BlocProvider.value(value: getIt<BookingCreateCubit>()),
         BlocProvider.value(value: getIt<CartItemCreateCubit>()),
         BlocProvider.value(value: getIt<CartItemDeleteCubit>()),
+        BlocProvider.value(value: getIt<CartWatcherCubit>()..watchAllStarted()),
       ],
       child: MultiBlocListener(
         // LISTENERS
@@ -55,6 +56,14 @@ class _BookingHistoriesPageState extends State<CartPage> {
                           behavior: SnackBarBehavior.floating,
                           content: Text(
                               'Unexpected error occurred while deleting.'))))),
+
+          // LISTEN WATCHER
+          BlocListener<CartWatcherCubit, CartWatcherState>(
+              listenWhen: (prev, cur) {
+            return cur.whenOrNull(loadSuccess: (items) => true) ?? false;
+          }, listener: (context, state) {
+            return context.read<CartAllCubit>().getAllRequested();
+          }),
         ],
 
         // CHILD
@@ -64,8 +73,9 @@ class _BookingHistoriesPageState extends State<CartPage> {
             isLastPage: true,
             noMoreWidget: kSpaceZero,
             onRefresh: () async {
-              context.read<CartAllCubit>().refreshRequested();
-              await context.read<CartAllCubit>().getAllRequested();
+              context.read<CartAllCubit>()
+                ..refreshRequested()
+                ..getAllRequested();
             },
             child: Column(children: [
               // ADDRESS
@@ -110,9 +120,38 @@ class _BookingHistoriesPageState extends State<CartPage> {
 
                   return kVSpaceM;
                 }),
+                // BlocBuilder<CartWatcherCubit, CartWatcherState>(
+                //     builder: (context, state) {
+                //   return state.maybeWhen(loadInProgress: () {
+                //     return Container(
+                //         child: const LinearProgressIndicator(),
+                //         margin: const EdgeInsets.only(bottom: kSpaceS));
+                //   }, orElse: () {
+                //     return kVSpaceM;
+                //   });
+                // }),
                 // kVSpaceM,
                 Row(children: const [kHSpaceM, Text('Detail'), kHSpaceM]),
                 kVSpaceS,
+                // BlocBuilder<CartWatcherCubit, CartWatcherState>(
+                //     buildWhen: (prev, cur) {
+                //   return cur.whenOrNull(loadSuccess: (items) => true) ?? false;
+                // }, builder: (context, state) {
+                //   return state.maybeWhen(loadSuccess: (items) {
+                //     return ListView.separated(
+                //       shrinkWrap: true,
+                //       itemCount: items.size,
+                //       separatorBuilder: (_, index) => kVSpaceXS,
+                //       physics: const NeverScrollableScrollPhysics(),
+                //       itemBuilder: (_, index) {
+                //         return CartItemTile(items[index]);
+                //       },
+                //       padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
+                //     );
+                //   }, orElse: () {
+                //     return kSpaceZero;
+                //   });
+                // }),
                 BlocBuilder<CartAllCubit, CartAllState>(buildWhen: (prev, cur) {
                   return prev.items != cur.items;
                 }, builder: (context, state) {
@@ -154,7 +193,7 @@ class _BookingHistoriesPageState extends State<CartPage> {
                           child: const Icon(Icons.add),
                           onPressed: () => context
                               .read<CartItemCreateCubit>()
-                              .created(CartItem.random())),
+                              .created(CartItem.random(serviceId: 1))),
                       actionInProgress: (state) => FloatingActionButton(
                           onPressed: null,
                           child: CircularProgressIndicator(

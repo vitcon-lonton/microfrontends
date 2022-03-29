@@ -6,8 +6,12 @@ import 'cart_item.dart';
 
 abstract class ICartRepository {
   Future<void> clear();
-  Future<Option<KtList<CartItem>>> all();
+  Option<KtList<CartItem>> all();
   Future<Either<CartFailure, Unit>> delete(UniqueId id);
   Future<Either<CartFailure, Unit>> create(CartItem item);
   Future<Either<CartFailure, Unit>> update(CartItem item);
+  Stream<Either<CartFailure, KtList<CartItem>>> watchAll();
 }
+
+
+  // Future<Option<KtList<CartItem>>> watch();

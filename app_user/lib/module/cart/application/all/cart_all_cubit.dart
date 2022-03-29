@@ -22,16 +22,12 @@ class CartAllCubit extends Cubit<CartAllState> {
 
   CartAllCubit(this._repository) : super(CartAllState.init());
 
-  Future<void> getAllRequested() async {
+  void getAllRequested() async {
     emit(state.copyWith(isLoading: true));
-    Option<KtList<CartItem>> possibleData = await _repository.all();
+    Option<KtList<CartItem>> possibleData = _repository.all();
     emit(state.copyWith(isLoading: false));
     emit(state.copyWith(itemsOption: possibleData));
   }
 
   void refreshRequested() => emit(CartAllState.init());
 }
-
-// Future<void> addItemRequested() async {}
-// Future<void> submitBookingRequested() async {}
-// Future<void> removeItemRequested(UniqueId id) async {}

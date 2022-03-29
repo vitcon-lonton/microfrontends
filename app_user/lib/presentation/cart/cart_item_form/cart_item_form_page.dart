@@ -11,12 +11,10 @@ class CartItemFormPage extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) {
-          if (cartItem == null) {
-            return getIt<ServiceDetailCubit>();
-          }
-
-          return getIt<ServiceDetailCubit>()
+        BlocProvider(create: (context) {
+          return cartItem == null
+              ? getIt<ServiceDetailCubit>()
+              : getIt<ServiceDetailCubit>()
             ..getDetailRequested(cartItem!.serviceId);
         }),
         BlocProvider.value(value: getIt<CartItemUpdateCubit>()),
@@ -86,9 +84,17 @@ class CartItemFormPage extends StatelessWidget {
                         initialValue: state.cartItem.note?.value
                             .fold((failure) => null, (str) => str),
                         decoration: InputDecoration(labelText: txtDescription),
-                        validator: (_) => state.cartItem.note?.value.fold(
-                            (failure) => '$txtDescription Invalid',
-                            (_) => null),
+                        validator: (_) {
+                          return context
+                              .read<CartItemFormCubit>()
+                              .state
+                              .cartItem
+                              .note
+                              ?.value
+                              .fold((failure) {
+                            return '$txtDescription Invalid';
+                          }, (_) => null);
+                        },
                         maxLines: 8,
                         onChanged:
                             context.read<CartItemFormCubit>().noteChanged),

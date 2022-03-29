@@ -1,6 +1,6 @@
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-
-import '../module/cart/cart.dart';
+import 'package:app_user/module/cart/cart.dart';
 
 @module
 abstract class CartInjectableModule {
@@ -9,6 +9,9 @@ abstract class CartInjectableModule {
 
   @Injectable()
   CartItemFormCubit get form;
+
+  @Injectable()
+  CartWatcherCubit get watcher;
 
   @Injectable()
   CartItemDeleteCubit get delete;
@@ -21,4 +24,7 @@ abstract class CartInjectableModule {
 
   @LazySingleton(as: ICartRepository)
   CartRepository get repository;
+
+  @lazySingleton
+  Box<CartItemDto> get box => Hive.box<CartItemDto>(cartKey);
 }

@@ -34,6 +34,8 @@ dependencies:
   easy_localization: ^3.0.0
   image_picker: ^0.8.4+11
   video_player: ^2.3.0
+  hive: ^2.1.0
+  hive_flutter: ^1.1.0
   theme_manager:
     path: ../theme_manager
 
@@ -45,6 +47,7 @@ dev_dependencies:
   freezed: ^1.1.1
   postman_dio: ^1.0.2
   pretty_dio_logger: ^1.1.1
+  hive_generator: ^1.1.2
   build_runner: ^2.1.7
   flutter_lints: ^1.0.0
   json_serializable: ^6.1.4

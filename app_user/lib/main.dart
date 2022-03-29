@@ -11,9 +11,7 @@ import 'module/auth/auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-
-  configureInjection(Environment.prod);
+  await configureInjection(Environment.prod);
 
   // getIt<Dio>().interceptors.add(PrettyDioLogger());
   getIt<Dio>().interceptors.add(getIt<AuthInterceptors>());

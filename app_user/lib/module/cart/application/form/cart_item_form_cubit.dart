@@ -20,7 +20,8 @@ class CartItemFormState with _$CartItemFormState {
           saveFailureOrSuccessOption}) = _CartItemFormState;
   factory CartItemFormState.initial() {
     return CartItemFormState(
-        cartItem: CartItem.random(), saveFailureOrSuccessOption: none());
+        cartItem: CartItem.random(serviceId: 1),
+        saveFailureOrSuccessOption: none());
   }
 
   List6<String>? get base64Images => cartItem.base64Images;

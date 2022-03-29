@@ -10,25 +10,21 @@ part 'cart_item.freezed.dart';
 @freezed
 class CartItem with _$CartItem {
   const CartItem._();
+  const factory CartItem(
+      {required UniqueId id,
+      required int serviceId,
+      required DateTime time,
+      required TimeOfDay timeOfDay,
+      ItemNote? note,
+      List6<String>? base64Images}) = _CartItem;
 
-  const factory CartItem({
-    required UniqueId id,
-    required DateTime time,
-    required TimeOfDay timeOfDay,
-    ItemNote? note,
-    List6<String>? base64Images,
-  }) = _CartItem;
-
-  int get serviceId => 1;
-  double get rating => 5.0;
-  String? get image => null;
-  double get price => 220022;
-  String get name => 'Item name ${id.getOrCrash()}';
-
-  factory CartItem.random() => CartItem(
-      id: UniqueId(),
-      time: DateTime.now(),
-      timeOfDay: const TimeOfDay(hour: 0, minute: 0));
+  factory CartItem.random({required int serviceId}) {
+    return CartItem(
+        id: UniqueId(),
+        serviceId: serviceId,
+        time: DateTime.now(),
+        timeOfDay: const TimeOfDay(hour: 0, minute: 0));
+  }
 
   Option<ValueFailure<dynamic>> get failureOption {
     if (note != null && note!.isValid() == false) {
