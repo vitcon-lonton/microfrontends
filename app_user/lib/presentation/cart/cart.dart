@@ -4,7 +4,6 @@ import 'package:refresh_loadmore/refresh_loadmore.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:app_user/i18n/i18n.dart';
 import 'package:app_user/injection.dart';
-import 'package:app_user/module/booking/booking.dart';
 import 'package:app_user/module/cart/cart.dart';
 import 'package:app_user/module/sync/sync.dart';
 import 'cart_item/cart_item.dart';

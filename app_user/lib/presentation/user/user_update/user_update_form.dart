@@ -19,10 +19,11 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
     final txtDateOfBirth = tr(LocaleKeys.txt_date_of_birth);
     final txtPhoneNumber = tr(LocaleKeys.txt_phone_number);
 
-    final userName = user?.name.getOrCrash();
-    final userPhone = user?.phone.getOrCrash();
-    final userBirthDay = user?.birthDay.getOrCrash().toString();
-    final userEmailAddress = user?.emailAddress.getOrCrash();
+    final userName = user?.name.value.toOption().toNullable();
+    final userPhone = user?.phone.value.toOption().toNullable();
+    final userEmailAddress = user?.emailAddress.value.toOption().toNullable();
+    final userBirthDay =
+        user?.birthDay.value.toOption().toNullable().toString();
 
     final AutovalidateMode autovalidateMode;
     if (context.read<UserUpdateCubit>().state.showErrorMessages) {
@@ -53,11 +54,18 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
             buildWhen: (prev, cur) => prev.name != cur.name,
             builder: (context, state) {
               return TextFormField(
-                  initialValue: userName,
-                  decoration: InputDecoration(labelText: txtFullName),
-                  onChanged: context.read<UserUpdateCubit>().nameChanged,
-                  validator: (_) => state.name?.value
-                      .fold((failure) => '$txtFullName Invalid', (_) => null));
+                initialValue: userName,
+                decoration: InputDecoration(labelText: txtFullName),
+                onChanged: context.read<UserUpdateCubit>().nameChanged,
+                validator: (_) {
+                  return context
+                      .read<UserUpdateCubit>()
+                      .state
+                      .name
+                      ?.value
+                      .fold((failure) => '$txtFullName Invalid', (_) => null);
+                },
+              );
             },
           ),
 
@@ -95,8 +103,14 @@ class _UserUpdateFormState extends State<UserUpdateForm> {
                 initialValue: userEmailAddress,
                 decoration: InputDecoration(labelText: txtEmail),
                 onChanged: context.read<UserUpdateCubit>().emailAddressChanged,
-                validator: (_) => state.emailAddress?.value
-                    .fold((failure) => '$txtEmail Invalid', (_) => null),
+                validator: (_) {
+                  return context
+                      .read<UserUpdateCubit>()
+                      .state
+                      .emailAddress
+                      ?.value
+                      .fold((failure) => '$txtEmail Invalid', (_) => null);
+                },
               );
             },
           ),

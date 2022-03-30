@@ -22,6 +22,9 @@ abstract class CartInjectableModule {
   @Injectable()
   CartItemUpdateCubit get update;
 
+  @Injectable()
+  CartItemClearCubit get clear;
+
   @LazySingleton(as: ICartRepository)
   CartRepository get repository;
 

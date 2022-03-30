@@ -9,14 +9,14 @@ class CartPage extends StatefulWidget {
 }
 
 class _BookingHistoriesPageState extends State<CartPage> {
-  final CartAllCubit _allCubit = getIt<CartAllCubit>();
+  // final CartAllCubit _allCubit = getIt<CartAllCubit>();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) =>
-        Future.delayed(const Duration(seconds: 1))
-            .then((value) => _allCubit.getAllRequested()));
+    // WidgetsBinding.instance!.addPostFrameCallback((_) =>
+    //     Future.delayed(const Duration(seconds: 1))
+    //         .then((value) => _allCubit.getAllRequested()));
   }
 
   @override
@@ -27,44 +27,62 @@ class _BookingHistoriesPageState extends State<CartPage> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: _allCubit),
         BlocProvider.value(value: getIt<SyncCubit>()),
-        BlocProvider.value(value: getIt<BookingCreateCubit>()),
+        BlocProvider.value(value: getIt<CartItemClearCubit>()),
         BlocProvider.value(value: getIt<CartItemCreateCubit>()),
         BlocProvider.value(value: getIt<CartItemDeleteCubit>()),
+        BlocProvider.value(value: getIt<CartAllCubit>()..getAllRequested()),
         BlocProvider.value(value: getIt<CartWatcherCubit>()..watchAllStarted()),
       ],
       child: MultiBlocListener(
         // LISTENERS
         listeners: [
-          // LISTEN CREATE
-          BlocListener<CartItemCreateCubit, CartItemCreateState>(
-              listener: (context, state) => state.mapOrNull(
-                  createSuccess: (state) =>
-                      context.read<CartAllCubit>().getAllRequested(),
-                  createFailure: (state) => ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Text('Unexpected error.'))))),
-
-          // LISTEN DELETE
-          BlocListener<CartItemDeleteCubit, CartItemDeleteState>(
-              listener: (context, state) => state.mapOrNull(
-                  deleteSuccess: (state) =>
-                      context.read<CartAllCubit>().getAllRequested(),
-                  deleteFailure: (state) => ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                              'Unexpected error occurred while deleting.'))))),
+          // LISTEN SYNC
+          BlocListener<SyncCubit, SyncState>(listenWhen: (prev, cur) {
+            return cur.whenOrNull(syncSuccess: () => true) ?? false;
+          }, listener: (context, state) {
+            context.read<CartItemClearCubit>().cleared();
+          }),
 
           // LISTEN WATCHER
           BlocListener<CartWatcherCubit, CartWatcherState>(
               listenWhen: (prev, cur) {
             return cur.whenOrNull(loadSuccess: (items) => true) ?? false;
           }, listener: (context, state) {
-            return context.read<CartAllCubit>().getAllRequested();
+            context.read<CartAllCubit>().getAllRequested();
           }),
+
+          // LISTEN CREATE
+          BlocListener<CartItemCreateCubit, CartItemCreateState>(
+              listener: (context, state) => state.whenOrNull(
+                  createSuccess: () =>
+                      context.read<CartAllCubit>().getAllRequested(),
+                  createFailure: (failure) => ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text('Unexpected error.'))))),
+
+          // LISTEN DELETE
+          BlocListener<CartItemDeleteCubit, CartItemDeleteState>(
+              listener: (context, state) => state.whenOrNull(
+                  deleteSuccess: () =>
+                      context.read<CartAllCubit>().getAllRequested(),
+                  deleteFailure: (failure) => ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                              'Unexpected error occurred while deleting.'))))),
+
+          // LISTEN CLEAR
+          BlocListener<CartItemClearCubit, CartItemClearState>(
+              listener: (context, state) => state.whenOrNull(
+                  clearSuccess: () =>
+                      context.read<CartAllCubit>().getAllRequested(),
+                  clearFailure: () => ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                              'Unexpected error occurred while clear cart.'))))),
         ],
 
         // CHILD

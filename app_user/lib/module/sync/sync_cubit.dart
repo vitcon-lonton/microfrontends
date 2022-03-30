@@ -30,15 +30,16 @@ class SyncCubit extends Cubit<SyncState> {
     if (itemsIsNotEmpty) {
       emit(const SyncState.inProgress());
 
-      KtList<int> servicesId = items!.map((item) => item.serviceId).toList();
+      KtList<int> servicesId;
+      Either<BookingFailure, Unit> failureOrSuccess;
 
-      Either<BookingFailure, Unit> failureOrSuccess =
-          await _bookingRepository.create(
-              fullName: Name('My Name'),
-              servicesId: servicesId,
-              phoneNumber: Phone('0372560987'),
-              startTime: DateTime.now().add(const Duration(hours: 10)),
-              address: 'My Address');
+      servicesId = items!.map((item) => item.serviceId).toList();
+      failureOrSuccess = await _bookingRepository.create(
+          servicesId: servicesId,
+          fullName: Name('My Name'),
+          phoneNumber: Phone('0372560987'),
+          startTime: DateTime.now().add(const Duration(hours: 10)),
+          address: 'My Address');
 
       emit(failureOrSuccess.fold((failure) {
         return SyncState.syncFailure(failure);

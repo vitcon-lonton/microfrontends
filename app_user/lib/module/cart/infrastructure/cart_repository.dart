@@ -18,7 +18,9 @@ class CartRepository implements ICartRepository {
   final Box<CartItemDto> _box;
 
   @override
-  Future<void> clear() => _box.clear();
+  Future<void> clear() async {
+    await _box.clear();
+  }
 
   @override
   Option<KtList<CartItem>> all() {
