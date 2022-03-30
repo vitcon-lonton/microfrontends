@@ -24,7 +24,8 @@ class PhoneInput extends StatelessWidget {
       initialValue: initialValue,
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(labelText: txtPhoneNumber),
-      validator: (_) {
+      validator: (str) {
+        if (str == null) return null;
         return phone?.value
             .fold((failure) => '$txtPhoneNumber Invalid', (_) => null);
       },
@@ -52,7 +53,8 @@ class EmailAddressInput extends StatelessWidget {
       onChanged: onChanged,
       initialValue: initialValue,
       decoration: InputDecoration(labelText: txtEmail),
-      validator: (_) {
+      validator: (str) {
+        if (str == null) return null;
         return emailAddress?.value
             .fold((failure) => '$txtEmail Invalid', (_) => null);
       },
@@ -91,9 +93,12 @@ class PasswordInput extends StatelessWidget {
           icon: Icon(!showPassword ? Icons.visibility : Icons.visibility_off),
         ),
       ),
-      validator: (_) {
-        return password?.value
-            .fold((failure) => '$txtPassword Short', (_) => null);
+      validator: (str) {
+        return (str == null)
+            ? null
+            : Password(str)
+                .value
+                .fold((failure) => '$txtPassword Short', (_) => null);
       },
     );
   }
@@ -119,9 +124,12 @@ class FullNameInput extends StatelessWidget {
       onChanged: onChanged,
       initialValue: initialValue,
       decoration: InputDecoration(labelText: txtFullName),
-      validator: (_) {
-        return name?.value
-            .fold((failure) => '$txtFullName Invalid', (_) => null);
+      validator: (str) {
+        return (str == null)
+            ? null
+            : Name(str)
+                .value
+                .fold((failure) => '$txtFullName Invalid', (_) => null);
       },
     );
   }
@@ -160,7 +168,10 @@ class FormSubmitBtn extends StatelessWidget {
 //     return 'Invalid Email';
 //   }, (_) => null),
 // );
-// validator: (_) => context
+// validator: (str) =
+//
+//if (str == null) 
+// return null;  
 //     .read<RegisterCubit>()
 //     .state
 //     .emailAddress

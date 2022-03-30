@@ -22,7 +22,7 @@ class SyncCubit extends Cubit<SyncState> {
   final ICartRepository _cartRepository;
   final IBookingRepository _bookingRepository;
 
-  Future<void> synced() async {
+  Future<void> started() async {
     Option<KtList<CartItem>> possibleItems = _cartRepository.all();
     KtList<CartItem>? items = possibleItems.toNullable();
     bool itemsIsNotEmpty = !(items?.isEmpty() ?? true);

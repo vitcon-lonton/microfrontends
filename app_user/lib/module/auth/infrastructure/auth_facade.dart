@@ -1,9 +1,9 @@
 /* spell-checker: disable */
 // ignore_for_file: unused_local_variable
-import 'dart:io';
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/core.dart';
 import '../domain/auth_failure.dart';
@@ -67,6 +67,27 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
+  Future<Either<AuthFailure, Unit>> updateAvatar({required XFile image}) async {
+    String imgFormat = image.path.split('.').last;
+    List<int> imageBytes = await image.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+
+    try {
+      await _accountApi.updateAvatar(base64Image, imgFormat: '.$imgFormat');
+      return right(unit);
+    } catch (exception) {
+      _logger.e(exception);
+      if (exception is ResponseDataError) {
+        if (exception.errors?.isNotEmpty ?? false) {
+          return left(AuthFailure.unableUpdate(exception.errors!));
+        }
+      }
+    }
+
+    return left(const AuthFailure.unexpected());
+  }
+
+  @override
   Future<Either<AuthFailure, Unit>> forgetPassword(
       {required Phone phone}) async {
     final phoneStr = phone.getOrCrash();
@@ -87,7 +108,7 @@ class AuthFacade implements IAuthFacade {
 
       // await _firebaseAuth.signInWithCredential(authCredential);
       return right(unit);
-    } on FirebaseAuthException catch (_) {
+    } catch (_) {
       return left(const AuthFailure.serverError());
     }
   }
@@ -173,42 +194,42 @@ class AuthFacade implements IAuthFacade {
       Gender? gender,
       BirthDay? birthDay,
       EmailAddress? emailAddress,
-      File? image}) async {
-    final genderStr = gender?.toStr();
-    final nameStr = name?.getOrCrash();
-    final phoneStr = phone?.getOrCrash();
-    final streetStr = street?.getOrCrash();
-    final emailAddressStr = emailAddress?.getOrCrash();
-    final birthDayStr = birthDay?.getOrCrash().toString();
+      XFile? avatar}) async {
+    String? imgFormatStr;
+    String? imgBase64Str;
+    String? genderStr = gender?.toStr();
+    String? nameStr = name?.getOrCrash();
+    String? phoneStr = phone?.getOrCrash();
+    String? streetStr = street?.getOrCrash();
+    String? emailAddressStr = emailAddress?.getOrCrash();
+    String? birthDayStr = birthDay?.getOrCrash().toString();
 
     try {
-      final response = await _accountApi.update(
-          img: image,
+      if (avatar != null) {
+        imgFormatStr = avatar.path.split('.').last;
+        List<int> imageBytes = await avatar.readAsBytes();
+        imgBase64Str = base64Encode(imageBytes);
+      }
+
+      await _accountApi.update(
           name: nameStr,
           phone: phoneStr,
           gender: genderStr,
           birthDate: birthDayStr,
-          email: emailAddressStr);
+          email: emailAddressStr,
+          imgFormat: imgFormatStr,
+          base64Img: imgBase64Str);
 
-      if (!response.valid) {
-        return right(unit);
+      return right(unit);
+    } catch (exception) {
+      _logger.e(exception);
+      if (exception is ResponseDataError) {
+        if (exception.errors?.isNotEmpty ?? false) {
+          return left(AuthFailure.unableUpdate(exception.errors!));
+        }
       }
-    } catch (e) {
-      _logger.e(e);
     }
 
     return left(const AuthFailure.serverError());
   }
 }
-
-
-// final _fakeUser = User(
-//   id: 1,
-//   image: '',
-//   name: Name('Alvin'),
-//   phone: Phone('9999999999'),
-//   gender: Gender.male,
-//   birthDay: BirthDay(DateTime(1997, 01, 29)),
-//   emailAddress: EmailAddress('9999999999@gmail.com'),
-//   street: Street('261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City'),
-// );

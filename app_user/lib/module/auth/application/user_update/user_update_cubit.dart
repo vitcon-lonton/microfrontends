@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../domain/auth_failure.dart';
 import '../../domain/i_auth_facade.dart';
 import '../../domain/user.dart';
@@ -12,7 +12,7 @@ part 'user_update_cubit.freezed.dart';
 class UserUpdateState with _$UserUpdateState {
   const UserUpdateState._();
   factory UserUpdateState(
-          {File? image,
+          {XFile? image,
           Name? name,
           Phone? phone,
           Street? street,
@@ -39,6 +39,8 @@ class UserUpdateState with _$UserUpdateState {
     } else if (emailAddress != null) {
       return emailAddress?.isValid() ?? false;
     } else if (gender != null) {
+      return true;
+    } else if (image != null) {
       return true;
     }
 
@@ -109,10 +111,10 @@ class UserUpdateCubit extends Cubit<UserUpdateState> {
         gender: gender,
         birthDay: birthDay,
         emailAddress: emailAddress,
-        image: image);
+        avatar: image);
   }
 
-  imageChanged(File value) => emit(state.copyWith(image: value));
+  imageChanged(XFile? value) => emit(state.copyWith(image: value));
 
   genderChanged(Gender value) => emit(state.copyWith(gender: value));
 

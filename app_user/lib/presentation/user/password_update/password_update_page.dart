@@ -40,8 +40,7 @@ class PasswordUpdatePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
             child: Column(
               children: const [
-                kVSpaceXL,
-                kVSpaceXL,
+                kVSpaceM,
                 PasswordUpdateForm(),
                 kVSpaceXL,
                 kVSpaceL,

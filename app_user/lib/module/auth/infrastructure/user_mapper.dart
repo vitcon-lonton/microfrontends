@@ -7,18 +7,33 @@ import 'api/account_api.dart';
 // }
 
 extension GenderX on Gender {
-  String toStr() => this == Gender.male ? 'Male' : 'Female';
+  String toStr() {
+    if (this == Gender.male) {
+      return 'Male';
+    } else if (this == Gender.female) {
+      return 'Female';
+    }
+    return 'Other';
+  }
 }
 
 extension UserDomainX on Credential {
+  Gender toGender() {
+    if (gender == 'Male') {
+      return Gender.male;
+    } else if (gender == 'Female') {
+      return Gender.female;
+    }
+    return Gender.other;
+  }
+
   User toDomain() {
-    const image = '';
+    final image = this.image == null ? null : this.image as String;
     final name = Name(this.name ?? '');
     final phone = Phone(this.phone ?? '');
     final street = Street(address ?? '');
     final emailAddress = EmailAddress(email!);
     final birthDay = BirthDay(DateTime(1997, 01, 29));
-    final gender = this.gender == 'Male' ? Gender.male : Gender.female;
 
     return User(
         id: id!,
@@ -26,7 +41,7 @@ extension UserDomainX on Credential {
         phone: phone,
         image: image,
         street: street,
-        gender: gender,
+        gender: toGender(),
         birthDay: birthDay,
         emailAddress: emailAddress);
   }

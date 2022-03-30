@@ -59,15 +59,13 @@ class _HomePageState extends State<HomePage> {
               context.router.push(const ArticlesPageRoute());
             }),
             kVSpaceM,
-            BlocProvider(
-              create: (_) => getIt<ArticlesCubit>(),
+            BlocProvider.value(
               child: const SizedBox(
-                height: 130,
                 child: Articles(
-                  isPagination: false,
-                  scrollDirection: Axis.horizontal,
-                ),
+                    isPagination: false, scrollDirection: Axis.horizontal),
+                height: 130,
               ),
+              value: getIt<ArticlesCubit>(),
             ),
             kVSpaceM,
           ],
@@ -116,12 +114,34 @@ class _HomePageState extends State<HomePage> {
         leading: Padding(
           padding: const EdgeInsets.only(left: kSpaceXS),
           child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-            return IconButton(
-              icon: const CircleAvatar(
-                  backgroundColor: Color(0xFFE6E6E6),
-                  child: Icon(Icons.person, size: 20, color: Colors.grey)),
-              onPressed: () => context.router.push(const SettingsPageRoute()),
-            );
+            return state.maybeWhen(founded: (user) {
+              if (user.image == null) {
+                return IconButton(
+                  icon: const CircleAvatar(
+                      backgroundColor: Color(0xFFE6E6E6),
+                      child: Icon(Icons.person, size: 20, color: Colors.grey)),
+                  onPressed: () {
+                    context.router.push(const SettingsPageRoute());
+                  },
+                );
+              }
+
+              return IconButton(
+                icon: ClipRRect(
+                    child: DMQImage.network(user.image!),
+                    borderRadius: BorderRadius.circular(100)),
+                onPressed: () {
+                  context.router.push(const SettingsPageRoute());
+                },
+              );
+            }, orElse: () {
+              return IconButton(
+                icon: const CircleAvatar(
+                    backgroundColor: Color(0xFFE6E6E6),
+                    child: Icon(Icons.person, size: 20, color: Colors.grey)),
+                onPressed: () => context.router.push(const SettingsPageRoute()),
+              );
+            });
           }),
         ),
         title: BlocBuilder<UserCubit, UserState>(builder: (context, state) {

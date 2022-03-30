@@ -1,5 +1,4 @@
 /* spell-checker: disable */
-import 'dart:io';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:retrofit/retrofit.dart';
@@ -47,10 +46,16 @@ abstract class AccountApi {
       @Part(name: 'gender') String? gender,
       @Part(name: 'birthdate') String? birthDate,
       @Part(name: 'address') String? address,
-      @Part(name: 'img') File? img,
+      @Part(name: 'img') String? base64Img,
       @Part(name: 'img_format') String? imgFormat,
       @Part(name: 'district') String? district,
       @Part(name: 'district_id') String? districtId,
       @Part(name: 'city_id') String? cityId,
       @Part(name: 'city') String? city});
+
+  @POST('/update_avarta')
+  @Headers(authHeader)
+  Future<BaseResponse<dynamic>> updateAvatar(
+      @Part(name: 'img') String base64Img,
+      {@Part(name: 'img_format') required String imgFormat});
 }

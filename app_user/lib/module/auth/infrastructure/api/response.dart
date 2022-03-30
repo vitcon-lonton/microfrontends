@@ -15,7 +15,7 @@ class Credential with _$Credential {
     String? name,
     String? address,
     dynamic company,
-    dynamic image,
+    String? image,
     int? status,
     int? verify,
     dynamic slug,

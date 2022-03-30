@@ -10,124 +10,121 @@ class UserUpdateForm extends StatefulWidget {
 class _UserUpdateFormState extends State<UserUpdateForm> {
   @override
   Widget build(BuildContext context) {
-    final user = context.read<UserCubit>().state.whenOrNull(founded: (user) {
-      return user;
-    });
     final txtEmail = tr(LocaleKeys.txt_email);
     final txtUpdate = tr(LocaleKeys.txt_update);
     final txtFullName = tr(LocaleKeys.txt_full_name);
     final txtDateOfBirth = tr(LocaleKeys.txt_date_of_birth);
     final txtPhoneNumber = tr(LocaleKeys.txt_phone_number);
 
-    final userName = user?.name.value.toOption().toNullable();
-    final userPhone = user?.phone.value.toOption().toNullable();
-    final userEmailAddress = user?.emailAddress.value.toOption().toNullable();
-    final userBirthDay =
-        user?.birthDay.value.toOption().toNullable().toString();
+    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+      final user = state.whenOrNull(founded: (user) => user);
+      final uName = user?.name.value.toOption().toNullable();
+      final uPhone = user?.phone.value.toOption().toNullable();
+      final uBirthDay = user?.birthDay.value.toOption().toNullable();
+      final uEmailAddress = user?.emailAddress.value.toOption().toNullable();
+      final nameKey = Key(uName ?? 'nameKey');
+      final phoneKey = Key(uPhone ?? 'phoneKey');
+      final birthDayKey = Key(uBirthDay?.toString() ?? 'birthDayKey');
+      final emailAddressKey = Key(uEmailAddress ?? 'emailAddressKey');
 
-    final AutovalidateMode autovalidateMode;
-    if (context.read<UserUpdateCubit>().state.showErrorMessages) {
-      autovalidateMode = AutovalidateMode.always;
-    } else {
-      autovalidateMode = AutovalidateMode.disabled;
-    }
-
-    return Form(
-      autovalidateMode: autovalidateMode,
-      child: Column(
-        children: [
-          // Container(
-          //   width: 170,
-          //   height: 170,
-          //   decoration: BoxDecoration(
-          //       border: Border.all(), borderRadius: BorderRadius.circular(150)),
-          //   child: IconButton(
-          //     iconSize: 105,
-          //     onPressed: () {},
-          //     icon: const Icon(Icons.camera_alt_sharp),
-          //   ),
-          // ),
+      return Form(
+        child: Column(children: [
+          // AVATAR
           const UserImgSelector(),
 
+          // NAME
           kVSpaceM,
-          BlocBuilder<UserUpdateCubit, UserUpdateState>(
-            buildWhen: (prev, cur) => prev.name != cur.name,
-            builder: (context, state) {
-              return TextFormField(
-                initialValue: userName,
-                decoration: InputDecoration(labelText: txtFullName),
-                onChanged: context.read<UserUpdateCubit>().nameChanged,
-                validator: (_) {
-                  return context
-                      .read<UserUpdateCubit>()
-                      .state
-                      .name
-                      ?.value
-                      .fold((failure) => '$txtFullName Invalid', (_) => null);
-                },
-              );
+          TextFormField(
+            key: nameKey,
+            initialValue: uName,
+            decoration: InputDecoration(labelText: txtFullName),
+            onChanged: context.read<UserUpdateCubit>().nameChanged,
+            validator: (_) {
+              return context
+                  .read<UserUpdateCubit>()
+                  .state
+                  .name
+                  ?.value
+                  .fold((failure) => '$txtFullName Invalid', (_) => null);
             },
           ),
 
+          // BIRTHDAY
           kVSpaceM,
-          BlocBuilder<UserUpdateCubit, UserUpdateState>(
-            buildWhen: (prev, cur) => prev.birthDay != cur.birthDay,
-            builder: (context, state) {
-              return TextFormField(
-                enabled: false,
-                initialValue: userBirthDay,
-                decoration: InputDecoration(
-                  labelText: txtDateOfBirth,
-                  suffixIcon: const Icon(Icons.calendar_today_outlined),
-                ),
-              );
+          TextFormField(
+            enabled: false,
+            key: birthDayKey,
+            initialValue: uBirthDay?.toString(),
+            decoration: InputDecoration(
+              labelText: txtDateOfBirth,
+              suffixIcon: const Icon(Icons.calendar_today_outlined),
+            ),
+          ),
+
+          // PHONE
+          kVSpaceM,
+          TextFormField(
+            enabled: false,
+            key: phoneKey,
+            initialValue: uPhone,
+            decoration: InputDecoration(labelText: txtPhoneNumber),
+          ),
+
+          // EMAIL ADDRESS
+          kVSpaceM,
+          TextFormField(
+            initialValue: uEmailAddress,
+            key: emailAddressKey,
+            decoration: InputDecoration(labelText: txtEmail),
+            onChanged: context.read<UserUpdateCubit>().emailAddressChanged,
+            validator: (_) {
+              return context
+                  .read<UserUpdateCubit>()
+                  .state
+                  .emailAddress
+                  ?.value
+                  .fold((failure) => '$txtEmail Invalid', (_) => null);
             },
           ),
 
-          kVSpaceM,
-          BlocBuilder<UserUpdateCubit, UserUpdateState>(
-            buildWhen: (prev, cur) => prev.phone != cur.phone,
-            builder: (context, state) {
-              return TextFormField(
-                  enabled: false,
-                  initialValue: userPhone,
-                  decoration: InputDecoration(labelText: txtPhoneNumber));
-            },
-          ),
-
-          kVSpaceM,
-          BlocBuilder<UserUpdateCubit, UserUpdateState>(
-            buildWhen: (prev, cur) => prev.emailAddress != cur.emailAddress,
-            builder: (context, state) {
-              return TextFormField(
-                initialValue: userEmailAddress,
-                decoration: InputDecoration(labelText: txtEmail),
-                onChanged: context.read<UserUpdateCubit>().emailAddressChanged,
-                validator: (_) {
-                  return context
-                      .read<UserUpdateCubit>()
-                      .state
-                      .emailAddress
-                      ?.value
-                      .fold((failure) => '$txtEmail Invalid', (_) => null);
-                },
-              );
-            },
-          ),
-
+          // SUBMIT BUTTON
           kVSpaceXXL,
-          BlocBuilder<UserUpdateCubit, UserUpdateState>(
-              buildWhen: (prev, cur) =>
-                  prev.isAvailable != cur.isAvailable ||
-                  prev.isSubmitting != cur.isSubmitting,
-              builder: (context, state) => FormSubmitBtn(
+          BlocBuilder<UserUpdateCubit, UserUpdateState>(buildWhen: (prev, cur) {
+            return prev.isAvailable != cur.isAvailable;
+          }, builder: (context, state) {
+            if (!state.isAvailable) {
+              return FormSubmitBtn(child: Text(txtUpdate));
+            }
+
+            return BlocBuilder<UserUpdateCubit, UserUpdateState>(
+                builder: (context, state) {
+              if (state.isSubmitting) {
+                return FormSubmitBtn(
+                    child: Text(txtUpdate), isSubmitting: true);
+              }
+
+              return FormSubmitBtn(
                   child: Text(txtUpdate),
-                  isSubmitting: state.isSubmitting,
-                  onPressed: !state.isAvailable
-                      ? null
-                      : context.read<UserUpdateCubit>().updated)),
-        ],
-      ),
-    );
+                  onPressed: context.read<UserUpdateCubit>().updated);
+            }, buildWhen: (prev, cur) {
+              return prev.isSubmitting != cur.isSubmitting;
+            });
+          }),
+        ]),
+        autovalidateMode: AutovalidateMode.always,
+      );
+    });
   }
 }
+
+// Container(
+//   width: 170,
+//   height: 170,
+//   decoration: BoxDecoration(
+//       border: Border.all(), borderRadius: BorderRadius.circular(150)),
+//   child: IconButton(
+//     iconSize: 105,
+//     onPressed: () {},
+//     icon: const Icon(Icons.camera_alt_sharp),
+//   ),
+// ),

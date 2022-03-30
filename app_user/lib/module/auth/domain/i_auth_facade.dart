@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'package:dartz/dartz.dart';
+import 'package:image_picker/image_picker.dart';
 import 'auth_failure.dart';
 import 'user.dart';
 import 'value_objects.dart';
@@ -7,6 +7,7 @@ import 'value_objects.dart';
 abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();
   Future<void> signOut();
+  Future<Either<AuthFailure, Unit>> updateAvatar({required XFile image});
   Future<Either<AuthFailure, Unit>> forgetPassword({required Phone phone});
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
       {required Phone phone,
@@ -27,7 +28,5 @@ abstract class IAuthFacade {
       Gender? gender,
       BirthDay? birthDay,
       EmailAddress? emailAddress,
-      File? image});
+      XFile? avatar});
 }
-
-// Future<Either<AuthFailure, Unit>> signInWithGoogle();
