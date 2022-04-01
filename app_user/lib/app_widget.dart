@@ -73,7 +73,7 @@ class _AppWidgetState extends State<AppWidget> {
             localizationsDelegates: context.localizationDelegates,
             routeInformationParser: _appRouter.defaultRouteParser(),
             routerDelegate: _appRouter.delegate(initialRoutes: [
-              // const app_router.SplashPageRoute(),
+              const app_router.SplashPageRoute(),
               // app_router.ImageSelectorRoute(),
               // const app_router.HomePageRoute(),
 
@@ -98,7 +98,7 @@ class _AppWidgetState extends State<AppWidget> {
               // app_router.CartItemFormPageRoute(),
               // const app_router.CartPageRoute(),
               // app_router.BookingDetailPageRoute(id: 322),
-              const app_router.BookingHistoriesPageRoute(),
+              // const app_router.BookingHistoriesPageRoute(),
 
               /// NOTIFICATION
               // const app_router.NotificationsPageRoute(),

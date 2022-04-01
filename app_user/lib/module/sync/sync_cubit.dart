@@ -1,3 +1,4 @@
+/* spell-checker: disable */
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -39,7 +40,7 @@ class SyncCubit extends Cubit<SyncState> {
           fullName: Name('My Name'),
           phoneNumber: Phone('0372560987'),
           startTime: DateTime.now().add(const Duration(hours: 10)),
-          address: 'My Address');
+          address: '261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City');
 
       emit(failureOrSuccess.fold((failure) {
         return SyncState.syncFailure(failure);

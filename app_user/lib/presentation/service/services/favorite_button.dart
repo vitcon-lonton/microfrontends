@@ -61,7 +61,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           builder: (context, state) {
             return state.maybeMap(orElse: () {
               return IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.router.push(const SignInPageRoute());
+                  },
                   icon: const Icon(Icons.favorite_border_outlined));
             }, authenticated: (user) {
               return BlocBuilder<FavoriteFindCubit, FavoriteFindState>(

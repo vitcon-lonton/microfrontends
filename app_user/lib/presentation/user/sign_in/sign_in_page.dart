@@ -5,11 +5,34 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(tr(LocaleKeys.txt_login))),
-      body: BlocProvider(
-        child: const SignInForm(),
-        create: (context) => getIt<SignInBloc>(),
+    final txtForgotPassword = tr(LocaleKeys.txt_forgot_password);
+    final txtRegister = tr(LocaleKeys.txt_register);
+
+    return BlocProvider.value(
+      value: getIt<SignInBloc>(),
+      child: Scaffold(
+        appBar: AppBar(title: Text(tr(LocaleKeys.txt_login))),
+        body: ListView(children: [
+          const SignInForm(),
+          kVSpaceM,
+          Row(children: [
+            Link(
+                text: txtForgotPassword,
+                onTap: () {
+                  context.router.push(const PasswordForgetPageRoute());
+                }),
+          ]),
+          kVSpaceM,
+          Row(children: [
+            Link(
+              onTap: () {
+                context.router.push(const RegisterPageRoute());
+              },
+              text: txtRegister,
+            )
+          ])
+          // Link(text: 'text', onTap: () {}),
+        ], padding: const EdgeInsets.all(8)),
       ),
     );
   }

@@ -22,8 +22,9 @@ Future<void> main() async {
 
   runApp(
     EasyLocalization(
-      path: 'translations',
+      path: 'assets/translations',
       child: const AppWidget(),
+      startLocale: const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
       supportedLocales: const [Locale('en', 'US')],
       // assetLoader: const CodegenLoader(),

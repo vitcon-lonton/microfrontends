@@ -14,10 +14,10 @@ final GetIt getIt = GetIt.instance;
   preferRelativeImports: true, // default
 )
 Future<void> configureInjection(String env) async {
+  await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(CartItemDtoAdapter());
   await Hive.openBox<CartItemDto>(cartKey);
-  await EasyLocalization.ensureInitialized();
 
   $initGetIt(getIt, environment: env);
 }

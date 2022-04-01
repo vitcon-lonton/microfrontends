@@ -9,7 +9,13 @@ class LogoutTile extends StatelessWidget {
       return state.maybeWhen(founded: (user) {
         return ListTile(
             title: Text(tr(LocaleKeys.txt_logout)),
-            onTap: () => _confirmLogOut(context),
+            onTap: () async {
+              final response = await _confirmLogOut(context);
+
+              if (response == true) {
+                context.read<AuthBloc>().add(const AuthEvent.signedOut());
+              }
+            },
             leading: const Icon(Icons.exit_to_app),
             contentPadding: const EdgeInsets.symmetric(horizontal: kSpaceXXL));
       }, orElse: () {
@@ -18,8 +24,8 @@ class LogoutTile extends StatelessWidget {
     });
   }
 
-  void _confirmLogOut(BuildContext context) {
-    showDialog(
+  Future<bool?> _confirmLogOut(BuildContext context) {
+    return showDialog<bool>(
       context: context,
       builder: (_) => Material(
         color: Colors.transparent,
@@ -43,7 +49,9 @@ class LogoutTile extends StatelessWidget {
                       Expanded(
                         child: TextButton(
                           child: Text(tr(LocaleKeys.txt_cancel)),
-                          onPressed: Navigator.of(context).pop,
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
                         ),
                       ),
                       kHSpaceL,
@@ -53,11 +61,7 @@ class LogoutTile extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               elevation: 0, shadowColor: Colors.transparent),
                           onPressed: () {
-                            context
-                                .read<AuthBloc>()
-                                .add(const AuthEvent.signedOut());
-
-                            Navigator.of(context).pop();
+                            Navigator.of(context).pop(true);
                           },
                         ),
                       ),

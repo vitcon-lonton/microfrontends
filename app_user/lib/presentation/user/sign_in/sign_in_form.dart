@@ -41,8 +41,7 @@ class _SignInState extends State<SignInForm> {
         autovalidateMode: context.read<SignInBloc>().state.showErrorMessages
             ? AutovalidateMode.always
             : AutovalidateMode.disabled,
-        child: ListView(
-          padding: const EdgeInsets.all(8),
+        child: Column(
           children: [
             const SizedBox(height: 8),
             BlocBuilder<SignInBloc, SignInState>(

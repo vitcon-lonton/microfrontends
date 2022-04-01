@@ -63,7 +63,8 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<void> signOut() {
-    return Future.wait([_accountApi.logout(), _storage.delete(key: tokenKey)]);
+    // return Future.wait([_accountApi.logout(), _storage.delete(key: tokenKey)]);
+    return Future.wait([_storage.delete(key: tokenKey)]);
   }
 
   @override
