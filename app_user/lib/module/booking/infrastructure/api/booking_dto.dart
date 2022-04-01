@@ -9,7 +9,7 @@ class BookingDto with _$BookingDto {
     required int userId,
     required String fullname,
     dynamic company,
-    dynamic email,
+    String? email,
     String? address,
     dynamic city,
     dynamic state,
@@ -48,56 +48,19 @@ class BookingDto with _$BookingDto {
     DateTime? timeboxingStart,
     dynamic verifyByAdmin,
     dynamic adminNote,
-    int? serviceId,
     String? latitude,
     String? longitude,
     dynamic deletedAt,
     String? sku,
-    dynamic serviceList,
+    dynamic images,
+    dynamic completedImages,
+    required String statusKtv,
+    required String statusKh,
+    dynamic technicianRejectedIds,
+    List<dynamic>? bookingImages,
+    List<BookingDetailDto>? bookingDetails,
   }) = _BookingDto;
 
   factory BookingDto.fromJson(Map<String, dynamic> json) =>
       _$BookingDtoFromJson(json);
-}
-
-@freezed
-class TechnicianDto with _$TechnicianDto {
-  @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory TechnicianDto(
-      {required int id,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      String? longitude,
-      String? latitude,
-      required String username,
-      String? description,
-      required String name,
-      required String email,
-      required int status,
-      String? image,
-      required String gender,
-      required int verify,
-      required String tokenTechnician,
-      required String verifyCode,
-      DateTime? birthdate,
-      required String phone,
-      dynamic deletedAt,
-      required String passwordDigest,
-      required int avgRatingScore,
-      String? address,
-      String? currentAddress,
-      int? bookingsCount}) = _TechnicianDto;
-
-  factory TechnicianDto.fromJson(Map<String, dynamic> json) =>
-      _$TechnicianDtoFromJson(json);
-}
-
-@freezed
-class GetServiceIdsResponse with _$GetServiceIdsResponse {
-  @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory GetServiceIdsResponse(List<int> serviceIds) =
-      _GetServiceIdsResponse;
-
-  factory GetServiceIdsResponse.fromJson(Map<String, dynamic> json) =>
-      _$GetServiceIdsResponseFromJson(json);
 }

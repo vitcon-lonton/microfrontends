@@ -6,8 +6,11 @@ import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
 part 'booking_api.freezed.dart';
 part 'booking_api.g.dart';
-part 'request.dart';
-part 'response.dart';
+part 'booking_detail_dto.dart';
+part 'booking_dto.dart';
+part 'request_dto.dart';
+part 'response_dto.dart';
+part 'technician_dto.dart';
 
 @RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/')
 abstract class BookingApi {
