@@ -123,13 +123,15 @@ class FullNameInput extends StatelessWidget {
     return TextFormField(
       onChanged: onChanged,
       initialValue: initialValue,
-      decoration: InputDecoration(labelText: txtFullName),
+      decoration: InputDecoration(labelText: tr(LocaleKeys.txt_full_name)),
       validator: (str) {
-        return (str == null)
-            ? null
-            : Name(str)
-                .value
-                .fold((failure) => '$txtFullName Invalid', (_) => null);
+        if (str == null) {
+          return null;
+        } else {
+          return Name(str)
+              .value
+              .fold((failure) => '$txtFullName Invalid', (_) => null);
+        }
       },
     );
   }

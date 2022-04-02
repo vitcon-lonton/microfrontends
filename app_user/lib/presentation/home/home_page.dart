@@ -10,160 +10,146 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  void initState() {
-    super.initState();
-    // WidgetsBinding.instance?.addPostFrameCallback(
-    //     (_) => context.router.push(ServiceBookingPageRoute(serviceId: 1)));
-    // WidgetsBinding.instance!.addPostFrameCallback(
-    //     (_) => context.router.push(const UserUpdatePageRoute()));
-  }
-
-  @override
   Widget build(BuildContext context) {
     final txtBlogs = tr(LocaleKeys.txt_blogs);
     final txtWelcomeToSHOME = tr(LocaleKeys.txt_welcome_to_shome);
 
-    return Scaffold(
-      // BODY
-      body: SingleChildScrollView(
-        child: Column(children: [
-          // BANNER
-          ...[
-            Padding(
-              padding: const EdgeInsets.all(kSpaceM),
-              child: SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  child: Container(
-                      child: const Icon(Icons.abc_rounded),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: Theme.of(context).primaryColor))),
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: getIt<BannersFindCubit>()),
+      ],
+      child: Scaffold(
+        // BODY
+        body: SingleChildScrollView(
+          child: Column(children: [
+            // BANNER
+            const HomeBanner(),
 
-          // IMAGE
-          ...[
-            const Divider(height: 8.0, thickness: 8.0),
-            const Padding(
-              child: ImageSelectorSmall(),
-              padding: EdgeInsets.symmetric(horizontal: kSpaceM),
-            ),
-          ],
-
-          // BLOGS
-          ...[
-            const Divider(height: 8.0, thickness: 8.0),
-            kVSpaceM,
-            _title(txtBlogs, onTapSeeMore: () {
-              context.router.push(const ArticlesPageRoute());
-            }),
-            kVSpaceM,
-            BlocProvider.value(
-              child: const SizedBox(
-                child: Articles(
-                    isPagination: false, scrollDirection: Axis.horizontal),
-                height: 130,
+            // IMAGE
+            ...[
+              const Divider(height: 8.0, thickness: 8.0),
+              const Padding(
+                child: ImageSelectorSmall(),
+                padding: EdgeInsets.symmetric(horizontal: kSpaceM),
               ),
-              value: getIt<ArticlesCubit>(),
-            ),
-            kVSpaceM,
-          ],
+            ],
 
-          // CATEGORIES
-          ...[
-            const Divider(height: 8.0, thickness: 8.0),
-            kVSpaceM,
-            BlocProvider.value(
-                child: const CategoriesWidget(),
-                value: getIt<CategoriesCubit>()),
-            kVSpaceM,
-          ],
+            // BLOGS
+            ...[
+              const Divider(height: 8.0, thickness: 8.0),
+              kVSpaceM,
+              _title(txtBlogs, onTapSeeMore: () {
+                context.router.push(const ArticlesPageRoute());
+              }),
+              kVSpaceM,
+              BlocProvider.value(
+                child: const SizedBox(
+                  child: Articles(
+                      isPagination: false, scrollDirection: Axis.horizontal),
+                  height: 130,
+                ),
+                value: getIt<ArticlesCubit>(),
+              ),
+              kVSpaceM,
+            ],
 
-          // SERVICES
-          ...[
-            const Divider(height: 8.0, thickness: 8.0),
-            kVSpaceM,
-            BlocProvider.value(
-                value: getIt<ServicesCubit>(),
-                child: const ServicesWidget(isPagination: false)),
-            kVSpaceM,
-          ],
+            // CATEGORIES
+            ...[
+              const Divider(height: 8.0, thickness: 8.0),
+              kVSpaceM,
+              BlocProvider.value(
+                  child: const CategoriesWidget(),
+                  value: getIt<CategoriesCubit>()),
+              kVSpaceM,
+            ],
 
-          // SERVICES
-          ...[
-            const Divider(height: 8.0, thickness: 8.0),
-            kVSpaceM,
-            BlocProvider(
-              create: (_) => getIt<ServicesCubit>(),
-              child: const ServicesWidget(isPagination: false),
-            ),
-            kVSpaceM,
-            kVSpaceL,
-          ],
-        ]),
-      ),
+            // SERVICES
+            ...[
+              const Divider(height: 8.0, thickness: 8.0),
+              kVSpaceM,
+              BlocProvider.value(
+                  value: getIt<ServicesCubit>(),
+                  child: const ServicesWidget(isPagination: false)),
+              kVSpaceM,
+            ],
 
-      // FLOATING_ACTION_BUTTON
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.shopping_cart),
-          onPressed: () => context.router.push(const CartPageRoute())),
+            // SERVICES
+            ...[
+              const Divider(height: 8.0, thickness: 8.0),
+              kVSpaceM,
+              BlocProvider(
+                create: (_) => getIt<ServicesCubit>(),
+                child: const ServicesWidget(isPagination: false),
+              ),
+              kVSpaceM,
+              kVSpaceL,
+            ],
+          ]),
+        ),
 
-      // APP BAR
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: kSpaceXS),
-          child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-            return state.maybeWhen(founded: (user) {
-              if (user.image == null) {
+        // FLOATING_ACTION_BUTTON
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.shopping_cart),
+            onPressed: () => context.router.push(const CartPageRoute())),
+
+        // APP BAR
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: kSpaceXS),
+            child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+              return state.maybeWhen(founded: (user) {
+                if (user.image == null) {
+                  return IconButton(
+                    icon: const CircleAvatar(
+                        backgroundColor: Color(0xFFE6E6E6),
+                        child:
+                            Icon(Icons.person, size: 20, color: Colors.grey)),
+                    onPressed: () {
+                      context.router.push(const SettingsPageRoute());
+                    },
+                  );
+                }
+
                 return IconButton(
-                  icon: const CircleAvatar(
-                      backgroundColor: Color(0xFFE6E6E6),
-                      child: Icon(Icons.person, size: 20, color: Colors.grey)),
+                  icon: ClipRRect(
+                      child: DMQImage.network(user.image!),
+                      borderRadius: BorderRadius.circular(100)),
                   onPressed: () {
                     context.router.push(const SettingsPageRoute());
                   },
                 );
-              }
-
-              return IconButton(
-                icon: ClipRRect(
-                    child: DMQImage.network(user.image!),
-                    borderRadius: BorderRadius.circular(100)),
-                onPressed: () {
-                  context.router.push(const SettingsPageRoute());
-                },
-              );
+              }, orElse: () {
+                return IconButton(
+                  icon: const CircleAvatar(
+                      backgroundColor: Color(0xFFE6E6E6),
+                      child: Icon(Icons.person, size: 20, color: Colors.grey)),
+                  onPressed: () =>
+                      context.router.push(const SettingsPageRoute()),
+                );
+              });
+            }),
+          ),
+          title: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
+            return state.maybeWhen(inProgress: () {
+              return const CircularProgressIndicator();
+            }, founded: (user) {
+              return Row(children: [
+                Text('Hi, ${user.name.value.getOrElse(() => '')}'),
+              ]);
             }, orElse: () {
-              return IconButton(
-                icon: const CircleAvatar(
-                    backgroundColor: Color(0xFFE6E6E6),
-                    child: Icon(Icons.person, size: 20, color: Colors.grey)),
-                onPressed: () => context.router.push(const SettingsPageRoute()),
-              );
+              return Row(children: [Text(txtWelcomeToSHOME)]);
             });
           }),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {
+                context.router.push(const NotificationsPageRoute());
+              },
+            ),
+            kHSpaceM,
+          ],
         ),
-        title: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-          return state.maybeWhen(inProgress: () {
-            return const CircularProgressIndicator();
-          }, founded: (user) {
-            return Row(children: [
-              Text('Hi, ${user.name.value.getOrElse(() => '')}'),
-            ]);
-          }, orElse: () {
-            return Row(children: [Text(txtWelcomeToSHOME)]);
-          });
-        }),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              context.router.push(const NotificationsPageRoute());
-            },
-          ),
-          kHSpaceM,
-        ],
       ),
     );
   }
