@@ -18,9 +18,7 @@ class CartRepository implements ICartRepository {
   final Box<CartItemDto> _box;
 
   @override
-  Future<void> clear() async {
-    await _box.clear();
-  }
+  Future<void> clear() => _box.clear();
 
   @override
   Option<KtList<CartItem>> all() {
@@ -82,11 +80,13 @@ class CartRepository implements ICartRepository {
   @override
   Stream<Either<CartFailure, KtList<CartItem>>> watchAll() {
     return _box.watch().map((event) {
-      final list = all();
+      return right(
+          KtList.from(_box.values.map((item) => item.toDomain()).toList()));
 
-      return list.fold(() {
-        return left(const CartFailure.unableCreate());
-      }, (items) => right(items));
+      // final list = all();
+      // return list.fold(() {
+      //   return left(const CartFailure.unableCreate());
+      // }, (items) => right(items));
     });
   }
 }

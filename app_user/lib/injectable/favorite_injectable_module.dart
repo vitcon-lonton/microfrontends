@@ -16,6 +16,9 @@ abstract class FavoriteInjectableModule {
   @Injectable()
   FavoriteDeleteCubit get delete;
 
+  @Injectable()
+  FavoriteStorageCubit get storage;
+
   @LazySingleton(as: IFavoriteRepository)
   FavoriteRepository get repository;
 

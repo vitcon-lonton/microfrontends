@@ -38,23 +38,37 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
           // LISTEN CREATE
           BlocListener<FavoriteCreateCubit, FavoriteCreateState>(
-            listener: (context, state) => state.whenOrNull(
-                createSuccess: () =>
-                    context.read<FavoriteFindCubit>().findRequested(serviceId),
-                createFailure: (failure) => ScaffoldMessenger.of(context)
-                    .showSnackBar(
-                        const SnackBar(content: Text('Unexpected error.')))),
+            listener: (context, state) => state.whenOrNull(createSuccess: () {
+              return context.read<FavoriteStorageCubit>().push(serviceId);
+            }, createFailure: (failure) {
+              return ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Unexpected error.')));
+            }),
           ),
 
           // LISTEN DELETE
           BlocListener<FavoriteDeleteCubit, FavoriteDeleteState>(
-            listener: (context, state) => state.whenOrNull(
-                deleteSuccess: () =>
-                    context.read<FavoriteFindCubit>().findRequested(serviceId),
-                deleteFailure: (failure) => ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(
-                        content: Text(
-                            'Unexpected error occurred while deleting.')))),
+            listener: (context, state) => state.whenOrNull(deleteSuccess: () {
+              return context.read<FavoriteStorageCubit>().remove(serviceId);
+            }, deleteFailure: (failure) {
+              return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Unexpected error occurred while deleting.')));
+            }),
+          ),
+
+          // LISTEN FIND
+          BlocListener<FavoriteDeleteCubit, FavoriteDeleteState>(
+            listener: (context, state) => state.whenOrNull(deleteSuccess: () {
+              return context.read<FavoriteStorageCubit>().remove(serviceId);
+            }, deleteFailure: (failure) {
+              return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Unexpected error occurred while deleting.')));
+            }),
+          ),
+          BlocListener<FavoriteFindCubit, FavoriteFindState>(
+            listener: (context, state) => state.whenOrNull(founded: (id) {
+              return context.read<FavoriteStorageCubit>().push(serviceId);
+            }),
           ),
         ],
         child: BlocBuilder<AuthBloc, AuthState>(
@@ -72,20 +86,49 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                   return const IconButton(
                       onPressed: null,
                       icon: CircularProgressIndicator(strokeWidth: 2.0));
-                }, founded: (serviceId) {
-                  return IconButton(
-                      onPressed: () => context
-                          .read<FavoriteDeleteCubit>()
-                          .deleted(serviceId),
-                      icon: const Icon(Icons.favorite));
                 }, orElse: () {
-                  return IconButton(
-                      onPressed: () => context
-                          .read<FavoriteCreateCubit>()
-                          .created(serviceId),
-                      icon: const Icon(Icons.favorite_border_outlined));
+                  return BlocBuilder<FavoriteStorageCubit,
+                      FavoriteStorageState>(
+                    buildWhen: (prev, cur) => prev.ids != cur.ids,
+                    builder: (context, state) {
+                      if (state.ids.contains(serviceId)) {
+                        return IconButton(
+                            onPressed: () => context
+                                .read<FavoriteDeleteCubit>()
+                                .deleted(serviceId),
+                            icon: const Icon(Icons.favorite));
+                      }
+
+                      return IconButton(
+                          onPressed: () => context
+                              .read<FavoriteCreateCubit>()
+                              .created(serviceId),
+                          icon: const Icon(Icons.favorite_border_outlined));
+                    },
+                  );
                 });
               });
+
+              // return BlocBuilder<FavoriteFindCubit, FavoriteFindState>(
+              //     builder: (context, state) {
+              //   return state.maybeWhen(actionInProgress: () {
+              //     return const IconButton(
+              //         onPressed: null,
+              //         icon: CircularProgressIndicator(strokeWidth: 2.0));
+              //   }, founded: (serviceId) {
+              //     return IconButton(
+              //         onPressed: () => context
+              //             .read<FavoriteDeleteCubit>()
+              //             .deleted(serviceId),
+              //         icon: const Icon(Icons.favorite));
+              //   }, orElse: () {
+              //     return IconButton(
+              //         onPressed: () => context
+              //             .read<FavoriteCreateCubit>()
+              //             .created(serviceId),
+              //         icon: const Icon(Icons.favorite_border_outlined));
+              //   });
+              // });
             });
           },
         ),

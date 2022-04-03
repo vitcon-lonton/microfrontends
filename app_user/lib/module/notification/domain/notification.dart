@@ -21,7 +21,7 @@ class Notification with _$Notification {
       id: _id,
       price: 2000000,
       time: DateTime.now(),
-      name: 'Service name ${_id.value.foldRight('', (id, previous) => id)}',
+      name: 'Service name ${_id.value.getOrElse(() => '')}',
     );
   }
 }

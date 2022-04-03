@@ -16,17 +16,13 @@ class FavoriteAllState with _$FavoriteAllState {
     @Default(10) perPage,
     @Default(1) pageCount,
     @Default(0) totalCount,
-    @Default(false) bool isSubmitting,
-    @Default(true) bool showErrorMessages,
+    @Default(false) bool isLoading,
     required Option<KtList<Favorite>> favoritesOption,
-    int? removingId,
   }) = _FavoriteAllState;
 
   bool get isLastPage => page == pageCount;
 
-  KtList<Favorite> get favorites {
-    return favoritesOption.foldRight(emptyList(), (items, prev) => items);
-  }
+  KtList<Favorite> get favorites => favoritesOption.getOrElse(emptyList);
 
   factory FavoriteAllState.init() => FavoriteAllState(favoritesOption: none());
 }
@@ -41,7 +37,7 @@ class FavoriteAllCubit extends Cubit<FavoriteAllState> {
   void pageNumberChanged(int value) => emit(state.copyWith(page: value));
 
   Future<void> getAllRequested() async {
-    emit(state.copyWith(isSubmitting: true));
+    emit(state.copyWith(isLoading: true));
 
     Option<Pagination<Favorite>> dataPossible = await _performGetAll();
 
@@ -54,7 +50,7 @@ class FavoriteAllCubit extends Cubit<FavoriteAllState> {
           favoritesOption: optionOf(state.favorites.plus(pagination.data))));
     });
 
-    emit(state.copyWith(isSubmitting: false));
+    emit(state.copyWith(isLoading: false));
   }
 
   Future<Option<Pagination<Favorite>>> _performGetAll() {

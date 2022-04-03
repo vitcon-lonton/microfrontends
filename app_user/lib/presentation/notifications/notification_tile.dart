@@ -12,7 +12,7 @@ class NotificationTile extends StatelessWidget {
     final name = notification.name;
     final status = notification.status;
     final time = notification.time.toIso8601String();
-    final id = notification.id.value.foldRight('', (id, previous) => '#$id');
+    final id = '#${notification.id.value.getOrElse(() => '')}';
 
     return InkWell(
       onTap: () {},

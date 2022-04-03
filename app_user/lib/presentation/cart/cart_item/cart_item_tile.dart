@@ -20,98 +20,108 @@ class _CartItemTileState extends State<CartItemTile> {
 
     return BlocProvider.value(
       value: getIt<ServiceDetailCubit>()..getDetailRequested(serviceId),
-      child: BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
-          builder: (context, state) {
-        return state.maybeWhen(founded: (service) {
-          final name = service.name;
-          final price = '${service.priceApprox} VND';
-
-          return InkWell(
-            borderRadius: BorderRadius.circular(4),
-            child: Ink(
-              color: const Color(0xFFF7F8FA),
-              child: DefaultTextStyle(
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleSmall!,
-                child: Column(children: [
+      child: InkWell(
+        borderRadius: BorderRadius.circular(4),
+        child: Ink(
+          color: const Color(0xFFF7F8FA),
+          child: DefaultTextStyle(
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleSmall!,
+            child: Column(children: [
+              Row(children: [
+                SizedBox.square(
+                    child: BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
+                        builder: (context, state) {
+                      return state.maybeWhen(founded: (service) {
+                        return Icon(Icons.article_outlined,
+                            color: Theme.of(context).primaryColor);
+                      }, orElse: () {
+                        return Icon(Icons.article_outlined,
+                            color: Theme.of(context).primaryColor);
+                      });
+                    }),
+                    dimension: 90),
+                kHSpaceM,
+                Expanded(
+                    child: Column(children: [
                   Row(children: [
-                    SizedBox.square(
-                      dimension: 90,
-                      child: Icon(Icons.article_outlined,
-                          color: Theme.of(context).primaryColor),
+                    // NAME
+                    BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
+                        builder: (context, state) {
+                      return state.maybeWhen(founded: (service) {
+                        return Expanded(child: Text(service.name));
+                      }, orElse: () {
+                        return const Expanded(child: kSpaceZero);
+                      });
+                    }),
+                    IconButton(
+                      // iconSize: 12,
+                      icon: const Icon(Icons.edit),
+                      padding: const EdgeInsets.all(0.0),
+                      onPressed: () {
+                        context.router
+                            .push(CartItemFormPageRoute(cartItem: widget.item));
+                      },
                     ),
-                    kHSpaceM,
-                    Expanded(
-                      child: Column(children: [
-                        Row(children: [
-                          Expanded(child: Text(name)),
-                          IconButton(
-                            // iconSize: 12,
-                            icon: const Icon(Icons.edit),
-                            padding: const EdgeInsets.all(0.0),
-                            onPressed: () {
-                              context.router.push(
-                                  CartItemFormPageRoute(cartItem: widget.item));
-                            },
-                          ),
-                          IconButton(
-                            // iconSize: 12,
-                            icon: const Icon(Icons.cancel),
-                            padding: const EdgeInsets.all(0.0),
-                            onPressed: () {
-                              context.read<CartItemDeleteCubit>().deleted(id);
-                            },
-                          )
-                          // Text(time),
-                        ]),
-                        Text(price),
+                    IconButton(
+                      // iconSize: 12,
+                      icon: const Icon(Icons.cancel),
+                      padding: const EdgeInsets.all(0.0),
+                      onPressed: () {
+                        context.read<CartItemDeleteCubit>().deleted(id);
+                      },
+                    )
+                  ]),
 
-                        // TIME
-                        kVSpaceXS,
-                        Row(children: [
-                          const Icon(Icons.history_toggle_off_rounded,
-                              size: 14),
-                          kHSpaceXXS,
-                          Text(time),
-                        ]),
+                  BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
+                      builder: (context, state) {
+                    return state.maybeWhen(founded: (service) {
+                      return Text('${service.priceApprox} VND');
+                    }, orElse: () {
+                      return kSpaceZero;
+                    });
+                  }),
 
-                        // DESCRIPTION
-                        if (noteStr != null) ...[
-                          kVSpaceXS,
-                          Row(children: [
-                            const Icon(Icons.edit, size: 14),
-                            kHSpaceXXS,
-                            Text(noteStr),
-                          ]),
-                        ],
+                  // TIME
+                  kVSpaceXS,
+                  Row(children: [
+                    const Icon(Icons.history_toggle_off_rounded, size: 14),
+                    kHSpaceXXS,
+                    Text(time),
+                  ]),
 
-                        // IMAGES
-                        if ((base64Images?.length ?? 0) != 0) ...[
-                          kVSpaceXS,
-                          Row(
-                            children: base64Images!
-                                .getOrCrash()
-                                .asList()
-                                .map((base64Str) => SizedBox.fromSize(
-                                    size: const Size.square(50),
-                                    child: Image.memory(const Base64Decoder()
-                                        .convert(base64Str))))
-                                .toList(),
-                          ),
-                        ],
-                      ], crossAxisAlignment: CrossAxisAlignment.start),
+                  // DESCRIPTION
+                  if (noteStr != null) ...[
+                    kVSpaceXS,
+                    Row(children: [
+                      const Icon(Icons.edit, size: 14),
+                      kHSpaceXXS,
+                      Text(noteStr),
+                    ]),
+                  ],
+
+                  // IMAGES
+                  if ((base64Images?.length ?? 0) != 0) ...[
+                    kVSpaceXS,
+                    Row(
+                      children: base64Images!
+                          .getOrCrash()
+                          .asList()
+                          .map((base64Str) => SizedBox.fromSize(
+                              size: const Size.square(50),
+                              child: Image.memory(
+                                  const Base64Decoder().convert(base64Str))))
+                          .toList(),
                     ),
-                    // kHSpaceS,
-                  ], crossAxisAlignment: CrossAxisAlignment.start),
-                ]),
-              ),
-            ),
-          );
-        }, orElse: () {
-          return kSpaceZero;
-        });
-      }),
+                  ],
+                ], crossAxisAlignment: CrossAxisAlignment.start)),
+              ], crossAxisAlignment: CrossAxisAlignment.start),
+              kVSpaceS,
+            ]),
+          ),
+        ),
+      ),
     );
   }
 }

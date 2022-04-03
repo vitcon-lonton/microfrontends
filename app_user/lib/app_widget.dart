@@ -25,6 +25,7 @@ class _AppWidgetState extends State<AppWidget> {
       providers: [
         BlocProvider.value(value: getIt<FavoriteDeleteCubit>()),
         BlocProvider.value(value: getIt<FavoriteCreateCubit>()),
+        BlocProvider.value(value: getIt<FavoriteStorageCubit>()),
         BlocProvider.value(value: getIt<UserCubit>()..getUserRequested()),
         BlocProvider.value(
           value: getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),

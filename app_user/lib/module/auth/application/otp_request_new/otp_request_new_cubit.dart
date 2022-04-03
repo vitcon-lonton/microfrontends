@@ -110,7 +110,7 @@ class OtpRequestNewCubit extends Cubit<OtpRequestNewState> {
       failureOrSuccessOption: optionOf(failureOrSuccess),
     ));
 
-    failureOrSuccess.foldRight(null, (r, previous) => _startCountDown());
+    failureOrSuccess.fold((failure) {}, (_) => _startCountDown());
   }
 
   @override

@@ -1,37 +1,13 @@
-// import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-// part 'cart_item_dto.freezed.dart';
 part 'cart_item_dto.g.dart';
-
-// @freezed
-// class CartItemDto with _$CartItemDto {
-//   @HiveType(typeId: 1, adapterName: 'CartItemDtoAdapter')
-//   const factory CartItemDto({
-//     @HiveField(5) String? note,
-//     @HiveField(4) List<String>? images,
-//     @HiveField(0) required String id,
-//     @HiveField(1) required int serviceId,
-//     @HiveField(2) required DateTime time,
-//     @HiveField(3) required DateTime timeOfDay,
-//   }) = _CartItemDto;
-
-//   factory CartItemDto.fromJson(Map<String, dynamic> json) =>
-//       _$CartItemDtoFromJson(json);
-// }
+// part 'cart_item_dto.freezed.dart';
 
 @HiveType(typeId: 0)
 @JsonSerializable()
 class CartItemDto {
   @HiveField(0)
   String id;
-
-  @HiveField(5)
-  String? note;
-
-  @HiveField(4)
-  List<String>? images;
 
   @HiveField(1)
   int serviceId;
@@ -41,6 +17,12 @@ class CartItemDto {
 
   @HiveField(3)
   DateTime timeOfDay;
+
+  @HiveField(5)
+  String? note;
+
+  @HiveField(4)
+  List<String>? images;
 
   CartItemDto({
     this.note,
@@ -56,6 +38,23 @@ class CartItemDto {
 
   Map<String, dynamic> toJson() => _$CartItemDtoToJson(this);
 }
+
+// @freezed
+// class CartItemDto with _$CartItemDto {
+//   @JsonSerializable()
+//   @HiveType(typeId: 1, adapterName: 'CartItemDtoAdapter')
+//   const factory CartItemDto({
+//     @HiveField(0) required String id,
+//     @HiveField(1) required int serviceId,
+//     @HiveField(2) required DateTime time,
+//     @HiveField(3) required DateTime timeOfDay,
+//     @HiveField(4) List<String>? images,
+//     @HiveField(5) String? note,
+//   }) = _CartItemDto;
+
+//   factory CartItemDto.fromJson(Map<String, dynamic> json) =>
+//       _$CartItemDtoFromJson(json);
+// }
 
 // @freezed
 // class HiveLanguage with _$HiveLanguage {
