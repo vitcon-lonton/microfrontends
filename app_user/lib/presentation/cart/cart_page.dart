@@ -172,7 +172,7 @@ class _BookingHistoriesPageState extends State<CartPage> {
                 //   });
                 // }),
                 BlocBuilder<CartAllCubit, CartAllState>(buildWhen: (prev, cur) {
-                  return prev.items != cur.items && cur.items.isEmpty() != true;
+                  return prev.items != cur.items;
                 }, builder: (context, state) {
                   return ListView.separated(
                     shrinkWrap: true,
@@ -207,17 +207,20 @@ class _BookingHistoriesPageState extends State<CartPage> {
           // FLOATING ACTION
           floatingActionButton:
               BlocBuilder<CartItemCreateCubit, CartItemCreateState>(
-                  builder: (context, state) => state.maybeMap(
-                      orElse: () => FloatingActionButton(
-                          child: const Icon(Icons.add),
-                          onPressed: () => context
-                              .read<CartItemCreateCubit>()
-                              .created(CartItem.random(serviceId: 1))),
-                      actionInProgress: (state) => FloatingActionButton(
-                          onPressed: null,
-                          child: CircularProgressIndicator(
-                              color:
-                                  Theme.of(context).colorScheme.onPrimary)))),
+                  builder: (context, state) {
+            return state.maybeWhen(actionInProgress: () {
+              return FloatingActionButton(
+                  onPressed: null,
+                  child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary));
+            }, orElse: () {
+              return FloatingActionButton(
+                  child: const Icon(Icons.add),
+                  onPressed: () => context
+                      .read<CartItemCreateCubit>()
+                      .created(CartItem.empty(serviceId: 1)));
+            });
+          }),
         ),
       ),
     );

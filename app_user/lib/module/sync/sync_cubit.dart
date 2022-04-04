@@ -31,16 +31,17 @@ class SyncCubit extends Cubit<SyncState> {
     if (itemsIsNotEmpty) {
       emit(const SyncState.inProgress());
 
-      KtList<int> servicesId;
       Either<BookingFailure, Unit> failureOrSuccess;
 
-      servicesId = items!.map((item) => item.serviceId).toList();
-      failureOrSuccess = await _bookingRepository.create(
-          servicesId: servicesId,
-          fullName: Name('My Name'),
-          phoneNumber: Phone('0372560987'),
-          startTime: DateTime.now().add(const Duration(hours: 10)),
-          address: '261 Tran Binh Trong, Ward 4, District 5, Ho Chi Minh City');
+      KtList<BookingItem> bookingItems = items!.map((item) {
+        return BookingItem(
+            serviceId: item.serviceId,
+            startTime: item.timeStart(),
+            endTime: item.timeEnd(),
+            description: item.note?.getOrCrash());
+      }).toList();
+
+      failureOrSuccess = await performCreate(bookingItems);
 
       emit(failureOrSuccess.fold((failure) {
         return SyncState.syncFailure(failure);
@@ -48,12 +49,12 @@ class SyncCubit extends Cubit<SyncState> {
     }
   }
 
-  Future<Either<BookingFailure, Unit>> performCreate() {
+  Future<Either<BookingFailure, Unit>> performCreate(
+      KtList<BookingItem> bookingItems) {
     return _bookingRepository.create(
+        items: bookingItems,
         fullName: Name('My Name'),
-        servicesId: KtList.of(16, 15),
         phoneNumber: Phone('0372560987'),
-        startTime: DateTime.now().add(const Duration(hours: 10)),
         address: 'My Address');
   }
 }

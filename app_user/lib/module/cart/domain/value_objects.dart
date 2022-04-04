@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:kt_dart/kt.dart';
 import 'package:app_user/core/core.dart';
 
 class ItemNote extends ValueObject<String> {
@@ -17,21 +16,4 @@ class ItemNote extends ValueObject<String> {
   }
 
   const ItemNote._(this.value);
-}
-
-class List6<T> extends ValueObject<KtList<T>> {
-  static const maxLength = 6;
-
-  @override
-  final Either<ValueFailure<KtList<T>>, KtList<T>> value;
-
-  bool get isFull => length == maxLength;
-
-  int get length => value.getOrElse(() => emptyList()).size;
-
-  factory List6(KtList<T> input) {
-    return List6._(validateMaxListLength(input, maxLength));
-  }
-
-  const List6._(this.value);
 }

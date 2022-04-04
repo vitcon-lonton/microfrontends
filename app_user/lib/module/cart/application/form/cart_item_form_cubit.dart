@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:app_user/core/core.dart';
 import '../../domain/booking_time.dart';
 import '../../domain/cart_failure.dart';
 import '../../domain/cart_item.dart';
@@ -21,7 +22,7 @@ class CartItemFormState with _$CartItemFormState {
           saveFailureOrSuccessOption}) = _CartItemFormState;
   factory CartItemFormState.initial() {
     return CartItemFormState(
-        cartItem: CartItem.random(serviceId: 1),
+        cartItem: CartItem.empty(serviceId: 1),
         saveFailureOrSuccessOption: none());
   }
 

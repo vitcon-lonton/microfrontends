@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:app_user/core/core.dart';
 import 'package:app_user/module/auth/auth.dart';
-import '../../cart/domain/value_objects.dart';
 import 'booking.dart';
 import 'booking_failure.dart';
+import 'booking_item.dart';
 
 abstract class IBookingRepository {
   Future<Option<Booking>> detail(int id);
@@ -15,13 +15,10 @@ abstract class IBookingRepository {
   Future<Option<Pagination<Booking>>> histories(
       {required int page, required int perPage});
   Future<Either<BookingFailure, Unit>> create(
-      {required KtList<int> servicesId,
+      {required KtList<BookingItem> items,
       required Name fullName,
       required Phone phoneNumber,
-      required DateTime startTime,
       required String address,
       String? latitude,
-      String? longitude,
-      String? description,
-      List6<String>? images});
+      String? longitude});
 }

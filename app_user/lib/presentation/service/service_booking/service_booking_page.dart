@@ -28,7 +28,7 @@ class ServiceBookingPage extends StatelessWidget {
         BlocProvider.value(value: getIt<CartItemCreateCubit>()),
         BlocProvider.value(
           value: getIt<CartItemFormCubit>()
-            ..initialized(optionOf(CartItem.random(serviceId: serviceId))),
+            ..initialized(optionOf(CartItem.empty(serviceId: serviceId))),
         ),
       ],
       child: MultiBlocListener(

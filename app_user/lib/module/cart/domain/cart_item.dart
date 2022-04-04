@@ -18,11 +18,11 @@ class CartItem with _$CartItem {
       ItemNote? note,
       List6<String>? base64Images}) = _CartItem;
 
-  factory CartItem.random({required int serviceId}) {
+  factory CartItem.empty({required int serviceId}) {
     return CartItem(
       id: UniqueId(),
       serviceId: serviceId,
-      time: BookingTime.empty(),
+      time: BookingTime.now(),
     );
   }
 

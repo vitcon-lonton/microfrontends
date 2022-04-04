@@ -15,7 +15,7 @@ class ServiceBookingTime extends StatefulWidget {
 }
 
 class _ServiceBookingTimeState extends State<ServiceBookingTime> {
-  BookingTime bookingTime = BookingTime.empty();
+  BookingTime bookingTime = BookingTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _ServiceBookingTimeState extends State<ServiceBookingTime> {
           DefaultTextStyle(
             textAlign: TextAlign.left,
             style: TextStyle(color: Theme.of(context).errorColor),
-            child: bookingTime.failureOption.fold(() {
+            child: bookingTime.failureOrUnit.swap().toOption().fold(() {
               return kSpaceZero;
             }, (failure) {
               return Row(children: const [Text('Invalid booking time')]);

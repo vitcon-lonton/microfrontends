@@ -21,7 +21,7 @@ class _CartItemImagesSelectorState extends State<CartItemImagesSelector> {
         builder: (context, state) {
           final itemBase64Images = state.base64Images;
           final base64ImagesImmutable =
-              itemBase64Images?.value.fold((failure) => null, (list) => list);
+              itemBase64Images?.value.toOption().toNullable();
 
           return Column(children: [
             // LIST IMAGE

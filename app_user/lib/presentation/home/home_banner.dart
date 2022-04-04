@@ -21,11 +21,7 @@ class HomeBanner extends StatelessWidget {
                 child: CarouselSlider(
                   options: CarouselOptions(height: 300.0),
                   items: urls.asList().map((url) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return DMQImage.network(url, fit: BoxFit.cover);
-                      },
-                    );
+                    return DMQImage.network(url, fit: BoxFit.cover);
                   }).toList(),
                 ),
               ),

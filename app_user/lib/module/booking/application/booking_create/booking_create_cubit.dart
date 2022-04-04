@@ -32,10 +32,9 @@ class BookingCreateCubit extends Cubit<BookingCreateState> {
 
   Future<Either<BookingFailure, Unit>> _performCreate() {
     return _repository.create(
+        items: emptyList(),
         fullName: Name('My Name'),
-        servicesId: KtList.of(16, 15),
         phoneNumber: Phone('0372560987'),
-        startTime: DateTime.now().add(const Duration(hours: 10)),
         address: 'My Address');
   }
 }

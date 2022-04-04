@@ -15,10 +15,10 @@ class _CartItemTileState extends State<CartItemTile> {
     final id = widget.item.id;
     final serviceId = widget.item.serviceId;
     final base64Images = widget.item.base64Images;
-    final noteStr = widget.item.note?.getOrCrash();
     final bookingTime = widget.item.time;
     final timeStart = bookingTime.timeStart.toString();
     final timeEnd = bookingTime.timeEnd.toString();
+    final noteStr = widget.item.note?.value.toOption().toNullable();
     final dateStr = DateFormat.yMd().format(bookingTime.date);
 
     return BlocProvider.value(
