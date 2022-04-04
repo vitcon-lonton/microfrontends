@@ -12,7 +12,8 @@ class ArticleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = article.title ?? '';
+    final image = article.image;
+    final title = article.title;
 
     return InkWell(
       borderRadius: borderRadius ?? BorderRadius.circular(2),
@@ -26,21 +27,21 @@ class ArticleTile extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                width: double.infinity,
-                child: const Icon(Icons.article_outlined, size: 40),
-                decoration: BoxDecoration(
-                  borderRadius: borderRadius ?? BorderRadius.circular(2),
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: borderRadius ?? BorderRadius.circular(2)),
+                  child: image == null
+                      ? const Icon(Icons.article_outlined, size: 40)
+                      : DMQImage.network(image, fit: BoxFit.cover)),
             ),
             kVSpaceXS,
-            Text(
-              title,
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-            ),
+            if (title != null) ...[
+              Text(title,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis),
+            ],
             kVSpaceXS,
           ],
         ),

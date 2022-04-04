@@ -13,10 +13,10 @@ class CartItemDto {
   int serviceId;
 
   @HiveField(2)
-  DateTime time;
+  DateTime timeStart;
 
   @HiveField(3)
-  DateTime timeOfDay;
+  DateTime timeEnd;
 
   @HiveField(5)
   String? note;
@@ -29,8 +29,8 @@ class CartItemDto {
     this.images,
     required this.id,
     required this.serviceId,
-    required this.time,
-    required this.timeOfDay,
+    required this.timeStart,
+    required this.timeEnd,
   });
 
   factory CartItemDto.fromJson(Map<String, dynamic> json) =>

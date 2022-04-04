@@ -19,97 +19,92 @@ class ServiceBookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => getIt<ServiceDetailCubit>()),
-          BlocProvider(create: (_) => getIt<CartItemCreateCubit>()),
-          BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
-        ],
-        child: MultiBlocListener(
-            listeners: [
-              // LISTEN LOADING SERVICE DETAIL
-              BlocListener<ServiceDetailCubit, ServiceDetailState>(
-                  listener: (context, state) {
-                state.whenOrNull(founded: (service) {
-                  return context
-                      .read<ServiceCheckingCubit>()
-                      .serviceChanged(service);
-                });
-              }),
+      providers: [
+        BlocProvider(create: (_) => getIt<ServiceDetailCubit>()),
+        BlocProvider(create: (_) => getIt<CartItemCreateCubit>()),
+        BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
+      ],
+      child: MultiBlocListener(
+          listeners: [
+            // LISTEN LOADING SERVICE DETAIL
+            BlocListener<ServiceDetailCubit, ServiceDetailState>(
+                listener: (context, state) {
+              state.whenOrNull(founded: (service) {
+                return context
+                    .read<ServiceCheckingCubit>()
+                    .serviceChanged(service);
+              });
+            }),
 
-              // LISTEN ADD ITEM TO CART
-              BlocListener<CartItemCreateCubit, CartItemCreateState>(
-                  listener: (context, state) => state.mapOrNull(
-                      createSuccess: (state) =>
-                          context.router.push(const CartPageRoute()),
-                      createFailure: (state) => ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
-                              behavior: SnackBarBehavior.floating,
-                              content: Text('Unexpected error.'))))),
+            // LISTEN ADD ITEM TO CART
+            BlocListener<CartItemCreateCubit, CartItemCreateState>(
+                listener: (context, state) => state.mapOrNull(
+                    createSuccess: (state) =>
+                        context.router.push(const CartPageRoute()),
+                    createFailure: (state) => ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            content: Text('Unexpected error.'))))),
 
-              //
-              // LISTEN SERVICE CHECKING
-              // BlocListener<ServiceCheckingCubit, ServiceCheckingState>(
-              //     listenWhen: (prev, cur) =>
-              //         prev.failureOrSuccessOption != cur.failureOrSuccessOption,
-              //     listener: (context, state) {
-              //       state.failureOrSuccessOption.fold(() {}, (either) {
-              //         either.fold((failure) {
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //               const SnackBar(
-              //                   behavior: SnackBarBehavior.floating,
-              //                   content: Text('Server error')));
-              //         }, (_) {
-              //           context.router.push(const CartPageRoute());
-              //         });
-              //       });
-              //     }),
-            ],
-            child: Scaffold(
-              // BODY
-              body: ListView(children: [
-                // APP BAR
-                AppBar(
-                  actions: [
-                    Row(children: [FavoriteButton(serviceId: serviceId)])
-                  ],
-                  actionsIconTheme: const IconThemeData.fallback()
-                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                  backgroundColor: Theme.of(context).primaryColor,
-                ),
+            //
+            // LISTEN SERVICE CHECKING
+            // BlocListener<ServiceCheckingCubit, ServiceCheckingState>(
+            //     listenWhen: (prev, cur) =>
+            //         prev.failureOrSuccessOption != cur.failureOrSuccessOption,
+            //     listener: (context, state) {
+            //       state.failureOrSuccessOption.fold(() {}, (either) {
+            //         either.fold((failure) {
+            //           ScaffoldMessenger.of(context).showSnackBar(
+            //               const SnackBar(
+            //                   behavior: SnackBarBehavior.floating,
+            //                   content: Text('Server error')));
+            //         }, (_) {
+            //           context.router.push(const CartPageRoute());
+            //         });
+            //       });
+            //     }),
+          ],
+          child: Scaffold(
+            // BODY
+            body: ListView(children: [
+              // APP BAR
+              AppBar(
+                actions: [
+                  Row(children: [FavoriteButton(serviceId: serviceId)])
+                ],
+                backgroundColor: Theme.of(context).primaryColor,
+                actionsIconTheme: const IconThemeData.fallback()
+                    .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+              ),
 
-                // DETAIL
-                ServiceDetail(id: serviceId),
-                kVSpaceL,
-                kVSpaceL,
-                Row(children: const [
-                  kHSpaceM,
-                  Text('Pick your time'),
-                  kHSpaceM
-                ]),
+              // DETAIL
+              ServiceDetail(id: serviceId),
+              kVSpaceL,
+              kVSpaceL,
+              Row(children: const [kHSpaceM, Text('Pick your time'), kHSpaceM]),
 
-                // BOOKING FORM
-                kVSpaceL,
-                const ServiceBookingForm(),
-                kVSpaceL,
-              ]),
+              // BOOKING FORM
+              kVSpaceL,
+              const ServiceBookingForm(),
+              kVSpaceL,
+            ]),
 
-              // NAVIGATION_BAR
-              bottomNavigationBar:
-                  BlocBuilder<CartItemCreateCubit, CartItemCreateState>(
-                      builder: (context, state) {
-                return state.maybeWhen(orElse: () {
-                  return BottomNav.submit(
-                      child: Text(tr(LocaleKeys.txt_add_to_cart)),
-                      onPressed: () {
-                        context
-                            .read<CartItemCreateCubit>()
-                            .created(CartItem.random(serviceId: serviceId));
-                      });
-                }, actionInProgress: () {
-                  return BottomNav.submit(
-                      onPressed: null, child: const Text('...'));
-                });
-              }),
-            )));
+            // NAVIGATION BAR
+            bottomNavigationBar:
+                BlocBuilder<CartItemCreateCubit, CartItemCreateState>(
+                    builder: (context, state) {
+              return state.maybeWhen(actionInProgress: () {
+                return BottomNav.submit(
+                    onPressed: null, child: const Text('...'));
+              }, orElse: () {
+                return BottomNav.submit(
+                    child: Text(tr(LocaleKeys.txt_add_to_cart)),
+                    onPressed: () => context
+                        .read<CartItemCreateCubit>()
+                        .created(CartItem.random(serviceId: serviceId)));
+              });
+            }),
+          )),
+    );
   }
 }

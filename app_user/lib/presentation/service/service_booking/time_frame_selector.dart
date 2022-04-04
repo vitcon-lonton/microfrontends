@@ -37,6 +37,8 @@ class _TimeFrameSelectorState extends State<TimeFrameSelector> {
     '23:00 - 00:00',
   ];
 
+  // final options = List.generate(TimeOfDay.hoursPerDay, (index) => null);
+
   @override
   Widget build(BuildContext context) {
     final text = options[selectIndex];

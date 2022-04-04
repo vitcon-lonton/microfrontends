@@ -33,13 +33,6 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
 
   @override
   Widget build(BuildContext context) {
-    final AutovalidateMode autovalidateMode;
-    if (context.read<ServiceCheckingCubit>().state.showErrorMessages) {
-      autovalidateMode = AutovalidateMode.always;
-    } else {
-      autovalidateMode = AutovalidateMode.disabled;
-    }
-
     return BlocProvider<ServiceCheckingCubit>.value(
       value: context.read<ServiceCheckingCubit>(),
       // value: context.read<ServiceCheckingCubit>()..getDetailRequested(),
@@ -57,7 +50,7 @@ class _ServiceBookingFormState extends State<ServiceBookingForm> {
                 fontSize: 22.0,
                 color: CupertinoColors.label.resolveFrom(context)),
             child: Form(
-              autovalidateMode: autovalidateMode,
+              autovalidateMode: AutovalidateMode.always,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

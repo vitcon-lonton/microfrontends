@@ -16,7 +16,7 @@ class _CartItemTileState extends State<CartItemTile> {
     final serviceId = widget.item.serviceId;
     final base64Images = widget.item.base64Images;
     final noteStr = widget.item.note?.getOrCrash();
-    final time = widget.item.time.toIso8601String();
+    final time = widget.item.time.date.toIso8601String();
 
     return BlocProvider.value(
       value: getIt<ServiceDetailCubit>()..getDetailRequested(serviceId),

@@ -10,11 +10,24 @@ class ArticleDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final txtBlogs = tr(LocaleKeys.txt_blogs);
+    final image = article.image;
     final content = article.content;
+    final txtBlogs = tr(LocaleKeys.txt_blogs);
 
     return Scaffold(
-        appBar: AppBar(title: Text(txtBlogs)), body: Html(data: content));
+      // BODY
+      body: ListView(children: [
+        if (image != null) ...[
+          DMQImage.network(image, fit: BoxFit.cover),
+          kVSpaceM,
+        ],
+        Html(data: content),
+        kVSpaceM,
+      ]),
+
+      // APP BAR
+      appBar: AppBar(title: Text(txtBlogs)),
+    );
 
     // return Scaffold(appBar: AppBar(), body: const Text('Not found content'));
   }

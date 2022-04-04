@@ -2,10 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:app_user/module/cart/domain/value_objects.dart';
+import '../../domain/booking_time.dart';
 import '../../domain/cart_failure.dart';
 import '../../domain/cart_item.dart';
 import '../../domain/i_cart_repository.dart';
+import '../../domain/value_objects.dart';
 part 'cart_item_form_cubit.freezed.dart';
 
 @freezed
@@ -34,7 +35,7 @@ class CartItemFormCubit extends Cubit<CartItemFormState> {
 
   CartItemFormCubit(this._cartRepository) : super(CartItemFormState.initial());
 
-  void timeChanged(DateTime value) {
+  void timeChanged(BookingTime value) {
     emit(state.copyWith(
       saveFailureOrSuccessOption: none(),
       cartItem: state.cartItem.copyWith(time: value),

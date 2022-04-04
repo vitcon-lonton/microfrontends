@@ -8,4 +8,5 @@ class CartFailure with _$CartFailure {
   const factory CartFailure.unableCreate() = _UnableCreate;
   const factory CartFailure.unableDelete() = _UnableDelete;
   const factory CartFailure.unableUpdate() = _UnableUpdate;
+  const factory CartFailure.bookingTimeInvalid() = _BookingTimeInvalid;
 }

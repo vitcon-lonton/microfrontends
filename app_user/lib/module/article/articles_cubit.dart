@@ -15,7 +15,7 @@ class ArticlesState with _$ArticlesState {
       @Default(10) perPage,
       @Default(1) pageCount,
       @Default(0) totalCount,
-      @Default(false) bool isSubmitting,
+      @Default(false) bool isLoading,
       required Option<KtList<Article>> articlesOption}) = _ArticlesState;
   factory ArticlesState.init() => ArticlesState(articlesOption: none());
 
@@ -35,20 +35,16 @@ class ArticlesCubit extends Cubit<ArticlesState> {
   void pageNumberChanged(int value) => emit(state.copyWith(page: value));
 
   Future<void> getArticlesRequested() async {
-    emit(state.copyWith(isSubmitting: true));
+    emit(state.copyWith(isLoading: true));
 
     Option<KtList<Article>> possibleData = await _performGetArticles();
 
     possibleData.fold(() {}, (articles) {
       emit(state.copyWith(
-          articlesOption: optionOf(state.articles
-              .plus(articles)
-              .plus(articles)
-              .plus(articles)
-              .plus(articles))));
+          articlesOption: optionOf(state.articles.plus(articles))));
     });
 
-    emit(state.copyWith(isSubmitting: false));
+    emit(state.copyWith(isLoading: false));
   }
 
   Future<Option<KtList<Article>>> _performGetArticles() async {
