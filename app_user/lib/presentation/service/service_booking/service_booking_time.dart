@@ -1,13 +1,20 @@
-part of 'home.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:theme_manager/theme_manager.dart';
+import 'package:time_interval_picker/time_interval_picker.dart';
+import 'package:app_user/module/cart/cart.dart';
 
-class BookingTimeForm extends StatefulWidget {
-  const BookingTimeForm({Key? key}) : super(key: key);
+class ServiceBookingTime extends StatefulWidget {
+  const ServiceBookingTime({Key? key, this.onChanged}) : super(key: key);
+
+  final void Function(BookingTime)? onChanged;
 
   @override
-  State<BookingTimeForm> createState() => _BookingTimeFormState();
+  State<ServiceBookingTime> createState() => _ServiceBookingTimeState();
 }
 
-class _BookingTimeFormState extends State<BookingTimeForm> {
+class _ServiceBookingTimeState extends State<ServiceBookingTime> {
   BookingTime bookingTime = BookingTime.empty();
 
   @override
@@ -35,11 +42,7 @@ class _BookingTimeFormState extends State<BookingTimeForm> {
                         use24hFormat: true,
                         initialDateTime: date,
                         mode: CupertinoDatePickerMode.date,
-                        onDateTimeChanged: (dateTime) {
-                          setState(() {
-                            bookingTime = bookingTime.copyWith(date: dateTime);
-                          });
-                        }));
+                        onDateTimeChanged: onDateTimeChanged));
                   },
                   // In this example, the date value is formatted manually. You can use intl package
                   // to format the value based on user's locale settings.
@@ -55,34 +58,10 @@ class _BookingTimeFormState extends State<BookingTimeForm> {
           Row(children: const [kHSpaceM, Text('Select Time')]),
           kVSpaceM,
           TimeIntervalPicker(
-            endLimit: null,
-            startLimit: DateTime(date.year, date.month, date.day,
-                bookingTime.timeStart.hour, bookingTime.timeStart.minute),
-            onChanged: (DateTime? startTime, DateTime? endTime, bool isAllDay) {
-              if (startTime != null) {
-                setState(() {
-                  final timeStart =
-                      TimeOfDay(hour: startTime.hour, minute: startTime.minute);
-                  bookingTime = bookingTime.copyWith(timeStart: timeStart);
-                });
-              }
-
-              if (endTime != null) {
-                setState(() {
-                  final timeEnd =
-                      TimeOfDay(hour: endTime.hour, minute: endTime.minute);
-                  bookingTime = bookingTime.copyWith(timeEnd: timeEnd);
-                });
-              }
-
-              if (kDebugMode) {
-                print('--- startTime ---');
-                print(startTime?.toIso8601String());
-                print('--- endTime ---');
-                print(endTime?.toIso8601String());
-              }
-            },
-          ),
+              endLimit: null,
+              onChanged: onTimeIntervalChanged,
+              startLimit: DateTime(date.year, date.month, date.day,
+                  bookingTime.timeStart.hour, bookingTime.timeStart.minute)),
           kVSpaceM,
           DefaultTextStyle(
             textAlign: TextAlign.left,
@@ -99,19 +78,57 @@ class _BookingTimeFormState extends State<BookingTimeForm> {
     );
   }
 
+  void onDateTimeChanged(DateTime dateTime) {
+    setState(() {
+      bookingTime = bookingTime.copyWith(date: dateTime);
+      if (widget.onChanged != null) {
+        widget.onChanged!(bookingTime);
+      }
+    });
+  }
+
+  void onTimeIntervalChanged(
+      DateTime? startTime, DateTime? endTime, bool isAllDay) {
+    if (kDebugMode) {
+      print('--- startTime ---');
+      print(startTime?.toIso8601String());
+      print('--- endTime ---');
+      print(endTime?.toIso8601String());
+    }
+
+    if (startTime != null) {
+      setState(() {
+        final timeStart =
+            TimeOfDay(hour: startTime.hour, minute: startTime.minute);
+        bookingTime = bookingTime.copyWith(timeStart: timeStart);
+
+        if (widget.onChanged != null) {
+          widget.onChanged!(bookingTime);
+        }
+      });
+    }
+
+    if (endTime != null) {
+      setState(() {
+        final timeEnd = TimeOfDay(hour: endTime.hour, minute: endTime.minute);
+        bookingTime = bookingTime.copyWith(timeEnd: timeEnd);
+        if (widget.onChanged != null) {
+          widget.onChanged!(bookingTime);
+        }
+      });
+    }
+  }
+
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => Container(
         height: 216,
         padding: const EdgeInsets.only(top: 6.0),
-        // The Bottom margin is provided to align the popup above the system navigation bar.
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        // Provide a background color for the popup.
         color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
         child: SafeArea(top: false, child: child),
       ),
     );

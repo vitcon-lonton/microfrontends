@@ -26,15 +26,6 @@ class _HomePageState extends State<HomePage> {
             const HomeBanner(),
 
             // IMAGE
-            const BookingTimeForm(),
-            // TimeIntervalPicker(
-            //   endLimit: null,
-            //   startLimit: null,
-            //   onChanged:
-            //       (DateTime? startTime, DateTime? endTime, bool isAllDay) {},
-            // ),
-
-            // IMAGE
             ...[
               const Divider(height: 8.0, thickness: 8.0),
               const Padding(

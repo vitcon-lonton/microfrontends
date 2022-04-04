@@ -16,7 +16,10 @@ class _CartItemTileState extends State<CartItemTile> {
     final serviceId = widget.item.serviceId;
     final base64Images = widget.item.base64Images;
     final noteStr = widget.item.note?.getOrCrash();
-    final time = widget.item.time.date.toIso8601String();
+    final bookingTime = widget.item.time;
+    final timeStart = bookingTime.timeStart.toString();
+    final timeEnd = bookingTime.timeEnd.toString();
+    final dateStr = DateFormat.yMd().format(bookingTime.date);
 
     return BlocProvider.value(
       value: getIt<ServiceDetailCubit>()..getDetailRequested(serviceId),
@@ -88,8 +91,14 @@ class _CartItemTileState extends State<CartItemTile> {
                   Row(children: [
                     const Icon(Icons.history_toggle_off_rounded, size: 14),
                     kHSpaceXXS,
-                    Text(time),
+                    Text('$timeStart - $timeEnd,  $dateStr'),
                   ]),
+
+                  kVSpaceS,
+                  bookingTime.failureOrUnit.fold((failure) {
+                    return Text('Invalid booking time',
+                        style: TextStyle(color: Theme.of(context).errorColor));
+                  }, (_) => kSpaceZero),
 
                   // DESCRIPTION
                   if (noteStr != null) ...[

@@ -10,6 +10,7 @@ part 'cart_item.freezed.dart';
 @freezed
 class CartItem with _$CartItem {
   const CartItem._();
+
   const factory CartItem(
       {required UniqueId id,
       required int serviceId,
@@ -19,32 +20,23 @@ class CartItem with _$CartItem {
 
   factory CartItem.random({required int serviceId}) {
     return CartItem(
-        id: UniqueId(), serviceId: serviceId, time: BookingTime.empty());
+      id: UniqueId(),
+      serviceId: serviceId,
+      time: BookingTime.empty(),
+    );
   }
 
   Option<ValueFailure<dynamic>> get failureOption {
-    if (note != null && note!.isValid() == false) {
-      return note!.failureOrUnit.fold(some, (_) => none());
-    }
+    return time.failureOrUnit.fold((failure) => some(failure), (_) {
+      if (note != null) {
+        return note!.failureOrUnit.fold(some, (_) => none());
+      }
 
-    if (base64Images != null && base64Images!.isValid() == false) {
-      return base64Images!.failureOrUnit.fold(some, (_) => none());
-    }
+      if (base64Images != null) {
+        return base64Images!.failureOrUnit.fold(some, (_) => none());
+      }
 
-    // return body.failureOrUnit
-    //     .andThen(todos.failureOrUnit)
-    //     .andThen(
-    //       todos
-    //           .getOrCrash()
-    //           // Getting the failureOption from the TodoItem ENTITY - NOT a failureOrUnit from a VALUE OBJECT
-    //           .map((todoItem) => todoItem.failureOption)
-    //           .filter((o) => o.isSome())
-    //           // If we can't get the 0th element, the list is empty. In such a case, it's valid.
-    //           .getOrElse(0, (_) => none())
-    //           .fold(() => right(unit), (f) => left(f)),
-    //     )
-    //     .fold((f) => some(f), (_) => none());
-
-    return none();
+      return none();
+    });
   }
 }

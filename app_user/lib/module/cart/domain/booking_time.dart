@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:app_user/core/core.dart';
 import 'cart_failure.dart';
 part 'booking_time.freezed.dart';
 
@@ -12,6 +13,24 @@ class BookingTime with _$BookingTime {
       {required DateTime date,
       required TimeOfDay timeStart,
       required TimeOfDay timeEnd}) = _BookingTime;
+
+  Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
+    final now = DateTime.now();
+    final startDateTime = DateTime(
+        date.year, date.month, date.day, timeStart.hour, timeStart.minute);
+    final endDateTime =
+        DateTime(date.year, date.month, date.day, timeEnd.hour, timeEnd.minute);
+
+    if (startDateTime.isBefore(now)) {
+      return left(ValueFailure.other(failedValue: this));
+    }
+
+    if (startDateTime.isAfter(endDateTime)) {
+      return left(ValueFailure.other(failedValue: this));
+    }
+
+    return right(unit);
+  }
 
   Option<CartFailure> get failureOption {
     final now = DateTime.now();

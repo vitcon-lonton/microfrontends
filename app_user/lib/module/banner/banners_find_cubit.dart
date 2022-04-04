@@ -46,9 +46,7 @@ class BannersFindCubit extends Cubit<BannersFindState> {
         String bannerValueStr = banner.value;
         Map<String, dynamic> bannerValueJson = jsonDecode(bannerValueStr);
         bannerValueJson.forEach((key, value) {
-          if (key == '2') {
-            urls = urls.plusElement(value['img']);
-          }
+          urls = urls.plusElement(value['img']);
         });
       }
 

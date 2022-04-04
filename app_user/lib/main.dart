@@ -16,9 +16,9 @@ Future<void> main() async {
   // getIt<Dio>().interceptors.add(PrettyDioLogger());
   getIt<Dio>().interceptors.add(getIt<AuthInterceptors>());
   // getIt<Dio>().interceptors.add(PostmanDioLogger(enablePrint: true));
-  getIt<Dio>()
-      .interceptors
-      .add(PrettyDioLogger(requestHeader: false, responseHeader: false));
+  // getIt<Dio>()
+  //     .interceptors
+  //     .add(PrettyDioLogger(requestHeader: false, responseHeader: false));
 
   runApp(
     EasyLocalization(
@@ -27,7 +27,6 @@ Future<void> main() async {
       startLocale: const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
       supportedLocales: const [Locale('en', 'US')],
-      // assetLoader: const CodegenLoader(),
     ),
   );
 }

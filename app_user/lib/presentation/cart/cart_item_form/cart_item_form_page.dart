@@ -7,6 +7,7 @@ class CartItemFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtUpdate = tr(LocaleKeys.txt_update);
     final txtDescription = tr(LocaleKeys.txt_description);
 
     return MultiBlocProvider(
@@ -18,7 +19,6 @@ class CartItemFormPage extends StatelessWidget {
             ..getDetailRequested(cartItem!.serviceId);
         }),
         BlocProvider.value(value: getIt<CartItemUpdateCubit>()),
-        BlocProvider.value(value: getIt<ServiceCheckingCubit>()),
         BlocProvider.value(
           value: getIt<CartItemFormCubit>()..initialized(optionOf(cartItem)),
         ),
@@ -28,11 +28,7 @@ class CartItemFormPage extends StatelessWidget {
             // LISTEN LOADING SERVICE DETAIL
             BlocListener<ServiceDetailCubit, ServiceDetailState>(
                 listener: (context, state) {
-              state.whenOrNull(founded: (service) {
-                return context
-                    .read<ServiceCheckingCubit>()
-                    .serviceChanged(service);
-              });
+              state.whenOrNull(founded: (service) {});
             }),
 
             // LISTEN UPDATE CART ITEM
@@ -52,6 +48,22 @@ class CartItemFormPage extends StatelessWidget {
                 listener: (context, state) => context
                     .read<ServiceDetailCubit>()
                     .getDetailRequested(state.cartItem.serviceId)),
+
+            // LISTEN UPDATE SUCCESS
+            BlocListener<CartItemFormCubit, CartItemFormState>(
+                listenWhen: (prev, cur) =>
+                    prev.saveFailureOrSuccessOption !=
+                    cur.saveFailureOrSuccessOption,
+                listener: (context, state) {
+                  state.saveFailureOrSuccessOption.fold(() {}, (either) {
+                    either.fold((failure) {
+                      return ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Unexpected error.')));
+                    }, (_) {
+                      return context.router.pop();
+                    });
+                  });
+                }),
           ],
           child: Scaffold(
             // BODY
@@ -133,19 +145,25 @@ class CartItemFormPage extends StatelessWidget {
             ),
 
             // APP BAR
-            appBar: AppBar(title: Text(tr(LocaleKeys.txt_update))),
+            appBar: AppBar(title: Text(txtUpdate)),
 
             // NAVIGATION_BAR
             bottomNavigationBar:
                 BlocBuilder<CartItemFormCubit, CartItemFormState>(
                     builder: (context, state) {
-                      return state.isSaving || !state.isValid
-                          ? BottomNav.submit(
-                              onPressed: null, child: const Text('...'))
-                          : BottomNav.submit(
-                              child: Text(tr(LocaleKeys.txt_update)),
-                              onPressed:
-                                  context.read<CartItemFormCubit>().saved);
+                      if (state.isSaving) {
+                        return BottomNav.submit(
+                            onPressed: null, child: const Text('...'));
+                      }
+
+                      if (!state.isValid) {
+                        return BottomNav.submit(
+                            onPressed: null, child: Text(txtUpdate));
+                      }
+
+                      return BottomNav.submit(
+                          child: Text(txtUpdate),
+                          onPressed: context.read<CartItemFormCubit>().saved);
                     },
                     buildWhen: (prev, cur) =>
                         prev.isValid != cur.isValid ||

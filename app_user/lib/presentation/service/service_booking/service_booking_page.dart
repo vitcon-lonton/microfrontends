@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
@@ -7,6 +8,7 @@ import 'package:app_user/module/cart/cart.dart';
 import 'package:app_user/module/service/service.dart';
 import 'package:app_user/presentation/routes/routes.dart';
 import 'package:app_user/presentation/service/service.dart';
+import 'service_booking_time.dart';
 
 class ServiceBookingPage extends StatelessWidget {
   final int serviceId;
@@ -18,51 +20,52 @@ class ServiceBookingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final txtAddToCart = tr(LocaleKeys.txt_add_to_cart);
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<ServiceDetailCubit>()),
-        BlocProvider(create: (_) => getIt<CartItemCreateCubit>()),
-        BlocProvider(create: (_) => getIt<ServiceCheckingCubit>()),
+        BlocProvider.value(value: getIt<ServiceDetailCubit>()),
+        BlocProvider.value(value: getIt<CartItemCreateCubit>()),
+        BlocProvider.value(
+          value: getIt<CartItemFormCubit>()
+            ..initialized(optionOf(CartItem.random(serviceId: serviceId))),
+        ),
       ],
       child: MultiBlocListener(
           listeners: [
             // LISTEN LOADING SERVICE DETAIL
             BlocListener<ServiceDetailCubit, ServiceDetailState>(
                 listener: (context, state) {
-              state.whenOrNull(founded: (service) {
-                return context
-                    .read<ServiceCheckingCubit>()
-                    .serviceChanged(service);
-              });
+              state.whenOrNull(founded: (service) {});
             }),
 
             // LISTEN ADD ITEM TO CART
             BlocListener<CartItemCreateCubit, CartItemCreateState>(
-                listener: (context, state) => state.mapOrNull(
-                    createSuccess: (state) =>
-                        context.router.push(const CartPageRoute()),
-                    createFailure: (state) => ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            content: Text('Unexpected error.'))))),
+                listener: (context, state) {
+              state.mapOrNull(createSuccess: (state) {
+                return context.router.push(const CartPageRoute());
+              }, createFailure: (state) {
+                return ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        content: Text('Unexpected error.')));
+              });
+            }),
 
-            //
-            // LISTEN SERVICE CHECKING
-            // BlocListener<ServiceCheckingCubit, ServiceCheckingState>(
-            //     listenWhen: (prev, cur) =>
-            //         prev.failureOrSuccessOption != cur.failureOrSuccessOption,
-            //     listener: (context, state) {
-            //       state.failureOrSuccessOption.fold(() {}, (either) {
-            //         either.fold((failure) {
-            //           ScaffoldMessenger.of(context).showSnackBar(
-            //               const SnackBar(
-            //                   behavior: SnackBarBehavior.floating,
-            //                   content: Text('Server error')));
-            //         }, (_) {
-            //           context.router.push(const CartPageRoute());
-            //         });
-            //       });
-            //     }),
+            // LISTEN ADD ITEM TO CART
+            BlocListener<CartItemFormCubit, CartItemFormState>(
+                listener: (context, state) {
+              state.saveFailureOrSuccessOption.fold(() {}, (either) {
+                either.fold((failure) {
+                  return ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text('Unexpected error.')));
+                }, (_) {
+                  return context.router.push(const CartPageRoute());
+                });
+              });
+            }),
           ],
           child: Scaffold(
             // BODY
@@ -80,29 +83,39 @@ class ServiceBookingPage extends StatelessWidget {
               // DETAIL
               ServiceDetail(id: serviceId),
               kVSpaceL,
-              kVSpaceL,
               Row(children: const [kHSpaceM, Text('Pick your time'), kHSpaceM]),
 
               // BOOKING FORM
               kVSpaceL,
-              const ServiceBookingForm(),
+              BlocBuilder<CartItemFormCubit, CartItemFormState>(
+                  builder: ((context, state) {
+                return ServiceBookingTime(
+                  onChanged: context.read<CartItemFormCubit>().timeChanged,
+                );
+              }), buildWhen: (prev, cur) {
+                return false;
+              }),
+
               kVSpaceL,
             ]),
 
             // NAVIGATION BAR
             bottomNavigationBar:
-                BlocBuilder<CartItemCreateCubit, CartItemCreateState>(
+                BlocBuilder<CartItemFormCubit, CartItemFormState>(
                     builder: (context, state) {
-              return state.maybeWhen(actionInProgress: () {
+              if (state.isSaving) {
                 return BottomNav.submit(
                     onPressed: null, child: const Text('...'));
-              }, orElse: () {
+              }
+
+              if (!state.isValid) {
                 return BottomNav.submit(
-                    child: Text(tr(LocaleKeys.txt_add_to_cart)),
-                    onPressed: () => context
-                        .read<CartItemCreateCubit>()
-                        .created(CartItem.random(serviceId: serviceId)));
-              });
+                    onPressed: null, child: Text(txtAddToCart));
+              }
+
+              return BottomNav.submit(
+                  child: Text(txtAddToCart),
+                  onPressed: () => context.read<CartItemFormCubit>().saved());
             }),
           )),
     );

@@ -10,9 +10,6 @@ abstract class ServiceInjectableModule {
   @Injectable()
   ServiceDetailCubit get detail;
 
-  @Injectable()
-  ServiceCheckingCubit get checking;
-
   @LazySingleton(as: IServiceRepository)
   ServiceRepository get repository;
 

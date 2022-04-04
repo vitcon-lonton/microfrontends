@@ -29,9 +29,8 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   Future<Option<KtList<Catalogue>>> _performGetAll() async {
     try {
       final response = await _catalogueApi.all();
-      final catalogues = KtList.from(response.data!).plus(_fakeCategories);
-      return optionOf(catalogues.plus(catalogues));
-      // return optionOf(catalogues);
+      final catalogues = KtList.from(response.data!);
+      return optionOf(catalogues);
     } catch (e) {
       _logger.e(e);
     }
@@ -46,10 +45,3 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     emit(state.copyWith(cataloguesOption: possibleData));
   }
 }
-
-final _fakeCategories = KtList.of(
-    const Catalogue(id: 1, name: 'Pet care'),
-    const Catalogue(id: 2, name: 'Babysitting'),
-    const Catalogue(id: 4, name: 'Furnishing'),
-    const Catalogue(id: 5, name: 'Washing'),
-    const Catalogue(id: 6, name: 'Cleaning'));

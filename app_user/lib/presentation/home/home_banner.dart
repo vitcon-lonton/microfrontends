@@ -18,10 +18,15 @@ class HomeBanner extends StatelessWidget {
               child: SizedBox(
                 height: 300,
                 width: double.infinity,
-                child: Container(
-                  child: DMQImage.network(urls.asList().first),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
+                child: CarouselSlider(
+                  options: CarouselOptions(height: 300.0),
+                  items: urls.asList().map((url) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return DMQImage.network(url, fit: BoxFit.cover);
+                      },
+                    );
+                  }).toList(),
                 ),
               ),
               padding: const EdgeInsets.all(kSpaceM));
