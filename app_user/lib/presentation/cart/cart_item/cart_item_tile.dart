@@ -96,7 +96,10 @@ class _CartItemTileState extends State<CartItemTile> {
                   Row(children: [
                     const Icon(Icons.history_toggle_off_rounded, size: 14),
                     kHSpaceXXS,
-                    Text('$timeStart - $timeEnd,  $dateStr'),
+                    Expanded(
+                      child: Text('$timeStart - $timeEnd,  $dateStr',
+                          maxLines: 1, overflow: TextOverflow.ellipsis),
+                    ),
                   ]),
 
                   kVSpaceS,
