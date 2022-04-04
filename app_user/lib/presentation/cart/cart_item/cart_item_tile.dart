@@ -37,8 +37,13 @@ class _CartItemTileState extends State<CartItemTile> {
                     child: BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
                         builder: (context, state) {
                       return state.maybeWhen(founded: (service) {
-                        return Icon(Icons.article_outlined,
-                            color: Theme.of(context).primaryColor);
+                        if (service.image == null) {
+                          return Icon(Icons.article_outlined,
+                              color: Theme.of(context).primaryColor);
+                        }
+
+                        return DMQImage.network(service.image!,
+                            fit: BoxFit.cover);
                       }, orElse: () {
                         return Icon(Icons.article_outlined,
                             color: Theme.of(context).primaryColor);

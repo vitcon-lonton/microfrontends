@@ -14,6 +14,7 @@ class _ServiceTileState extends State<ServiceTile> {
   Widget build(BuildContext context) {
     final name = widget.service.name;
     final serviceId = widget.service.id;
+    final image = widget.service.image;
     final price = widget.service.priceApprox.toString();
 
     return BlocProvider(
@@ -34,20 +35,25 @@ class _ServiceTileState extends State<ServiceTile> {
           child: SizedBox.fromSize(
             size: const Size.fromHeight(60),
             child: Row(children: [
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.25),
-                      borderRadius: BorderRadius.circular(2)),
-                  child: Icon(
-                    Icons.medical_services,
-                    size: 60,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ),
+              image != null
+                  ? SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 0.25),
+                              borderRadius: BorderRadius.circular(2)),
+                          child: DMQImage.network(image, fit: BoxFit.cover)))
+                  : SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 0.25),
+                              borderRadius: BorderRadius.circular(2)),
+                          child: Icon(Icons.medical_services,
+                              size: 60,
+                              color: Theme.of(context).primaryColor))),
               kHSpaceM,
               Expanded(
                 flex: 2,

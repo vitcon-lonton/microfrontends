@@ -7,7 +7,8 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = catalogue.name ?? '';
+    final name = catalogue.name;
+    final image = catalogue.image;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: kSpaceM),
@@ -21,15 +22,19 @@ class CategoryTile extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                       side: BorderSide(color: Theme.of(context).primaryColor))),
-              child: const Icon(Icons.category_outlined, size: 60),
+              child: image == null
+                  ? const Icon(Icons.category_outlined, size: 60)
+                  : DMQImage.network(image, fit: BoxFit.cover),
               onPressed: () => context.router.push(const ServicesPageRoute()),
             ),
           ),
           kVSpaceXS,
-          Text(name,
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis),
+          if (name != null) ...[
+            Text(name,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis),
+          ],
         ],
       ),
     );

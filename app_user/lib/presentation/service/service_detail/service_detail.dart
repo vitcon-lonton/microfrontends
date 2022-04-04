@@ -1,3 +1,4 @@
+import 'package:app_user/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_manager/theme_manager.dart';
@@ -24,7 +25,7 @@ class ServiceDetail extends StatelessWidget {
         BlocBuilder<ServiceDetailCubit, ServiceDetailState>(
             builder: (context, state) {
           return state.maybeWhen(founded: (service) {
-            // final img = service.img;
+            final image = service.image;
             final name = service.name;
             final description = service.description;
             final price = service.priceApprox.toString();
@@ -33,13 +34,16 @@ class ServiceDetail extends StatelessWidget {
               // HEADER
               // kVSpaceM,
               // Image.network(img),
+
               SizedBox.fromSize(
                 size: const Size.fromHeight(500),
                 child: Container(
                     color: Theme.of(context).primaryColor,
-                    child: Icon(Icons.room_service,
-                        size: 500,
-                        color: Theme.of(context).colorScheme.onPrimary)),
+                    child: image == null
+                        ? Icon(Icons.room_service,
+                            size: 500,
+                            color: Theme.of(context).colorScheme.onPrimary)
+                        : DMQImage.network(image, fit: BoxFit.cover)),
               ),
 
               // NAME, PRICE
