@@ -10,7 +10,7 @@ class LogoutTile extends StatelessWidget {
         return ListTile(
             title: Text(tr(LocaleKeys.txt_logout)),
             onTap: () async {
-              final response = await _confirmLogOut(context);
+              final response = await confirm(context);
 
               if (response == true) {
                 context.read<AuthBloc>().add(const AuthEvent.signedOut());
@@ -24,56 +24,49 @@ class LogoutTile extends StatelessWidget {
     });
   }
 
-  Future<bool?> _confirmLogOut(BuildContext context) {
+  Future<bool?> confirm(BuildContext context) {
     return showDialog<bool>(
       context: context,
       builder: (_) => Material(
         color: Colors.transparent,
-        // width: Theme.of(context).backgroundColor,
-        child: Column(
-          children: [
-            const Spacer(),
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(horizontal: kSpaceXXL),
-              padding: const EdgeInsets.symmetric(
-                  vertical: kSpaceXL, horizontal: kSpaceXXL),
-              child: Column(
-                children: [
-                  kVSpaceL,
-                  Text(tr(LocaleKeys.msg_12)),
-                  kVSpaceXL,
-                  kVSpaceXL,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          child: Text(tr(LocaleKeys.txt_cancel)),
-                          onPressed: () {
-                            Navigator.of(context).pop(false);
-                          },
-                        ),
-                      ),
-                      kHSpaceL,
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Text(tr(LocaleKeys.txt_logout)),
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0, shadowColor: Colors.transparent),
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
-                        ),
-                      ),
-                    ],
+        child: Column(children: [
+          const Spacer(),
+          Container(
+            color: Colors.white,
+            margin: const EdgeInsets.symmetric(horizontal: kSpaceXXL),
+            padding: const EdgeInsets.symmetric(
+                vertical: kSpaceXL, horizontal: kSpaceXXL),
+            child: Column(children: [
+              kVSpaceL,
+              Text(tr(LocaleKeys.msg_12)),
+              kVSpaceXL,
+              kVSpaceXL,
+              Row(children: [
+                Expanded(
+                  child: TextButton(
+                    child: Text(tr(LocaleKeys.txt_cancel)),
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
                   ),
-                  kVSpaceL,
-                ],
-              ),
-            ),
-            const Spacer(),
-          ],
-        ),
+                ),
+                kHSpaceL,
+                Expanded(
+                  child: ElevatedButton(
+                    child: Text(tr(LocaleKeys.txt_logout)),
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0, shadowColor: Colors.transparent),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                  ),
+                ),
+              ]),
+              kVSpaceL,
+            ]),
+          ),
+          const Spacer(),
+        ]),
       ),
     );
   }

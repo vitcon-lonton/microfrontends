@@ -11,7 +11,6 @@ class SignInPage extends StatelessWidget {
     return BlocProvider.value(
       value: getIt<SignInBloc>(),
       child: Scaffold(
-        appBar: AppBar(title: Text(tr(LocaleKeys.txt_login))),
         body: ListView(children: [
           const SignInForm(),
           kVSpaceM,
@@ -33,6 +32,7 @@ class SignInPage extends StatelessWidget {
           ])
           // Link(text: 'text', onTap: () {}),
         ], padding: const EdgeInsets.all(8)),
+        appBar: AppBar(title: Text(tr(LocaleKeys.txt_login))),
       ),
     );
   }
