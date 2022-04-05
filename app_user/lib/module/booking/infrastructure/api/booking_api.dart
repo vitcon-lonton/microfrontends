@@ -1,4 +1,5 @@
 /* spell-checker: disable */
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -26,16 +27,18 @@ abstract class BookingApi {
 
   @POST('/bookings')
   @Headers(authHeader)
-  Future<BaseResponse<List<BookingDto>>> create(
-      {@Part(name: 'service_ids') required String serviceIds,
-      @Part(name: 'fullname') required String fullName,
-      @Part(name: 'timeboxing_start') String? timeBoxingStart,
-      @Part(name: 'description') String? description,
-      @Part(name: 'address') String? address,
-      @Part(name: 'longitude') String? longitude,
-      @Part(name: 'latitude') String? latitude,
-      @Part(name: 'phonenumber') String? phoneNumber,
-      @Part(name: 'images') String? images});
+  Future<BaseResponse<List<BookingDto>>> create({
+    @Part(name: 'address') String? address,
+    @Part(name: 'longitude') String? longitude,
+    @Part(name: 'latitude') String? latitude,
+    @Part(name: 'phonenumber') String? phoneNumber,
+    @Part(name: 'fullname') required String fullName,
+    @Part(name: 'service_ids') required String serviceIds,
+    @Part(name: 'booking_details_attributes')
+        required Map<String, BookingItemDto> attributes,
+    @Part(name: 'timeboxing_start') required String timeBoxingStart,
+    @Part(name: 'timeboxing_end') required String timeBoxingEnd,
+  });
 
   @PUT('/bookings/{id}')
   @Headers(authHeader)

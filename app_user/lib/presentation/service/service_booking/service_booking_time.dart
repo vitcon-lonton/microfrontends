@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_manager/theme_manager.dart';
 import 'package:time_interval_picker/time_interval_picker.dart';
@@ -89,12 +88,12 @@ class _ServiceBookingTimeState extends State<ServiceBookingTime> {
 
   void onTimeIntervalChanged(
       DateTime? startTime, DateTime? endTime, bool isAllDay) {
-    if (kDebugMode) {
-      print('--- startTime ---');
-      print(startTime?.toIso8601String());
-      print('--- endTime ---');
-      print(endTime?.toIso8601String());
-    }
+    // if (kDebugMode) {
+    //   print('--- startTime ---');
+    //   print(startTime?.toIso8601String());
+    //   print('--- endTime ---');
+    //   print(endTime?.toIso8601String());
+    // }
 
     if (startTime != null) {
       setState(() {

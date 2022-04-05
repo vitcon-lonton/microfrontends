@@ -32,7 +32,7 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
     });
   }
 
-  Future<bool> _confirm() async {
+  Future<bool> confirm() async {
     await showDialog<bool?>(
       context: context,
       builder: (context) => Material(
@@ -76,7 +76,7 @@ class _CartRequestBtnState extends State<CartRequestBtn> {
   }
 
   Future<void> _submitted() async {
-    await _confirm();
+    // await _confirm();
     return context.read<SyncCubit>().started();
   }
 }

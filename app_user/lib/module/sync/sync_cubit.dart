@@ -36,8 +36,8 @@ class SyncCubit extends Cubit<SyncState> {
       KtList<BookingItem> bookingItems = items!.map((item) {
         return BookingItem(
             serviceId: item.serviceId,
-            startTime: item.timeStart(),
             endTime: item.timeEnd(),
+            startTime: item.timeStart(),
             description: item.note?.getOrCrash());
       }).toList();
 

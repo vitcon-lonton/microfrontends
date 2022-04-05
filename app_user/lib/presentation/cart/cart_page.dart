@@ -38,10 +38,13 @@ class _BookingHistoriesPageState extends State<CartPage> {
         // LISTENERS
         listeners: [
           // LISTEN SYNC
-          BlocListener<SyncCubit, SyncState>(listenWhen: (prev, cur) {
-            return cur.whenOrNull(syncSuccess: () => true) ?? false;
-          }, listener: (context, state) {
-            context.read<CartItemClearCubit>().cleared();
+          BlocListener<SyncCubit, SyncState>(listener: (context, state) {
+            state.whenOrNull(syncSuccess: () {
+              return context.read<CartItemClearCubit>().cleared();
+            }, syncFailure: (failure) {
+              return ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Unable create booking.')));
+            });
           }),
 
           // LISTEN WATCHER

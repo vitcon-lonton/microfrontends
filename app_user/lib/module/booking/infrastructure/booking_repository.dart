@@ -100,34 +100,42 @@ class BookingRepository implements IBookingRepository {
       required String address,
       String? latitude,
       String? longitude}) async {
-    // ignore: unused_local_variable
-    final addressStr = address;
-    // ignore: unused_local_variable
-    final fullNameStr = fullName.getOrCrash();
-    // ignore: unused_local_variable
-    final phoneStr = phoneNumber.getOrCrash();
-    // ignore: unused_local_variable
-    final latitudeStr = latitude ?? '10.7571445';
-    // ignore: unused_local_variable
-    final longitudeStr = longitude ?? '106.6880843';
-    // final startTimeStr = startTime.toIso8601String();
-    // final descriptionStr = description ?? 'Description';
-    // // final servicesIdStr = servicesId.joinToString(separator: ',');
-    // final imagesStr = images?.getOrCrash().joinToString(separator: ',');
+    KtList<int> servicesId = emptyList();
+    Map<String, BookingItemDto> attrs = <String, BookingItemDto>{};
 
+    items.forEach((item) {
+      servicesId = servicesId.plusElement(item.serviceId);
+      attrs.putIfAbsent('${item.serviceId}', () {
+        _logger.i(BookingItemDto(
+          startTime: item.startTime,
+          endTime: item.endTime,
+        ).toJson());
+
+        return BookingItemDto(startTime: item.startTime, endTime: item.endTime);
+      });
+    });
+
+    _logger.i(attrs);
+
+    final addressStr = address;
+    final fullNameStr = fullName.getOrCrash();
+    final phoneStr = phoneNumber.getOrCrash();
+    final latitudeStr = latitude ?? '10.7571445';
+    final longitudeStr = longitude ?? '106.6880843';
+    final servicesIdStr = servicesId.joinToString(separator: ',');
+
+    // _logger.i(attrs.toString());
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
-      // await _bookingApi.create(
-      //   // serviceIds: servicesIdStr,
-      //   address: addressStr,
-      //   phoneNumber: phoneStr,
-      //   fullName: fullNameStr,
-      //   latitude: latitudeStr,
-      //   longitude: longitudeStr,
-      //   // description: descriptionStr,
-      //   // timeBoxingStart: startTimeStr,
-      //   // images: imagesStr,
-      // );
+      await _bookingApi.create(
+          address: addressStr,
+          phoneNumber: phoneStr,
+          fullName: fullNameStr,
+          latitude: latitudeStr,
+          longitude: longitudeStr,
+          serviceIds: servicesIdStr,
+          timeBoxingStart: items.get(0).startTime.toString(),
+          timeBoxingEnd: items.get(0).endTime.toString(),
+          attributes: attrs);
 
       return right(unit);
     } catch (e) {
