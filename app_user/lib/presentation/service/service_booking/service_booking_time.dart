@@ -36,6 +36,8 @@ class _ServiceBookingTimeState extends State<ServiceBookingTime> {
               child: Row(children: [
                 const Text('Select Date'),
                 CupertinoButton(
+                  child: Text('${date.month}-${date.day}-${date.year}',
+                      style: const TextStyle(fontSize: 22.0)),
                   onPressed: () {
                     _showDialog(CupertinoDatePicker(
                         use24hFormat: true,
@@ -43,12 +45,6 @@ class _ServiceBookingTimeState extends State<ServiceBookingTime> {
                         mode: CupertinoDatePickerMode.date,
                         onDateTimeChanged: onDateTimeChanged));
                   },
-                  // In this example, the date value is formatted manually. You can use intl package
-                  // to format the value based on user's locale settings.
-                  child: Text(
-                    '${date.month}-${date.day}-${date.year}',
-                    style: const TextStyle(fontSize: 22.0),
-                  ),
                 ),
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
             ),

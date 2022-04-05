@@ -106,16 +106,9 @@ class BookingRepository implements IBookingRepository {
     items.forEach((item) {
       servicesId = servicesId.plusElement(item.serviceId);
       attrs.putIfAbsent('${item.serviceId}', () {
-        _logger.i(BookingItemDto(
-          startTime: item.startTime,
-          endTime: item.endTime,
-        ).toJson());
-
         return BookingItemDto(startTime: item.startTime, endTime: item.endTime);
       });
     });
-
-    _logger.i(attrs);
 
     final addressStr = address;
     final fullNameStr = fullName.getOrCrash();

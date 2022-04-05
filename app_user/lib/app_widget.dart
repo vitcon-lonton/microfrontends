@@ -6,6 +6,7 @@ import 'package:app_user/presentation/routes/routes.dart' as app_router;
 import 'injection.dart' show getIt;
 import 'module/auth/auth.dart';
 import 'module/favorite/favorite.dart';
+import 'module/option/option.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class _AppWidgetState extends State<AppWidget> {
         BlocProvider.value(
           value: getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
         ),
+        BlocProvider.value(value: getIt<GoogleKeyFindCubit>()..findRequested()),
       ],
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
@@ -74,7 +76,7 @@ class _AppWidgetState extends State<AppWidget> {
             localizationsDelegates: context.localizationDelegates,
             routeInformationParser: _appRouter.defaultRouteParser(),
             routerDelegate: _appRouter.delegate(initialRoutes: [
-              const app_router.SplashPageRoute(),
+              // const app_router.SplashPageRoute(),
               // app_router.ImageSelectorRoute(),
               // const app_router.HomePageRoute(),
 
@@ -97,7 +99,7 @@ class _AppWidgetState extends State<AppWidget> {
 
               /// BOOKING
               // app_router.CartItemFormPageRoute(),
-              // const app_router.CartPageRoute(),
+              const app_router.CartPageRoute(),
               // app_router.BookingDetailPageRoute(id: 322),
               // const app_router.BookingHistoriesPageRoute(),
 

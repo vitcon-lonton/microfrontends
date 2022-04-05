@@ -19,6 +19,11 @@ Future<void> main() async {
   // getIt<Dio>()
   //     .interceptors
   //     .add(PrettyDioLogger(requestHeader: false, responseHeader: false));
+  getIt<Dio>().interceptors.add(PrettyDioLogger(
+      requestHeader: false,
+      requestBody: true,
+      responseBody: false,
+      responseHeader: false));
 
   runApp(
     EasyLocalization(

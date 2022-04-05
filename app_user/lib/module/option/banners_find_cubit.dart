@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:app_user/core/api.dart';
-import 'banner_api.dart';
+import 'base_api.dart';
 part 'banners_find_cubit.freezed.dart';
 
 @freezed
@@ -18,11 +17,11 @@ class BannersFindState with _$BannersFindState {
 }
 
 class BannersFindCubit extends Cubit<BannersFindState> {
-  BannersFindCubit(this._logger, this._bannerApi)
+  BannersFindCubit(this._logger, this._baseApi)
       : super(const BannersFindState.initial());
 
   final Logger _logger;
-  final BannerApi _bannerApi;
+  final BaseApi _baseApi;
 
   Future<void> findRequested() async {
     emit(const BannersFindState.inProgress());
@@ -35,11 +34,11 @@ class BannersFindCubit extends Cubit<BannersFindState> {
   Future<Option<KtList<String>>> _performGetBanners() async {
     try {
       KtList<String> urls;
-      BaseResponse<List<BannerDto>> response;
-      List<BannerDto> responseData;
+      BaseResponse<List<OptionDto>> response;
+      List<OptionDto> responseData;
 
       urls = emptyList();
-      response = await _bannerApi.banners();
+      response = await _baseApi.banners();
       responseData = response.data!;
 
       for (var banner in responseData) {

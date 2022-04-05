@@ -57,35 +57,34 @@ class _BookingHistoriesPageState extends State<CartPage> {
 
           // LISTEN CREATE
           BlocListener<CartItemCreateCubit, CartItemCreateState>(
-              listener: (context, state) => state.whenOrNull(
-                  createSuccess: () =>
-                      context.read<CartAllCubit>().getAllRequested(),
-                  createFailure: (failure) => ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Text('Unexpected error.'))))),
+              listener: (context, state) => state.whenOrNull(createSuccess: () {
+                    return context.read<CartAllCubit>().getAllRequested();
+                  }, createFailure: (failure) {
+                    return ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Unexpected error.')));
+                  })),
 
           // LISTEN DELETE
           BlocListener<CartItemDeleteCubit, CartItemDeleteState>(
-              listener: (context, state) => state.whenOrNull(
-                  deleteSuccess: () =>
-                      context.read<CartAllCubit>().getAllRequested(),
-                  deleteFailure: (failure) => ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                              'Unexpected error occurred while deleting.'))))),
+              listener: (context, state) => state.whenOrNull(deleteSuccess: () {
+                    return context.read<CartAllCubit>().getAllRequested();
+                  }, deleteFailure: (failure) {
+                    return ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                'Unexpected error occurred while deleting.')));
+                  })),
 
           // LISTEN CLEAR
           BlocListener<CartItemClearCubit, CartItemClearState>(
-              listener: (context, state) => state.whenOrNull(
-                  clearSuccess: () =>
-                      context.read<CartAllCubit>().getAllRequested(),
-                  clearFailure: () => ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                              'Unexpected error occurred while clear cart.'))))),
+              listener: (context, state) => state.whenOrNull(clearSuccess: () {
+                    return context.read<CartAllCubit>().getAllRequested();
+                  }, clearFailure: () {
+                    return ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                'Unexpected error occurred while clear cart.')));
+                  })),
         ],
 
         // CHILD
@@ -178,15 +177,13 @@ class _BookingHistoriesPageState extends State<CartPage> {
                   return prev.items != cur.items;
                 }, builder: (context, state) {
                   return ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: state.items.size,
-                    separatorBuilder: (_, index) => kVSpaceXS,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (_, index) {
-                      return CartItemTile(state.items[index]);
-                    },
-                    padding: const EdgeInsets.symmetric(horizontal: kSpaceM),
-                  );
+                      shrinkWrap: true,
+                      itemCount: state.items.size,
+                      itemBuilder: (_, index) =>
+                          CartItemTile(state.items[index]),
+                      separatorBuilder: (_, index) => kVSpaceXS,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: kSpaceM));
                 })
               ],
 
