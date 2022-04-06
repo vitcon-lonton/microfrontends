@@ -17,12 +17,15 @@ class _HomePageState extends State<HomePage> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: getIt<BannersFindCubit>()),
+        BlocProvider.value(value: getIt<UploadFilesCubit>()),
       ],
       child: Scaffold(
         // BODY
         body: SingleChildScrollView(
           child: Column(children: [
             // BANNER
+            // const HomeImgUpload(),
+
             const HomeBanner(),
 
             // IMAGE
