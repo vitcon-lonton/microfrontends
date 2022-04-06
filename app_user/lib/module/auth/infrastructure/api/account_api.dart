@@ -8,7 +8,7 @@ part 'account_api.g.dart';
 part 'request.dart';
 part 'response.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/account')
+@RestApi(baseUrl: 'https://shome.246.vn/api/v1/account')
 abstract class AccountApi {
   factory AccountApi(Dio dio, {String baseUrl}) = _AccountApi;
 

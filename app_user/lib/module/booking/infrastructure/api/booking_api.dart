@@ -13,7 +13,7 @@ part 'request_dto.dart';
 part 'response_dto.dart';
 part 'technician_dto.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/')
+@RestApi(baseUrl: 'https://shome.246.vn/api/v1/')
 abstract class BookingApi {
   factory BookingApi(Dio dio, {String baseUrl}) = _BookingApi;
 

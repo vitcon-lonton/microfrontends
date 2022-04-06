@@ -5,7 +5,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:app_user/core/core.dart';
 part 'article_api.g.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1')
+@RestApi(baseUrl: 'https://shome.246.vn/api/v1')
 abstract class ArticleApi {
   factory ArticleApi(Dio dio, {String baseUrl}) = _ArticleApi;
 

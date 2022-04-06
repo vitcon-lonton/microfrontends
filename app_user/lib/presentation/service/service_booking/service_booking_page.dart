@@ -32,92 +32,92 @@ class ServiceBookingPage extends StatelessWidget {
         ),
       ],
       child: MultiBlocListener(
-          listeners: [
-            // LISTEN LOADING SERVICE DETAIL
-            BlocListener<ServiceDetailCubit, ServiceDetailState>(
-                listener: (context, state) {
-              state.whenOrNull(founded: (service) {});
-            }),
+        listeners: [
+          // LISTEN LOADING SERVICE DETAIL
+          BlocListener<ServiceDetailCubit, ServiceDetailState>(
+              listener: (context, state) {
+            state.whenOrNull(founded: (service) {});
+          }),
 
-            // LISTEN ADD ITEM TO CART
-            BlocListener<CartItemCreateCubit, CartItemCreateState>(
-                listener: (context, state) {
-              state.mapOrNull(createSuccess: (state) {
-                return context.router.push(const CartPageRoute());
-              }, createFailure: (state) {
+          // LISTEN ADD ITEM TO CART
+          BlocListener<CartItemCreateCubit, CartItemCreateState>(
+              listener: (context, state) {
+            state.mapOrNull(createSuccess: (state) {
+              return context.router.push(const CartPageRoute());
+            }, createFailure: (state) {
+              return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  content: Text('Unexpected error.')));
+            });
+          }),
+
+          // LISTEN ADD ITEM TO CART
+          BlocListener<CartItemFormCubit, CartItemFormState>(
+              listener: (context, state) {
+            state.saveFailureOrSuccessOption.fold(() {}, (either) {
+              either.fold((failure) {
                 return ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                         behavior: SnackBarBehavior.floating,
                         content: Text('Unexpected error.')));
+              }, (_) {
+                return context.router.push(const CartPageRoute());
               });
+            });
+          }),
+        ],
+        child: Scaffold(
+          // BODY
+          body: ListView(children: [
+            // DETAIL
+            ServiceDetail(id: serviceId),
+            kVSpaceL,
+            Row(children: const [kHSpaceM, Text('Pick your time'), kHSpaceM]),
+
+            // BOOKING FORM
+            kVSpaceL,
+            BlocBuilder<CartItemFormCubit, CartItemFormState>(
+                builder: ((context, state) {
+              return ServiceBookingTime(
+                onChanged: context.read<CartItemFormCubit>().timeChanged,
+              );
+            }), buildWhen: (prev, cur) {
+              return false;
             }),
 
-            // LISTEN ADD ITEM TO CART
-            BlocListener<CartItemFormCubit, CartItemFormState>(
-                listener: (context, state) {
-              state.saveFailureOrSuccessOption.fold(() {}, (either) {
-                either.fold((failure) {
-                  return ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Text('Unexpected error.')));
-                }, (_) {
-                  return context.router.push(const CartPageRoute());
-                });
-              });
-            }),
-          ],
-          child: Scaffold(
-            // BODY
-            body: ListView(children: [
-              // APP BAR
-              AppBar(
-                actions: [
-                  Row(children: [FavoriteButton(serviceId: serviceId)])
-                ],
-                backgroundColor: Theme.of(context).primaryColor,
-                actionsIconTheme: const IconThemeData.fallback()
-                    .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-              ),
+            kVSpaceL,
+          ]),
 
-              // DETAIL
-              ServiceDetail(id: serviceId),
-              kVSpaceL,
-              Row(children: const [kHSpaceM, Text('Pick your time'), kHSpaceM]),
-
-              // BOOKING FORM
-              kVSpaceL,
+          // NAVIGATION BAR
+          bottomNavigationBar:
               BlocBuilder<CartItemFormCubit, CartItemFormState>(
-                  builder: ((context, state) {
-                return ServiceBookingTime(
-                  onChanged: context.read<CartItemFormCubit>().timeChanged,
-                );
-              }), buildWhen: (prev, cur) {
-                return false;
-              }),
-
-              kVSpaceL,
-            ]),
-
-            // NAVIGATION BAR
-            bottomNavigationBar:
-                BlocBuilder<CartItemFormCubit, CartItemFormState>(
-                    builder: (context, state) {
-              if (state.isSaving) {
-                return BottomNav.submit(
-                    onPressed: null, child: const Text('...'));
-              }
-
-              if (!state.isValid) {
-                return BottomNav.submit(
-                    onPressed: null, child: Text(txtAddToCart));
-              }
-
+                  builder: (context, state) {
+            if (state.isSaving) {
               return BottomNav.submit(
-                  child: Text(txtAddToCart),
-                  onPressed: () => context.read<CartItemFormCubit>().saved());
-            }),
-          )),
+                  onPressed: null, child: const Text('...'));
+            }
+
+            if (!state.isValid) {
+              return BottomNav.submit(
+                  onPressed: null, child: Text(txtAddToCart));
+            }
+
+            return BottomNav.submit(
+                child: Text(txtAddToCart),
+                onPressed: () => context.read<CartItemFormCubit>().saved());
+          }),
+
+          // APP BAR
+          appBar: AppBar(
+            actions: [
+              Row(children: [FavoriteButton(serviceId: serviceId)])
+            ],
+            actionsIconTheme: const IconThemeData.fallback()
+                .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -16,7 +16,7 @@ class EnvConfig {
     return Mode.dev;
   }
 
-  static String get DOMAIN => 'https://daiminhquang.acecom.vn';
+  static String get DOMAIN => 'https://shome.246.vn';
 
   static BaseOptions get options {
     return BaseOptions(

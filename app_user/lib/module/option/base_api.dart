@@ -5,7 +5,7 @@ import 'package:app_user/core/core.dart';
 part 'base_api.freezed.dart';
 part 'base_api.g.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1')
+@RestApi(baseUrl: 'https://shome.246.vn/api/v1')
 abstract class BaseApi {
   factory BaseApi(Dio dio, {String baseUrl}) = _BaseApi;
 

@@ -22,7 +22,7 @@ Future<void> main() async {
   getIt<Dio>().interceptors.add(PrettyDioLogger(
       requestHeader: false,
       requestBody: true,
-      responseBody: false,
+      responseBody: true,
       responseHeader: false));
 
   runApp(

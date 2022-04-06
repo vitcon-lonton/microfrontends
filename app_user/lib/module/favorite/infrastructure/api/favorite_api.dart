@@ -7,7 +7,7 @@ part 'favorite_api.freezed.dart';
 part 'favorite_api.g.dart';
 part 'response.dart';
 
-@RestApi(baseUrl: 'https://daiminhquang.acecom.vn/api/v1/')
+@RestApi(baseUrl: 'https://shome.246.vn/api/v1/')
 abstract class FavoriteApi {
   factory FavoriteApi(Dio dio, {String baseUrl}) = _FavoriteApi;
 

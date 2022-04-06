@@ -43,7 +43,8 @@ class UploadFilesCubit extends Cubit<UploadFilesState> {
       response = await _fileApi.upload(files);
       responseData = Map<String, dynamic>.from(response.data!);
       responseData.forEach((String key, dynamic value) {
-        urls.plusElement(Image.fromJson(Map<String, dynamic>.from(value)).img);
+        final img = Image.fromJson(Map<String, dynamic>.from(value)).img;
+        urls = urls.plusElement('/uploads/$img');
       });
 
       return optionOf(urls);
